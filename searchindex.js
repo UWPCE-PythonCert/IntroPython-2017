@@ -1,0 +1,1 @@
+Search.setIndex({docnames:["index"],envversion:53,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{page:0,search:0},titles:["Intro to Python: Fall 2017"],titleterms:{"class":0,fall:0,indic:0,intro:0,materi:0,python:0,refer:0,schedul:0,supplement:0,tabl:0}})
