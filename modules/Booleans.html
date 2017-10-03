@@ -1,0 +1,291 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Boolean Expressions &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Code Structure, Modules, and Namespaces" href="Modules.html" />
+    <link rel="prev" title="Documentation" href="Documentation.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="boolean-expressions">
+<span id="booleans"></span><h1>Boolean Expressions<a class="headerlink" href="#boolean-expressions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="truthiness">
+<h2>Truthiness<a class="headerlink" href="#truthiness" title="Permalink to this headline">¶</a></h2>
+<p>What is true or false in Python?</p>
+<ul class="simple">
+<li>The Booleans: <code class="docutils literal"><span class="pre">True</span></code>  and <code class="docutils literal"><span class="pre">False</span></code></li>
+<li>“Something or Nothing”</li>
+<li><a class="reference external" href="http://mail.python.org/pipermail/python-dev/2002-April/022107.html">http://mail.python.org/pipermail/python-dev/2002-April/022107.html</a></li>
+</ul>
+<p>Determining Truthiness:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">bool</span><span class="p">(</span><span class="n">something</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-is-false">
+<h2>What is False?<a class="headerlink" href="#what-is-false" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">None</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">False</span></code></p>
+</li>
+<li><p class="first"><strong>Nothing:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>Zero of any numeric type: <code class="docutils literal"><span class="pre">0,</span> <span class="pre">0.0,</span> <span class="pre">0j</span></code>.</li>
+<li>Any empty sequence, for example, <code class="docutils literal"><span class="pre">&quot;&quot;,</span> <span class="pre">(),</span> <span class="pre">[]</span></code>.</li>
+<li>Any empty mapping, for example, <code class="docutils literal"><span class="pre">{}</span></code> .</li>
+<li>Instances of user-defined classes, if the class defines a <code class="docutils literal"><span class="pre">__nonzero__()</span></code> or <code class="docutils literal"><span class="pre">__len__()</span></code> method, when that method returns the integer zero or bool value <code class="docutils literal"><span class="pre">False</span></code>.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="http://docs.python.org/library/stdtypes.html">http://docs.python.org/library/stdtypes.html</a></p>
+</li>
+</ul>
+</div>
+<div class="section" id="what-is-true">
+<h2>What is True?<a class="headerlink" href="#what-is-true" title="Permalink to this headline">¶</a></h2>
+<p>Everything Else</p>
+</div>
+<div class="section" id="pythonic-booleans">
+<h2>Pythonic Booleans<a class="headerlink" href="#pythonic-booleans" title="Permalink to this headline">¶</a></h2>
+<p>Any object in Python, when passed to the <code class="docutils literal"><span class="pre">bool()</span></code> type object, will
+evaluate to <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>.</p>
+<p>When you use the <code class="docutils literal"><span class="pre">if</span></code> keyword, it automatically does this to the expression provided.</p>
+<p>Which means that this is redundant, and not Pythonic:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">xx</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+<span class="c1"># or even worse:</span>
+<span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Instead, use what Python gives you:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>if xx:</dt>
+<dd>do_something()</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="and-or-and-not">
+<h2><code class="docutils literal"><span class="pre">and</span></code>, <code class="docutils literal"><span class="pre">or</span></code> and <code class="docutils literal"><span class="pre">not</span></code><a class="headerlink" href="#and-or-and-not" title="Permalink to this headline">¶</a></h2>
+<p>Python has three boolean keywords, <code class="docutils literal"><span class="pre">and</span></code>, <code class="docutils literal"><span class="pre">or</span></code> and <code class="docutils literal"><span class="pre">not</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">and</span></code> and <code class="docutils literal"><span class="pre">or</span></code> are binary expressions, and evaluate from left to right.</p>
+<p><code class="docutils literal"><span class="pre">and</span></code> will return the first operand that evaluates to False, or the last
+operand if none are True:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [35]: </span><span class="mi">0</span> <span class="ow">and</span> <span class="mi">456</span>
+<span class="gh">Out[35]: </span><span class="go">0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">or</span></code> will return the first operand that evaluates to True, or the last
+operand if none are True:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [36]: </span><span class="mi">0</span> <span class="ow">or</span> <span class="mi">456</span>
+<span class="gh">Out[36]: </span><span class="go">456</span>
+</pre></div>
+</div>
+<p>On the other hand, <code class="docutils literal"><span class="pre">not</span></code> is a unary expression and inverts the boolean value
+of its operand:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [39]: </span><span class="ow">not</span> <span class="bp">True</span>
+<span class="gh">Out[39]: </span><span class="go">False</span>
+
+<span class="gp">In [40]: </span><span class="ow">not</span> <span class="bp">False</span>
+<span class="gh">Out[40]: </span><span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shortcutting">
+<h2>Shortcutting<a class="headerlink" href="#shortcutting" title="Permalink to this headline">¶</a></h2>
+<p>Because of the return value of these keywords, you can write concise
+statements:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                  <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">false</span><span class="p">,</span>
+<span class="n">x</span> <span class="ow">or</span> <span class="n">y</span>               <span class="k">return</span> <span class="n">y</span><span class="p">,</span>
+                     <span class="k">else</span> <span class="k">return</span> <span class="n">x</span>
+
+                  <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">false</span><span class="p">,</span>
+<span class="n">x</span> <span class="ow">and</span> <span class="n">y</span>              <span class="k">return</span>  <span class="n">x</span>
+                     <span class="k">else</span> <span class="k">return</span> <span class="n">y</span>
+
+                  <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">false</span><span class="p">,</span>
+<span class="ow">not</span> <span class="n">x</span>                <span class="k">return</span> <span class="kc">True</span><span class="p">,</span>
+                     <span class="k">else</span> <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="chaining">
+<h2>Chaining<a class="headerlink" href="#chaining" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="ow">or</span> <span class="n">b</span> <span class="ow">or</span> <span class="n">c</span> <span class="ow">or</span> <span class="n">d</span>
+<span class="n">a</span> <span class="ow">and</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">c</span> <span class="ow">and</span> <span class="n">d</span>
+</pre></div>
+</div>
+<p>The first value that defines the result is returned</p>
+<blockquote>
+<div>(demo)</div></blockquote>
+</div>
+<div class="section" id="conditional-expressions">
+<h2>Conditional Expressions<a class="headerlink" href="#conditional-expressions" title="Permalink to this headline">¶</a></h2>
+<p>This is a fairly common idiom:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">something</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a_value</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">another_value</span>
+</pre></div>
+</div>
+<p>In other languages, this can be compressed with a “ternary operator”:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>result = a &gt; b ? x : y;
+</pre></div>
+</div>
+<p>(this is the syntax from the C family)</p>
+<p>In python, the same is accomplished with the ternary expression:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>PEP 308:
+(<a class="reference external" href="http://www.python.org/dev/peps/pep-0308/">http://www.python.org/dev/peps/pep-0308/</a>)</p>
+</div>
+<div class="section" id="boolean-return-values">
+<h2>Boolean Return Values<a class="headerlink" href="#boolean-return-values" title="Permalink to this headline">¶</a></h2>
+<p>Remember this puzzle from the CodingBat exercises?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sleep_in</span><span class="p">(</span><span class="n">weekday</span><span class="p">,</span> <span class="n">vacation</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">weekday</span> <span class="o">==</span> <span class="bp">True</span> <span class="ow">and</span> <span class="n">vacation</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>Though correct, that’s not a particularly Pythonic way of solving the problem.</p>
+<p>Here’s a better solution:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sleep_in</span><span class="p">(</span><span class="n">weekday</span><span class="p">,</span> <span class="n">vacation</span><span class="p">):</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">weekday</span> <span class="o">==</span> <span class="bp">True</span> <span class="ow">and</span> <span class="n">vacation</span> <span class="o">==</span> <span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And here’s an even better one:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sleep_in</span><span class="p">(</span><span class="n">weekday</span><span class="p">,</span> <span class="n">vacation</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="ow">not</span> <span class="n">weekday</span><span class="p">)</span> <span class="ow">or</span> <span class="n">vacation</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bools-are-integers">
+<h2>bools are integers?<a class="headerlink" href="#bools-are-integers" title="Permalink to this headline">¶</a></h2>
+<p>In python, the boolean types are subclasses of integer:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="bp">True</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="gh">Out[1]: </span><span class="go">True</span>
+<span class="gp">In [2]: </span><span class="bp">False</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="gh">Out[2]: </span><span class="go">True</span>
+</pre></div>
+</div>
+<p>And you can even do math with them (though it’s a bit odd to do so):</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="mi">3</span> <span class="o">+</span> <span class="bp">True</span>
+<span class="gh">Out[6]: </span><span class="go">4</span>
+</pre></div>
+</div>
+<p>(demo)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Boolean Expressions</a><ul>
+<li><a class="reference internal" href="#truthiness">Truthiness</a></li>
+<li><a class="reference internal" href="#what-is-false">What is False?</a></li>
+<li><a class="reference internal" href="#what-is-true">What is True?</a></li>
+<li><a class="reference internal" href="#pythonic-booleans">Pythonic Booleans</a></li>
+<li><a class="reference internal" href="#and-or-and-not"><code class="docutils literal"><span class="pre">and</span></code>, <code class="docutils literal"><span class="pre">or</span></code> and <code class="docutils literal"><span class="pre">not</span></code></a></li>
+<li><a class="reference internal" href="#shortcutting">Shortcutting</a></li>
+<li><a class="reference internal" href="#chaining">Chaining</a></li>
+<li><a class="reference internal" href="#conditional-expressions">Conditional Expressions</a></li>
+<li><a class="reference internal" href="#boolean-return-values">Boolean Return Values</a></li>
+<li><a class="reference internal" href="#bools-are-integers">bools are integers?</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Documentation.html" title="previous chapter">Documentation</a></li>
+      <li>Next: <a href="Modules.html" title="next chapter">Code Structure, Modules, and Namespaces</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/Booleans.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/Booleans.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

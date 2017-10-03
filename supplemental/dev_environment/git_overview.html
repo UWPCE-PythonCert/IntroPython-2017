@@ -1,0 +1,261 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>git Overview &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Working with Virtualenv" href="virtualenv.html" />
+    <link rel="prev" title="Using Windows Bash for Python Development" href="windows_bash.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="git-overview">
+<span id="id1"></span><h1>git Overview<a class="headerlink" href="#git-overview" title="Permalink to this headline">¶</a></h1>
+<p>git is a very complex and powerful system. However, it can be very useful even if you only use a small portion of its functionality. This page should be bring you up to speed enough to make good use of git for the Python Certificate class.</p>
+<p>Note that in the certificate program we will be using git in conjunction with gitHub, a cloud-based service that provides a collaboration environment for software development based on the git version control system.</p>
+<p>gitHub provides a Web service and web interface that hosts projects and supports collaboration among teams and the open source community. It adds other features, but is very much built on the Source Control system, git. So a basic understanding of git is required to make proper use of gitHub.</p>
+<div class="section" id="learning-resources">
+<h2>Learning Resources<a class="headerlink" href="#learning-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>gitHub tutorial:</strong></li>
+</ul>
+<p><a class="reference external" href="https://guides.github.com/activities/hello-world/">https://guides.github.com/activities/hello-world/</a></p>
+<p><a class="reference external" href="https://guides.github.com/introduction/flow/">https://guides.github.com/introduction/flow/</a></p>
+<p>Reading suggested at the end of session 1:</p>
+<p><a class="reference external" href="http://rogerdudler.github.io/git-guide/">http://rogerdudler.github.io/git-guide/</a></p>
+<p><a class="reference external" href="https://try.github.io/levels/1/challenges/1">https://try.github.io/levels/1/challenges/1</a></p>
+<p><strong>Pro git</strong></p>
+<p>The semi-official documentation – the first few chapters are worth going through:</p>
+<p><a class="reference external" href="https://git-scm.com/book/en">https://git-scm.com/book/en</a></p>
+<p>** git Branching: getting fancy **</p>
+<p>Interactive tutorial about branching – try it right in the browser!</p>
+<p><a class="reference external" href="http://pcottle.github.io/learnGitBranching/">http://pcottle.github.io/learnGitBranching/</a></p>
+</div>
+<div class="section" id="a-graphical-tutorial">
+<h2>A Graphical Tutorial<a class="headerlink" href="#a-graphical-tutorial" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-picture-of-git">
+<h3>A Picture of git<a class="headerlink" href="#a-picture-of-git" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_simple_timeline.png"><img alt="../../_images/git_simple_timeline.png" class="center" src="../../_images/git_simple_timeline.png" style="width: 80%;" /></a>
+</div>
+<div class="build docutils container">
+<p>A git repository is a set of points in time, with history showing where
+you’ve been.</p>
+<p>Each point has a <em>name</em> (here <em>A</em>, <em>B</em>, <em>C</em>) that uniquely identifies it,
+called a <em>hash</em>.</p>
+<p>Note: To those computer geeks among us – yes, this an actual hash of ALL the files in the repo at that point in time – so it uniquely identifies the <em>exact</em> state. That is why it’s a long ugly set of seemingly random characters. But when using git, all you need to know is that it is a name that identifies that unique state.</p>
+<p>The path from one point to the previous is represented by the <em>difference</em>
+between the two points.</p>
+</div>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_head.png"><img alt="../../_images/git_head.png" class="center" src="../../_images/git_head.png" style="width: 75%;" /></a>
+</div>
+<div class="build docutils container">
+<p>Each point in time can also have a label that points to it.</p>
+<p>One of these is <em>HEAD</em>, which always points to the place in the timeline
+that you are currently looking at.</p>
+</div>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_master_branch.png"><img alt="../../_images/git_master_branch.png" class="center" src="../../_images/git_master_branch.png" style="width: 75%;" /></a>
+</div>
+<div class="build docutils container">
+<p>You may also be familiar with the label “master”.</p>
+<p>This is the name that git automatically gives to the first <em>branch</em> in a
+repository.</p>
+<p>A <em>branch</em> is actually just a label for a certain set of points in time.</p>
+</div>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_new_commit.png"><img alt="../../_images/git_new_commit.png" class="center" src="../../_images/git_new_commit.png" style="width: 75%;" /></a>
+</div>
+<div class="build docutils container">
+<p>When you make a <em>commit</em> in git, you add a new point to the timeline.</p>
+<p>The HEAD label moves to this new point.</p>
+<p>So does the label for the <em>branch</em> you are on.</p>
+<p>A lot of terms in git are “overloaded” - used in multiple ways. For instance, the verb “commit” is the act of committing the state of your files to git – saving that state so you can go back to it later.</p>
+<p>The noun “commit” is a particular state of the repository – it has been saved and has particular name (hash) – it is one if the points on that timeline.</p>
+</div>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_new_branch.png"><img alt="../../_images/git_new_branch.png" class="center" src="../../_images/git_new_branch.png" style="width: 75%;" /></a>
+</div>
+<div class="build docutils container">
+<p>You can make a new <em>branch</em> with the <code class="docutils literal"><span class="pre">branch</span></code> command.</p>
+<p>This adds a new label to the current commit.</p>
+<p>Notice that it <em>does not</em> check out that branch – you will still be working in the current branch.</p>
+</div>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_checkout_branch.png"><img alt="../../_images/git_checkout_branch.png" class="center" src="../../_images/git_checkout_branch.png" style="width: 75%;" /></a>
+</div>
+<div class="build docutils container">
+<p>You can use the <code class="docutils literal"><span class="pre">checkout</span></code> command to switch to the new branch.</p>
+<p>This associates the HEAD label with the <em>session01</em> label.</p>
+<p>Use <code class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span></code> to see which branch is <em>active</em>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git branch
+  master
+* session01
+</pre></div>
+</div>
+</div>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_commit_on_branch.png"><img alt="../../_images/git_commit_on_branch.png" class="center" src="../../_images/git_commit_on_branch.png" style="width: 75%;" /></a>
+</div>
+<div class="build docutils container">
+<p>While it is checked out, new commits move the <em>session01</em> label.</p>
+<p>Notice that HEAD is <em>always</em> the same as “where you are now”</p>
+</div>
+<p>You can use this to switch between branches and make changes in isolation.</p>
+<div class="build docutils container">
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_checkout_master.png"><img alt="../../_images/git_checkout_master.png" class="center" src="../../_images/git_checkout_master.png" style="width: 75%;" /></a>
+</div>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_new_commit_on_master.png"><img alt="../../_images/git_new_commit_on_master.png" class="center" src="../../_images/git_new_commit_on_master.png" style="width: 75%;" /></a>
+</div>
+</div>
+<div class="build docutils container">
+<p>Branching allows you to keep related sets of work separate from each-other.</p>
+<p>In class here, you can use it to do your exercises for each session.</p>
+<p>Simply create a new branch for each session from your repository master
+branch.</p>
+<p>Do your work on that branch, and then you can issue a <strong>pull request</strong> in
+github to have your work evaluated.</p>
+<p>This is very much like how teams work in the “real world” so learning it
+here will help you.</p>
+<p>The final step in the process is merging your work.</p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">merge</span></code> command allows you to <em>combine</em> your work on one branch with the
+work on another.</p>
+<div class="build docutils container">
+<p>It creates a new commit which reconciles the differences:</p>
+<div class="figure">
+<a class="center reference internal image-reference" href="../../_images/git_merge_commit.png"><img alt="../../_images/git_merge_commit.png" class="center" src="../../_images/git_merge_commit.png" style="width: 75%;" /></a>
+</div>
+<p>Notice that this commit has <strong>two</strong> parents.</p>
+</div>
+<div class="build docutils container">
+<p>Sometimes when you <code class="docutils literal"><span class="pre">merge</span></code> two branches, you get <em>conflicts</em>.</p>
+<p>This happens when the same file was changed in about the same place in two
+different ways.</p>
+<p>Often, git can work these types of things out on its own, but if not,
+you’ll need to manually edit files to fix the problem.</p>
+<p>You’ll be helped by the fact that git will tell you which files are in
+conflict.</p>
+<p>Just open those files and look for conflict markers:</p>
+<blockquote>
+<div><ul class="simple">
+<li>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <em>hash1</em> (stuff from the current branch)</li>
+<li>========= (the pivot point between two branches’ content)</li>
+<li>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; <em>hash2</em> (stuff from the branch being merged)</li>
+</ul>
+</div></blockquote>
+</div>
+<p>Your job in fixing a conflict is to decide exactly what to keep.</p>
+<p>You can (and should) communicate with others on your team when doing this.</p>
+<p>Always remember to remove the conflict markers too.  They are not syntactic
+code in any language and will cause errors.</p>
+<p>Once a conflict is resolved, you can <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></code> the file back and then commit
+the merge.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">git Overview</a><ul>
+<li><a class="reference internal" href="#learning-resources">Learning Resources</a></li>
+<li><a class="reference internal" href="#a-graphical-tutorial">A Graphical Tutorial</a><ul>
+<li><a class="reference internal" href="#a-picture-of-git">A Picture of git</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Setting Up A Development Environment For Python</a><ul>
+      <li>Previous: <a href="windows_bash.html" title="previous chapter">Using Windows Bash for Python Development</a></li>
+      <li>Next: <a href="virtualenv.html" title="next chapter">Working with Virtualenv</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/supplemental/dev_environment/git_overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/supplemental/dev_environment/git_overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

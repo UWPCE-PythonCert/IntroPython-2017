@@ -1,0 +1,144 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Making your text Editor work with git on Windows &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Setting Up A Development Environment For Python" href="../dev_environment/index.html" />
+    <link rel="prev" title="Setting up Python via a Linux VM under Windows" href="vagrant.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="making-your-text-editor-work-with-git-on-windows">
+<span id="install-nano-win"></span><h1>Making your text Editor work with git on Windows<a class="headerlink" href="#making-your-text-editor-work-with-git-on-windows" title="Permalink to this headline">¶</a></h1>
+<p>By default, git will dump you into the “vim” editor when you make a commit.</p>
+<p>“vim” is a venerable old Unix tool that no one but Unix geeks can make any sense of.</p>
+<p>So you are likely to want to use something else.</p>
+<p>git can be configured to use any editor you like.</p>
+<p>Here are some options:</p>
+<div class="section" id="notepad">
+<h2>Notepad:<a class="headerlink" href="#notepad" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/github/GitPad/">https://github.com/github/GitPad/</a></p>
+</div>
+<div class="section" id="sublime-text">
+<h2>Sublime Text:<a class="headerlink" href="#sublime-text" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://stackoverflow.com/questions/32282847/opening-sublime-text-from-windows-git-bash">http://stackoverflow.com/questions/32282847/opening-sublime-text-from-windows-git-bash</a></p>
+</div>
+<div class="section" id="id1">
+<h2>Notepad++<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://danlimerick.wordpress.com/2011/06/12/git-for-windows-tip-setting-an-editor/">https://danlimerick.wordpress.com/2011/06/12/git-for-windows-tip-setting-an-editor/</a></p>
+</div>
+<div class="section" id="nano">
+<h2>Nano<a class="headerlink" href="#nano" title="Permalink to this headline">¶</a></h2>
+<p>This was a nice way to go – but unfortunately, there no longer seems to be a Windows binary available for nano</p>
+<p>For all Windows installations, download the WinNT/9x binary from here:</p>
+<p><a class="reference external" href="http://www.nano-editor.org/download.php">http://www.nano-editor.org/download.php</a></p>
+<p>Unzip the file and move the files into the git bin directory: C:Program FilesGitbin</p>
+<p>That’s it! You should now be able to use nano from git bash:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ nano test.txt
+</pre></div>
+</div>
+<p>Command shortcuts are helpfully written in the editor!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Making your text Editor work with git on Windows</a><ul>
+<li><a class="reference internal" href="#notepad">Notepad:</a></li>
+<li><a class="reference internal" href="#sublime-text">Sublime Text:</a></li>
+<li><a class="reference internal" href="#id1">Notepad++</a></li>
+<li><a class="reference internal" href="#nano">Nano</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Installing Python and core tools</a><ul>
+      <li>Previous: <a href="vagrant.html" title="previous chapter">Setting up Python via a Linux VM under Windows</a></li>
+      <li>Next: <a href="../dev_environment/index.html" title="next chapter">Setting Up A Development Environment For Python</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/supplemental/installing/git_editor_windows.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/supplemental/installing/git_editor_windows.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

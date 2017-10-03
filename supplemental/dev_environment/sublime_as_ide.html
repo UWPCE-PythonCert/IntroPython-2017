@@ -1,0 +1,372 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Turning Sublime Text Into a Lightweight Python IDE &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Turning Atom Into a Lightweight Python IDE" href="atom_as_ide.html" />
+    <link rel="prev" title="Setting Up A Development Environment For Python" href="index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="turning-sublime-text-into-a-lightweight-python-ide">
+<span id="sublime-as-ide"></span><h1>Turning Sublime Text Into a Lightweight Python IDE<a class="headerlink" href="#turning-sublime-text-into-a-lightweight-python-ide" title="Permalink to this headline">¶</a></h1>
+<p>A solid text editor is a developer’s best friend. You use it constantly and it
+becomes like a second pair of hands. The keyboard commands you use daily
+become so engrained in your muscle memory that you stop thinking about them
+entirely.</p>
+<p>With Sublime Text, it’s possible to turn your text editor into the functional
+equivalent of a Python IDE.  The best part is you don’t have to install an IDE
+to do it.</p>
+<p><a class="reference external" href="http://www.sublimetext.com/">http://www.sublimetext.com/</a></p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Here are <em>my</em> requirements for an ‘IDE’:</p>
+<ul class="simple">
+<li>It should provide excellent, configurable syntax colorization.</li>
+<li>It should allow for robust tab completion.</li>
+<li>It should offer the ability to jump to the definition of symbols in other
+files.</li>
+<li>It should perform automatic code linting to help avoid silly mistakes.</li>
+<li>It should be able to interact with a Python interpreter such that when
+debugging, the editor will follow along with the debugger.</li>
+</ul>
+</div>
+<div class="section" id="which-version">
+<h2>Which Version?<a class="headerlink" href="#which-version" title="Permalink to this headline">¶</a></h2>
+<p>Use version 3 – there is a recent update to build 3143, so make sure to get the latest.</p>
+<p><em>Use Sublime Version 3</em></p>
+</div>
+<div class="section" id="basic-settings">
+<h2>Basic Settings<a class="headerlink" href="#basic-settings" title="Permalink to this headline">¶</a></h2>
+<p>All configuration in Sublime Text is done via <a class="reference external" href="http://www.json.org">JSON</a>. It’s simple to learn. go
+and read that link then return here. [Note that JSON is very similar to Python
+dict and list literals]</p>
+<p>There are a number of <a class="reference external" href="http://www.sublimetext.com/docs/3/settings.html">different levels of configuration</a> in Sublime Text. You
+will most often work on settings at the user level.</p>
+<p>Open <code class="docutils literal"><span class="pre">Preferences</span></code> -&gt; <code class="docutils literal"><span class="pre">Settings</span> <span class="pre">-</span> <span class="pre">Default</span></code> to see all the default settings
+and choose which to override.</p>
+<p>On the Mac, you can find it under:</p>
+<p><code class="docutils literal"><span class="pre">Sublime</span> <span class="pre">Text</span></code> -&gt; <code class="docutils literal"><span class="pre">Preferences</span></code> -&gt; <code class="docutils literal"><span class="pre">Settings</span></code></p>
+<p>The preferences file is simply a JSON text file you edit like any other text file.</p>
+<p>Create your own set of preferences by opening the user preferences file.
+This will create an empty file, you can then copy the settings you want
+to override from the default set into your personal settings.</p>
+<p>Here’s a reasonable set of preliminary settings (theme, color scheme and font
+are quite personal, find ones that suit you.):</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>{
+    &quot;color_scheme&quot;: &quot;Packages/User/Cobalt.tmTheme&quot;,
+    &quot;theme&quot;: &quot;Soda Light 3.sublime-theme&quot;,
+    // A font face that helps distinguish between 0 (the number) and &#39;O&#39; (the letter)
+    // among other problem characters. You also want a &quot;fixed width font&quot;
+    // Monaco is a nice option that comes with all Macs.
+    // Not sure what&#39;s best on Windows.
+    &quot;font_face&quot;: &quot;Monaco&quot;,
+    // getting older. I wonder if comfy font size increases as a linear
+    //  function of age?
+    &quot;font_size&quot;: 15,
+    &quot;ignored_packages&quot;:
+    [
+        // I&#39;m not a vi user, so this is of no use to me.
+        &quot;Vintage&quot;
+    ],
+    &quot;rulers&quot;:
+    [
+        // set text rulers so I can judge line length for pep8
+        72, // docstrings
+        79, // optimum code line length
+        100  // maximum allowable length
+    ],
+    &quot;word_wrap&quot;: false, // I hate auto-wrapped text.
+    &quot;wrap_width&quot;: 79, // This is used by a plugin elsewhere
+    &quot;tab_size&quot;: 4,
+    &quot;translate_tabs_to_spaces&quot;: true,
+    &quot;use_tab_stops&quot;: true,
+    &quot;draw_white_space&quot;: &quot;all&quot;, // I like so see spaces and tabs -- makes it easier to debug
+}
+</pre></div>
+</div>
+<p>Especially important is the setting <code class="docutils literal"><span class="pre">translate_tabs_to_spaces</span></code>, which ensures
+that any time you hit a tab key, the single <code class="docutils literal"><span class="pre">\t</span></code> character is replaced by four
+<code class="docutils literal"><span class="pre">\s</span></code> characters.  In Python this is <strong>vital</strong>!</p>
+</div>
+<div class="section" id="extending-the-editor">
+<h2>Extending the Editor<a class="headerlink" href="#extending-the-editor" title="Permalink to this headline">¶</a></h2>
+<p>Most of the requirements above go beyond basic editor function. Use Plugins.</p>
+<p>Sublime Text comes with a great system for <a class="reference external" href="https://sublime.wbond.net">Package Control</a>. It handles
+installing and uninstalling plugins, and even updates installed plugins for
+you. You can also manually install plugins that haven’t made it to the big-time
+yet, including <a class="reference external" href="http://docs.sublimetext.info/en/latest/extensibility/plugins.html">ones you write yourself</a>. Happily, the plugin system is
+Python!</p>
+<p>To install a plugin using Package Control, open the <code class="docutils literal"><span class="pre">command</span> <span class="pre">palette</span></code> with
+<code class="docutils literal"><span class="pre">shift-super-P</span></code> (<code class="docutils literal"><span class="pre">ctrl-shift-P</span></code> on Windows/Linux). The <code class="docutils literal"><span class="pre">super</span></code> key is
+<code class="docutils literal"><span class="pre">command</span></code> or <code class="docutils literal"><span class="pre">⌘</span></code> on OS X. When the palette opens, typing <code class="docutils literal"><span class="pre">install</span></code> will
+bring up the <code class="docutils literal"><span class="pre">Package</span> <span class="pre">Control:</span> <span class="pre">Install</span> <span class="pre">Package</span></code> command. Hit <code class="docutils literal"><span class="pre">enter</span></code> to
+select it.</p>
+<a class="reference internal image-reference" href="../../_images/pc_menu.png"><img alt="The package control command in the command palette." class="align-center" src="../../_images/pc_menu.png" style="width: 600px;" /></a>
+<p>After you select the command, Sublime Text fetches an updated list of packages
+from the network. It might take a second or two for the list to appear. When it
+does, start to type the name of the package you want. Sublime Text filters the
+list and shows you what you want to see. To install a plugin, select it with
+the mouse, or use arrow keys to navigate the list and hit <code class="docutils literal"><span class="pre">enter</span></code> when your
+plugin is highlighted.</p>
+<a class="reference internal image-reference" href="../../_images/plugin_list.png"><img alt="../../_images/plugin_list.png" class="align-center" src="../../_images/plugin_list.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="useful-plugins">
+<h2>Useful Plugins<a class="headerlink" href="#useful-plugins" title="Permalink to this headline">¶</a></h2>
+<p>Here are the plugins I’ve installed to achieve the requirements above.</p>
+<div class="section" id="anaconda">
+<h3>Anaconda<a class="headerlink" href="#anaconda" title="Permalink to this headline">¶</a></h3>
+<p>Not to be confused with the Scientific Python distribution – The Anaconda sublime plugin is a full featured package to turn Sublime into a pretty full IDE:</p>
+<p><a class="reference external" href="http://damnwidget.github.io/anaconda/">http://damnwidget.github.io/anaconda/</a></p>
+<p>There are nifty instructions on that page.</p>
+<p>By default, anaconda uses the python interpreter that is in your PATH environment variable, the most important configuration option is the python_interpreter option that allow the user to use a different python interpreter, for example, one that resides in a virtual environment:</p>
+<p>If you get the right python when you type “python” at a raw command line, then you are OK. But if not you may need to re-configure it.</p>
+<blockquote>
+<div><p>{“python_interpreter”: “~/.virtualenvs/myproject/bin/python”}</p>
+<p>Note: for detailed information about how to properly configure anaconda to get the maximum of it, follow the Configure Anaconda the Right Way section:</p>
+<p><a class="reference external" href="http://damnwidget.github.io/anaconda/anaconda_settings/">http://damnwidget.github.io/anaconda/anaconda_settings/</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="code-linting">
+<h3>Code Linting<a class="headerlink" href="#code-linting" title="Permalink to this headline">¶</a></h3>
+<p>Code linting shows you mistakes you’ve made in your source <em>before</em> you attempt
+to run the code. This saves time. Sublime Text has an available plugin for code
+linters called <a class="reference external" href="http://sublimelinter.readthedocs.org/en/latest/">SublimeLinter</a>.</p>
+<p>Python has a couple of great tools available for linting, the <a class="reference external" href="https://pypi.python.org/pypi/pep8">pep8</a> and
+<a class="reference external" href="https://pypi.python.org/pypi/pyflakes">pyflakes</a> packages. <code class="docutils literal"><span class="pre">Pep8</span></code> checks for style violations, lines too long,
+extra spaces and so on. <code class="docutils literal"><span class="pre">Pyflakes</span></code> checks for syntactic violations, like
+using a symbol that isn’t defined or importing a symbol you don’t use.</p>
+<p>Another Python linting package, <a class="reference external" href="https://pypi.python.org/pypi/flake8">flake8</a> combines these two, and adds in
+<a class="reference external" href="https://pypi.python.org/pypi/mccabe">mccabe</a>, a tool to check the <a class="reference external" href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">cyclomatic complexity</a> of code you write. This
+can be of great help in discovering methods and functions that could be
+simplified and thus made easier to understand and more testable.</p>
+<p>There is a nice plugin for the SublimeLinter that <a class="reference external" href="https://sublime.wbond.net/packages/SublimeLinter-flake8">utilizes flake8</a>. For it to
+work, the plugin will need to have a Python executable that has the Python
+tools it needs installed.</p>
+<p>Make sure that the python packages you need are installed in your main
+python install, rather than a virtualenv.</p>
+<p>Use Python packaging tools to install the required packages:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install flake8
+Downloading/unpacking flake8
+<span class="o">[</span>...<span class="o">]</span>
+Downloading/unpacking pyflakes&gt;<span class="o">=</span><span class="m">0</span>.7.3 <span class="o">(</span>from flake8<span class="o">)</span>
+<span class="o">[</span>...<span class="o">]</span>
+Downloading/unpacking pep8&gt;<span class="o">=</span><span class="m">1</span>.4.6 <span class="o">(</span>from flake8<span class="o">)</span>
+<span class="o">[</span>...<span class="o">]</span>
+Downloading/unpacking mccabe&gt;<span class="o">=</span><span class="m">0</span>.2.1 <span class="o">(</span>from flake8<span class="o">)</span>
+<span class="o">[</span>...<span class="o">]</span>
+Installing collected packages: flake8, pyflakes, pep8, mccabe
+<span class="o">[</span>...<span class="o">]</span>
+Successfully installed flake8 pyflakes pep8 mccabe
+Cleaning up...
+$
+</pre></div>
+</div>
+<p>Your Python install now has the required packages installed.</p>
+<p>try typeing these command to make sure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ flake8
+Usage: flake8 [options] input ...
+
+flake8: error: input not specified
+</pre></div>
+</div>
+<p>Now install SublimeLinter and then SublimeLinter-flake8 using Package Control.</p>
+<p>Here are the settings you can add to <code class="docutils literal"><span class="pre">Preferences</span></code> -&gt; <code class="docutils literal"><span class="pre">Package</span> <span class="pre">Settings</span></code> -&gt;
+<code class="docutils literal"><span class="pre">SublimeLinter</span></code> -&gt; <code class="docutils literal"><span class="pre">Settings</span> <span class="pre">-</span> <span class="pre">User</span></code>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>{
+    //...
+    &quot;linters&quot;: {
+        &quot;flake8&quot;: {
+            &quot;@disable&quot;: false,
+            &quot;args&quot;: [],
+            &quot;builtins&quot;: &quot;&quot;,
+            &quot;excludes&quot;: [],
+            &quot;ignore&quot;: &quot;&quot;,
+            &quot;max-complexity&quot;: 10,
+            &quot;max-line-length&quot;: null,
+            &quot;select&quot;: &quot;&quot;
+        }
+    },
+    //...
+    &quot;paths&quot;: {
+        &quot;linux&quot;: [],
+        &quot;osx&quot;: [
+            &quot;/Users/cewing/virtualenvs/sublenv/bin&quot;
+        ],
+        &quot;windows&quot;: []
+    },
+    &quot;python_paths&quot;: {
+        &quot;linux&quot;: [],
+        &quot;osx&quot;: [
+            &quot;/Users/cewing/virtualenvs/sublenv/bin&quot;
+        ],
+        &quot;windows&quot;: []
+    },
+    //...
+}
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">paths</span></code> key points to the path that contains the <code class="docutils literal"><span class="pre">flake8</span></code> executable
+command.</p>
+<p>The <code class="docutils literal"><span class="pre">python_paths</span></code> key points to the location of the python executable to be
+used.</p>
+<p>The settings inside the <code class="docutils literal"><span class="pre">flake8</span></code> object control the performance of the
+linter. <a class="reference external" href="https://github.com/SublimeLinter/SublimeLinter-flake8#settings">Read more about them here</a>.</p>
+<a class="reference internal image-reference" href="../../_images/flake8_output.png"><img alt="Flake8 shows unused import and trailing whitespace issues." class="align-center" src="../../_images/flake8_output.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="white-space-management">
+<h3>White Space Management<a class="headerlink" href="#white-space-management" title="Permalink to this headline">¶</a></h3>
+<p>One of the issues highlighted by <code class="docutils literal"><span class="pre">flake8</span></code> is trailing spaces.  Sublime text
+provides a setting that allows you to remove them every time you save a file:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>source
+
+{
+    &quot;trim_trailing_whitespace_on_save&quot;: true
+}
+</pre></div>
+</div>
+<p><strong>Do not use this setting</strong></p>
+<p>Removing trailing whitespace by default causes a <em>ton</em> of noise in commits.</p>
+<p>Keep commits for stylistic cleanup separate from those that make important
+changes to code.</p>
+<p>The <a class="reference external" href="https://github.com/SublimeText/TrailingSpaces">TrailingSpaces</a> SublimeText plugin can help with this.</p>
+<p>Here are the settings you can use:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>{
+    //...
+    &quot;trailing_spaces_modified_lines_only&quot;: true,
+    &quot;trailing_spaces_trim_on_save&quot;: true,
+    // ...
+}
+</pre></div>
+</div>
+<p>This allows trimming whitespace on save, but <em>only on lines you have directly
+modified</em>. You can still trim <em>all</em> whitespace manually and keep changesets
+free of noise.</p>
+</div>
+<div class="section" id="follow-along">
+<h3>Follow-Along<a class="headerlink" href="#follow-along" title="Permalink to this headline">¶</a></h3>
+<p>The final requirement for a reasonable IDE experience is to be able to follow a
+debugging session in the file where the code exists.</p>
+<p>There is no plugin for SublimeText that supports this. But there is a Python
+package you can install into the virtualenv for each of your projects that does
+it.</p>
+<p>The package is called <a class="reference external" href="https://pypi.python.org/pypi/PdbSublimeTextSupport">PDBSublimeTextSupport</a> and its simple to install with <code class="docutils literal"><span class="pre">pip</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">(</span>projectenv<span class="o">)</span>$ pip install PDBSublimeTextSupport
+</pre></div>
+</div>
+<p>With that package installed in the Python that is used for your project, any
+breakpoint you set will automatically pop to the surface in SublimeText.  And
+as you step through the code, you will see the current line in your Sublime
+Text file move along with you.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Turning Sublime Text Into a Lightweight Python IDE</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#which-version">Which Version?</a></li>
+<li><a class="reference internal" href="#basic-settings">Basic Settings</a></li>
+<li><a class="reference internal" href="#extending-the-editor">Extending the Editor</a></li>
+<li><a class="reference internal" href="#useful-plugins">Useful Plugins</a><ul>
+<li><a class="reference internal" href="#anaconda">Anaconda</a></li>
+<li><a class="reference internal" href="#code-linting">Code Linting</a></li>
+<li><a class="reference internal" href="#white-space-management">White Space Management</a></li>
+<li><a class="reference internal" href="#follow-along">Follow-Along</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Setting Up A Development Environment For Python</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Setting Up A Development Environment For Python</a></li>
+      <li>Next: <a href="atom_as_ide.html" title="next chapter">Turning Atom Into a Lightweight Python IDE</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/supplemental/dev_environment/sublime_as_ide.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/supplemental/dev_environment/sublime_as_ide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

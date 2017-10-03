@@ -1,0 +1,152 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>File LAB &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Fizz Buzz Exercise" href="fizz_buzz.html" />
+    <link rel="prev" title="Fibonacci Series Exercise" href="fib_and_lucas.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="file-lab">
+<span id="exercise-file-lab"></span><h1>File LAB<a class="headerlink" href="#file-lab" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="a-bit-of-practice-with-files">
+<h2>A bit of practice with files<a class="headerlink" href="#a-bit-of-practice-with-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="goal">
+<h3>Goal:<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
+<p>Get a little bit of practice with handling files and parsing simple text.</p>
+</div>
+<div class="section" id="paths-and-file-processing">
+<h3>Paths and File Processing<a class="headerlink" href="#paths-and-file-processing" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>write a program which prints the full path to all files in the current
+directory, one per line</li>
+<li>write a program which copies a file from a source, to a destination
+(without using shutil, or the OS copy command)<ul>
+<li>advanced: make it work for any size file: i.e. don’t read the entire
+contents of the file into memory at once.</li>
+<li>This should work for any kind of file, so you need to open
+the files in binary mode: <code class="docutils literal"><span class="pre">open(filename,</span> <span class="pre">'rb')</span></code> (or <code class="docutils literal"><span class="pre">'wb'</span></code> for
+writing). Note that for binary files, you can’t use <code class="docutils literal"><span class="pre">readline()</span></code> –
+lines don’t have any meaning for binary files.</li>
+<li>Test it with both text and binrary files (maybe jpeg or??)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="file-reading-and-parsing">
+<h3>File reading and parsing<a class="headerlink" href="#file-reading-and-parsing" title="Permalink to this headline">¶</a></h3>
+<p>In the class repo, in:</p>
+<p><code class="docutils literal"><span class="pre">Examples/Session01/students.txt</span></code></p>
+<p>You will find the list I generated in the first class of all the students in the class, and what programming languages they have used in the past.</p>
+<p>Write a little script that reads that file, and generates a list of all
+the languages that have been used.</p>
+<p>Extra credit: keep track of how many students specified each language.</p>
+<p>If you’ve got git set up right, <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">upstream</span> <span class="pre">master</span></code> should update
+your repo. Otherwise, you can get it from gitHub:</p>
+<p><a class="reference external" href="https://github.com/UWPCE-PythonCert/IntroPython2016/blob/master/Examples/Session01/students.txt">https://github.com/UWPCE-PythonCert/IntroPython2016/blob/master/Examples/Session01/students.txt</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">File LAB</a><ul>
+<li><a class="reference internal" href="#a-bit-of-practice-with-files">A bit of practice with files</a><ul>
+<li><a class="reference internal" href="#goal">Goal:</a></li>
+<li><a class="reference internal" href="#paths-and-file-processing">Paths and File Processing</a></li>
+<li><a class="reference internal" href="#file-reading-and-parsing">File reading and parsing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="fib_and_lucas.html" title="previous chapter">Fibonacci Series Exercise</a></li>
+      <li>Next: <a href="fizz_buzz.html" title="next chapter">Fizz Buzz Exercise</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/file_lab.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/file_lab.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,216 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Kata Fourteen: Tom Swift Under Milk Wood &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lambda and keyword Magic" href="lambda_magic.html" />
+    <link rel="prev" title="HTML Renderer Exercise" href="html_renderer.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="kata-fourteen-tom-swift-under-milk-wood">
+<span id="exercise-trigrams"></span><h1>Kata Fourteen: Tom Swift Under Milk Wood<a class="headerlink" href="#kata-fourteen-tom-swift-under-milk-wood" title="Permalink to this headline">¶</a></h1>
+<p>Adapted from Dave Thomas’s work:</p>
+<p><a class="reference external" href="http://codekata.com/kata/kata14-tom-swift-under-the-milkwood/">http://codekata.com/kata/kata14-tom-swift-under-the-milkwood/</a></p>
+<div class="section" id="trigrams">
+<h2>Trigrams<a class="headerlink" href="#trigrams" title="Permalink to this headline">¶</a></h2>
+<p>Trigrams can be used to mutate text into new, surreal, forms. But what
+heuristics do we apply to get a reasonable result?</p>
+<div class="section" id="the-problem">
+<h3>The Problem<a class="headerlink" href="#the-problem" title="Permalink to this headline">¶</a></h3>
+<p>As a boy, one of my treats was go to the shops on a Saturday and spend part
+of my allowance on books; for a nine-year old, I had quite a collection of
+Tom Swift and Hardy Boys. Wouldn’t it be great to be able to create
+more and more of these classic books, to be able to generate a new Tom
+Swift adventure on demand?</p>
+<p>OK, perhaps not. But that won’t stop us trying. I coded up a quick
+program to generate some swash-buckling scientific adventure on demand. It
+came up with:</p>
+<blockquote>
+<div><p>… it was in the wind that was what he thought was his companion. I
+think would be a good one and accordingly the ship their situation
+improved. Slowly so slowly that it beat the band! You’d think no one
+was a low voice. “Don’t take any of the elements and the
+inventors of the little Frenchman in the enclosed car or cabin completely
+fitted up in front of the gas in the house and wringing her hands.
+“I’m sure they’ll fall!”</p>
+<p>She looked up at them. He dug a mass of black vapor which it had
+refused to accept any. As for Mr. Swift as if it goes too high I’ll
+warn you and you can and swallow frequently. That will make the airship was
+shooting upward again and just before the raid wouldn’t have been
+instrumental in capturing the scoundrels right out of jail.”</p>
+</div></blockquote>
+<p>Stylistically, it’s Victor Appleton meets Dylan Thomas. Technically,
+it’s all done with trigrams.</p>
+<p>Trigram analysis is very simple. Look at each set of three adjacent words
+in a document. Use the first two words of the set as a key, and remember
+the fact that the third word followed that key. Once you’ve finished,
+you know the list of individual words that can follow each two word
+sequence in the document. For example, given the input:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">wish</span> <span class="n">I</span> <span class="n">may</span> <span class="n">I</span> <span class="n">wish</span> <span class="n">I</span> <span class="n">might</span>
+</pre></div>
+</div>
+<p>You might generate:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;I wish&quot;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">]</span>
+<span class="s2">&quot;wish I&quot;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">&quot;may&quot;</span><span class="p">,</span> <span class="s2">&quot;might&quot;</span><span class="p">]</span>
+<span class="s2">&quot;may I&quot;</span>  <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">&quot;wish&quot;</span><span class="p">]</span>
+<span class="s2">&quot;I may&quot;</span>  <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This says that the words “I wish” are twice followed by the word
+“I”, the words “wish I” are followed once by
+“may” and once by “might” and so on.</p>
+<p>To generate new text from this analysis, choose an arbitrary word pair as a
+starting point. Use these to look up a random next word (using the table
+above) and append this new word to the text so far. This now gives you a
+new word pair at the end of the text, so look up a potential next word
+based on these. Add this to the list, and so on. In the previous example,
+we could start with “I may”. The only possible next word is
+“I”, so now we have:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">may</span> <span class="n">I</span>
+</pre></div>
+</div>
+<p>The last two words are “may I”, so the next word is
+“wish”. We then look up “I wish”, and find our choice
+is constrained to another “I”.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">may</span> <span class="n">I</span> <span class="n">wish</span> <span class="n">I</span>
+</pre></div>
+</div>
+<p>Now we look up “wish I”, and find we have a choice. Let’s
+choose “may”:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">may</span> <span class="n">I</span> <span class="n">wish</span> <span class="n">I</span> <span class="n">may</span>
+</pre></div>
+</div>
+<p>Now we’re back where we started from, with “I may.”
+Following the same sequence, but choosing “might” this time, we
+get:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">may</span> <span class="n">I</span> <span class="n">wish</span> <span class="n">I</span> <span class="n">may</span> <span class="n">I</span> <span class="n">wish</span> <span class="n">I</span> <span class="n">might</span>
+</pre></div>
+</div>
+<p>At this point we stop, as no sequence starts “I might.”</p>
+<p>Given a short input text, the algorithm isn’t too interesting. Feed
+it a book, however, and you give it more options, so the resulting output
+can be surprising.</p>
+<p>For this kata, try implementing a trigram algorithm that generates a couple
+of hundred words of text using a book-sized file as input.
+<a class="reference external" href="http://www.gutenberg.org/">Project Gutenberg</a> is a good source of online
+books (Tom Swift and His Airship is <a class="reference external" href="http://sailor.gutenberg.org/etext02/03tom10.txt">here</a>.)</p>
+<p>Be warned that these files have DOS line endings (carriage return followed by
+newline).</p>
+<p>There is a copy of sherlock holmes right here:</p>
+<p><a class="reference download internal" href="../_downloads/sherlock.txt" download=""><code class="xref download docutils literal"><span class="pre">sherlock.txt</span></code></a>.</p>
+<p>And a shorter copy for testing:</p>
+<p><a class="reference download internal" href="../_downloads/sherlock_small.txt" download=""><code class="xref download docutils literal"><span class="pre">sherlock_small.txt</span></code></a>.</p>
+</div>
+<div class="section" id="objectives">
+<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h3>
+<p>Kata’s are about trying something many times. In this one, what
+we’re experimenting with is not just the code, but the heuristics of
+processing the text. What do we do with punctuation? Paragraphs? Do we have
+to implement backtracking if we chose a next word that turns out to be a
+dead end?</p>
+<p>I’ll fire the signal and the fun will commence…</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Kata Fourteen: Tom Swift Under Milk Wood</a><ul>
+<li><a class="reference internal" href="#trigrams">Trigrams</a><ul>
+<li><a class="reference internal" href="#the-problem">The Problem</a></li>
+<li><a class="reference internal" href="#objectives">Objectives</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="html_renderer.html" title="previous chapter">HTML Renderer Exercise</a></li>
+      <li>Next: <a href="lambda_magic.html" title="next chapter">lambda and keyword Magic</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/kata_fourteen.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/kata_fourteen.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

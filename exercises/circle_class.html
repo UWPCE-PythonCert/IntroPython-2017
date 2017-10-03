@@ -1,0 +1,320 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Circle Class Excercise &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Dictionary and Set Lab" href="dict_lab.html" />
+    <link rel="prev" title="Args and Kwargs" href="args_kwargs_lab.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="circle-class-excercise">
+<span id="exercise-circle-class"></span><h1>Circle Class Excercise<a class="headerlink" href="#circle-class-excercise" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="circle-class">
+<h2>Circle Class<a class="headerlink" href="#circle-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="goal">
+<h3>Goal:<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
+<p>The goal is to create a class that represents a simple circle.</p>
+<p>A Circle can be defined by either specifying the radius or the diameter,
+and the user can query the circle for either its radius or diameter.</p>
+<p>Other abilities of a Circle instance:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Compute the circle’s area</li>
+<li>Print the circle and get something nice</li>
+<li>Be able to add two circles together</li>
+<li>Be able to compare two circles to see which is bigger</li>
+<li>Be able to compare to see if there are equal</li>
+<li>(follows from above) be able to put them in a list and sort them</li>
+</ul>
+</div></blockquote>
+<p>You will use:</p>
+<blockquote>
+<div><ul class="simple">
+<li>properties</li>
+<li>a classmethod</li>
+<li>a define a bunch of “special methods”</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="general-instructions">
+<h3>General Instructions:<a class="headerlink" href="#general-instructions" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>For each step, write a couple of unit tests that test the new features.</li>
+<li>Run these tests (and they will fail the first time)</li>
+<li>Add the code required for your tests to pass.</li>
+</ol>
+</div>
+<div class="section" id="step-1">
+<h3>Step 1:<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
+<p>create class called <code class="docutils literal"><span class="pre">Circle</span></code> – it’s signature should look like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">the_radius</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The radius is a required parameter (can’t have a circle without one!)</p>
+<p>the resulting circle should have a attribute for the radius:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">radius</span>
+</pre></div>
+</div>
+<p>So you can do:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">radius</span>
+<span class="mi">4</span>
+</pre></div>
+</div>
+<p>Remember: tests first!</p>
+</div>
+<div class="section" id="step-2">
+<h3>Step 2:<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
+<p>Add a “diameter” property, so the user can get the diameter of the circle:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">diameter</span>
+<span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-3">
+<h3>Step 3:<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
+<p>Set up the diameter property so that the user can set the diameter of the circle:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">diameter</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">diameter</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">radius</span>
+<span class="mi">1</span>
+</pre></div>
+</div>
+<p><strong>NOTE</strong> that the radius has changed!</p>
+</div>
+<div class="section" id="step-4">
+<h3>Step 4:<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
+<p>Add an <code class="docutils literal"><span class="pre">area</span></code> property so the user can get the area of the circle:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">area</span>
+<span class="mf">12.566370</span>
+</pre></div>
+</div>
+<p>(<code class="docutils literal"><span class="pre">pi</span></code> can be found in the math module)</p>
+<p>The user should not be able to set the area:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="ne">AttributeError</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-5">
+<h3>Step 5:<a class="headerlink" href="#step-5" title="Permalink to this headline">¶</a></h3>
+<p>Add an “alternate constructor” that lets the user create a Circle directly
+with the diameter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="o">.</span><span class="n">from_diameter</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">diameter</span>
+<span class="mi">8</span>
+<span class="o">&gt;&gt;</span> <span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">radius</span>
+<span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-6">
+<h3>Step 6:<a class="headerlink" href="#step-6" title="Permalink to this headline">¶</a></h3>
+<p>Add __str__ and __repr__ methods to your Circle class.</p>
+<p>Now you can print it:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">c</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="k">print</span> <span class="n">c</span>
+<span class="go">Circle with radius: 4.000000</span>
+
+<span class="gp">In [4]: </span><span class="nb">repr</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">&#39;Circle(4)&#39;</span>
+
+<span class="gp">In [5]: </span><span class="n">d</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+
+<span class="gp">In [6]: </span><span class="n">d</span>
+<span class="gh">Out[6]: </span><span class="go">Circle(4)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-7">
+<h3>Step 7:<a class="headerlink" href="#step-7" title="Permalink to this headline">¶</a></h3>
+<p>Add some of the numeric protocol to your Circle:</p>
+<p>You should be able to add two circles:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="n">c1</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="gp">In [8]: </span><span class="n">c2</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="gp">In [9]: </span><span class="n">c1</span> <span class="o">+</span> <span class="n">c2</span>
+<span class="gh">Out[9]: </span><span class="go">Circle(6)</span>
+</pre></div>
+</div>
+<p>and multiply one times a number:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">c2</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="gh">Out[16]: </span><span class="go">Circle(12)</span>
+</pre></div>
+</div>
+<p>(what happens with <code class="docutils literal"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">c2</span></code> ? – can you fix that?)</p>
+</div>
+<div class="section" id="step-8">
+<h3>Step 8:<a class="headerlink" href="#step-8" title="Permalink to this headline">¶</a></h3>
+<p>add the ability to compare two circles:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">c1</span> <span class="o">&gt;</span> <span class="n">c2</span>
+<span class="gh">Out[10]: </span><span class="go">False</span>
+
+<span class="gp">In [11]: </span><span class="n">c1</span> <span class="o">&lt;</span> <span class="n">c2</span>
+<span class="gh">Out[11]: </span><span class="go">True</span>
+
+<span class="gp">In [12]: </span><span class="n">c1</span> <span class="o">==</span> <span class="n">c2</span>
+<span class="gh">Out[12]: </span><span class="go">False</span>
+
+<span class="gp">In [13]: </span><span class="n">c3</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="gp">In [14]: </span><span class="n">c2</span> <span class="o">==</span> <span class="n">c3</span>
+<span class="gh">Out[14]: </span><span class="go">True</span>
+</pre></div>
+</div>
+<p>Once the comparing is done,  you should be able to sort a list of circles:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [18]: </span><span class="k">print</span> <span class="n">circles</span>
+<span class="go">[Circle(6), Circle(7), Circle(8), Circle(4), Circle(0), Circle(2), Circle(3), Circle(5), Circle(9), Circle(1)]</span>
+
+<span class="gp">In [19]: </span><span class="n">circl</span>
+<span class="go">circle      circle.py   circle.pyc  circles</span>
+
+<span class="gp">In [19]: </span><span class="n">circles</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+<span class="gp">In [20]: </span><span class="k">print</span> <span class="n">circles</span>
+<span class="go">[Circle(0), Circle(1), Circle(2), Circle(3), Circle(4), Circle(5), Circle(6), Circle(7), Circle(8), Circle(9)]</span>
+</pre></div>
+</div>
+<p><strong>NOTE:</strong> make sure to write unit tests for all of this! Ideally before writing the code.</p>
+</div>
+<div class="section" id="step-8-optional-features">
+<h3>Step 8: Optional Features:<a class="headerlink" href="#step-8-optional-features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>See if you can make “reflected” numerics do the right thing:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a_circle</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">a_circle</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>What else makes sense: division?  others?</li>
+<li>Add the “augmented assignment” operators, where they make sense:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a_circle</span> <span class="o">+=</span> <span class="n">another_circle</span>
+
+<span class="n">a_circle</span> <span class="o">*=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>look through all the “magic methods” and see what makes sense for circles</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Circle Class Excercise</a><ul>
+<li><a class="reference internal" href="#circle-class">Circle Class</a><ul>
+<li><a class="reference internal" href="#goal">Goal:</a></li>
+<li><a class="reference internal" href="#general-instructions">General Instructions:</a></li>
+<li><a class="reference internal" href="#step-1">Step 1:</a></li>
+<li><a class="reference internal" href="#step-2">Step 2:</a></li>
+<li><a class="reference internal" href="#step-3">Step 3:</a></li>
+<li><a class="reference internal" href="#step-4">Step 4:</a></li>
+<li><a class="reference internal" href="#step-5">Step 5:</a></li>
+<li><a class="reference internal" href="#step-6">Step 6:</a></li>
+<li><a class="reference internal" href="#step-7">Step 7:</a></li>
+<li><a class="reference internal" href="#step-8">Step 8:</a></li>
+<li><a class="reference internal" href="#step-8-optional-features">Step 8: Optional Features:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="args_kwargs_lab.html" title="previous chapter">Args and Kwargs</a></li>
+      <li>Next: <a href="dict_lab.html" title="next chapter">Dictionary and Set Lab</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/circle_class.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/circle_class.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

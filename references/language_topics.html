@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python Language Topics &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The SciPy Stack" href="scipy.html" />
+    <link rel="prev" title="Packages and Packaging" href="packaging.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-language-topics">
+<span id="language-topics"></span><h1>Python Language Topics<a class="headerlink" href="#python-language-topics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-python-glossary">
+<h2>The Python Glossary:<a class="headerlink" href="#the-python-glossary" title="Permalink to this headline">¶</a></h2>
+<p>If you find yourself confused about an terms in this document or elsewhere, the python glossary is a good place to start:</p>
+<p><a class="reference external" href="https://docs.python.org/3/glossary.html#term-parameter">https://docs.python.org/3/glossary.html#term-parameter</a></p>
+</div>
+<div class="section" id="sequences-and-slicing">
+<h2>Sequences and Slicing<a class="headerlink" href="#sequences-and-slicing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="arguments-and-parameters">
+<h2>Arguments and Parameters<a class="headerlink" href="#arguments-and-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Things can get a little confusing about positional vs keyword arguments vs default parameters, etc.. And, of course the dreaded <cite>*args</cite> and <cite>**kwargs</cite>. A good place to start for definitions of terms is the glossary:</p>
+<p><a class="reference external" href="https://docs.python.org/3/glossary.html#term-parameter">https://docs.python.org/3/glossary.html#term-parameter</a></p>
+<p>and then a nice discussion of what all that means:</p>
+<p><a class="reference external" href="http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html">http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html</a></p>
+</div>
+<div class="section" id="python-style">
+<h2>Python Style:<a class="headerlink" href="#python-style" title="Permalink to this headline">¶</a></h2>
+<p>Of course, PEP8 (<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a>) is the place to start with coding style, but if you want to go beyond that, here’s a good start:</p>
+<p><a class="reference external" href="https://github.com/amontalenti/elements-of-python-style">https://github.com/amontalenti/elements-of-python-style</a></p>
+</div>
+<div class="section" id="comprehensions">
+<h2>Comprehensions:<a class="headerlink" href="#comprehensions" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/">http://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/</a></p>
+</div>
+<div class="section" id="object-oriented-programming-classes">
+<h2>Object Oriented Programming: classes<a class="headerlink" href="#object-oriented-programming-classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="super">
+<h3><code class="docutils literal"><span class="pre">super()</span></code><a class="headerlink" href="#super" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">super</span></code> is a pretty confusing topic! Here are some good resources:</p>
+<p>Raymond Hettinger’s PyCon2015 talk: “Super Considered Super”</p>
+<p><a class="reference external" href="https://youtu.be/EiOglTERPEo">https://youtu.be/EiOglTERPEo</a></p>
+<p>and the original blog post:</p>
+<p><a class="reference external" href="https://rhettinger.wordpress.com/2011/05/26/super-considered-super/">Super Considered Super</a></p>
+<p>Which was in response to this original post:</p>
+<p><a class="reference external" href="https://fuhm.net/super-harmful/">Super Considered Harmful</a></p>
+</div>
+</div>
+<div class="section" id="concurrency">
+<h2>Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this headline">¶</a></h2>
+<p>Concurrency is a pretty big topic, but here are few good ones:</p>
+<p>General introduction to the concept with examples of both threads and processes:</p>
+<p><a href="#id1"><span class="problematic" id="id2">`Intro to Threads and Processes in Python&lt;https://medium.com/&#64;bfortuner/python-multithreading-vs-multiprocessing-73072ce5600b&gt;`_</span></a>.</p>
+<div class="section" id="threading">
+<h3>Threading<a class="headerlink" href="#threading" title="Permalink to this headline">¶</a></h3>
+<p>Threading and GUI programming:</p>
+<p><a class="reference external" href="https://www.blog.pythonlibrary.org/2013/06/27/wxpython-how-to-communicate-with-your-gui-via-sockets/">https://www.blog.pythonlibrary.org/2013/06/27/wxpython-how-to-communicate-with-your-gui-via-sockets/</a></p>
+<p>Understanding the GLobal Interpeter Lock:
+<a href="#id3"><span class="problematic" id="id4">`&quot;Groc the GIL:&quot;&lt;https://opensource.com/article/17/4/grok-gil&gt;`_</span></a></p>
+</div>
+<div class="section" id="asynchronous-programming">
+<h3>Asynchronous Programming<a class="headerlink" href="#asynchronous-programming" title="Permalink to this headline">¶</a></h3>
+<p>Recent versions of Python have added support for asynchronous programming. It is a whole new way to deal with program flow.</p>
+<p>Here are some resources to help you “get” it:</p>
+<p>Asynchronous Python – Await the Future</p>
+<p><a class="reference external" href="https://hackernoon.com/asynchronous-python-45df84b82434#.kpwejkin2">https://hackernoon.com/asynchronous-python-45df84b82434#.kpwejkin2</a></p>
+<p>Async Through the Looking Glass – Adventures in Python Land</p>
+<p><a class="reference external" href="https://hackernoon.com/async-through-the-looking-glass-d69a0a88b661#.sd3xk0ru0">https://hackernoon.com/async-through-the-looking-glass-d69a0a88b661#.sd3xk0ru0</a></p>
+</div>
+<div class="section" id="asyncio-for-the-working-python-developer">
+<h3>Asyncio for the working Python developer<a class="headerlink" href="#asyncio-for-the-working-python-developer" title="Permalink to this headline">¶</a></h3>
+<p>This one talks about why you might want to do async development.</p>
+<p><a class="reference external" href="https://hackernoon.com/asyncio-for-the-working-python-developer-5c468e6e2e8e#.dlhcuy23h">https://hackernoon.com/asyncio-for-the-working-python-developer-5c468e6e2e8e#.dlhcuy23h</a></p>
+</div>
+<div class="section" id="assorted-from-david-beazley">
+<h3>Assorted from David Beazley<a class="headerlink" href="#assorted-from-david-beazley" title="Permalink to this headline">¶</a></h3>
+<p>David Beazley is scary smart, and types much faster than most of us can think. But on video, you can pause and take the take to catch up with him, and learn a lot:</p>
+<p><a class="reference external" href="http://www.dabeaz.com/talks.html">http://www.dabeaz.com/talks.html</a></p>
+<p>This one in particular – ALL live demo. Really hard to keep up – but really informative!</p>
+<p>Python Concurrency From the Ground Up: LIVE!</p>
+<p><a class="reference external" href="http://pyvideo.org/pycon-us-2015/python-concurrency-from-the-ground-up-live.html">http://pyvideo.org/pycon-us-2015/python-concurrency-from-the-ground-up-live.html</a></p>
+</div>
+<div class="section" id="logging">
+<h3>logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p><a href="#id5"><span class="problematic" id="id6">`A guide to logging in Python&lt;https://opensource.com/article/17/9/python-logging&gt;`_</span></a></p>
+</div>
+</div>
+<div class="section" id="corners-of-python">
+<h2>Corners of Python<a class="headerlink" href="#corners-of-python" title="Permalink to this headline">¶</a></h2>
+<p>This is a nice collection of little bits of Python that may be surprising:</p>
+<p><a href="#id7"><span class="problematic" id="id8">`WTF Python?&lt;https://github.com/satwikkansal/wtfpython&gt;`_</span></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python Language Topics</a><ul>
+<li><a class="reference internal" href="#the-python-glossary">The Python Glossary:</a></li>
+<li><a class="reference internal" href="#sequences-and-slicing">Sequences and Slicing</a></li>
+<li><a class="reference internal" href="#arguments-and-parameters">Arguments and Parameters</a></li>
+<li><a class="reference internal" href="#python-style">Python Style:</a></li>
+<li><a class="reference internal" href="#comprehensions">Comprehensions:</a></li>
+<li><a class="reference internal" href="#object-oriented-programming-classes">Object Oriented Programming: classes</a><ul>
+<li><a class="reference internal" href="#super"><code class="docutils literal"><span class="pre">super()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#concurrency">Concurrency</a><ul>
+<li><a class="reference internal" href="#threading">Threading</a></li>
+<li><a class="reference internal" href="#asynchronous-programming">Asynchronous Programming</a></li>
+<li><a class="reference internal" href="#asyncio-for-the-working-python-developer">Asyncio for the working Python developer</a></li>
+<li><a class="reference internal" href="#assorted-from-david-beazley">Assorted from David Beazley</a></li>
+<li><a class="reference internal" href="#logging">logging</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#corners-of-python">Corners of Python</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Resources for Specific Python Topics</a><ul>
+      <li>Previous: <a href="packaging.html" title="previous chapter">Packages and Packaging</a></li>
+      <li>Next: <a href="scipy.html" title="next chapter">The SciPy Stack</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/references/language_topics.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/references/language_topics.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

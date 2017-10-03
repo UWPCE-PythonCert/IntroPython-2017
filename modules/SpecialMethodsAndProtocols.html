@@ -1,0 +1,331 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Special Methods &amp; Protocols &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Static and Class Methods" href="StaticAndClassMethods.html" />
+    <link rel="prev" title="Recursion" href="Recursion.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="special-methods-protocols">
+<h1>Special Methods &amp; Protocols<a class="headerlink" href="#special-methods-protocols" title="Permalink to this headline">¶</a></h1>
+<div class="left docutils container">
+<p>Special methods (also called <em>magic</em> methods) are the secret sauce to Python’s Duck typing.</p>
+<p>Defining the appropriate special methods in your classes is how you make your class act like standard classes.</p>
+</div>
+<div class="section" id="what-s-in-a-name">
+<h2>What’s in a Name?<a class="headerlink" href="#what-s-in-a-name" title="Permalink to this headline">¶</a></h2>
+<p>We’ve seen at least one special method so far:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="fm">__init__</span>
+</pre></div>
+</div>
+<p>It’s all in the double underscores…</p>
+<p>Pronounced “dunder” (or “under-under”)</p>
+<p>try: <code class="docutils literal"><span class="pre">dir(2)</span></code>  or <code class="docutils literal"><span class="pre">dir(list)</span></code></p>
+</div>
+<div class="section" id="generally-useful-special-methods">
+<h2>Generally Useful Special Methods<a class="headerlink" href="#generally-useful-special-methods" title="Permalink to this headline">¶</a></h2>
+<p>Most classes should at least have these special methods:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">object.__str__</span></code>:</dt>
+<dd>Called by the str() built-in function and by the print function to compute
+the <em>informal</em> string representation of an object.</dd>
+<dt><code class="docutils literal"><span class="pre">object.__repr__</span></code>:</dt>
+<dd><p class="first">Called by the repr() built-in function to compute the <em>official</em> string representation of an object.</p>
+<p class="last">(ideally: <code class="docutils literal"><span class="pre">eval(</span> <span class="pre">repr(something)</span> <span class="pre">)</span> <span class="pre">==</span> <span class="pre">something</span></code>)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="protocols">
+<h2>Protocols<a class="headerlink" href="#protocols" title="Permalink to this headline">¶</a></h2>
+<div class="build docutils container">
+<p>The set of special methods needed to emulate a particular type of Python object is called a <em>protocol</em>.</p>
+<p>Your classes can “become” like Python built-in classes by implementing the methods in a given protocol.</p>
+<p>Remember, these are more <em>guidelines</em> than laws.  Implement what you need.</p>
+</div>
+</div>
+<div class="section" id="the-numerics-protocol">
+<h2>The Numerics Protocol<a class="headerlink" href="#the-numerics-protocol" title="Permalink to this headline">¶</a></h2>
+<p>Do you want your class to behave like a number? Implement these methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__divmod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">[,</span> <span class="n">modulo</span><span class="p">])</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__lshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__xor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-container-protocol">
+<h2>The Container Protocol<a class="headerlink" href="#the-container-protocol" title="Permalink to this headline">¶</a></h2>
+<p>Want to make a container type? Here’s what you need:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="o">.</span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__getslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__setslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__delslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="an-example">
+<h2>An Example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<p>Each of these methods supports a common Python operation.</p>
+<p>For example, to make ‘+’ work with a sequence type in a vector-like fashion,
+implement <code class="docutils literal"><span class="pre">__add__</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;return the element-wise vector sum of self and v</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vector</span><span class="p">([</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p class="centered">[a more complete example may be seen <a class="reference download internal" href="../_downloads/vector.py" download=""><code class="xref download docutils literal"><span class="pre">here</span></code></a>]</p>
+</div>
+<div class="section" id="protocols-in-summary">
+<h2>Protocols in Summary<a class="headerlink" href="#protocols-in-summary" title="Permalink to this headline">¶</a></h2>
+<p>Use special methods when you want your class to act like a “standard” class in some way.</p>
+<p>Look up the special methods you need and define them.</p>
+<p>There’s more to read about the details of implementing these methods:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#special-method-names">https://docs.python.org/3.5/reference/datamodel.html#special-method-names</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="emulating-standard-types">
+<h1>Emulating Standard types<a class="headerlink" href="#emulating-standard-types" title="Permalink to this headline">¶</a></h1>
+<p class="medium">Making your classes behave like the built-ins</p>
+<div class="section" id="callable-classes">
+<h2>Callable classes<a class="headerlink" href="#callable-classes" title="Permalink to this headline">¶</a></h2>
+<p>We’ve been using functions a lot:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_fun</span><span class="p">(</span><span class="n">something</span><span class="p">):</span>
+    <span class="n">do_something</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">something</span>
+</pre></div>
+</div>
+<p>And then we can call it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">my_fun</span><span class="p">(</span><span class="n">some_arguments</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But what if we need to store some data to know how to evaluate that function?</p>
+<p>Example: a function that computes a quadratic function:</p>
+<div class="math">
+\[y = a x^2 + bx + c\]</div>
+<p>You could pass in a, b and c each time:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quadratic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
+</pre></div>
+</div>
+<p>But what if you are using the same a, b, and c numerous times?</p>
+<p>Or what if you need to pass this in to something
+(like map) that requires a function that takes a single argument?</p>
+</div>
+<div class="section" id="callables">
+<h2>“Callables”<a class="headerlink" href="#callables" title="Permalink to this headline">¶</a></h2>
+<p>Various places in python expect a “callable” – something that you can
+call like a function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a_result</span> <span class="o">=</span> <span class="n">something</span><span class="p">(</span><span class="n">some_arguments</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>“something” in this case is often a function, but can be anything else
+that is “callable”.</p>
+<p>What have we been introduced to recently that is “callable”, but not a
+function object?</p>
+</div>
+<div class="section" id="custom-callable-objects">
+<h2>Custom callable objects<a class="headerlink" href="#custom-callable-objects" title="Permalink to this headline">¶</a></h2>
+<p>The trick is one of Python’s “magic methods”</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="fm">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you define a <code class="docutils literal"><span class="pre">__call__</span></code> method in your class, it will be used when
+code “calls” an instance of your class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Callable</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">.....</span><span class="p">)</span>
+        <span class="n">some_initilization</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">some_parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you can do:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">callable_instance</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">(</span><span class="n">some_arguments</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">callable_instance</span><span class="p">(</span><span class="n">some_arguments</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-your-own-sequence-type">
+<h2>Writing your own sequence type<a class="headerlink" href="#writing-your-own-sequence-type" title="Permalink to this headline">¶</a></h2>
+<p>Python has a handful of nifty sequence types built in:</p>
+<blockquote>
+<div><ul class="simple">
+<li>lists</li>
+<li>tuples</li>
+<li>strings</li>
+<li>…</li>
+</ul>
+</div></blockquote>
+<p>But what if you need a sequence that isn’t built in?</p>
+</div>
+<div class="section" id="a-sparse-array">
+<h2>A Sparse array<a class="headerlink" href="#a-sparse-array" title="Permalink to this headline">¶</a></h2>
+<p>Example: Sparse Array</p>
+<p>Sometimes we have data sets that are “sparse” – i.e. most of the values are zero.</p>
+<p>So you may not want to store a huge bunch of zeros.</p>
+<p>But you do want the array to look like a regular old sequence.</p>
+<p>So how do you do that?</p>
+</div>
+<div class="section" id="the-sequence-protocol">
+<h2>The Sequence protocol<a class="headerlink" href="#the-sequence-protocol" title="Permalink to this headline">¶</a></h2>
+<p>You can make your class look like a regular python sequence by defining
+the set of special methods you need:</p>
+<p><a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#emulating-container-types">https://docs.python.org/3/reference/datamodel.html#emulating-container-types</a></p>
+<p>The key ones are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">__len__</span></code></td>
+<td>for <code class="docutils literal"><span class="pre">len(sequence)</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">__getitem__</span></code></td>
+<td>for  <code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">seq[i]</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">__setitem__</span></code></td>
+<td>for <code class="docutils literal"><span class="pre">seq[i]</span> <span class="pre">=</span> <span class="pre">x</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">__delitem__</span></code></td>
+<td>for <code class="docutils literal"><span class="pre">del</span> <span class="pre">seq[i]</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">__contains__</span></code></td>
+<td>for <code class="docutils literal"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">seq</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Special Methods &amp; Protocols</a><ul>
+<li><a class="reference internal" href="#what-s-in-a-name">What’s in a Name?</a></li>
+<li><a class="reference internal" href="#generally-useful-special-methods">Generally Useful Special Methods</a></li>
+<li><a class="reference internal" href="#protocols">Protocols</a></li>
+<li><a class="reference internal" href="#the-numerics-protocol">The Numerics Protocol</a></li>
+<li><a class="reference internal" href="#the-container-protocol">The Container Protocol</a></li>
+<li><a class="reference internal" href="#an-example">An Example</a></li>
+<li><a class="reference internal" href="#protocols-in-summary">Protocols in Summary</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#emulating-standard-types">Emulating Standard types</a><ul>
+<li><a class="reference internal" href="#callable-classes">Callable classes</a></li>
+<li><a class="reference internal" href="#callables">“Callables”</a></li>
+<li><a class="reference internal" href="#custom-callable-objects">Custom callable objects</a></li>
+<li><a class="reference internal" href="#writing-your-own-sequence-type">Writing your own sequence type</a></li>
+<li><a class="reference internal" href="#a-sparse-array">A Sparse array</a></li>
+<li><a class="reference internal" href="#the-sequence-protocol">The Sequence protocol</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Recursion.html" title="previous chapter">Recursion</a></li>
+      <li>Next: <a href="StaticAndClassMethods.html" title="next chapter">Static and Class Methods</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/SpecialMethodsAndProtocols.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/SpecialMethodsAndProtocols.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

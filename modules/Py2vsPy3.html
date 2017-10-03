@@ -1,0 +1,172 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python 2 verses Python 3 &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Intro to Python Session 2" href="../class_schedule/session_1_02.html" />
+    <link rel="prev" title="Basic Python" href="BasicPython.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-2-verses-python-3">
+<span id="py2-vs-py3"></span><h1>Python 2 verses Python 3<a class="headerlink" href="#python-2-verses-python-3" title="Permalink to this headline">¶</a></h1>
+<p>Much of the example code you’ll find online is Python2, rather than Python3</p>
+<p>For the most part, they are the same – so you can use those examples to learn from.</p>
+<p>There are a lot of subtle differences that you don’t need to concern yourself with just yet.</p>
+<p>But a couple that you’ll need to know right off the bat:</p>
+<div class="section" id="print">
+<h2>print()<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h2>
+<p>In python2, <code class="docutils literal"><span class="pre">print</span></code> is a “statement”, rather than a function. That means it didn’t require parentheses around what you want printed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">something</span><span class="p">,</span> <span class="n">something_else</span>
+</pre></div>
+</div>
+<p>This made it a bit less flexible and powerful.</p>
+<p>But – if you try to use it that way in Python3, you’ll get an error:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="k">print</span> <span class="s2">&quot;this&quot;</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;ipython-input-15-70c8add5d16e&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span>
+    <span class="k">print</span> <span class="s2">&quot;this&quot;</span>
+               <span class="o">^</span>
+<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">Missing</span> <span class="n">parentheses</span> <span class="ow">in</span> <span class="n">call</span> <span class="n">to</span> <span class="s1">&#39;print&#39;</span>
+</pre></div>
+</div>
+<p>So – if you get this error, simply add the parentheses:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="k">print</span> <span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">)</span>
+<span class="go">this</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="division">
+<h2>Division<a class="headerlink" href="#division" title="Permalink to this headline">¶</a></h2>
+<p>In python 3, the division operator is “smart” when you divide integers:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="gh">Out[17]: </span><span class="go">0.5</span>
+</pre></div>
+</div>
+<p>However in python2, integer division, will give you an integer result:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="gh">Out[1]: </span><span class="go">0</span>
+</pre></div>
+</div>
+<p>In both versions, you can get “integer division” if you want it with a double slash:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="mi">1</span><span class="o">//</span><span class="mi">2</span>
+<span class="gh">Out[1]: </span><span class="go">0</span>
+</pre></div>
+</div>
+<p>And in python2, you can get the behavior of py3 with “true division”:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+
+<span class="gp">In [3]: </span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="gh">Out[3]: </span><span class="go">0.5</span>
+</pre></div>
+</div>
+<p>For the most part, you just need to be a bit careful with the rare cases where py2 code counts on integer division.</p>
+</div>
+<div class="section" id="other-py2-py3-differences">
+<h2>Other py2/py3 differences<a class="headerlink" href="#other-py2-py3-differences" title="Permalink to this headline">¶</a></h2>
+<p>The most drastic difference (improvement!) is better Unicode support, and better bytes/Unicode separation.</p>
+<p>Most of the other differences are essentially implementation details, like getting iterators instead of sequences – we’ll talk about that more when it comes up in class.</p>
+<p>There are also a few syntax differences with more advanced topics: Exceptions, <code class="docutils literal"><span class="pre">super()</span></code>, etc.</p>
+<p>We’ll talk about all that when we cover those topics.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python 2 verses Python 3</a><ul>
+<li><a class="reference internal" href="#print">print()</a></li>
+<li><a class="reference internal" href="#division">Division</a></li>
+<li><a class="reference internal" href="#other-py2-py3-differences">Other py2/py3 differences</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../class_schedule/session_1_01.html">Intro to Python Session 1</a><ul>
+      <li>Previous: <a href="BasicPython.html" title="previous chapter">Basic Python</a></li>
+      <li>Next: <a href="../class_schedule/session_1_02.html" title="next chapter">Intro to Python Session 2</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/Py2vsPy3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/Py2vsPy3.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

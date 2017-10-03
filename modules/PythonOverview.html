@@ -1,0 +1,202 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python Overview &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Basic Python Syntax" href="BasicPythonSyntax.html" />
+    <link rel="prev" title="Schedule Lightning talks" href="lightning_talks.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-overview">
+<span id="id1"></span><h1>Python Overview<a class="headerlink" href="#python-overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-python">
+<h2>What is Python?<a class="headerlink" href="#what-is-python" title="Permalink to this headline">¶</a></h2>
+<ul class="build simple">
+<li>Dynamic</li>
+<li>Object oriented</li>
+<li>Byte-compiled</li>
+<li>Interpreted</li>
+</ul>
+<p class="center large">But what does that mean?</p>
+</div>
+<div class="section" id="python-features">
+<h2>Python Features<a class="headerlink" href="#python-features" title="Permalink to this headline">¶</a></h2>
+<ul class="build simple">
+<li>Unlike C, C++, C#, Java … More like Ruby, Lisp, Perl, Javascript
+…</li>
+<li><strong>Dynamic</strong> – no type declarations<ul>
+<li>Programs are shorter</li>
+<li>Programs are more flexible</li>
+<li>Less code means fewer bugs</li>
+</ul>
+</li>
+<li><strong>Interpreted</strong> – no separate compile, build steps - programming process is simpler</li>
+</ul>
+</div>
+<div class="section" id="what-s-a-dynamic-language">
+<h2>What’s a Dynamic language?<a class="headerlink" href="#what-s-a-dynamic-language" title="Permalink to this headline">¶</a></h2>
+<p><strong>Dynamic typing</strong>.</p>
+<ul class="simple">
+<li>Type checking and dispatch happen at run-time</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<ul class="build simple">
+<li>What is <code class="docutils literal"><span class="pre">a</span></code>?</li>
+<li>What is <code class="docutils literal"><span class="pre">b</span></code>?</li>
+<li>What does it mean to add them?</li>
+<li><code class="docutils literal"><span class="pre">a</span></code> and <code class="docutils literal"><span class="pre">b</span></code> can change at any time before this process</li>
+</ul>
+<p><strong>Strong typing</strong>.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="gp">In [2]: </span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">int</span>
+
+<span class="gp">In [3]: </span><span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;5&#39;</span>
+
+<span class="gp">In [4]: </span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">str</span>
+</pre></div>
+</div>
+<ul class="build simple">
+<li><strong>everything</strong> has a type.</li>
+<li>the <em>type</em> of a thing determines what it can do.</li>
+</ul>
+</div>
+<div class="section" id="duck-typing">
+<h2>Duck Typing<a class="headerlink" href="#duck-typing" title="Permalink to this headline">¶</a></h2>
+<p class="center large">“If it looks like a duck, and quacks like a duck – it’s probably a duck”</p>
+<p class="center large">If an object behaves as expected at run-time, it’s the right type.</p>
+</div>
+<div class="section" id="python-versions">
+<h2>Python Versions<a class="headerlink" href="#python-versions" title="Permalink to this headline">¶</a></h2>
+<p>Python 2.x</p>
+<ul class="build simple">
+<li>“Classic” Python</li>
+<li>Evolved from original</li>
+</ul>
+<p>Python 3.x (“py3k”)</p>
+<ul class="build simple">
+<li>Updated version</li>
+<li>Removed the “warts”</li>
+<li>Allowed to break code</li>
+</ul>
+<p>This class uses Python 3 – not Python 2</p>
+<ul class="build simple">
+<li>Adoption of Python 3 is growing fast<ul>
+<li>Almost all key packages now supported (<a class="reference external" href="https://python3wos.appspot.com/">https://python3wos.appspot.com/</a>)</li>
+<li>But much code in the wild is still 2.x</li>
+</ul>
+</li>
+<li>If you find yourself needing to work with Python 2 and 3, there are ways to write compatible code: <a class="reference external" href="https://wiki.python.org/moin/PortingPythonToPy3k">https://wiki.python.org/moin/PortingPythonToPy3k</a></li>
+<li>We will cover that more later in the program. Also: a short intro to the differences you really need to know about up front later this session.</li>
+</ul>
+<p><a class="reference internal" href="Py2vsPy3.html#py2-vs-py3"><span class="std std-ref">Python 2 verses Python 3</span></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python Overview</a><ul>
+<li><a class="reference internal" href="#what-is-python">What is Python?</a></li>
+<li><a class="reference internal" href="#python-features">Python Features</a></li>
+<li><a class="reference internal" href="#what-s-a-dynamic-language">What’s a Dynamic language?</a></li>
+<li><a class="reference internal" href="#duck-typing">Duck Typing</a></li>
+<li><a class="reference internal" href="#python-versions">Python Versions</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../class_schedule/session_1_01.html">Intro to Python Session 1</a><ul>
+      <li>Previous: <a href="lightning_talks.html" title="previous chapter">Schedule Lightning talks</a></li>
+      <li>Next: <a href="BasicPythonSyntax.html" title="next chapter">Basic Python Syntax</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/PythonOverview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/PythonOverview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

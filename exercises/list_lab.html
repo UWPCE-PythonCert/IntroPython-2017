@@ -1,0 +1,194 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>List Lab &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mailroom" href="mailroom.html" />
+    <link rel="prev" title="lambda and keyword Magic" href="lambda_magic.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="list-lab">
+<span id="exercise-list-lab"></span><h1>List Lab<a class="headerlink" href="#list-lab" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="learning-about-lists">
+<h2>Learning about lists<a class="headerlink" href="#learning-about-lists" title="Permalink to this headline">¶</a></h2>
+<p>After:</p>
+<p><a class="reference external" href="http://www.upriss.org.uk/python/session5.html">http://www.upriss.org.uk/python/session5.html</a></p>
+<div class="section" id="goal">
+<h3>Goal:<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
+<p>Learn the basic ins and outs of Python lists.</p>
+</div>
+<div class="section" id="hint">
+<h3>hint<a class="headerlink" href="#hint" title="Permalink to this headline">¶</a></h3>
+<p>to query the user for info at the command line, you use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;a prompt for the user &gt; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">response</span></code> will be a string of whatever the user types (until a &lt;return&gt;).</p>
+</div>
+<div class="section" id="procedure">
+<h3>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h3>
+<p>In your student dir in the IntroPython2015 repo, create a <code class="docutils literal"><span class="pre">session03</span></code> dir and put in a new <code class="docutils literal"><span class="pre">list_lab.py</span></code> file.</p>
+<p>The file should be an executable python script. That is to say that one
+should be able to run the script directly like so:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./list_lab.py
+</pre></div>
+</div>
+<p>(At least on OS-X and Linux)</p>
+<p>– you do that with this command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ chmod +x list_lab.py
+</pre></div>
+</div>
+<p>(The +x means make this executable)</p>
+<p>The file will also need this on the first line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+</pre></div>
+</div>
+<p>This is known as the “she-bang” line – it tells the shell how to execute that file – in this case, with <code class="docutils literal"><span class="pre">python3</span></code></p>
+<p>NOTE: on Windows, there is a python launcher which, if everything is configured correctly look at that line to know you want python3 if there is more than one python on your system.</p>
+<p>Add the file to your clone of the repository and commit changes frequently
+while working on the following tasks. When you are done, push your changes to
+GitHub and issue a pull request.</p>
+<p>(if you are struggling with git – just write the code for now)</p>
+<p>When the script is run, it should accomplish the following four series of
+actions:</p>
+<ul class="simple">
+<li>Create a list that contains “Apples”, “Pears”, “Oranges” and “Peaches”.</li>
+<li>Display the list.</li>
+<li>Ask the user for another fruit and add it to the end of the list.</li>
+<li>Display the list.</li>
+<li>Ask the user for a number and display the number back to the user and the
+fruit corresponding to that number (on a 1-is-first basis).</li>
+<li>Add another fruit to the beginning of the list using “+” and display the
+list.</li>
+<li>Add another fruit to the beginning of the list using insert() and display the list.</li>
+<li>Display all the fruits that begin with “P”, using a for loop.</li>
+</ul>
+<p>Using the list created in series 1 above:</p>
+<ul class="simple">
+<li>Display the list.</li>
+<li>Remove the last fruit from the list.</li>
+<li>Display the list.</li>
+<li>Ask the user for a fruit to delete and find it and delete it.</li>
+<li>(Bonus: Multiply the list times two. Keep asking until a match is found. Once found, delete all occurrences.)</li>
+</ul>
+<p>Again, using the list from series 1:</p>
+<ul class="simple">
+<li>Ask the user for input displaying a line like “Do you like apples?”</li>
+<li>for each fruit in the list (making the fruit all lowercase).</li>
+<li>For each “no”, delete that fruit from the list.</li>
+<li>For any answer that is not “yes” or “no”, prompt the user to answer with one
+of those two values (a while loop is good here):</li>
+<li>Display the list.</li>
+</ul>
+<p>Once more, using the list from series 1:</p>
+<ul class="simple">
+<li>Make a copy of the list and reverse the letters in each fruit in the copy.</li>
+<li>Delete the last item of the original list. Display the original list and the
+copy.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">List Lab</a><ul>
+<li><a class="reference internal" href="#learning-about-lists">Learning about lists</a><ul>
+<li><a class="reference internal" href="#goal">Goal:</a></li>
+<li><a class="reference internal" href="#hint">hint</a></li>
+<li><a class="reference internal" href="#procedure">Procedure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lambda_magic.html" title="previous chapter">lambda and keyword Magic</a></li>
+      <li>Next: <a href="mailroom.html" title="next chapter">Mailroom</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/list_lab.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/list_lab.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

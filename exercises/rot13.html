@@ -1,0 +1,138 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ROT13 &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Slicing Lab" href="slicing.html" />
+    <link rel="prev" title="Roman/Arabic Numeral Converter" href="roman.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="rot13">
+<span id="exercise-rot13"></span><h1>ROT13<a class="headerlink" href="#rot13" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="goal">
+<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<p>Get used to working with the number values for characters</p>
+<p>Get a bit of practice with string methods and string processing</p>
+</div>
+<div class="section" id="rot13-encryption">
+<h2>ROT13 encryption<a class="headerlink" href="#rot13-encryption" title="Permalink to this headline">¶</a></h2>
+<p>The ROT13 encryption scheme is a simple substitution cypher where each letter
+in a text is replace by the letter 13 away from it (imagine the alphabet as a
+circle, so it wraps around).</p>
+</div>
+<div class="section" id="the-task">
+<h2>The task<a class="headerlink" href="#the-task" title="Permalink to this headline">¶</a></h2>
+<p>Add a python module named <code class="docutils literal"><span class="pre">rot13.py</span></code> to the session03 dir in your student dir. This module should provide at least one function called <code class="docutils literal"><span class="pre">rot13</span></code> that takes any amount of text and returns that same text encrypted by ROT13.</p>
+<p>This function should preserve whitespace, punctuation and capitalization.</p>
+<p>Your module should include an <code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__':</span></code> block with tests (asserts) that demonstrate that your <code class="docutils literal"><span class="pre">rot13</span></code> function and any helper functions you add work properly.</p>
+<p>There is a “short-cut” available that will help you accomplish this task. Some
+spelunking in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#string-methods">the documentation for strings</a> should help you to find it. If
+you do find it, using it is completely fair game.</p>
+<p>As usual, add your new file to your local clone right away.  Make commits
+early and often and include commit messages that are descriptive and concise.</p>
+<p>When you are done, if you want me to review it, push your changes to github
+and issue a pull request.</p>
+<p>try decrypting this:</p>
+<p>“Zntargvp sebz bhgfvqr arne pbeare”</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ROT13</a><ul>
+<li><a class="reference internal" href="#goal">Goal</a></li>
+<li><a class="reference internal" href="#rot13-encryption">ROT13 encryption</a></li>
+<li><a class="reference internal" href="#the-task">The task</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="roman.html" title="previous chapter">Roman/Arabic Numeral Converter</a></li>
+      <li>Next: <a href="slicing.html" title="next chapter">Slicing Lab</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/rot13.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/rot13.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,345 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Strings &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced Argument Passing" href="AdvancedArgumentPassing.html" />
+    <link rel="prev" title="Iteration" href="Iteration.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="strings">
+<span id="id1"></span><h1>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>Fun with Strings</div></blockquote>
+<div class="section" id="id2">
+<h2>Strings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>A “String” is a computerese work=d for a piece of text – a “string” of charactors.</p>
+<div class="section" id="creating-strings">
+<h3>Creating strings:<a class="headerlink" href="#creating-strings" title="Permalink to this headline">¶</a></h3>
+<p>A string literal creates a string type</p>
+<p>(we’ve seen this already…)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;this is a string&quot;</span>
+
+<span class="s1">&#39;So is this&#39;</span>
+
+<span class="sd">&quot;&quot;&quot;and this also&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>You can also use <code class="docutils literal"><span class="pre">str()</span></code></p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [256]: </span><span class="nb">str</span><span class="p">(</span><span class="mi">34</span><span class="p">)</span>
+<span class="gh">Out[256]: </span><span class="go">&#39;34&#39;</span>
+</pre></div>
+</div>
+<p>And strings can be read from files, and other sources of I/O.</p>
+</div>
+</div>
+<div class="section" id="string-methods">
+<h2>String Methods<a class="headerlink" href="#string-methods" title="Permalink to this headline">¶</a></h2>
+<p>String objects have a lot of methods.</p>
+<p>Here are just a few:</p>
+<div class="section" id="string-manipulations">
+<h3>String Manipulations<a class="headerlink" href="#string-manipulations" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">split</span></code> and <code class="docutils literal"><span class="pre">join</span></code>:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [167]: </span><span class="n">csv</span> <span class="o">=</span> <span class="s2">&quot;comma, separated, values&quot;</span>
+<span class="gp">In [168]: </span><span class="n">csv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+<span class="gh">Out[168]: </span><span class="go">[&#39;comma&#39;, &#39;separated&#39;, &#39;values&#39;]</span>
+<span class="gp">In [169]: </span><span class="n">psv</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">))</span>
+<span class="gp">In [170]: </span><span class="n">psv</span>
+<span class="gh">Out[170]: </span><span class="go">&#39;comma|separated|values&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="case-switching">
+<h3>Case Switching<a class="headerlink" href="#case-switching" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [171]: </span><span class="n">sample</span> <span class="o">=</span> <span class="s1">&#39;A long string of words&#39;</span>
+<span class="gp">In [172]: </span><span class="n">sample</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="gh">Out[172]: </span><span class="go">&#39;A LONG STRING OF WORDS&#39;</span>
+<span class="gp">In [173]: </span><span class="n">sample</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="gh">Out[173]: </span><span class="go">&#39;a long string of words&#39;</span>
+<span class="gp">In [174]: </span><span class="n">sample</span><span class="o">.</span><span class="n">swapcase</span><span class="p">()</span>
+<span class="gh">Out[174]: </span><span class="go">&#39;a LONG STRING OF WORDS&#39;</span>
+<span class="gp">In [175]: </span><span class="n">sample</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+<span class="gh">Out[175]: </span><span class="go">&#39;A Long String Of Words&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing">
+<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [181]: </span><span class="n">number</span> <span class="o">=</span> <span class="s2">&quot;12345&quot;</span>
+<span class="gp">In [182]: </span><span class="n">number</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()</span>
+<span class="gh">Out[182]: </span><span class="go">True</span>
+<span class="gp">In [183]: </span><span class="n">number</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
+<span class="gh">Out[183]: </span><span class="go">True</span>
+<span class="gp">In [184]: </span><span class="n">number</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span>
+<span class="gh">Out[184]: </span><span class="go">False</span>
+<span class="gp">In [185]: </span><span class="n">fancy</span> <span class="o">=</span> <span class="s2">&quot;Th!$ $tr!ng h@$ $ymb0l$&quot;</span>
+<span class="gp">In [186]: </span><span class="n">fancy</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
+<span class="gh">Out[186]: </span><span class="go">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="string-literals">
+<h3>String Literals<a class="headerlink" href="#string-literals" title="Permalink to this headline">¶</a></h3>
+<p>Common Escape Sequences:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>\\  <span class="n">Backslash</span> <span class="p">(</span>\<span class="p">)</span>
+\<span class="n">a</span>  <span class="n">ASCII</span> <span class="n">Bell</span> <span class="p">(</span><span class="n">BEL</span><span class="p">)</span>
+\<span class="n">b</span>  <span class="n">ASCII</span> <span class="n">Backspace</span> <span class="p">(</span><span class="n">BS</span><span class="p">)</span>
+\<span class="n">n</span>  <span class="n">ASCII</span> <span class="n">Linefeed</span> <span class="p">(</span><span class="n">LF</span><span class="p">)</span>
+\<span class="n">r</span>  <span class="n">ASCII</span> <span class="n">Carriage</span> <span class="n">Return</span> <span class="p">(</span><span class="n">CR</span><span class="p">)</span>
+\<span class="n">t</span>  <span class="n">ASCII</span> <span class="n">Horizontal</span> <span class="n">Tab</span> <span class="p">(</span><span class="n">TAB</span><span class="p">)</span>
+\<span class="n">ooo</span>  <span class="n">Character</span> <span class="k">with</span> <span class="n">octal</span> <span class="n">value</span> <span class="n">ooo</span>
+\<span class="n">xhh</span>  <span class="n">Character</span> <span class="k">with</span> <span class="nb">hex</span> <span class="n">value</span> <span class="n">hh</span>
+</pre></div>
+</div>
+<p>for example – for tab-separated values:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;these</span><span class="se">\t</span><span class="s2">are</span><span class="se">\t</span><span class="s2">separated</span><span class="se">\t</span><span class="s2">by</span><span class="se">\t</span><span class="s2">tabs&quot;</span>
+
+<span class="gp">In [26]: </span><span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">these   are separated    by  tabs</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals">https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals</a>
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p>
+</div>
+<div class="section" id="raw-strings">
+<h3>Raw Strings<a class="headerlink" href="#raw-strings" title="Permalink to this headline">¶</a></h3>
+<p>Add an <code class="docutils literal"><span class="pre">r</span></code> in front of the string literal:</p>
+<p>Escape Sequences Ignored</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [408]: </span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;this</span><span class="se">\n</span><span class="s2">that&quot;</span><span class="p">)</span>
+<span class="go">this</span>
+<span class="go">that</span>
+<span class="gp">In [409]: </span><span class="k">print</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;this\nthat&quot;</span><span class="p">)</span>
+<span class="go">this\nthat</span>
+</pre></div>
+</div>
+<p><strong>Gotcha</strong></p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [415]: </span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\&quot;</span>
+<span class="go">SyntaxError: EOL while scanning string literal</span>
+</pre></div>
+</div>
+<p>(handy for regex, windows paths…)</p>
+</div>
+<div class="section" id="ordinal-values">
+<h3>Ordinal values<a class="headerlink" href="#ordinal-values" title="Permalink to this headline">¶</a></h3>
+<p>Characters in strings are stored as numeric values:</p>
+<ul class="simple">
+<li>“ASCII” values: 1-127</li>
+<li>Unicode values – 1 - 1,114,111 (!!!)</li>
+</ul>
+<p>To get the value:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [109]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="s1">&#39;Chris&#39;</span><span class="p">:</span>
+<span class="gp">   .....: </span>    <span class="k">print</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="go">67 104 114 105 115</span>
+<span class="gp">In [110]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">67</span><span class="p">,</span><span class="mi">104</span><span class="p">,</span><span class="mi">114</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">115</span><span class="p">):</span>
+<span class="gp">   .....: </span>    <span class="k">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="go">Chris</span>
+</pre></div>
+</div>
+<p>(these days, stick with ASCII, or use full Unicode: more on that in a few weeks)</p>
+</div>
+<div class="section" id="building-strings">
+<h3>Building Strings<a class="headerlink" href="#building-strings" title="Permalink to this headline">¶</a></h3>
+<p>You can, but please don’t do this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span>
+</pre></div>
+</div>
+<p>(I know – we did that in the grid_printing excercise)</p>
+<p>Do this instead:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">&#39;Hello {}!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It’s much faster and safer, and easier to modify as code gets complicated.</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/string.html#string-formatting">https://docs.python.org/3/library/string.html#string-formatting</a></p>
+</div>
+<div class="section" id="old-and-new-string-formatting">
+<h3>Old and New string formatting<a class="headerlink" href="#old-and-new-string-formatting" title="Permalink to this headline">¶</a></h3>
+<p>back in early python days, there was the string formatting operator: <code class="docutils literal"><span class="pre">%</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s2">&quot; a string: </span><span class="si">%s</span><span class="s2"> and a number: </span><span class="si">%i</span><span class="s2"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is very similar to C-style string formatting (<cite>sprintf</cite>).</p>
+<p>It’s still around, and handy — but …</p>
+<p>The “new” <code class="docutils literal"><span class="pre">format()</span></code> method is more powerful and flexible, so we’ll focus on that in this class.</p>
+<p>The string <code class="docutils literal"><span class="pre">format()</span></code> method:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [62]: </span><span class="s2">&quot;A decimal integer is: {:d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">34</span><span class="p">)</span>
+<span class="gh">Out[62]: </span><span class="go">&#39;A decimal integer is: 34&#39;</span>
+
+<span class="gp">In [63]: </span><span class="s2">&quot;a floating point is: {:f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mf">34.5</span><span class="p">)</span>
+<span class="gh">Out[63]: </span><span class="go">&#39;a floating point is: 34.500000&#39;</span>
+
+<span class="gp">In [64]: </span><span class="s2">&quot;a string is the default: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;anything&quot;</span><span class="p">)</span>
+<span class="gh">Out[64]: </span><span class="go">&#39;a string is the default: anything&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-placeholders">
+<h3>Multiple placeholders:<a class="headerlink" href="#multiple-placeholders" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [65]: </span><span class="s2">&quot;the number is {} is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;five&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gh">Out[65]: </span><span class="go">&#39;the number is five is 5&#39;</span>
+
+<span class="gp">In [66]: </span><span class="s2">&quot;the first 3 numbers are {}, {}, {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="gh">Out[66]: </span><span class="go">&#39;the first 3 numbers are 1, 2, 3&#39;</span>
+</pre></div>
+</div>
+<p>The counts must agree:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [67]: </span><span class="s2">&quot;string with {} formatting {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-67-a079bc472aca&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="s2">&quot;string with {} formatting {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="ne">IndexError</span>: tuple index out of range
+</pre></div>
+</div>
+</div>
+<div class="section" id="named-placeholders">
+<h3>Named placeholders:<a class="headerlink" href="#named-placeholders" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [69]: </span><span class="s2">&quot;Hello, {name}, whaddaya know?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Joe&quot;</span><span class="p">)</span>
+<span class="gh">Out[69]: </span><span class="go">&#39;Hello, Joe, whaddaya know?&#39;</span>
+</pre></div>
+</div>
+<p>You can use values more than once, and skip values:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [73]: </span><span class="s2">&quot;Hi, {name}. Howzit, {name}?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bob&#39;</span><span class="p">)</span>
+<span class="gh">Out[73]: </span><span class="go">&#39;Hi, Bob. Howzit, Bob?&#39;</span>
+</pre></div>
+</div>
+<p>The format operator works with string variables, too:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [80]: </span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;{:d} / {:d} = {:f}&quot;</span>
+
+<span class="gp">In [81]: </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">3</span>
+
+<span class="gp">In [82]: </span><span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="p">)</span>
+<span class="gh">Out[82]: </span><span class="go">&#39;12 / 3 = 4.000000&#39;</span>
+</pre></div>
+</div>
+<p>So you can dynamically build a format string</p>
+</div>
+<div class="section" id="complex-formatting">
+<h3>Complex Formatting<a class="headerlink" href="#complex-formatting" title="Permalink to this headline">¶</a></h3>
+<p>There is a complete syntax for specifying all sorts of options.</p>
+<p>It’s well worth your while to spend some time getting to know this
+<a class="reference external" href="https://docs.python.org/3/library/string.html#format-specification-mini-language">formatting language</a>. You can accomplish a great deal just with this.</p>
+</div>
+</div>
+<div class="section" id="string-formatting-lab">
+<h2>String Formatting LAB<a class="headerlink" href="#string-formatting-lab" title="Permalink to this headline">¶</a></h2>
+<p>Let’s play with these a bit:</p>
+<p><a class="reference internal" href="../exercises/string_formatting.html#exercise-string-formatting"><span class="std std-ref">String Formatting Lab</span></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Strings</a><ul>
+<li><a class="reference internal" href="#id2">Strings</a><ul>
+<li><a class="reference internal" href="#creating-strings">Creating strings:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-methods">String Methods</a><ul>
+<li><a class="reference internal" href="#string-manipulations">String Manipulations</a></li>
+<li><a class="reference internal" href="#case-switching">Case Switching</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#string-literals">String Literals</a></li>
+<li><a class="reference internal" href="#raw-strings">Raw Strings</a></li>
+<li><a class="reference internal" href="#ordinal-values">Ordinal values</a></li>
+<li><a class="reference internal" href="#building-strings">Building Strings</a></li>
+<li><a class="reference internal" href="#old-and-new-string-formatting">Old and New string formatting</a></li>
+<li><a class="reference internal" href="#multiple-placeholders">Multiple placeholders:</a></li>
+<li><a class="reference internal" href="#named-placeholders">Named placeholders:</a></li>
+<li><a class="reference internal" href="#complex-formatting">Complex Formatting</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-formatting-lab">String Formatting LAB</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Iteration.html" title="previous chapter">Iteration</a></li>
+      <li>Next: <a href="AdvancedArgumentPassing.html" title="next chapter">Advanced Argument Passing</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/Strings.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/Strings.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

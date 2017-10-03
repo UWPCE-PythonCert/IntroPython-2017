@@ -1,0 +1,198 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Documentation &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boolean Expressions" href="Booleans.html" />
+    <link rel="prev" title="More on Functions" href="Functions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation">
+<span id="id1"></span><h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>It’s often helpful to leave information in your code about what you were
+thinking when you wrote it.</p>
+<p>This can help reduce the number of <a class="reference external" href="http://www.osnews.com/story/19266/WTFs_m">WTFs per minute</a> in reading it later.</p>
+<p>There are two approaches to this in python:</p>
+<ul class="simple">
+<li>Comments</li>
+<li>Docstrings</li>
+</ul>
+<p>Comments in Python are much the same as any other programing language.</p>
+<p>Docstrings are more unusual.</p>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>Comments go inline in the body of your code, to explain reasoning:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">frobnaglers</span> <span class="o">&gt;</span> <span class="n">whozits</span><span class="p">):</span>
+    <span class="c1"># borangas are shermed to ensure frobnagler population</span>
+    <span class="c1"># does not grow out of control</span>
+    <span class="n">sherm_the_boranga</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can use them to mark places you want to revisit later:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">partygoer</span> <span class="ow">in</span> <span class="n">partygoers</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">balloon</span> <span class="ow">in</span> <span class="n">balloons</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">cupcake</span> <span class="ow">in</span> <span class="n">cupcakes</span><span class="p">:</span>
+            <span class="c1"># TODO: Reduce time complexity here.  It&#39;s killing us</span>
+            <span class="c1">#  for large parties.</span>
+            <span class="n">resolve_party_favor</span><span class="p">(</span><span class="n">partygoer</span><span class="p">,</span> <span class="n">balloon</span><span class="p">,</span> <span class="n">cupcake</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comments-about-comments">
+<h2>Comments about comments<a class="headerlink" href="#comments-about-comments" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Be judicious in your use of comments.</li>
+<li>Use them when you need to.</li>
+<li>Make them useful.</li>
+</ul>
+</div></blockquote>
+<p>This is not useful:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">sponge</span> <span class="ow">in</span> <span class="n">sponges</span><span class="p">:</span>
+    <span class="c1"># apply soap to each sponge</span>
+    <span class="n">worker</span><span class="o">.</span><span class="n">apply_soap</span><span class="p">(</span><span class="n">sponge</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: Nothing special about Python here – basic good programing practice.</p>
+</div>
+<div class="section" id="docstrings">
+<h2>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h2>
+<p>In Python, “docstrings” are used to provide in-line documentation in a number of places.</p>
+<p>The first place we will see is in the definition of functions.</p>
+<p>As you know, to define a function you use the <code class="docutils literal"><span class="pre">def</span></code> keyword.</p>
+<p>If a “string literal” is the first thing in the function block following the
+header, it is a “docstring”:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">complex_function</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">kwarg1</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;bannana&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a value resulting from a complex calculation.&quot;&quot;&quot;</span>
+    <span class="c1"># code block here</span>
+</pre></div>
+</div>
+<p>You can then read this in an interpreter as the <code class="docutils literal"><span class="pre">__doc__</span></code> attribute of the
+function object.</p>
+<div class="section" id="a-function-docstring-should">
+<h3>A function docstring should:<a class="headerlink" href="#a-function-docstring-should" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Be a complete sentence in the form of a command describing what the function
+does.<ul>
+<li>“”“Return a list of values based on blah blah”“” is a good docstring</li>
+<li>“”“Returns a list of values based on blah blah”“” is <em>not</em> as good..</li>
+</ul>
+</li>
+<li>Have a useful single line.<ul>
+<li>If more description is needed, make the first line a complete sentence and
+add more lines below for enhancement.</li>
+</ul>
+</li>
+<li>Be enclosed with triple-quotes.<ul>
+<li>This allows for easy expansion if required at a later date</li>
+<li>Always close on the same line if the docstring is only one line.</li>
+</ul>
+</li>
+</ul>
+<p>For more information see <a class="reference external" href="http://legacy.python.org/dev/peps/pep-0257/">PEP 257: Docstring Conventions</a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Documentation</a><ul>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+<li><a class="reference internal" href="#comments-about-comments">Comments about comments</a></li>
+<li><a class="reference internal" href="#docstrings">Docstrings</a><ul>
+<li><a class="reference internal" href="#a-function-docstring-should">A function docstring should:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Functions.html" title="previous chapter">More on Functions</a></li>
+      <li>Next: <a href="Booleans.html" title="next chapter">Boolean Expressions</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/Documentation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/Documentation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

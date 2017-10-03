@@ -1,0 +1,277 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Setting up OS-X for Python &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Setting up Windows for Python" href="python_for_windows.html" />
+    <link rel="prev" title="Installing Python and core tools" href="index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="setting-up-os-x-for-python">
+<span id="python-for-mac"></span><h1>Setting up OS-X for Python<a class="headerlink" href="#setting-up-os-x-for-python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="getting-the-tools">
+<h2>Getting The Tools<a class="headerlink" href="#getting-the-tools" title="Permalink to this headline">¶</a></h2>
+<p class="left">OS-X comes with Python out of the box, but not the full setup you’ll need for development or this class. It also doesn’t have the latest version(s), and no version of Python 3.</p>
+<p>So we recommend installing a new version.</p>
+<p class="left"><strong>Note</strong>:</p>
+<p class="left">If you use <code class="docutils literal"><span class="pre">macports</span></code> or <code class="docutils literal"><span class="pre">homebrew</span></code> to manage *nix software on your machine, feel free to use those for <code class="docutils literal"><span class="pre">python</span></code>, <code class="docutils literal"><span class="pre">git</span></code>, etc, as well. But make sure you have python 3.6.*</p>
+<p>If not, then read on.</p>
+<div class="section" id="terminal">
+<h3>Terminal<a class="headerlink" href="#terminal" title="Permalink to this headline">¶</a></h3>
+<p>You will need a command line terminal. The built-in “terminal” application works fine. Find it in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Applications</span><span class="o">/</span><span class="n">Utilities</span><span class="o">/</span><span class="n">Terminal</span>
+</pre></div>
+</div>
+<p>Drag it to the dock to easy access.</p>
+</div>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>While OS-X does provide python out of the box – it tends not to have the
+latest version, and you really don’t want to mess with the system
+installation. So we recommend installing an independent installation from
+<code class="docutils literal"><span class="pre">python.org</span></code>:</p>
+<p>Download the latest realease of Python (currently 3.6.2) installer from Python.org:</p>
+<p><a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+<p>Double click the installer and follow the prompts – the defaults are your best bet. Simple as that.</p>
+<p>Oddly, this does NOT install a <code class="docutils literal"><span class="pre">python</span></code> command, but rather a <code class="docutils literal"><span class="pre">python3</span></code> command. If you want to be able to simply type <code class="docutils literal"><span class="pre">python</span></code> and get python3, then you can add a symlink to the install. Type this at a terminal prompt:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /Library/Frameworks/Python.framework/Versions/3.6/bin
+$ ln -s python3.6 python
+</pre></div>
+</div>
+<p>(or an add an alias in your shell – an Unix geeks here?)</p>
+<p>Once you have done that, you should be able to type <code class="docutils literal"><span class="pre">python</span></code> at the command prompt, and get something like:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>Python <span class="m">3</span>.6.2 <span class="o">(</span>v3.6.2:5fd33b5926, Jul <span class="m">16</span> <span class="m">2017</span>, <span class="m">20</span>:11:06<span class="o">)</span>
+<span class="o">[</span>GCC <span class="m">4</span>.2.1 <span class="o">(</span>Apple Inc. build <span class="m">5666</span><span class="o">)</span> <span class="o">(</span>dot <span class="m">3</span><span class="o">)]</span> on darwin
+Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for</span> more information.
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>This is the Python interpreter.</p>
+<p>Type <code class="docutils literal"><span class="pre">ctrl+D</span></code> to get out (or <code class="docutils literal"><span class="pre">exit()</span></code>)</p>
+</div>
+<div class="section" id="pip">
+<h3>pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">pip</span></code> is the Python package installer. It is updated faster than python itself, so once you have python, you want to get the latest version of pip working:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python -m ensurepip --upgrade
+</pre></div>
+</div>
+<p>[first make sure that <code class="docutils literal"><span class="pre">python</span></code> gives you the one you want. You may need to call <code class="docutils literal"><span class="pre">python3</span></code> instead]</p>
+<p>It should download and install the latest <code class="docutils literal"><span class="pre">pip</span></code>.</p>
+<p>You can now use pip to install other packages.</p>
+</div>
+<div class="section" id="using-pip">
+<h3>Using pip:<a class="headerlink" href="#using-pip" title="Permalink to this headline">¶</a></h3>
+<p>To use pip to install a package, you invoke it with this command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">the_name_of_the_package</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal"><span class="pre">python</span></code> is the command you use to invoke the python you want to use (could be <code class="docutils literal"><span class="pre">python3</span></code>)</p>
+<p><strong>NOTE:</strong> You will frequently see advice to use pip like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install something_or_other
+</pre></div>
+</div>
+<p>Which often works, but also can invoke the <em>wrong</em> version of pip. The above command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python -m pip install something_or_other
+</pre></div>
+</div>
+<p>calls python, and tells it to run the <code class="docutils literal"><span class="pre">pip</span></code> module. It is exactly the same as calling pip directly, except that you are assured that you are getting the version of pip connected the version of python that you are running.</p>
+</div>
+<div class="section" id="ipython">
+<h3>iPython<a class="headerlink" href="#ipython" title="Permalink to this headline">¶</a></h3>
+<p>One package we are going to use in the program from the begining is <code class="docutils literal"><span class="pre">iPython</span></code>. You can install it with <code class="docutils literal"><span class="pre">pip</span></code> like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 -m pip install ipython[all]
+</pre></div>
+</div>
+<p>(it will install a LOT…).</p>
+<p>You should now be able to run <code class="docutils literal"><span class="pre">iPython</span></code>:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="go">Python 3.6.2 (v3.6.2:5fd33b5926, Jul 16 2017, 20:11:06)</span>
+<span class="go">Type &#39;copyright&#39;, &#39;credits&#39; or &#39;license&#39; for more information</span>
+<span class="go">IPython 6.1.0 -- An enhanced Interactive Python. Type &#39;?&#39; for help.</span>
+
+<span class="gp">In [1]:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="git">
+<h3>git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
+<p>git is a source code version control system. It is not strictly related to Python, but it (or a similar system) is a critical tool for software development in general, and it is very widely used in the Python community. We will be using it, along with the gitHub service, in the program to hand in assignments and support code review.</p>
+<p>You need a git client – the gitHub GUI client may be nice – I honestly don’t know, but we will be using the command line client in class.</p>
+<p>There are a couple options for a command line client.</p>
+<p>This one:</p>
+<p><a class="reference external" href="http://sourceforge.net/projects/git-osx-installer/">http://sourceforge.net/projects/git-osx-installer/</a></p>
+<p>Is a big download and install, but has everything you need out of the box.</p>
+<p>NOTE: if you get a warning like:</p>
+<p>“… can’t be opened because it is from an untrusted developer”</p>
+<p>you’ll need to go to  system preferences:</p>
+<blockquote>
+<div><p>“Security and Privacy”</p>
+<p>Then check the box saying “Open Anyway”. Or maybe check the box saying you can install untrusted packages – depends on the OS-X version.</p>
+</div></blockquote>
+<p>This one:</p>
+<p><a class="reference external" href="http://git-scm.com/download/mac">http://git-scm.com/download/mac</a></p>
+<p>Works great, but you need the XCode command line tools to run it. If you already have that, or expect to need a compiler anyway, then this is a good option.</p>
+<p>You can get XCode from the Apple App Store.</p>
+<p>(If you try running “git” on the command line after installing, it should send you there).</p>
+<p>Warning: XCode is a BIG download. Once installed, run it so it can initialize itself.</p>
+<p>After either of these is installed, the <code class="docutils literal"><span class="pre">git</span></code> command should work:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git --version
+git version <span class="m">2</span>.11.0 <span class="o">(</span>Apple Git-81<span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing-it-out">
+<h3>Testing it out<a class="headerlink" href="#testing-it-out" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>To be ready for the program, you need to have:</dt>
+<dd><ul class="first last simple">
+<li>python</li>
+<li>pip</li>
+<li>iPython</li>
+<li>git</li>
+</ul>
+</dd>
+</dl>
+<p>All available from the command line.</p>
+<p>To try it out, you should be able to run all of these commands, and get something like the following results:</p>
+<p>(recall that you can get out of the python or iPython command lines with <code class="docutils literal"><span class="pre">ctrl+D</span></code>)</p>
+<p>For Python:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>MacBook-Pro:PythonCertDevel Chris$ python
+Python <span class="m">3</span>.6.2 <span class="o">(</span>v3.6.2:5fd33b5926, Jul <span class="m">16</span> <span class="m">2017</span>, <span class="m">20</span>:11:06<span class="o">)</span>
+<span class="o">[</span>GCC <span class="m">4</span>.2.1 <span class="o">(</span>Apple Inc. build <span class="m">5666</span><span class="o">)</span> <span class="o">(</span>dot <span class="m">3</span><span class="o">)]</span> on darwin
+Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for</span> more information.
+&gt;&gt;&gt; ^D
+</pre></div>
+</div>
+<p>For iPython:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>MacBook-Pro:PythonCertDevel Chris$ ipython
+Python <span class="m">3</span>.6.2 <span class="o">(</span>v3.6.2:5fd33b5926, Jul <span class="m">16</span> <span class="m">2017</span>, <span class="m">20</span>:11:06<span class="o">)</span>
+Type <span class="s1">&#39;copyright&#39;</span>, <span class="s1">&#39;credits&#39;</span> or <span class="s1">&#39;license&#39;</span> <span class="k">for</span> more information
+IPython <span class="m">6</span>.1.0 -- An enhanced Interactive Python. Type <span class="s1">&#39;?&#39;</span> <span class="k">for</span> help.
+
+In <span class="o">[</span><span class="m">1</span><span class="o">]</span>:
+
+Do you really want to <span class="nb">exit</span> <span class="o">([</span>y<span class="o">]</span>/n<span class="o">)</span>? y
+</pre></div>
+</div>
+<p>For pip:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>MacBook-Pro:PythonCertDevel Chris$ python -m pip --version
+pip <span class="m">9</span>.0.1 from /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages <span class="o">(</span>python <span class="m">3</span>.6<span class="o">)</span>
+</pre></div>
+</div>
+<p>For git:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>MacBook-Pro:PythonCertDevel Chris$ git --version
+git version <span class="m">2</span>.11.0 <span class="o">(</span>Apple Git-81<span class="o">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Setting up OS-X for Python</a><ul>
+<li><a class="reference internal" href="#getting-the-tools">Getting The Tools</a><ul>
+<li><a class="reference internal" href="#terminal">Terminal</a></li>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#pip">pip</a></li>
+<li><a class="reference internal" href="#using-pip">Using pip:</a></li>
+<li><a class="reference internal" href="#ipython">iPython</a></li>
+<li><a class="reference internal" href="#git">git</a></li>
+<li><a class="reference internal" href="#testing-it-out">Testing it out</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Installing Python and core tools</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Installing Python and core tools</a></li>
+      <li>Next: <a href="python_for_windows.html" title="next chapter">Setting up Windows for Python</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/supplemental/installing/python_for_mac.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/supplemental/installing/python_for_mac.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

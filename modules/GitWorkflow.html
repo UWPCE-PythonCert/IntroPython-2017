@@ -1,0 +1,207 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Git Workflow &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Tutorial" href="Tutorial.html" />
+    <link rel="prev" title="Git" href="Git.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="git-workflow">
+<span id="id1"></span><h1>Git Workflow<a class="headerlink" href="#git-workflow" title="Permalink to this headline">¶</a></h1>
+<p>Here is an example of the steps you should take every time you write code. In the following instructions, we
+are very explicit for those new to git/bash, so once you have created your home directory within the students
+directory, this overview may be all you need for future work.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>make sure you are on correct branch<span class="o">]</span>
+$ git checkout master
+
+<span class="o">[</span>get any changes from class repository<span class="o">]</span>
+$ git pull upstream master
+
+<span class="o">[</span><span class="k">if</span> there are changes, go ahead and push them to your repository<span class="o">]</span>
+$ git push
+
+<span class="o">[</span>make sure you are in your student directory, <span class="k">do</span> work<span class="o">]</span>
+<span class="o">[</span>verify you are happy with changes<span class="o">]</span>
+$ git status
+
+<span class="o">[</span>add your changes to what will be committed<span class="o">]</span>
+$ git add .
+
+<span class="o">[</span>add a good commit message<span class="o">]</span>
+$ git commit -m <span class="s1">&#39;I wrote some Python.&#39;</span>
+
+<span class="o">[</span>push your changes to your remote github account<span class="o">]</span>
+$ git push
+
+<span class="o">[</span>make a pull request on the GitHub website<span class="o">]</span>
+</pre></div>
+</div>
+<p>In this example, we will be setting up an individual folder for yourself inside our class repository, initiated with a README.</p>
+<p>When you start a new project, you should create a folder within this folder for that particular project.
+Note that when you start doing projects on your own, you will want to create a whole new repository for each project.</p>
+<p>So, once you have created your directory, and are starting a new project, this will look something like this (for marie_curie working on her mailroom exercise):</p>
+<p>students/marie_curie/mailroom</p>
+<p>Regardless of what you are working on, first make sure you don’t have anything in your repository that you forgot to commit:</p>
+<div class="build docutils container">
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> IntroPythonXXXX
+$ git status
+</pre></div>
+</div>
+</div>
+<p>Note that when git status tells you that ‘Your branch is up-to-date with ‘origin/master’,
+that does NOT mean that you are up-to-date with stuff that has been pushed to the github repository,
+only, confusingly, with what your local machine currently knows about.</p>
+<p>So, your next step is to make sure you have any changes that other people have made recently to the <em>remote</em> repository.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>$ git pull upstream master
+</pre></div>
+</div>
+<p>upstream is the name we gave to the respoitory as it sits in the UW github site. If you get an error message,
+check with the <a class="reference internal" href="Git.html#git"><span class="std std-ref">Git</span></a> documentation to make sure you set up the upstream shortcut correctly.</p>
+<p>master is the branch that you are currently pulling from that server,
+for the purpose of this class, we will always use master</p>
+</div></blockquote>
+<p>If there are changes upstream that you do not have, it is a good idea to go ahead and push these changes to
+your github account right away so they don’t confuse things:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>$ git push origin master
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note: A simple <cite>git push</cite> will usually do the right thing.</p>
+<p>For this example, you are making your personal directory, in the future you will cd into your directory,
+and create a directory for the current project (or just cd to the current project).</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> students
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir marie_curie
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> marie_curie
+</pre></div>
+</div>
+</div></blockquote>
+<p>Now you can do your coding. For this example, that is simply adding a readme.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;# Python code for UWPCE-PythonCert class, written by Marie Curie&quot;</span> &gt;&gt; README.rst
+</pre></div>
+</div>
+</div></blockquote>
+<p>Once you are done coding, always a good idea to look at what you have done.</p>
+<div class="build docutils container">
+<p>Check the status</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git status
+</pre></div>
+</div>
+<p>Add anything you want to commit to your commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git add README.rst
+</pre></div>
+</div>
+<p>Make your commit with a summary of what you have done:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git commit -m <span class="s1">&#39;added a readme file&#39;</span>
+</pre></div>
+</div>
+<p>Push your changes:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git push origin master
+</pre></div>
+</div>
+<p>origin is the default name given by git refering to the server you cloned (in this case your github repository)</p>
+<p>master is the branch that you are currently pushing to that server</p>
+</div>
+<p>Go onto GitHub, and make a pull request!</p>
+<p><a class="reference external" href="https://help.github.com/articles/creating-a-pull-request-from-a-fork/">https://help.github.com/articles/creating-a-pull-request-from-a-fork/</a></p>
+<p>(This will be a pull request from a fork rather than from a branch)</p>
+<p>You’ve pushed your own changes to that fork, and then issued pull requests to have that work merged back to the <code class="docutils literal"><span class="pre">UWPCE-PythonCert</span></code> original. An instructor will look at your code, make comments and approve your pull.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Git.html" title="previous chapter">Git</a></li>
+      <li>Next: <a href="Tutorial.html" title="next chapter">Python Tutorial</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/GitWorkflow.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/GitWorkflow.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,312 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Tutorial" href="Tutorial.html" />
+    <link rel="prev" title="Subclassing and Inheritance" href="SubclassingAndInheritance.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<div class="build left docutils container">
+<p>You’ve already seen a very basic testing strategy.</p>
+<p>You’ve written some tests using that strategy.</p>
+<p>These tests were pretty basic, and a bit awkward in places (testing error
+conditions in particular).</p>
+<p class="centered large"><strong>It gets better</strong></p>
+</div>
+<div class="section" id="test-runners">
+<h2>Test Runners<a class="headerlink" href="#test-runners" title="Permalink to this headline">¶</a></h2>
+<p>So far our tests have been limited to code in an <code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>
+block.</p>
+<ul class="build simple">
+<li>They are run only when the file is executed</li>
+<li>They are always run when the file is executed</li>
+<li>You can’t do anything else when the file is executed without running tests.</li>
+</ul>
+<div class="build docutils container">
+<p>This is not optimal.</p>
+<p>Python provides testing systems to help.</p>
+</div>
+</div>
+<div class="section" id="standard-library-unittest">
+<h2>Standard Library: <code class="docutils literal"><span class="pre">unittest</span></code><a class="headerlink" href="#standard-library-unittest" title="Permalink to this headline">¶</a></h2>
+<p>The original testing system in Python.</p>
+<p><code class="docutils literal"><span class="pre">import</span> <span class="pre">unittest</span></code></p>
+<p>More or less a port of <code class="docutils literal"><span class="pre">Junit</span></code> from Java</p>
+<p>A bit verbose: you have to write classes &amp; methods</p>
+<p>(And we haven’t covered that yet!)</p>
+</div>
+<div class="section" id="using-unittest">
+<h2>Using <code class="docutils literal"><span class="pre">unittest</span></code><a class="headerlink" href="#using-unittest" title="Permalink to this headline">¶</a></h2>
+<p>You write subclasses of the <code class="docutils literal"><span class="pre">unittest.TestCase</span></code> class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># in test.py</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">class</span> <span class="nc">MyTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_tautology</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you run the tests by using the <code class="docutils literal"><span class="pre">main</span></code> function from the <code class="docutils literal"><span class="pre">unittest</span></code>
+module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># in test.py</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This way, you can write your code in one file and test it from another:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># in my_mod.py</span>
+<span class="k">def</span> <span class="nf">my_func</span><span class="p">(</span><span class="n">val1</span><span class="p">,</span> <span class="n">val2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">val1</span> <span class="o">*</span> <span class="n">val2</span>
+
+<span class="c1"># in test_my_mod.py</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">my_mod</span> <span class="kn">import</span> <span class="n">my_func</span>
+
+<span class="k">class</span> <span class="nc">MyFuncTestCase</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_my_func</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">test_vals</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_vals</span><span class="p">)</span>
+        <span class="n">actual</span> <span class="o">=</span> <span class="n">my_func</span><span class="p">(</span><span class="o">*</span><span class="n">test_vals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="build docutils container">
+<p>The <code class="docutils literal"><span class="pre">unittest</span></code> module is pretty full featured</p>
+<p>It comes with the standard Python distribution, no installation required.</p>
+<p>It provides a wide variety of assertions for testing all sorts of situations.</p>
+<p>It allows for a setup and tear down workflow both before and after all tests and before and after each test.</p>
+<p>It’s well known and well understood.</p>
+</div>
+<div class="build docutils container">
+<p>It’s Object Oriented, and quite “heavyweight”.</p>
+<blockquote>
+<div><ul class="simple">
+<li>modeled after Java’s <code class="docutils literal"><span class="pre">junit</span></code> and it shows…</li>
+</ul>
+</div></blockquote>
+<p>It uses the framework design pattern, so knowing how to use the features
+means learning what to override.</p>
+<p>Needing to override means you have to be cautious.</p>
+<p>Test discovery is both inflexible and brittle.</p>
+<p>And there is no built-in parameterized testing.</p>
+</div>
+</div>
+<div class="section" id="other-options">
+<h2>Other Options<a class="headerlink" href="#other-options" title="Permalink to this headline">¶</a></h2>
+<p>There are several other options for running tests in Python.</p>
+<ul class="simple">
+<li><cite>Nose</cite>: <a class="reference external" href="https://nose.readthedocs.org/">https://nose.readthedocs.org/</a></li>
+<li><cite>pytest</cite>: <a class="reference external" href="http://pytest.org/latest/">http://pytest.org/latest/</a></li>
+<li>… (many frameworks supply their own test runners: e.g. django)</li>
+</ul>
+<p>Both are very capable and widely used.</p>
+</div>
+<div class="section" id="installing-pytest">
+<h2>Installing <code class="docutils literal"><span class="pre">pytest</span></code><a class="headerlink" href="#installing-pytest" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to install the package:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python3 -m pip install pytest
+</pre></div>
+</div>
+<p>Or better, use a virtualenv:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkvirtualenv testing
+$ pip install pytest
+</pre></div>
+</div>
+<p>Once this is complete, you should have a <code class="docutils literal"><span class="pre">py.test</span></code> command you can run
+at the command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ py.test
+</pre></div>
+</div>
+<p>If you have any tests in your repository, that will find and run them.</p>
+<div class="build docutils container">
+<strong>Do you?</strong></div>
+</div>
+<div class="section" id="pre-existing-tests">
+<h2>Pre-existing Tests<a class="headerlink" href="#pre-existing-tests" title="Permalink to this headline">¶</a></h2>
+<p>Let’s take a look at some examples.</p>
+<p>in <code class="docutils literal"><span class="pre">IntroPython2016\Examples\Session06</span></code></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ py.test
+</pre></div>
+</div>
+<p>You can also run py.test on a particular test file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ py.test test_random_unitest.py
+</pre></div>
+</div>
+<p>The results you should have seen when you ran <code class="docutils literal"><span class="pre">py.test</span></code> above come
+partly from these files.</p>
+<p>Let’s take a few minutes to look these files over.</p>
+</div>
+<div class="section" id="what-is-happening-here">
+<h2>What is Happening Here?<a class="headerlink" href="#what-is-happening-here" title="Permalink to this headline">¶</a></h2>
+<p>When you run the <code class="docutils literal"><span class="pre">py.test</span></code> command, <code class="docutils literal"><span class="pre">pytest</span></code> starts in your current
+working directory and searches the filesystem for things that might be tests.</p>
+<p>It follows some simple rules:</p>
+<ul class="simple">
+<li>Any python file that starts with <code class="docutils literal"><span class="pre">test_</span></code> or <code class="docutils literal"><span class="pre">_test</span></code> is imported.</li>
+<li>Any functions in them that start with <code class="docutils literal"><span class="pre">test_</span></code> are run as tests.</li>
+<li>Any classes that start with <code class="docutils literal"><span class="pre">Test</span></code> are treated similarly, with methods that begin with <code class="docutils literal"><span class="pre">test_</span></code> treated as tests.</li>
+</ul>
+<p>( don’t worry about “classes” part just yet ;-) )</p>
+</div>
+<div class="section" id="pytest">
+<h2>pytest<a class="headerlink" href="#pytest" title="Permalink to this headline">¶</a></h2>
+<p>This test running framework is simple, flexible and configurable.</p>
+<p>Read the documentation for more information:</p>
+<p><a class="reference external" href="http://pytest.org/latest/getting-started.html#getstarted">http://pytest.org/latest/getting-started.html#getstarted</a></p>
+<p>It will run <code class="docutils literal"><span class="pre">unittest</span></code> tests for you.</p>
+<p>But in addition to finding and running tests, it makes writting tests simple, and provides a bunch of nifty utilities to support more complex testing.</p>
+</div>
+<div class="section" id="test-driven-development">
+<h2>Test Driven Development<a class="headerlink" href="#test-driven-development" title="Permalink to this headline">¶</a></h2>
+<p>in the exercises dir, try:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ py.test test_cigar_party
+</pre></div>
+</div>
+<p>What we’ve just done here is the first step in what is called:</p>
+<p class="centered"><strong>Test Driven Development</strong>.</p>
+<p>A bunch of tests exist, but the code to make them pass does not yet exist.</p>
+<p>The red you see in the terminal when we run our tests is a goad to us to write the code that fixes these tests.</p>
+<p>Let’s do that next!</p>
+</div>
+<div class="section" id="id1">
+<h2>Test Driven development<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Open:</p>
+<p><code class="docutils literal"><span class="pre">exercises/test_cigar_party.py</span></code></p>
+<p>and:</p>
+<p><code class="docutils literal"><span class="pre">exercises/cigar_party.py</span></code></p>
+<p>and run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ py.teset test_cigar_party.py
+</pre></div>
+</div>
+<p>Copy both of these files into your home directory in the repo.</p>
+<p>Develop <code class="docutils literal"><span class="pre">cigar_party.py</span></code> until all the tests pass.</p>
+</div>
+<div class="section" id="lab">
+<h2>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h2>
+<p class="left">Pick an example from codingbat:</p>
+<p class="left"><code class="docutils literal"><span class="pre">http://codingbat.com</span></code></p>
+<p class="left">Do a bit of test-driven development on it:</p>
+<blockquote class="left">
+<div><ul class="simple">
+<li>run something on the web site.</li>
+<li>write a few tests using the examples from the site.</li>
+<li>then write the function, and fix it ‘till it passes the tests.</li>
+</ul>
+</div></blockquote>
+<p class="left">Do at least two of these…</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Testing</a><ul>
+<li><a class="reference internal" href="#test-runners">Test Runners</a></li>
+<li><a class="reference internal" href="#standard-library-unittest">Standard Library: <code class="docutils literal"><span class="pre">unittest</span></code></a></li>
+<li><a class="reference internal" href="#using-unittest">Using <code class="docutils literal"><span class="pre">unittest</span></code></a></li>
+<li><a class="reference internal" href="#other-options">Other Options</a></li>
+<li><a class="reference internal" href="#installing-pytest">Installing <code class="docutils literal"><span class="pre">pytest</span></code></a></li>
+<li><a class="reference internal" href="#pre-existing-tests">Pre-existing Tests</a></li>
+<li><a class="reference internal" href="#what-is-happening-here">What is Happening Here?</a></li>
+<li><a class="reference internal" href="#pytest">pytest</a></li>
+<li><a class="reference internal" href="#test-driven-development">Test Driven Development</a></li>
+<li><a class="reference internal" href="#id1">Test Driven development</a></li>
+<li><a class="reference internal" href="#lab">LAB</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="SubclassingAndInheritance.html" title="previous chapter">Subclassing and Inheritance</a></li>
+      <li>Next: <a href="Tutorial.html" title="next chapter">Python Tutorial</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/Testing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/Testing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

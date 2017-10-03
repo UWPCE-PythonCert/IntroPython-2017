@@ -1,0 +1,177 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sparse Array Exercise &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="String Formatting Lab" href="string_formatting.html" />
+    <link rel="prev" title="Slicing Lab" href="slicing.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sparse-array-exercise">
+<span id="exercise-sparse-array"></span><h1>Sparse Array Exercise<a class="headerlink" href="#sparse-array-exercise" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sparse-array">
+<h2>Sparse Array<a class="headerlink" href="#sparse-array" title="Permalink to this headline">¶</a></h2>
+<p class="medium">Goal:</p>
+<p>Learn how to emulate a built-in class.</p>
+<div class="section" id="id1">
+<h3>Sparse Array:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Oftentimes, at least in computation programming, we have large arrays of data that hold mostly zeros.</p>
+<p>These are referred to as “sparse” as the information in them is widely scattered, or sparse.</p>
+<p>Since they are mostly zeros, it can be memory and computationally efficient to store only the value that are non-zero.</p>
+<p>But you want it to look like a regular array in user code.</p>
+<p>In the real world, these are usually 2 dimensional arrays. But to keep it a bit simpler, we’ll make a 1 dimensional sparse array in this class.</p>
+<p>(feel free to make it 2d for an extra challenge!)</p>
+</div>
+<div class="section" id="a-sparse-array-class">
+<h3>A Sparse array class<a class="headerlink" href="#a-sparse-array-class" title="Permalink to this headline">¶</a></h3>
+<p>A spare array class should present to the user the same interface as a regular list.</p>
+<p>Some ideas of how to do that:</p>
+<ul class="simple">
+<li>Internally, it can store the values in a dict, with the index as the keys. So that only the indexes with non-zero values will be stored.</li>
+<li>It should take a sequence of values as an initializer:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sa</span> <span class="o">=</span> <span class="n">SparseArray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>you should be able to tell how long it is:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span>  <span class="nb">len</span><span class="p">(</span><span class="n">my_array</span><span class="p">)</span>
+
+<span class="n">This</span> <span class="n">will</span> <span class="n">give</span> <span class="n">its</span> <span class="s2">&quot;virtual&quot;</span> <span class="n">length</span> <span class="o">--</span>  <span class="k">with</span> <span class="n">the</span> <span class="n">zeros</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>It should support getting and setting particular elements via indexing:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">sa</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">sa</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># the zero won&#39;t get stored!</span>
+<span class="n">val</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="c1"># it should get a zero if not set</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>It should support deleting an element by index:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">sa</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>It should raise an <code class="docutils literal"><span class="pre">IndexError</span></code> if you try to access an index beyond the end.</li>
+<li>it should have an append() method</li>
+</ul>
+<ul class="simple">
+<li>Can you make it support slicing?</li>
+<li>How else can you  make it like a list?</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">my_array</span> <span class="o">=</span> <span class="n">SparseArray</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="p">)</span>
+<span class="gp">In [11]: </span><span class="n">my_array</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="gh">Out[11]: </span><span class="go">2</span>
+<span class="gp">In [12]: </span><span class="n">my_array</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gh">Out[12]: </span><span class="go">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sparse Array Exercise</a><ul>
+<li><a class="reference internal" href="#sparse-array">Sparse Array</a><ul>
+<li><a class="reference internal" href="#id1">Sparse Array:</a></li>
+<li><a class="reference internal" href="#a-sparse-array-class">A Sparse array class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="slicing.html" title="previous chapter">Slicing Lab</a></li>
+      <li>Next: <a href="string_formatting.html" title="next chapter">String Formatting Lab</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/sparse_array.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/sparse_array.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

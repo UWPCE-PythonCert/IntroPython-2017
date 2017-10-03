@@ -1,0 +1,245 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction to the Environment &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Functional Programming" href="../scripts/FunctionalProgramming.html" />
+    <link rel="prev" title="Dictionary as Switch" href="DictionaryAsSwitch.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction-to-the-environment">
+<h1>Introduction to the Environment<a class="headerlink" href="#introduction-to-the-environment" title="Permalink to this headline">¶</a></h1>
+<p>There are three basic elements to your environment when working with Python:</p>
+<ul class="left build simple">
+<li>The Command Line</li>
+<li>The Interpreter</li>
+<li>The Editor</li>
+</ul>
+<div class="section" id="the-command-line-cli">
+<h2>The Command Line (cli)<a class="headerlink" href="#the-command-line-cli" title="Permalink to this headline">¶</a></h2>
+<p>Having some facility on the command line is important</p>
+<p>We won’t cover this much in class, so if you are not comfortable,
+please bone up on your own.</p>
+<p>We have some resources here: <a class="reference external" href="http://uwpce-pythoncert.github.io/PythonResources/DevEnvironment/command_line.html">PythonResources–command line</a></p>
+<p>We suggest running through the <strong>cli</strong> tutorial at “learn code the hard way”:</p>
+<p><a class="reference external" href="http://cli.learncodethehardway.org/book/">http://cli.learncodethehardway.org/book/</a></p>
+<p><strong>Windows:</strong></p>
+<p>Most of the demos in class, etc, will be done using the “bash” command line shell on OS-X. This is identical to the bash shell on Linux.</p>
+<p>Windows provides the “DOS” command line, which is OK, but pretty old and limited, or “Power Shell” – a more modern, powerful, flexible command shell.</p>
+<p>If you are comfortable with either of these – go for it.</p>
+<p>If not, you can use the “git Bash” shell – which is much like the bash shell on OS-X and Linux. Or, on Windows 10, look into the “bash shell for Windows” otherwise known as the “Linux system” - - more info here: <a class="reference external" href="http://uwpce-pythoncert.github.io/PythonResources/DevEnvironment/windows_bash.html">PythonResources–Windows Bash</a></p>
+</div>
+<div class="section" id="the-interpreter">
+<h2>The Interpreter<a class="headerlink" href="#the-interpreter" title="Permalink to this headline">¶</a></h2>
+<p>Python comes with a built-in interpreter.</p>
+<p>You see it when you type <code class="docutils literal"><span class="pre">python</span></code> at the command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python
+Python <span class="m">3</span>.6.1 <span class="o">(</span>v3.5.2:4def2a2901a5, Jun <span class="m">26</span> <span class="m">2016</span>, <span class="m">10</span>:47:25<span class="o">)</span>
+<span class="o">[</span>GCC <span class="m">4</span>.2.1 <span class="o">(</span>Apple Inc. build <span class="m">5666</span><span class="o">)</span> <span class="o">(</span>dot <span class="m">3</span><span class="o">)]</span> on darwin
+Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for</span> more information.
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>That last thing you see, <code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></code> is the “Python prompt”.</p>
+<p>This is where you type code.</p>
+</div>
+<div class="section" id="python-in-the-interpreter">
+<h2>Python in the Interpreter<a class="headerlink" href="#python-in-the-interpreter" title="Permalink to this headline">¶</a></h2>
+<p>Try it out:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;hello world!&quot;</span><span class="p">)</span>
+<span class="go">hello world!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">4</span> <span class="o">+</span> <span class="mi">5</span>
+<span class="go">9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span> <span class="o">**</span> <span class="mi">8</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="go">255</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="p">(</span><span class="s2">&quot;one string&quot;</span> <span class="o">+</span> <span class="s2">&quot; plus another&quot;</span><span class="p">)</span>
+<span class="go">one string plus another</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>When you are in an interpreter, there are a number of tools available to
+you.</p>
+<p>There is a help system:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="go">Help on class str in module __builtin__:</span>
+
+<span class="go">class str(basestring)</span>
+<span class="go"> |  str(object=&#39;&#39;) -&gt; string</span>
+<span class="go"> |</span>
+<span class="go"> |  Return a nice string representation of the object.</span>
+<span class="go"> |  If the argument is a string, the return value is the same object.</span>
+<span class="go"> ...</span>
+</pre></div>
+</div>
+<p>You can type <code class="docutils literal"><span class="pre">q</span></code> to exit the help viewer.</p>
+<p>You can also use the <code class="docutils literal"><span class="pre">dir</span></code> builtin to find out about the attributes of a
+given object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bob</span> <span class="o">=</span> <span class="s2">&quot;this is a string&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">bob</span><span class="p">)</span>
+<span class="go">[&#39;__add__&#39;, &#39;__class__&#39;, &#39;__contains__&#39;, &#39;__delattr__&#39;,</span>
+<span class="go"> &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;,</span>
+<span class="go"> &#39;__getitem__&#39;, &#39;__getnewargs__&#39;, &#39;__getslice__&#39;, &#39;__gt__&#39;,</span>
+<span class="go"> ...</span>
+<span class="go"> &#39;rjust&#39;, &#39;rpartition&#39;, &#39;rsplit&#39;, &#39;rstrip&#39;, &#39;split&#39;, &#39;splitlines&#39;,</span>
+<span class="go"> &#39;startswith&#39;, &#39;strip&#39;, &#39;swapcase&#39;, &#39;title&#39;, &#39;translate&#39;, &#39;upper&#39;,</span>
+<span class="go"> &#39;zfill&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">bob</span><span class="o">.</span><span class="n">rpartition</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This allows you quite a bit of latitude in exploring what Python is.</p>
+<p>In addition to the built-in interpreter, there are several more advanced
+interpreters available to you.</p>
+<p>We’ll be using one in this course called <code class="docutils literal"><span class="pre">iPython</span></code></p>
+<p>More on this soon.</p>
+</div>
+<div class="section" id="the-editor">
+<h2>The Editor<a class="headerlink" href="#the-editor" title="Permalink to this headline">¶</a></h2>
+<p>Typing code in an interpreter is great for exploring.</p>
+<p>But for anything “real”, you’ll want to save the work you are doing in a more permanent
+fashion.</p>
+<p>This is where an Editor fits in.</p>
+<p>Any good text editor will do.</p>
+<p>MS Word is <strong>not</strong> a text editor.</p>
+<p>Nor is <em>TextEdit</em> on a Mac.</p>
+<p><code class="docutils literal"><span class="pre">Notepad</span></code> on Windows is a text editor – but a crappy one.</p>
+<p>You need a real “programmers text editor”</p>
+<p>A text editor saves only what it shows you, with no special formatting
+characters hidden behind the scenes.</p>
+<p>At a minimum, your editor should have:</p>
+<ul class="build simple">
+<li>Syntax Colorization</li>
+<li>Automatic Indentation</li>
+</ul>
+<p>In addition, great features to add include:</p>
+<ul class="build simple">
+<li>Tab completion</li>
+<li>Code linting</li>
+<li>Jump-to-definition</li>
+</ul>
+<p>Have an editor that does all this? Feel free to use it.</p>
+<p>If not, we recommend <code class="docutils literal"><span class="pre">SublimeText</span></code>:</p>
+<p><a class="reference external" href="http://www.sublimetext.com/">http://www.sublimetext.com/</a></p>
+<p>Use version 3.</p>
+<p><a class="reference external" href="http://uwpce-pythoncert.github.io/PythonResources/DevEnvironment/sublime_as_ide.html">http://uwpce-pythoncert.github.io/PythonResources/DevEnvironment/sublime_as_ide.html</a></p>
+<p>“Atom” is another good open source option.</p>
+<p><a class="reference external" href="https://atom.io/">https://atom.io/</a></p>
+<p>And, of course, vim or Emacs on Linux, if you are familiar with those.</p>
+</div>
+<div class="section" id="why-no-ide">
+<h2>Why No IDE?<a class="headerlink" href="#why-no-ide" title="Permalink to this headline">¶</a></h2>
+<p>An IDE does not give you much that you can’t get with a good editor plus a good interpreter.</p>
+<p>An IDE often weighs a great deal</p>
+<p>Setting up IDEs to work with different projects can be challenging and time-consuming.</p>
+<p>Particularly when you are first learning, you don’t want too much done for you.</p>
+</div>
+<div class="section" id="why-not-an-ide">
+<h2>Why Not an IDE?<a class="headerlink" href="#why-not-an-ide" title="Permalink to this headline">¶</a></h2>
+<p>That said …</p>
+<p>You may want to go get the educational edition of PyCharm:</p>
+<p><a class="reference external" href="https://www.jetbrains.com/pycharm-edu/">https://www.jetbrains.com/pycharm-edu/</a></p>
+<p>Which is awesome.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction to the Environment</a><ul>
+<li><a class="reference internal" href="#the-command-line-cli">The Command Line (cli)</a></li>
+<li><a class="reference internal" href="#the-interpreter">The Interpreter</a></li>
+<li><a class="reference internal" href="#python-in-the-interpreter">Python in the Interpreter</a></li>
+<li><a class="reference internal" href="#the-editor">The Editor</a></li>
+<li><a class="reference internal" href="#why-no-ide">Why No IDE?</a></li>
+<li><a class="reference internal" href="#why-not-an-ide">Why Not an IDE?</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="DictionaryAsSwitch.html" title="previous chapter">Dictionary as Switch</a></li>
+      <li>Next: <a href="../scripts/FunctionalProgramming.html" title="next chapter">Functional Programming</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/EnvironmentOverview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/EnvironmentOverview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

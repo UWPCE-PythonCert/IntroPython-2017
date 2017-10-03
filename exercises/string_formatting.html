@@ -1,0 +1,187 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>String Formatting Lab &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Trapezoidal Rule" href="trapezoid.html" />
+    <link rel="prev" title="Sparse Array Exercise" href="sparse_array.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="string-formatting-lab">
+<span id="exercise-string-formatting"></span><h1>String Formatting Lab<a class="headerlink" href="#string-formatting-lab" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="building-up-strings">
+<h2>Building up strings<a class="headerlink" href="#building-up-strings" title="Permalink to this headline">¶</a></h2>
+<p class="left">For reference:</p>
+<p>The official reference docs:</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/string.html#string-formatting">https://docs.python.org/3/library/string.html#string-formatting</a></p>
+<p>And a more human-readable intro:</p>
+<p><a class="reference external" href="https://pyformat.info/">https://pyformat.info/</a></p>
+<p>And a nice “Cookbook”:</p>
+<p><a class="reference external" href="https://mkaz.tech/python-string-format.html">https://mkaz.tech/python-string-format.html</a></p>
+<div class="section" id="a-couple-exercises">
+<h3>A Couple Exercises<a class="headerlink" href="#a-couple-exercises" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Write a format string that will take:</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">(</span> <span class="pre">2,</span> <span class="pre">123.4567,</span> <span class="pre">10000)</span></code></p>
+<p>and produce:</p>
+<p><code class="docutils literal"><span class="pre">'file_002</span> <span class="pre">:</span>&#160;&#160; <span class="pre">123.46,</span> <span class="pre">1.00e+04'</span></code></p>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>Note:</strong> the idea behind the “file_002” is that if you have a bunch of files that you want to name with numbers that can be sorted, you need to “pad” the numbers with zeros to get the right sort order.</p>
+<p>For example:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;file1&#39;</span><span class="p">,</span> <span class="s1">&#39;file2&#39;</span><span class="p">,</span> <span class="s1">&#39;file10&#39;</span><span class="p">,</span> <span class="s1">&#39;file11&#39;</span><span class="p">]</span>
+<span class="gp">In [11]: </span><span class="n">fnames</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="gp">In [12]: </span><span class="n">fnames</span>
+<span class="gh">Out[12]: </span><span class="go">[&#39;file1&#39;, &#39;file10&#39;, &#39;file11&#39;, &#39;file2&#39;]</span>
+</pre></div>
+</div>
+<p>That is probably not what you want. However:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;file001&#39;</span><span class="p">,</span> <span class="s1">&#39;file002&#39;</span><span class="p">,</span> <span class="s1">&#39;file010&#39;</span><span class="p">,</span> <span class="s1">&#39;file011&#39;</span><span class="p">]</span>
+<span class="gp">In [3]: </span><span class="nb">sorted</span><span class="p">(</span><span class="n">fnames</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">[&#39;file001&#39;, &#39;file002&#39;, &#39;file010&#39;, &#39;file011&#39;]</span>
+</pre></div>
+</div>
+<p>That works!</p>
+<p>So you want to find a string formatting operator that will “pad” the number with zeros for you.</p>
+</div>
+<div class="section" id="dynamically-building-up-format-strings">
+<h3>Dynamically Building up format strings<a class="headerlink" href="#dynamically-building-up-format-strings" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Rewrite:</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">&quot;the</span> <span class="pre">3</span> <span class="pre">numbers</span> <span class="pre">are:</span> <span class="pre">{:d},</span> <span class="pre">{:d},</span> <span class="pre">{:d}&quot;.format(1,2,3)</span></code></p>
+<p>to take an arbitrary number of values.</p>
+<p>Trick: You can pass in a tuple of values to a function with a <code class="docutils literal"><span class="pre">*</span></code>:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [52]: </span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="gp">In [53]: </span><span class="s2">&quot;the 3 numbers are: {:d}, {:d}, {:d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gh">Out[53]: </span><span class="go">&#39;the 3 numbers are: 1, 2, 3&#39;</span>
+</pre></div>
+</div>
+<p>The idea here is that you may have a tuple of three numbers, but might also have 4 or 5 or….</p>
+<p>So you can dynamically build up the format string to accommodate the length of the tuple.</p>
+<p>The string object has the <code class="docutils literal"><span class="pre">format()</span></code> method, so you can call it with a string that is bound to a name, not just a string literal. For example:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">fstring</span> <span class="o">=</span> <span class="s2">&quot;{:d}, {:d}&quot;</span>
+
+<span class="gp">In [17]: </span><span class="n">nums</span> <span class="o">=</span> <span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">56</span><span class="p">)</span>
+
+<span class="gp">In [18]: </span><span class="n">fstring</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">nums</span><span class="p">)</span>
+<span class="gh">Out[18]: </span><span class="go">&#39;34, 56&#39;</span>
+</pre></div>
+</div>
+<p>So how would you make an fstring that was the right length for an arbitrary tuple?</p>
+<p>Put your code in a function that will return the formatted string like so:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [20]: </span><span class="n">formatter</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="gh">Out[20]: </span><span class="go">&#39;the 3 numbers are: 2, 3, 5&#39;</span>
+
+<span class="gp">In [21]: </span><span class="n">formatter</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="gh">Out[21]: </span><span class="go">&#39;the 5 numbers are: 2, 3, 5, 7, 9&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">String Formatting Lab</a><ul>
+<li><a class="reference internal" href="#building-up-strings">Building up strings</a><ul>
+<li><a class="reference internal" href="#a-couple-exercises">A Couple Exercises</a></li>
+<li><a class="reference internal" href="#dynamically-building-up-format-strings">Dynamically Building up format strings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="sparse_array.html" title="previous chapter">Sparse Array Exercise</a></li>
+      <li>Next: <a href="trapezoid.html" title="next chapter">Trapezoidal Rule</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/string_formatting.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/string_formatting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

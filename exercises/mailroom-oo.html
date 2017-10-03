@@ -1,0 +1,253 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mailroom Object Oriented &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Roman/Arabic Numeral Converter" href="roman.html" />
+    <link rel="prev" title="Mailroom" href="mailroom.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mailroom-object-oriented">
+<span id="exercise-mailroom-oo"></span><h1>Mailroom Object Oriented<a class="headerlink" href="#mailroom-object-oriented" title="Permalink to this headline">¶</a></h1>
+<p>Making Mailroom Object Oriented</p>
+<div class="section" id="a-complete-program">
+<h2>A complete program<a class="headerlink" href="#a-complete-program" title="Permalink to this headline">¶</a></h2>
+<p>It was quite resonable to build the simple MailRoom program using a
+single module, a simple data structure, and functions that manipulate
+that data structure.</p>
+<p>But if one were to expand the program with additional functionality, it
+would start to get a bit unwieldy and hard to maintain.</p>
+<p>So it’s a pretty good candidate for an object-oriented approach.</p>
+</div>
+<div class="section" id="goal">
+<h2>Goal:<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<p>Refactor the mailroom program using classes to help organise the code.</p>
+</div>
+<div class="section" id="the-program">
+<h2>The program<a class="headerlink" href="#the-program" title="Permalink to this headline">¶</a></h2>
+<p>Write a small command-line script called <code class="docutils literal"><span class="pre">mailroom.py</span></code>. This script should be executable. The script should accomplish the following goals:</p>
+<ul class="simple">
+<li>It should have a data structure that holds a list of your donors and a
+history of the amounts they have donated. This structure should be populated
+at first with at least five donors, with between 1 and 3 donations each</li>
+<li>The script should prompt the user (you) to choose from a menu of 3 actions:
+‘Send a Thank You’ or ‘Create a Report’ or ‘quit’)</li>
+</ul>
+</div>
+<div class="section" id="sending-a-thank-you">
+<h2>Sending a Thank You<a class="headerlink" href="#sending-a-thank-you" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>If the user (you) selects ‘Send a Thank You’, prompt for a Full Name.<ul>
+<li>If the user types ‘list’, show them a list of the donor names and re-prompt</li>
+<li>If the user types a name not in the list, add that name to the data structure and use it.</li>
+<li>If the user types a name in the list, use it.</li>
+<li>Once a name has been selected, prompt for a donation amount.</li>
+<li>Turn the amount into a number – it is OK at this point for the program to crash if someone types a bogus amount.</li>
+<li>Once an amount has been given, add that amount to the donation history of
+the selected user.</li>
+<li>Finally, use string formatting to compose an email thanking the donor for
+their generous donation. Print the email to the terminal and return to the
+original prompt.</li>
+</ul>
+</li>
+</ul>
+<p><strong>It is fine to forget new donors once the script quits running.</strong></p>
+</div>
+<div class="section" id="creating-a-report">
+<h2>Creating a Report<a class="headerlink" href="#creating-a-report" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>If the user (you) selected ‘Create a Report’ print a list of your donors,
+sorted by total historical donation amount.<ul>
+<li>Include Donor Name, total donated, number of donations and average donation amount as values in each row. You do not need to print out all their donations, just the summary info.</li>
+<li>Using string formatting, format the output rows as nicely as possible.  The end result should be tabular (values in each column should align with those above and below)</li>
+<li>After printing this report, return to the original prompt.</li>
+</ul>
+</li>
+<li>At any point, the user should be able to quit their current task and return
+to the original prompt.</li>
+<li>From the original prompt, the user should be able to quit the script cleanly</li>
+</ul>
+<p>Your report should look something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Donor Name                | Total Given | Num Gifts | Average Gift
+------------------------------------------------------------------
+William Gates, III         $  653784.49           2  $   326892.24
+Mark Zuckerberg            $   16396.10           3  $     5465.37
+Jeff Bezos                 $     877.33           1  $      877.33
+Paul Allen                 $     708.42           3  $      236.14
+</pre></div>
+</div>
+</div>
+<div class="section" id="guidelines">
+<h2>Guidelines<a class="headerlink" href="#guidelines" title="Permalink to this headline">¶</a></h2>
+<p>First, factor your script into separate functions. Each of the above
+tasks can be accomplished by a series of steps.  Write discreet functions
+that accomplish individual steps and call them.</p>
+<p>Second, use loops to control the logical flow of your program. Interactive
+programs are a classic use-case for the <code class="docutils literal"><span class="pre">while</span></code> loop.</p>
+<p>Of course, <code class="docutils literal"><span class="pre">input()</span></code> will be useful here.</p>
+<p>Put the functions you write into the script at the top.</p>
+<p>Put your main interaction into an <code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__'</span></code> block.</p>
+<p>Finally, use only functions and the basic Python data types you’ve learned
+about so far. There is no need to go any farther than that for this assignment.</p>
+</div>
+<div class="section" id="submission">
+<h2>Submission<a class="headerlink" href="#submission" title="Permalink to this headline">¶</a></h2>
+<p>As always, put the new file in your student directory in a <code class="docutils literal"><span class="pre">session03</span></code>
+directory, and add it to your clone early. Make frequent commits with
+good, clear messages about what you are doing and why.</p>
+<p>When you are done, push your changes and make a pull request.</p>
+</div>
+<div class="section" id="adding-dicts">
+<span id="exercise-mailroom-plus"></span><h2>Adding dicts…<a class="headerlink" href="#adding-dicts" title="Permalink to this headline">¶</a></h2>
+<p>For the next week (after Session04)</p>
+<p>You should have been able to do all that with the basic data types:</p>
+<p>numbers, strings, lists and tuples.</p>
+<p>But once you’ve learned about dictionaries (Session04) you may be able to re-write it a bit more simply and efficiently.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Update mailroom from last week to:</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Use dicts where appropriate</li>
+<li>Write a full set of letters to everyone to individual files on disk</li>
+<li>See if you can use a dict to switch between the users selections</li>
+<li>Try to use a dict and the .format() method to do the letter as one
+big template – rather than building up a big string in parts.</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="n">d</span>
+<span class="gh">Out[3]: </span><span class="go">{&#39;first_name&#39;: &#39;Chris&#39;, &#39;last_name&#39;: &#39;Barker&#39;}</span>
+
+
+<span class="gp">In [5]: </span><span class="s2">&quot;My name is {first_name} {last_name}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">&#39;My name is Chris Barker&#39;</span>
+</pre></div>
+</div>
+<p>Don’t worry too much about the “**” – we’ll get into the details later, but for now, it means, more or less – pass this whole dict in as a bunch of keyword arguments.</p>
+</div>
+<div class="section" id="adding-exceptions">
+<span id="exercise-mailroom-exeptions"></span><h2>Adding Exceptions<a class="headerlink" href="#adding-exceptions" title="Permalink to this headline">¶</a></h2>
+<p><strong>After Session05:</strong></p>
+<ul class="simple">
+<li>Exceptions:</li>
+</ul>
+<p>Now that you’ve learned about Exception handling, you can update your code to handle errors better – like when a user inputs bad data.</p>
+<ul class="simple">
+<li>Comprehensions:</li>
+</ul>
+<p>Can you use comprehensions to clean up your code a bit?</p>
+<ul class="simple">
+<li>Tests</li>
+</ul>
+<p>Add some tests..</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Mailroom Object Oriented</a><ul>
+<li><a class="reference internal" href="#a-complete-program">A complete program</a></li>
+<li><a class="reference internal" href="#goal">Goal:</a></li>
+<li><a class="reference internal" href="#the-program">The program</a></li>
+<li><a class="reference internal" href="#sending-a-thank-you">Sending a Thank You</a></li>
+<li><a class="reference internal" href="#creating-a-report">Creating a Report</a></li>
+<li><a class="reference internal" href="#guidelines">Guidelines</a></li>
+<li><a class="reference internal" href="#submission">Submission</a></li>
+<li><a class="reference internal" href="#adding-dicts">Adding dicts…</a></li>
+<li><a class="reference internal" href="#adding-exceptions">Adding Exceptions</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="mailroom.html" title="previous chapter">Mailroom</a></li>
+      <li>Next: <a href="roman.html" title="next chapter">Roman/Arabic Numeral Converter</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/exercises/mailroom-oo.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/exercises/mailroom-oo.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

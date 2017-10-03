@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dictionary as Switch &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Context Managers" href="ContextManagers.html" />
+    <link rel="prev" title="Advanced Argument Passing" href="AdvancedArgumentPassing.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dictionary-as-switch">
+<h1>Dictionary as Switch<a class="headerlink" href="#dictionary-as-switch" title="Permalink to this headline">¶</a></h1>
+<p>Python does not have a switch/case statement.  Why not?</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-3103/">https://www.python.org/dev/peps/pep-3103/</a></p>
+<p>What to use instead of “switch-case”?</p>
+<div class="section" id="switch-case">
+<h2>Switch case<a class="headerlink" href="#switch-case" title="Permalink to this headline">¶</a></h2>
+<p>Many languages have a “switch-case” construct:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">switch</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">case</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;zero&quot;</span><span class="p">;</span>
+    <span class="n">case</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;one&quot;</span><span class="p">;</span>
+    <span class="n">case</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;two&quot;</span><span class="p">;</span>
+    <span class="n">default</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;nothing&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>How do you say this in Python?</p>
+</div>
+<div class="section" id="if-elif-chains">
+<h2><code class="docutils literal"><span class="pre">if-elif</span></code> chains<a class="headerlink" href="#if-elif-chains" title="Permalink to this headline">¶</a></h2>
+<p>The obvious way to say it is a chain of <code class="docutils literal"><span class="pre">elif</span></code> statements:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">argument</span> <span class="o">==</span>  <span class="mi">0</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;zero&quot;</span>
+<span class="k">elif</span> <span class="n">argument</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;one&quot;</span>
+<span class="k">elif</span> <span class="n">argument</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;two&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;nothing&quot;</span>
+</pre></div>
+</div>
+<p>And there is nothing wrong with that, but….</p>
+</div>
+<div class="section" id="dict-as-switch">
+<h2>Dict as switch<a class="headerlink" href="#dict-as-switch" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">elif</span></code> chain is neither elegant nor efficient. There are a number of ways to say it in python – but one elegant one is to use a dict:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">arg_dict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;two&quot;</span><span class="p">}</span>
+    <span class="nb">dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="s2">&quot;nothing&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simple, elegant and fast.</p>
+<p>You can do a dispatch table by putting functions as the value.</p>
+<p>Example: Chris’ mailroom2 solution.</p>
+</div>
+<div class="section" id="switch-with-functions">
+<h2>Switch with functions<a class="headerlink" href="#switch-with-functions" title="Permalink to this headline">¶</a></h2>
+<p>What would this be like if you used functions instead? Think of the possibilities.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="k">def</span> <span class="nf">my_zero_func</span><span class="p">():</span>
+<span class="go">return &quot;I&#39;m zero&quot;</span>
+
+<span class="gp">In [12]: </span><span class="k">def</span> <span class="nf">my_one_func</span><span class="p">():</span>
+<span class="go">    return &quot;I&#39;m one&quot;</span>
+
+<span class="gp">In [13]: </span><span class="n">switch_func_dict</span> <span class="o">=</span> <span class="p">{</span>
+<span class="go">    0: my_zero_func,</span>
+<span class="go">    1: my_one_func,</span>
+<span class="go">}</span>
+
+<span class="gp">In [14]: </span><span class="n">switch_func_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)()</span>
+<span class="gh">Out[14]: </span><span class="go">&quot;I&#39;m zero&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dictionary as Switch</a><ul>
+<li><a class="reference internal" href="#switch-case">Switch case</a></li>
+<li><a class="reference internal" href="#if-elif-chains"><code class="docutils literal"><span class="pre">if-elif</span></code> chains</a></li>
+<li><a class="reference internal" href="#dict-as-switch">Dict as switch</a></li>
+<li><a class="reference internal" href="#switch-with-functions">Switch with functions</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="AdvancedArgumentPassing.html" title="previous chapter">Advanced Argument Passing</a></li>
+      <li>Next: <a href="ContextManagers.html" title="next chapter">Context Managers</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/DictionaryAsSwitch.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/DictionaryAsSwitch.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

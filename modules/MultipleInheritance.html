@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Multiple Inheritance &#8212; PythonCert 4.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Composition" href="Composition.html" />
+    <link rel="prev" title="Special Methods &amp; Protocols" href="SpecialMethodsAndProtocols.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="multiple-inheritance">
+<h1>Multiple Inheritance<a class="headerlink" href="#multiple-inheritance" title="Permalink to this headline">¶</a></h1>
+<p>Multiple inheritance: Inheriting from more than one class.</p>
+<p>Simply provide more than one parent.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Combined</span><span class="p">(</span><span class="n">Parent1</span><span class="p">,</span> <span class="n">Parent2</span><span class="p">,</span> <span class="n">Parent3</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="p">,</span> <span class="n">something</span> <span class="k">else</span><span class="p">):</span>
+        <span class="c1"># some custom initialization here.</span>
+        <span class="n">Parent1</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">......</span><span class="p">)</span>
+        <span class="n">Parent2</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">......</span><span class="p">)</span>
+        <span class="n">Parent3</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">......</span><span class="p">)</span>
+        <span class="c1"># possibly more custom initialization</span>
+</pre></div>
+</div>
+<p>Calls to the parent class <code class="docutils literal"><span class="pre">__init__</span></code>  are optional and case dependent.</p>
+<div class="section" id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>What was the purpose behind inheritance?</p>
+<p>Code reuse.</p>
+<p>What is the purpose behind multiple inheritance?</p>
+<p>Code reuse.</p>
+<p>What wasn’t the purpose of inheritance?</p>
+<p>Building massive class hierarchies for their own sake.</p>
+<p>What isn’t the purpose of multiple inheritance?</p>
+<p>Building massive class hierarchies for their own sake.</p>
+</div>
+<div class="section" id="python-s-multiple-inheritance-model">
+<h2>Python’s Multiple Inheritance Model<a class="headerlink" href="#python-s-multiple-inheritance-model" title="Permalink to this headline">¶</a></h2>
+<p>Cooperative Multiple Inheritance</p>
+<p>Emphasis on cooperative!</p>
+<ul class="simple">
+<li>Play by the rules and everybody benefits (parents, descendants).</li>
+<li>Play by the rules and nobody gets hurt (yourself, mostly).</li>
+<li>We’re all adults here.</li>
+</ul>
+<p>What could go wrong?</p>
+</div>
+<div class="section" id="the-diamond-problem">
+<h2>The Diamond Problem<a class="headerlink" href="#the-diamond-problem" title="Permalink to this headline">¶</a></h2>
+<p>With Python “new style” classes everything is descended from ‘object’.  Thus, the moment you invoke multiple inheritance you have the diamond problem.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem</a></p>
+</div>
+<div class="section" id="super">
+<h2><code class="docutils literal"><span class="pre">super()</span></code><a class="headerlink" href="#super" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">super()</span></code>: use it to call a superclass method, rather than explicitly calling the unbound method on the superclass.</p>
+<p>instead of:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">B</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">argw</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>You can do:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">argw</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mro-method-resolution-order">
+<h2>MRO: Method Resolution Order<a class="headerlink" href="#mro-method-resolution-order" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Combined</span><span class="p">(</span><span class="n">Super1</span><span class="p">,</span> <span class="n">Super2</span><span class="p">,</span> <span class="n">Super3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Attributes are located bottom-to-top, left-to-right</p>
+<ul class="simple">
+<li>Is it an instance attribute ?</li>
+<li>Is it a class attribute ?</li>
+<li>Is it a superclass attribute ?<ul>
+<li>Is  it an attribute of the left-most superclass?</li>
+<li>Is  it an attribute of the next superclass?</li>
+<li>and so on up the hierarchy…</li>
+</ul>
+</li>
+<li>Is it a super-superclass attribute ?</li>
+<li>… also left to right …</li>
+</ul>
+<p><a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">http://python-history.blogspot.com/2010/06/method-resolution-order.html</a></p>
+</div>
+<div class="section" id="super-s-superpowers">
+<h2>Super’s Superpowers<a class="headerlink" href="#super-s-superpowers" title="Permalink to this headline">¶</a></h2>
+<p>It works out – dynamically at runtime – which classes are in the delegation order.</p>
+<p>Do not be afraid.  And be very afraid.</p>
+</div>
+<div class="section" id="dependency-injection">
+<h2>Dependency Injection<a class="headerlink" href="#dependency-injection" title="Permalink to this headline">¶</a></h2>
+<p>Super() is the right way to do dependency injection.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Dependency_injection">https://en.wikipedia.org/wiki/Dependency_injection</a></p>
+<p>Compare with Monkey Patching as done in other languages.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Monkey_patch">https://en.wikipedia.org/wiki/Monkey_patch</a></p>
+</div>
+<div class="section" id="argument-passing">
+<h2>Argument Passing<a class="headerlink" href="#argument-passing" title="Permalink to this headline">¶</a></h2>
+<p>Remember that super does not only delegate to your superclass, it delegates to any class in the MRO.</p>
+<p>Therefore you must be prepared to call any other class’s method in the hierarchy and be prepared to be called from any other class’s method.</p>
+<p>The general rule is to pass all arguments you received on to the super function.  If classes can take differing arguments, accept <a href="#id1"><span class="problematic" id="id2">*</span></a>args and <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs.</p>
+</div>
+<div class="section" id="two-seminal-articles">
+<h2>Two seminal articles<a class="headerlink" href="#two-seminal-articles" title="Permalink to this headline">¶</a></h2>
+<p>“Super Considered Harmful” – James Knight</p>
+<p><a class="reference external" href="https://fuhm.net/super-harmful/">https://fuhm.net/super-harmful/</a></p>
+<p>“Super() considered super!”  –  Raymond Hettinger</p>
+<p><a class="reference external" href="http://rhettinger.wordpress.com/2011/05/26/super-considered-super/">http://rhettinger.wordpress.com/2011/05/26/super-considered-super/</a></p>
+<p><a class="reference external" href="https://youtu.be/EiOglTERPEo">https://youtu.be/EiOglTERPEo</a></p>
+<p>Both perspectives worth your consideration.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Multiple Inheritance</a><ul>
+<li><a class="reference internal" href="#purpose">Purpose</a></li>
+<li><a class="reference internal" href="#python-s-multiple-inheritance-model">Python’s Multiple Inheritance Model</a></li>
+<li><a class="reference internal" href="#the-diamond-problem">The Diamond Problem</a></li>
+<li><a class="reference internal" href="#super"><code class="docutils literal"><span class="pre">super()</span></code></a></li>
+<li><a class="reference internal" href="#mro-method-resolution-order">MRO: Method Resolution Order</a></li>
+<li><a class="reference internal" href="#super-s-superpowers">Super’s Superpowers</a></li>
+<li><a class="reference internal" href="#dependency-injection">Dependency Injection</a></li>
+<li><a class="reference internal" href="#argument-passing">Argument Passing</a></li>
+<li><a class="reference internal" href="#two-seminal-articles">Two seminal articles</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="SpecialMethodsAndProtocols.html" title="previous chapter">Special Methods &amp; Protocols</a></li>
+      <li>Next: <a href="Composition.html" title="next chapter">Composition</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/MultipleInheritance.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/MultipleInheritance.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
