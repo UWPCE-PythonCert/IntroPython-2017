@@ -78,10 +78,11 @@ Expressions:
 .. nextslide::
 
 Statements:
+but statements carry out an action, but do not evaluate to a value, that is you can't assign to them (or put them in a lamda, or...)
 
 .. code-block:: ipython
 
-    In [6]: # statements do not return a value, may contain an expression
+    In [6]: # statements carry out an action, do not evaluate a value, may contain an expression
 
     In [7]: line_count = 42
 
