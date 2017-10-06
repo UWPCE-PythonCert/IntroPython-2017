@@ -1,16 +1,62 @@
 
+#!/usr/local/bin/python3
+
+from random import randint
+
 def fibonnaci(n):
-	if n == 0: fib = 0
-	elif n == 1: fib = 1
-	else:
-		fib = fibonnaci(n - 2) + fibonnaci(n - 1)
+	""" 
+	Generate the nth item of the Fibonnaci serie
+	Fibonnaci serie has n1 = 0 and n2 = 1 with 
+	s(n) = s(n - 2) - s(n - 1)
+	"""
+	return sum_series(n)
 
-	return fib
+def lucas(n):
+	'''
+	Return the nth item of the Lucas Serie
+	Lucas serie has n1 = 2 and n2 = 1 with 
+	s(n) = s(n - 2) - s(n - 1)
+	'''
+	return sum_series(n, 2, 1)
 
+def sum_series(n, n_1 = 0, n_2 = 1): 
+	'''
+	Generate the nth value of a serie of the type s(n) = s(n - 2) + s(n - 1)
+	with n1 and n2 known. By default n1 = 0 and n2 = 2, the first 2 values of 
+	the Fibonnaci serie
+	'''
+	if n == 1: n_elem = n_1
+	elif n == 2: n_elem = n_2
+	else: n_elem = sum_series(n - 2, n_1, n_2) + sum_series(n - 1, n_1, n_2)
 
+	return n_elem
+
+def random_series(n):
+	'''
+	Generate the nth of a serie of type s(n) = s(n - 2) + s(n - 1) 
+	
+	'''
+	n_1 = randint(1, 100)
+	n_2 = randint(1, 100)
+	return sum_series(n, n_1, n_2)
 
 if __name__ == '__main__':
-	x = 10
-	fib_lst = [ fibonnaci(n) for n in range(x) ]
-	fib_str = ', '.join(map(str, fib_lst))
-	print(fib_str)
+	
+	n = 10
+	function_list = [fibonnaci, lucas, random_series]
+	m = len(function_list)	
+	list_n = [i for i in range(1, n + 1)]
+
+	for j in range(m):
+		print(repr(function_list[j].__name__))
+		print(repr(function_list[j].__doc__))
+
+		serie_lst = [function_list[j](n) for n in list_n]
+		serie_str = ', '.join(map(str,serie_lst))
+		print(serie_str)
+		print()
+
+		#print(', '.join(map(str, [function_list[j](n) for n in range(x)])))
+		#print()
+	
+	# Assert 
