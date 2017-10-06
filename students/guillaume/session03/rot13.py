@@ -1,21 +1,15 @@
 
-
 from string import ascii_lowercase, ascii_uppercase
-
 
 def rot(n):
 	'''
 	Generate subsitution cypher table of value n
+	Outcome is a tuple with the std alphabet and the rotated one
 	'''
-	lower_case = ascii_lowercase
-	upper_case = ascii_uppercase
-	rot_lower = lower_case[n:] + lower_case[:n] 
-	rot_upper = upper_case[n:] + upper_case[:n]
-
-	std_alphabet = lower_case + upper_case
-	rot13_alphabet = rot_lower + rot_upper
-
-	return std_alphabet, rot13_alphabet
+	ascii_chars = [ascii_lowercase, ascii_uppercase]
+	rot_chars = [alphabet[n:] + alphabet[:n] for alphabet in ascii_chars]
+	
+	return ''.join(ascii_chars), ''.join(rot_chars)
 
 def translation(string, n, boolean = True):
 	'''
@@ -42,6 +36,7 @@ def rot13_reverse(string):
 
 if __name__ == '__main__':
 	print(rot(13))
+	print(type(rot(13)))
 	print(rot13('testo'))
 	print(rot13_reverse('Zntargvp sebz bhgfvqr arne pbeare'))
 	

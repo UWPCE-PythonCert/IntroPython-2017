@@ -31,19 +31,11 @@ def sum_series(n, n_1 = 0, n_2 = 1):
 
 	return n_elem
 
-def random_series(n):
-	'''
-	Generate the nth of a serie of type s(n) = s(n - 2) + s(n - 1) 
-	
-	'''
-	n_1 = randint(1, 100)
-	n_2 = randint(1, 100)
-	return sum_series(n, n_1, n_2)
 
 if __name__ == '__main__':
 	
-	n = 10
-	function_list = [fibonnaci, lucas, random_series]
+	n = 15
+	function_list = [fibonnaci, lucas]
 	m = len(function_list)	
 	list_n = [i for i in range(1, n + 1)]
 
@@ -55,8 +47,8 @@ if __name__ == '__main__':
 		serie_str = ', '.join(map(str,serie_lst))
 		print(serie_str)
 		print()
-
-		#print(', '.join(map(str, [function_list[j](n) for n in range(x)])))
-		#print()
 	
 	# Assert 
+
+	assert fibonnaci(3) != fibonnaci(2) - fibonnaci(1), 'this is wrong'
+
