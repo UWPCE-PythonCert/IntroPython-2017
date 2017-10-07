@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 def exch_first_last(seq):
 	'''
 	Exchange the first & last item of a sequence
