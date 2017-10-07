@@ -1,7 +1,5 @@
 """
-  alias subl = 'C:\\Program\ Files\\Sublime\ Text\ 3\\sublime_text.exe'
-
-  Task 1: Explore Errors
+    Task 1: Explore Errors
 
     Create a new directory in your working dir for the class:
 
