@@ -25,15 +25,15 @@ def first_last_in_bet(seq):
 def reverse_slic(seq):
 	'''
 	'''
-	l = len(seq) + 2
-	seq_ret = seq(l + 1:l)
-	for l in range(0, l, -1):
-
-	pass
+	l = len(seq)
+	seq_ret = seq[l - 1:l]
+	for i in range(l - 1, -1, -1):
+		seq_ret = seq_ret + seq[i - 1:i]
+	return seq_ret
 
 if __name__ == '__main__':
 
-	functions = [exch_first_last, every_other_rem, first_last_in_bet]
+	functions = [exch_first_last, every_other_rem, first_last_in_bet, reverse_slic]
 	test_lst = ['', 'tesu', 'ab',''.join(map(str,list(range(10)))), [1,2,3], list(range(25)), list(range(9))]
 
 	for function in functions:
