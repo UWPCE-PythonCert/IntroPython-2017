@@ -34,7 +34,34 @@ def fruit_lst():
 	fruits.insert(0, 'Strawberry')
 	print(fruits)
 
-	
+	for fruit in fruits:
+		if fruit[0] == 'P':
+			print(fruit)
+
+	print(fruits)
+	del fruits[-1]
+	print(fruits)
+
+	del_fruit = input('Please remove a fruit from the list\n')
+	fruits = 2 * fruits
+	fruits = list(filter(lambda fruit: fruit != del_fruit, fruits))
+	print(fruits)
+
+	for idx, fruit in enumerate(fruits):
+		
+		bool = True
+		while bool:
+			like_fruit = input('Do you like {}?\n'.format(fruit.lower()))
+			if like_fruit == 'yes' or like_fruit == 'no':
+				bool = False
+				if like_fruit == 'no':
+					del fruits[idx]
+					idx -= 1
+			else:
+				print('Please type yes or no')
+
+	print(fruits)
+
 
 if __name__ == '__main__':
 	fruit_lst()
