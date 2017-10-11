@@ -4,19 +4,19 @@
 
 def name_error():
     """ Raises exception NameError """
-    raise NameError
+    return name
 
 
 def type_error():
     """ Raises exception TypeError """
-    raise TypeError
+    return ''.join(['', 1])
 
 
 def syntax_error():
     """ Raises exception SyntaxError """
-    raise SyntaxError
+    return eval('')
 
 
 def attribute_error():
     """ Raises exception AttributeError """
-    raise AttributeError
+    return list('attribute').split()
