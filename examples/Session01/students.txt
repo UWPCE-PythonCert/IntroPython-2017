@@ -19,7 +19,7 @@ Nagata, Brian: bash, python
 Navitsky, John:bash, python, ansible
 Olsby, Jacob: Jake, c#, powershell, python, sql
 Peterson, Scott B: python, r, visualbasic
-Hiroyuki: php, mysql, python
+Shibata, Hiroyuki: php, mysql, python
 Takata, James: Jim, rex, db
 Takechi, Hiroyuki: Hiro, r
 Thadigol Reddappa, Srikanth: Sri, perl, python
