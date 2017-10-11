@@ -12,10 +12,11 @@ while True:
     else:
 	   	break
 	
+
+
+    #THIS IS WRONG!
 def dofibs(strnglngth):
-    print(1,end="")
-    print(',',end="")
-    for count in range(1,strnglngth):
+    for count in range(0,strnglngth):
         print(count+(count-1),end="")
         if count<strnglngth-1:
             print(',',end="")
