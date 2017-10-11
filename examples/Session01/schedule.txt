@@ -1,7 +1,6 @@
 week 2: Eowyn C Baughman
 week 2: Po-Sung Chao
 week 2: Scott B Peterson
-week 2: Srikanth Thadigol Reddappa
 week 3: Amitkumar Chudasma
 week 3: Daniel Wojciechowski
 week 3: Eric V Adams
@@ -13,6 +12,7 @@ week 4: Shibata Hiroyuki
 week 5: Ali Dehghani
 week 5: David K Kan
 week 5: Evgeny S Uvarov
+week 5: Srikanth Thadigol Reddappa
 week 6: Alinafe Matenda
 week 6: Daniel W Kuchan
 week 6: Kathryn Egan
