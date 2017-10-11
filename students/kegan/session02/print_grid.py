@@ -26,7 +26,7 @@ def main():
     for i in range(args.row):
         print_horizontal(args.column)
         for i in range(4):
-                print_vertical(args.column)
+            print_vertical(args.column)
     print_horizontal(args.column)
 
 
