@@ -105,3 +105,6 @@ ENV/
 
 # emacs
 *.*~
+
+# pycharm
+.idea*
