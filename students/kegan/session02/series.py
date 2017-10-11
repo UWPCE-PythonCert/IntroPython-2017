@@ -2,7 +2,8 @@
 Kathryn Egan
 
 Computes Fibonacci, Lucas, and arbitrary series with
-a given first and second base case to the nth value
+a given first and second base case to the nth value.
+N is an ordinal starting at 1.
 """
 
 
