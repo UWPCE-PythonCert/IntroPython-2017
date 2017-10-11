@@ -21,6 +21,14 @@ Scott B Peterson
 
 Are you ready? We'll do them in the middle of the session.
 
+Class Outline
+=============
+
+Let's take a look at the class outline:
+
+https://uwpce-pythoncert.github.io/IntroPython-2017/
+
+
 git / gitHub
 ============
 
@@ -82,6 +90,7 @@ Anyone not like their solution?
 
 Let's talk about it!
 
+
 Lightning Talks
 ===============
 
@@ -118,14 +127,5 @@ Get a start on your own, then we'll come together and finish it up.
 (seeing a pattern here?)
 
 :ref:`exercise_fibonacci`
-
-
-
-
-
-
-
-
-
 
 
