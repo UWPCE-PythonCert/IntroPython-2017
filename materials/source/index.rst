@@ -28,11 +28,18 @@ Week 2: October 10
 
 :ref:`session_1_02`
 
+:ref:`notes_session02`
+
 Week 3: October 17
 ..................
 
+:ref:`session_1_03`
+
+:ref:`notes_session03`
+
 Week 4: October 24
 ..................
+
 
 Week 5: October 31
 ..................
