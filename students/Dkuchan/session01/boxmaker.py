@@ -38,34 +38,38 @@ while True:
 boxHeight=int(boxHeightraw)-1	#cast the string value as an int (which should be doable because we checked if it was an int already)
 
 
-widthCenterline=boxWidth/2	#deviding an int will drop the remainder.  so add 1.
-heightCenterline=boxHeight/2
-i=0
-j=0
 
+def makebox():	#Takes input and makes the box thingy
+	widthCenterline=boxWidth/2	#deviding an int will drop the remainder.  so add 1.
+	heightCenterline=boxHeight/2
+	i=0
+	j=0
 
-while i<=boxHeight and j<=boxWidth+5: 
-    if i==0 or i==boxHeight or i==heightCenterline:	#are we in the first, middle, or last line?
-	    print('+',end="")
-	    j=j+1
-	    while j <= boxWidth: 
-	        if j==widthCenterline or j==boxWidth: #are we in the center or the right edge?
-	            print('+',end="")
-	        else: 
-	        	print('-',end="")
-	        j=j+1
-    else:
-	    print('|',end="")
-	    j=j+1 #incriment line counter
-	    while j<=boxWidth:		
-		    if j==widthCenterline or j==boxWidth:		#are we in the center or the right edge?
-		        print('|',end="")
-		    else:
-		    	print(' ',end="")
+	while i<=boxHeight and j<=boxWidth+5: 
+	    if i==0 or i==boxHeight or i==heightCenterline:	#are we in the first, middle, or last line?
+		    print('+',end="")
 		    j=j+1
-    j=0	#return to horizontal start
-    i=i+1
-    print()
-i=0
+		    while j <= boxWidth: 
+		        if j==widthCenterline or j==boxWidth: #are we in the center or the right edge?
+		            print('+',end="")
+		        else: 
+		        	print('-',end="")
+		        j=j+1
+	    else:
+		    print('|',end="")
+		    j=j+1 #incriment line counter
+		    while j<=boxWidth:		
+			    if j==widthCenterline or j==boxWidth:		#are we in the center or the right edge?
+			        print('|',end="")
+			    else:
+			    	print(' ',end="")
+			    j=j+1
+	    j=0	#return to horizontal start
+	    i=i+1
+	    print()
+	i=0
+	
+
+makebox()
 print()
 print("Wubba Lubba Dub Dub")
