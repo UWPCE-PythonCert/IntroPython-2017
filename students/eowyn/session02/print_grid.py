@@ -52,6 +52,7 @@ def print_grid(ndim,ndash):
     print(make_row(ndim,ndash,'+','-'))
 
 ### Now try the simple case where ndim is always 2
+### This is not producing the expected result for n = 11
 
 def roundno(no):
     ''' round to nearest whole integer '''
