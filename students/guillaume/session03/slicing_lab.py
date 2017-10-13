@@ -31,11 +31,7 @@ def reverse_slic(seq):
     '''
     return a sequence reversed (just with slicing)
     '''
-    l = len(seq)
-    seq_ret = seq[l - 1:l]
-    for i in range(l - 1, -1, -1):
-        seq_ret = seq_ret + seq[i - 1:i]
-    return seq_ret
+    return seq[::-1]
 
 
 def third(seq):
@@ -51,9 +47,11 @@ def third(seq):
     print('len of the sequence is not a multiple of 3')
     return None
 
+
 if __name__ == '__main__':
 
-    functions = [exch_first_last, every_other_rem, first_last_in_bet, reverse_slic, third]
+    functions = [exch_first_last, every_other_rem, first_last_in_bet,
+    reverse_slic, third]
     test_lst = ['', 'tesu', 'ab',''.join(map(str,list(range(10)))), [1,2,3], list(range(24)), list(range(9)),['1third', '2third', '3third'], []]
 
     for function in functions:
