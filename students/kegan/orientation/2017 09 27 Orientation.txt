@@ -1,0 +1,24 @@
+GitHub: https://github.com/UWPCE-PythonCert/IntroPython-2017
+Slack: https://python2017-fall.slack.com/messages/D79UJS87M/
+Google Group: https://groups.google.com/forum/#!forum/programming-in-python
+
+**PIP
+pip looks on internet for the package you specified on pypi
+use the following command to to install package into the libraries python[version] (as opposed to whichever python version pip uses)
+    python[?version] -m pip_package
+
+**EXECUTABLE
+to make a python program an executable, put the following at the top of the file:
+    #!/usr/bin/env python[?version]
+and run the following from the terminal where hello.py lives
+    chmod +x [python file]
+then run it using
+    ./[python file]
+
+**IPYTHON
+from ipython, you can run a python file by typing
+run [name of file]
+
+**SUBLIME
+command+shift+p to open package
+control package: install package
