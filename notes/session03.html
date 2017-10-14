@@ -167,6 +167,20 @@
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="separation-of-concerns">
+<h3>Separation of concerns<a class="headerlink" href="#separation-of-concerns" title="Permalink to this headline">¶</a></h3>
+<p>From print_grid: if you are going to have separate functions, better for them to return a string, and then put all the printing in the calling function, on one place. That would make it more re-usable – say you want to write to a file?</p>
+<p>This is a tiny example of what’s known as “separation of concerns”</p>
+</div>
+<div class="section" id="make-use-of-symmetry">
+<h3>Make use of symmetry<a class="headerlink" href="#make-use-of-symmetry" title="Permalink to this headline">¶</a></h3>
+<p>nice trick:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gene_line</span><span class="p">(</span><span class="n">char_a</span><span class="p">,</span> <span class="n">char_b</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">char_a</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">char_b</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="o">+</span> <span class="n">char_a</span> <span class="o">+</span> <span class="n">line</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
