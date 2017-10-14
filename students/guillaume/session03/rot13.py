@@ -76,12 +76,20 @@ if __name__ == '__main__':
     print(type(rot(13)))
     print(rot13('testo'))
     '''
-    test_str = 'Zntargvp sebz bhgfvqr arne pbeare'
+
     print(rot13('abcd wtYuZQc'))
     print(rot13_2ver('abcd wtYuZQc'))
+
+    test_str = 'Zntargvp sebz bhgfvqr arne pbeare'
     print(test_str)
     print(rot13_reverse(test_str))
     print(rot13_2ver(test_str))
+
+    test_str = 'Magnetic from outside near corner'
+    print(test_str)
+    assert print(rot13_reverse(test_str)) == print(rot13_2ver(test_str))
+    
+
     test_str = 'Zz Aa Nn'
     print(test_str)
     print(rot13_reverse(test_str))

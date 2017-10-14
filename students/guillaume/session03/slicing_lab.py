@@ -42,7 +42,7 @@ def third(seq):
     l = len(seq)
     if l % 3 == 0:
         third = l // 3
-        new_seq = seq[third:2 * third] + seq[2 * third: ] + seq[0:third]
+        new_seq = seq[third:2 * third] + seq[2 * third:] + seq[0:third]
         return new_seq
     print('len of the sequence is not a multiple of 3')
     return None
@@ -50,9 +50,11 @@ def third(seq):
 
 if __name__ == '__main__':
 
-    functions = [exch_first_last, every_other_rem, first_last_in_bet,
-    reverse_slic, third]
-    test_lst = ['', 'tesu', 'ab',''.join(map(str,list(range(10)))), [1,2,3], list(range(24)), list(range(9)),['1third', '2third', '3third'], []]
+    functions = [exch_first_last, every_other_rem,
+                 first_last_in_bet, reverse_slic, third]
+    test_lst = ['', 'tesu', 'ab', ''.join(map(str, list(range(10)))),
+                [1,2,3], list(range(24)), list(range(9)),
+            ['1third', '2third', '3third'], []]
 
     for function in functions:
         print(repr(function.__name__))
@@ -61,5 +63,3 @@ if __name__ == '__main__':
             print(seq)
             print(function(seq))
         print()
-        
-
