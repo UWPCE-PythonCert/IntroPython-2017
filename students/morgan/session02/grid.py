@@ -1,17 +1,5 @@
 
 
-# print('+ ', '- ' * 4, '+ ','- ' * 4, '+')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('+ ', '- ' * 4, '+ ','- ' * 4, '+')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('| ', '  ' * 4, '| ','  ' * 4, '|')
-# print('+ ', '- ' * 4, '+ ','- ' * 4, '+')
-
 corner  = "+ "
 horiz = "- "
 vert  = '| '
@@ -28,17 +16,7 @@ def draw(n):
 	for x in range (n):
 		print (vertical)
 	print (horizontal)
-	# print(corner, horiz * n, corner, horiz * n, corner)
-	# i=0
-	# while(i < n):
-	# 	print(vert,fill * n, vert, fill *n, vert )
-	# 	i += 1
-	# print(corner, horiz * n, corner, horiz * n, corner)
-	# i=0
-	# while(i < n):
-	# 	print(vert,fill * n, vert, fill *n, vert )
-	# 	i += 1
-	# print(corner, horiz * n, corner, horiz * n, corner)
+	
 
 
 def array(size, number):
