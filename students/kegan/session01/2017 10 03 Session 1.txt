@@ -1,0 +1,2 @@
+questions:
+1) any advantage to using del versus just reassigning or ignoring the variable?
