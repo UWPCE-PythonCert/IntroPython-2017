@@ -4,13 +4,13 @@ def fibonacci(n):
     
 def lucas(n):
     """ Print the lucas series nth value."""
-    return sum_series(n, x=2, y=1)
+    return sum_series(n, 2, 1)
 
 def sum_series(n, x=0, y=1):
-    """ Perform series calculation for implemented Lucas and Fibonacci series.
-        Indicate to the user if the series is not implemented. n is the nth value
-        in the series. x=0, y=1 indicates a Fibonacci series, x=2, x=1 indicates 
-        Lucas series. """
+    """ Return the nth element in a series similar to fibonacci
+     The named parameters indicate the first and second element in the 
+     series. 
+     """
     if n == 0:
         return x
     if n == 1:
@@ -19,7 +19,7 @@ def sum_series(n, x=0, y=1):
     return sum
 
 
-# Test for various values and also test for unimplemented series
+# Test for various values()
 
 assert fibonacci(0) == 0                              # 
 assert lucas(0) == 2
@@ -27,6 +27,11 @@ assert fibonacci(4) == 3
 assert lucas(4) == 7
 assert fibonacci(1) == 1
 assert lucas(1) == 1
+
+# The sum_series by itself can be used
+
+assert sum_series(4, 2, 1) == 7
+assert sum_series(4) == 3
 
 
 
