@@ -11,8 +11,7 @@ def FizzBuzz(n):
             output = i
         print(output)
 
-print(__name__)
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     FizzBuzz(31)
 
