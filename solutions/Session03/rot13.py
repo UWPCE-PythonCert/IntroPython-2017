@@ -24,7 +24,7 @@ Z = ord('Z')
 
 def rot13a(text):
     """
-    My first solution: brute force
+    A brute force solution
     """
     # loop through the letters in the input string
     new_text = []
@@ -33,11 +33,11 @@ def rot13a(text):
         if c in string.ascii_lowercase:
             o = ord(c) + 13
             if o > z:
-                o = a-1 + o-z
+                o = a - 1 + o - z
         elif c in string.ascii_uppercase:
             o = ord(c) + 13
             if o > Z:
-                o = A-1 + o-Z
+                o = A - 1 + o - Z
         else:
             o = ord(c)
         new_text.append(chr(o))
@@ -63,14 +63,12 @@ def rot13b(text):
         new_text.append(chr(o))
     return "".join(new_text)
 
-# Translation table for 1 byte string objects:
-# Faster if you build a translation table and use that
 
-
-# build a translation table:
+# Building a translation table is much faster (once the table is built)
+# build a translation table with one-byte ascii only characters
 str_table = []
 # loop through all possible ascii values
-for c in range(z+1):  # only need up to z
+for c in range(z + 1):  # only need up to z
     # do upper and lower case separately
     if a <= c <= z:
         c = a + (c - a + 13) % 26
@@ -81,16 +79,16 @@ str_table = "".join(str_table)
 
 
 #   Unicode has a LOT of code points, so better to use a dict
-#   and only specifiy the ones that need changing -- in a dict
-# NOTE: we haven't covered dicts yet, but for completelness' sake,
+#   and only specify the ones that need changing -- in a dict
+# NOTE: we haven't covered dicts yet, but for completeness' sake,
 #       it's here.
 
 dict_table = {}
 # the lower-case letters
-for c in range(a, z+1):
+for c in range(a, z + 1):
     dict_table[c] = a + (c - a + 13) % 26
 # the lower-case letters
-for c in range(A, Z+1):
+for c in range(A, Z + 1):
     dict_table[c] = A + (c - A + 13) % 26
 
 # OR use the maketrans() method, and hard code the translation
@@ -101,7 +99,7 @@ table = str.maketrans(orig, rotated)
 
 def rot13c(text):
     """
-    This one uses str.translate() or unicode.translate()
+    This one uses the translation table above
     """
     return text.translate(str_table)
 
@@ -115,11 +113,12 @@ def rot13d(text):
 
 def rot13e(text):
     """
-    this one uses a dict translation table -- so better suite to unicode
+    This one uses a dict translation table -- so better suite to unicode
     """
     return text.translate(dict_table)
 
 
+# Maybe you noticed that there is a rot13 encoding build in to Python!
 import codecs
 def rot13f(text):
     """
@@ -156,7 +155,7 @@ if __name__ == "__main__":
     print ("All assertions pass")
 
 # # Some timings:
-# # Note that the translate tabel versions are MUCH faster
+# # Note that the translate table versions are MUCH faster
 
 # In [2]: timeit rot13a('This is a pretty short string, but maybe long enough to test')
 # 10000 loops, best of 3: 31.5 µs per loop
