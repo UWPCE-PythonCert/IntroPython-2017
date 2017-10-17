@@ -39,9 +39,9 @@ nice trick:
 
 .. code-block:: python
 
-def gene_line(char_a, char_b, n):
-    line = char_a + ' ' + ((n - 1) // 2) * (char_b + ' ')
-    line = line + char_a + line[::-1]
+    def gene_line(char_a, char_b, n):
+        line = char_a + ' ' + ((n - 1) // 2) * (char_b + ' ')
+        line = line + char_a + line[::-1]
 
 
 

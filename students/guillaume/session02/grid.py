@@ -17,8 +17,7 @@ def print_grid(n):
     '''
     n is the length of the line minus the plus on the side
     '''
-    if n < 3:
-        n = 3
+    n = max(n, 3)
     if n % 2 == 0:
         n += 1
 
@@ -52,13 +51,13 @@ def print_grid2(m, n):
 def gene_line(char_a, char_b, n):
 
     line = char_a + ' ' + ((n - 1) // 2) * (char_b + ' ')
-    line = line + char_a + line[::-1]
+    line += char_a + line[::-1]
     return line
 
 
 def gene_line2(char_a, char_b, m, n):
 
-    sub_line =  char_a + ' ' + n * ( char_b + ' ' )
+    sub_line = char_a + ' ' + n * (char_b + ' ')
     line = sub_line * m + char_a
     return line
 
@@ -85,7 +84,3 @@ if __name__ == '__main__':
     print_grid2(3, 4)
     print()
     print_grid2(5, 3)
-
-    
-
-
