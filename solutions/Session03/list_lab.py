@@ -41,16 +41,17 @@ print(fruits)
 
 ind = int(input("give me an index> "))
 
-print("you selected fruit number: %i, which is %s" % (ind, fruits[ind-1]))
+print("you selected fruit number: {}, which is {}".format(ind, fruits[ind - 1]))
 print()
 print("All the fruit:\n", fruits)
 print()
 
 fruits.insert(0, 'Kiwi')
 
-print("Added a kiwi:\n", fruits)
+print("Added a kiwi at the beginning:\n", fruits)
 
-print("All the P fruits")
+print()
+print("All the P fruits:")
 for fruit in fruits:
     if fruit[0].lower() == 'p':
         print(fruit)
@@ -60,21 +61,25 @@ print()
 d_fruits = fruits * 2
 
 print("All the fruits are:", fruits)
-ans = input("Which fruit would you like to delete? ")
+ans = input("Which fruit would you like to delete? >")
 while ans in d_fruits:
     d_fruits.remove(ans)
 
-print("with fruit deleted:\n", d_fruits)
+print("\nWith fruit deleted:\n", d_fruits)
 
 # another way to do that:
 #     This one only requires looping through list once
-d_fruits = []
-for fruit in fruits * 2:
+d_fruits = fruits * 2
+d_fruits_new = []
+for fruit in d_fruits * 2:
     if fruit != ans:
-        d_fruits.append(fruit)
+        d_fruits_new.append(fruit)
 
-print("With fruit deleted another way:\n", d_fruits)
+print("\nWith fruit deleted another way:\n", d_fruits_new)
 print()
+
+# Series 3
+################
 
 # keep a copy around for next step
 orig_fruits = fruits[:]
@@ -91,9 +96,12 @@ for fruit in fruits[:]:  # loop through a copy!
         # Note: I could be smarter about re-asking here,
         #       but that's not the point of this excercise...
 
-print("here they are with only the ones you like")
+print("\nHere they are with only the ones you like")
 print(fruits)
 print()
+
+# Series 4
+##########
 
 fruits = orig_fruits[:]  # makes a copy
 
@@ -102,7 +110,7 @@ r_fruits = []
 for fruit in fruits:
     r_fruits.append(fruit[::-1])
 
-print("here they are reversed")
+print("Here they are reversed")
 print(r_fruits)
 
 # option 2: make a copy, then modify in place:
