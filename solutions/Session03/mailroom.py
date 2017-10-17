@@ -2,6 +2,9 @@
 
 """
 Mailroom Exercise -- as of Session 3 -- no dictionaries or Exceptions
+
+Note: this is not the most robust or flexible code -- but it does the
+job with the simplest of Python data structures.
 """
 
 from textwrap import dedent  # nifty utility!
@@ -11,16 +14,24 @@ import math
 # using a tuple for each donor
 # -- kind of like a record in a database table
 # the donations are in a list -- so you can add to them
-# Note the mutable inside an immutable
+# Note the mutable inside an immutable .. that is inside a mutable!
 
+
+# Making this a global, so it can be accessed from various functions
 donor_db = [("William Gates, III", [653772.32, 12.17]),
             ("Jeff Bezos", [877.33]),
             ("Paul Allen", [663.23, 43.87, 1.32]),
             ("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
             ]
 
-#loop through the donor list and print the 0th element of the list
+
+# loop through the donor list and print the 0th element of the list
 def print_donors():
+    """
+    loop through the donor list and print the 0th element of the list
+    which is the donors name
+    """
+
     print("Donor list:\n")
     for donor in donor_db:
         print(donor[0])
@@ -28,7 +39,7 @@ def print_donors():
 
 def find_donor(name):
     """
-    find a donor in the donor db
+    Find a donor in the donor db
 
     :param: the name of the donor
 
@@ -45,6 +56,7 @@ def main_menu_selection():
     """
     Print out the main application menu and then read the user input.
     """
+    # detent is helpful here so you can use a triple quoted string
     action = input(dedent('''
       Choose an action:
 
@@ -62,7 +74,7 @@ def gen_letter(donor):
 
     :param: donor tuple
 
-    :returns: string with letter
+    :returns: string with the entire letter
     """
     return dedent('''
           Dear {}
@@ -101,6 +113,7 @@ def send_thank_you():
         # Make sure amount is a valid amount before leaving the input loop
         amount = float(amount_str)
         # NOTE: this is getting a bit carried away...
+        #       maybe better to put in its own function
         if math.isnan(amount) or math.isinf(amount) or round(amount, 2) == 0.00:
             print("error: donation amount is invalid\n")
             continue  # not really needed, but makes it more clear
@@ -121,6 +134,7 @@ def send_thank_you():
 
 
 def sort_key(item):
+    """ key function used to sort the list by first (not zeroth) item"""
     return item[1]
 
 
@@ -144,6 +158,7 @@ def print_donor_report():
     print("-" * 66)
     for row in report_rows:
         print("{:25s}   {:11.2f}   {:9d}   {:12.2f}".format(*row))
+
 
 if __name__ == "__main__":
     running = True
