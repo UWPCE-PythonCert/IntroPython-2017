@@ -18,8 +18,7 @@ def cigar_party2(cigars, is_weekend):
     """
     if is_weekend:
         return (cigars >= 40)
-    else:
-        return (cigars >= 40 and cigars <= 60)
+    return (cigars >= 40 and cigars <= 60)
 
 
 def cigar_party3(cigars, is_weekend):
