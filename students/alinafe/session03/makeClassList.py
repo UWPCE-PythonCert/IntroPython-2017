@@ -37,7 +37,7 @@ students.append(newStudentInput)
 
 print(students)
 #while newStudentNumber != 'quit:
-students= [""John Smith","Mary Miller"] +students
+students= ["John Smith","Mary Miller"] +students
 
 #newStudentNumber = inputNumber("Enter a number, or enter 'quit' : ")
 
@@ -58,16 +58,16 @@ students= [""John Smith","Mary Miller"] +students
 
 while True:
     try:
-        newStudentNumber = inputNumber("Enter a number less than {}: ".format(students.index(students[-1])))
+        newStudentNumber = inputNumber("Enter a number equal to or less than {}: ".format(students.index(students[-1])))
         #getIndexOfList(students, newStudentNumber) 
     except ValueError:
-	print 'That number is out of Range!
+	print("That number is out of Range!")
     else:
         if 0 <= newStudentNumber < students.index(students[-1]):
             print(newStudentNumber)
             break
         else:
-            print 'Out of range. Try Again'
+            print("Out of range. Try Again.")
 
     
 #    if newStudentNumber != 'quit':
