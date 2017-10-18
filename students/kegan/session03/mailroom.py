@@ -11,7 +11,9 @@ DONORS = {
     'Elon Musk': [10000.0, 150000.0, 100000.0],
     'Dad': [20.0, 5.0],
     'Donald Trump': [2.81],
-    'Alley Joe': [.54, .01, .25]}
+    'Billy Neighbor': [.54, .01, .25]}
+
+COLUMN_WIDTHS = [0] * 4
 
 
 def main():
@@ -36,8 +38,9 @@ def main():
 
 
 def exit_program():
-    """ Exits program with a message."""
+    """ Exits program and writes donor thank yous to files."""
     from sys import exit
+    write_thank_yous()
     print('Exiting...')
     exit()
 
@@ -46,23 +49,23 @@ def print_thank_you():
     """ Prompts user for donor name and amount and prints thank
     you note to the console. Donation amount must be numerical."""
     while True:
-        name = input(
-            'Who donated? (Type LIST to see current list of donors)\n>')
-        if name.upper() == 'LIST':
-            print()
-            print('Current donors:\n' + '\n'.join(sorted(DONORS)))
-            print()
-            continue
-        name = ' '.join(name.split()).title()
-        if name not in DONORS:
-            DONORS[name] = []
-        donation = get_donation()
-        DONORS[name].append(donation)
-        print('Dear {},'.format(name))
-        print('Thank you for your donation of ${:.2f}.'.format(donation))
-        print('It will go towards building our new kitten facility.')
-        print('We at Miuvenile Care thank you for your support.')
-        return
+        donor = input(
+            'Who donated? (Enter LIST to see current list of donors)\n>')
+        if donor.upper() != 'LIST':
+            break
+        print()
+        print('Current donors:')
+        print('\n'.join(sorted(DONORS)))
+        print()
+    donor = ' '.join(donor.split()).title()
+    if donor not in DONORS:
+        DONORS[donor] = []
+    donation = get_donation()
+    DONORS[donor].append(donation)
+    thankyou = get_thank_you(donor, [donation])
+    print(horizontal_line(80))
+    print(thankyou)
+    print(horizontal_line(80))
 
 
 def get_donation():
@@ -72,36 +75,102 @@ def get_donation():
     while True:
         donation = input('How much was donated?\n>')
         try:
-            donation = donation.strip('$')
-            donation = float(donation)
+            donation = float(donation.strip('$'))
             return donation
         except ValueError:
             print('{} is not a valid amount.'.format(donation))
             print('Please try again.')
 
 
+def horizontal_line(length):
+    """ Returns a horizontal line of given length.
+    Args:
+        length (int) : length of horizontal line
+    Returns:
+        str : horizontal line
+    """
+    return '-' * length
+
+
+def get_thank_you(donor, donations):
+    """ Returns a thank you message for the donor based
+    off given donation if any, otherwise all donations
+    in database.
+    Args:
+        donor (str) : name of donor
+        donation (None or float) : specified donation
+    Returns:
+        str : thank you message for donor
+    """
+    total = sum(donations)
+    num = len(donations)
+    # build up elements of thank you message
+    plural = 's' if num > 1 else ''
+    plus = ' and ' if num > 1 else ''
+    incredible = 'an incredible ' if total > 500 else ''
+    totalling = ', totalling {}${},'.format(
+        incredible, letter_dollar(total)) if num > 1 else ''
+    message = \
+        'Dear {},\nThank you for your '.format(donor) +\
+        'generous gift{} of '.format(plural) + \
+        ', '.join(['${}'.format(letter_dollar(d)) for d in donations[:-1]]) +\
+        '{}${}. '.format(plus, letter_dollar(donations[-1])) +\
+        'Your donation{}{} '.format(plural, totalling) +\
+        'will go towards feeding homeless kittens in Seattle. ' +\
+        'From the bottom of our hearts, we at Miuvenile Care thank you.\n\n' +\
+        'Regards,\nBungelina Bigglesnorf\nChairwoman, Miuvenile Care'
+    return message
+
+
 def print_report():
     """ Prints a report showing donors and donation data to console."""
-    headers = ['Donor Name', 'Total Given', 'Num Gifts', 'Average Gift']
+    headers = ('Donor Name', 'Total Given', 'Num Gifts', 'Average Gift')
+    update_widths(headers)
     data = []
-    lengths = [len(item) for item in headers]
     # obtain data and determine ideal column lengths before making report
     for donor in sorted(DONORS, key=by_donation, reverse=True):
         donations = DONORS[donor]
-        line = [
-            donor, dollar(sum(donations)),
-            str(len(donations)), dollar(average(donations))]
-        # determine if any item is longer than current longest item
-        for index in range(len(line)):
-            if len(line[index]) > lengths[index]:
-                lengths[index] = len(line[index])
+        line = [donor, sum(donations), len(donations), average(donations)]
+        update_widths(line)
         data.append(line)
     report = []
-    report.append(print_header(headers, lengths))
-    report.append('-' * (sum(lengths) + 1))
+    report.append(stringify(headers, '| '))
+    line_width = sum(COLUMN_WIDTHS) + len(COLUMN_WIDTHS) * 2 + 1
+    report.append(horizontal_line(line_width))
     for row in data:
-        report.append(print_data(row, lengths))
+        report.append(stringify(row, ' '))
     print('\n' + '\n'.join(report) + '\n')
+
+
+def update_widths(line):
+    """ Updates minimum column widths based on
+    the length of items (as strings) in given line.
+    Args:
+        line (list) : list of values
+    """
+    for index in range(len(line)):
+        item = line[index]
+        # dollar amounts are slightly longer in final report
+        if type(item) is float:
+            item = report_dollar(item)
+        item = str(item)
+        if len(item) > COLUMN_WIDTHS[index]:
+            COLUMN_WIDTHS[index] = len(item)
+
+
+def write_thank_yous():
+    """ Writes thank yous to all donors in individual
+    files in a ThankYous folder in the program's cwd."""
+    import os
+    print('Writing new thank yous to all donors...')
+    for donor in DONORS:
+        thankyou = get_thank_you(donor, DONORS[donor])
+        if not os.path.exists('ThankYous'):
+            os.makedirs('ThankYous')
+        with open(os.path.join('ThankYous', donor + '.txt'), 'w') as f:
+            f.write(thankyou)
+    print('Thank yous written to\n{}'.format(
+        os.path.join(os.getcwd(), 'ThankYous')))
 
 
 def by_donation(donor):
@@ -125,10 +194,9 @@ def average(donations):
     return round(avg, 2)
 
 
-def dollar(amount):
-    """ Returns given amount as a string. Adds
-    a trailing '0' to any cent amount that is
-    divisible by .1 to create a dollar format.
+def report_dollar(amount):
+    """ Returns amount in a format suitable for showing
+    dollar amounts, e.g. 181.98.
     Args:
         amount (float) : amount to turn into dollar format
     Returns:
@@ -140,69 +208,69 @@ def dollar(amount):
     return '.'.join([dollars, cents])
 
 
-def pad(string, length, orientation):
+def letter_dollar(amount):
+    """ Returns amount in a format suitable for showing
+    dollar amounts, e.g. 181.98 or 211. Removes cents
+    from any whole dollar amount.
+     Args:
+        amount (float) : amount to turn into dollar format
+    Returns:
+        str : amount in dollar format
+    """
+    if amount % 1 == 0:
+        return str(int(amount))
+    return report_dollar(amount)
+
+
+def pad(string, length, trailing):
     """ Adds leading or trailing whitespace to a string
     up to a given total length. Orientation gives whether
     whitespace should be leading or trailing.
     Args:
         string (str) : string to pad with whitespace
         length (int) : desired length of string after padding
-        orientation (str) :
-            'leading' if you want leading whitespace
-            'trailing' if you want trailing whitespace
+        trailing (str) :
+            True if you want trailing whitespace
+            False if you want leading whitespace
     Returns:
-        str : string padded with whitespace per specs
+        str : string padded with whitespace
     """
     while len(string) < length:
-        if orientation == 'trailing':
+        if trailing:
             string = string + ' '
-        elif orientation == 'leading':
+        else:
             string = ' ' + string
     return string
 
 
-def print_header(headers, lengths):
-    """ Returns the header line as a string.
+def stringify(row, separator):
+    """ Returns given row as a string.
     Args:
-        headers (list of str) : headers
-        lengths (list of int) : lengths of columns
+        row (list of str) : list of items in row
+        separator (str) : separator for columns
     Returns:
-        str : headers as a string
+        str : row as a string
     """
     line = []
-    orientations = ['trailing', 'leading', 'leading', 'leading']
-    for header, length, orientation in zip(headers, lengths, orientations):
-        header = pad(header, length, orientation)
-        line.append(header)
-    line = ' | '.join(line)
-    return line
-
-
-def print_data(row, lengths):
-    """ Returns a row in data as a string.
-    Args:
-        row (list of str) : row in data
-        lengths (list of int) : lengths of columns
-    Returns:
-        str : row of data as string
-    """
-    line = []
-    orientations = ['trailing', 'leading', 'leading', 'leading']
-    formats = ['name', 'monetary', 'numerical', 'monetary']
-    for item, length, orientation, form in zip(
-            row, lengths, orientations, formats):
-        item = pad(item, length, orientation)
+    trailing = True  # trailing WS on first line
+    for value, width in zip(row, COLUMN_WIDTHS):
         # monetary values get WS inserted between $ and number
-        if form == 'monetary':
-            item = '$' + item + ' '
-        # numbers are right oriented with one extra WS in front and back
-        elif form == 'numerical':
-            item = ' ' + item + ' '
-        # names are left oriented with one extra WS trailing
-        else:
-            item += ' '
-        line.append(item)
-    return ' '.join(line).strip()
+        if type(value) is float:
+            value = report_dollar(value)
+            value = pad(value, width, trailing)
+            value = '$' + value + ' '
+        # numbers have leading WS with one extra WS in front and back
+        elif type(value) is int:
+            value = str(value)
+            value = pad(value, width, trailing)
+            value = ' ' + value + ' '
+        # names having trailing WS with one extra WS
+        else:  # str format
+            value = pad(value, width, trailing)
+            value += ' '  # WS cushion for both left/right columns
+        trailing = False
+        line.append(value)
+    return separator.join(line).strip()
 
 
 if __name__ == '__main__':
