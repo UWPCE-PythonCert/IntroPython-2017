@@ -105,20 +105,23 @@ def get_thank_you(donor, donations):
     total = sum(donations)
     num = len(donations)
     # build up elements of thank you message
-    plural = 's' if num > 1 else ''
-    plus = ' and ' if num > 1 else ''
-    incredible = 'an incredible ' if total > 500 else ''
-    totalling = ', totalling {}${},'.format(
-        incredible, letter_dollar(total)) if num > 1 else ''
+    substrings = {
+        'donor': donor,
+        's': 's' if num > 1 else '',
+        'and': ' and ' if num > 1 else '',
+        'first': ', '.join([
+            '${}'.format(dollar(d)) for d in donations[:-1]]),
+        'rest': '$' + dollar(donations[-1]),
+        'totalling': ', totalling {}${},'.format(
+            'an incredible ' if total > 500
+            else '', dollar(total)) if num > 1 else ''}
     message = \
-        'Dear {},\nThank you for your '.format(donor) +\
-        'generous gift{} of '.format(plural) + \
-        ', '.join(['${}'.format(letter_dollar(d)) for d in donations[:-1]]) +\
-        '{}${}. '.format(plus, letter_dollar(donations[-1])) +\
-        'Your donation{}{} '.format(plural, totalling) +\
-        'will go towards feeding homeless kittens in Seattle. ' +\
+        'Dear {donor},\nThank you for your generous gift{s} of ' +\
+        '{first}{and}{rest}. Your donation{s}{totalling} will ' +\
+        'go towards feeding homeless kittens in Seattle. ' +\
         'From the bottom of our hearts, we at Miuvenile Care thank you.\n\n' +\
         'Regards,\nBungelina Bigglesnorf\nChairwoman, Miuvenile Care'
+    message = message.format(**substrings)
     return message
 
 
@@ -152,7 +155,7 @@ def update_widths(line):
         item = line[index]
         # dollar amounts are slightly longer in final report
         if type(item) is float:
-            item = report_dollar(item)
+            item = dollar(item, report=True)
         item = str(item)
         if len(item) > COLUMN_WIDTHS[index]:
             COLUMN_WIDTHS[index] = len(item)
@@ -194,32 +197,48 @@ def average(donations):
     return round(avg, 2)
 
 
-def report_dollar(amount):
-    """ Returns amount in a format suitable for showing
-    dollar amounts, e.g. 181.98.
-    Args:
-        amount (float) : amount to turn into dollar format
-    Returns:
-        str : amount in dollar format
-    """
-    dollars, cents = str(amount).split('.')
-    if len(cents) == 1:
-        cents += '0'
-    return '.'.join([dollars, cents])
-
-
-def letter_dollar(amount):
+def dollar(amount, report=False):
     """ Returns amount in a format suitable for showing
     dollar amounts, e.g. 181.98 or 211. Removes cents
     from any whole dollar amount.
      Args:
         amount (float) : amount to turn into dollar format
+        report (True) : True returns report format, otherwise basic format
     Returns:
         str : amount in dollar format
     """
-    if amount % 1 == 0:
-        return str(int(amount))
-    return report_dollar(amount)
+    if report:  # XXXX.XX
+        return '{:.2f}'.format(amount)
+    else:  # X,XXX or X,XXX.XX
+        dollars = get_dollars(amount // 1)
+        cents = get_cents(amount % 1)
+        return dollars + cents
+
+
+def get_dollars(dollars):
+    """ Returns dollar amount as a string with 100s
+    separated by commas (e.g. XX,XXX,XXX)
+    Args:
+        dollars (float) : dollar amount
+    Returns:
+        str : dollars as a string with commas
+    """
+    dollars = str(int(dollars))
+    dollars = ','.join(reversed([
+        dollars[max(0, index - 2):index + 1]
+        for index in list(range(len(dollars)))[::-3]]))
+    return dollars
+
+
+def get_cents(cents):
+    """ Returns cent amount as a string with no
+    leading 0. Returns empty string if cents = 0.
+    Args:
+        cents (float) : cents
+    Returns:
+        str : cents in string format
+    """
+    return '' if cents == 0 else '{:.2f}'.format(cents)[1:]
 
 
 def pad(string, length, trailing):
@@ -256,7 +275,7 @@ def stringify(row, separator):
     for value, width in zip(row, COLUMN_WIDTHS):
         # monetary values get WS inserted between $ and number
         if type(value) is float:
-            value = report_dollar(value)
+            value = dollar(value, report=True)
             value = pad(value, width, trailing)
             value = '$' + value + ' '
         # numbers have leading WS with one extra WS in front and back
