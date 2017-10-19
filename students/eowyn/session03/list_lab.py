@@ -38,8 +38,7 @@ def remove_disliked_fruit():
     i = 0
     stop = len(fruits)
     while i < len(fruits):
-        fruit = fruits[i]
-        like = input("Do you like {}, yes or no? ".format(fruit.lower()))
+        like = input("Do you like {}, yes or no? ".format(fruits[i].lower()))
         if like.lower() == "no":
             del fruits[i]
         elif like.lower() == "yes":
@@ -51,15 +50,19 @@ def remove_disliked_fruit():
 
 
 
-
-
-
 def rev_fruitnames():
-    print("copy list and reverse letters of each fruit")
-    print("then delete the last item of original list")
+    '''copy list and reverse letters of each fruit
+    then delete the last item of original list'''
+    fruits = ['Apples','Pears','Oranges','Peaches']
+    fruits_copy = fruits[:]
+    fruits_copy = [x[::-1] for x in fruits_copy]
+    del fruits[-1]
+    print(fruits)
+    print(fruits_copy)
+
 
 if __name__=="__main__":
   #  list_fruit()
   #  remove_fruit()
-    remove_disliked_fruit()
+  #  remove_disliked_fruit()
     rev_fruitnames()
