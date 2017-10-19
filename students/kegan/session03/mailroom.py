@@ -169,7 +169,7 @@ def write_thank_yous():
     for donor in DONORS:
         thankyou = get_thank_you(donor, DONORS[donor])
         if not os.path.exists('ThankYous'):
-            os.makedirs('ThankYous')
+            os.mkdir('ThankYous')
         with open(os.path.join('ThankYous', donor + '.txt'), 'w') as f:
             f.write(thankyou)
     print('Thank yous written to\n{}'.format(
