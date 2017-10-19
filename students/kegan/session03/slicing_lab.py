@@ -118,7 +118,7 @@ def nothing(items):
     return items
 
 
-# assign tests to run and their answers
+# assign modules and their answers
 tests = [
     '', 'a', 'ab', 'abc', 'abcd',
     'abcdefgh', 'abcdefghijklmnopqrstuvwxyz']
