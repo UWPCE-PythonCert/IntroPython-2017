@@ -8,11 +8,11 @@ def every_other_removed(seq):
         del seq[1:6:2]
         print(tuple(seq))
         return tuple(seq)
-    if type(seq) is list:
+    elif type(seq) is list:
         del seq[1:6:2]
         print(seq)
         return seq
-    else:
+    if type(seq) is str:
         seq=seq[::2]
         print(seq)
         return seq
