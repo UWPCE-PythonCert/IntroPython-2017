@@ -62,7 +62,11 @@ def rev_fruitnames():
 
 
 if __name__=="__main__":
-  #  list_fruit()
-  #  remove_fruit()
-  #  remove_disliked_fruit()
+    print("running list_fruit")
+    list_fruit()
+    print("running remove_fruit")
+    remove_fruit()
+    print("running remove_disliked_fruit")
+    remove_disliked_fruit()
+    print("running rev_fruitnames")
     rev_fruitnames()
