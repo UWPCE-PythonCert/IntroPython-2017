@@ -1,10 +1,24 @@
 #!/usr/bin/env python
 
-donor_names = ["Bill", "Fred"]
-donations = [[200, 500], [2000, 3000]]
+# # Using zip to create a data structure for the donor data
+# donor_names = ["Bill", "Fred"]
+# donations = [[200, 500], [2000, 3000]]
+# donors = list(zip(donor_names, donations))
 
-donors = list(zip(donor_names, donations))
+# However, in this case, unless that data is coming from elsewhere, you
+# might as well simply hard code the data directly:
 
+donors = [("William Gates, III", [653772.32, 12.17]),
+          ("Jeff Bezos", [877.33]),
+          ("Paul Allen", [663.23, 43.87, 1.32]),
+          ("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
+          ]
+
+# Either way, you end up with a list of tuples -- each tuple is one "record",
+# and has the name as the zeroth element, and a list of donations as the other
+# element.
+# It's important the the list of donation is a mutable -- you need to be
+# able to append new donations to it.
 
 
 def thank_you():
