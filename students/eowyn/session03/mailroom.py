@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 ''' global variables'''
-donor_names = ["Margaret Atwood","Fred Armisen"]
-donations= [[300,555],[240,422,1000]]
+donor_names = ["Margaret Atwood","Fred Armisen","Heinz the Baron Krauss von Espy"]
+donations= [[300,555],[240,422,1000],[1500,2300]]
 DONORS = list(zip(donor_names,donations))
 
 def mainloop():
@@ -91,12 +91,10 @@ def remove_inputquotes(a_string):
 
 def print_table(list_data):
     ''' Pretty-print the donor records '''
-    ### TO DO: Program spacing, alignment of columns for long names
     headers=('Donor Name','Total Given','Num Gifts','Average Gift')
-    num_headers = len(headers)
-    fs1 = '    |    '.join(num_headers*["{}"])
+    fs1 = '|'.join(["{:<40}","{:<12}","{:<10}","{:<12}"])
     width = len(fs1.format(*headers))
-    fs2 = '    '.join(["{:15}","$      {:4d}","        {:2d}      ","$      {:4d}"])
+    fs2 = ''.join(["{:<40}","${:^12.2f}","{:^12d}","${:^12.2f}"])
     print(fs1.format(*headers))
     print(width*"-")
     for i in range(len(list_data)):
