@@ -41,4 +41,4 @@ if __name__ == '__main__':
     assert first_third_last(a_string) == "is a stringthis "
     assert first_third_last(a_tuple) == (13, 12, 5, 32, 2, 54)
 
-    print('passed')
+    print('passed!')
