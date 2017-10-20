@@ -1,16 +1,10 @@
 #!/usr/bin/env python
 
-donor_names = ["Bill","Fred"]
+''' global variables'''
+donor_names = ["Margaret Atwood","Fred Armisen"]
 donations= [[300,555],[240,422,1000]]
-donors = list(zip(donor_names,donations))
-# donors[0][1].append(600) is Bill's donations plus a new donation
-# YOU'D HAVE TO FIND THE INDEX OF BILL
-# for donor in enumerate(donors):
-#     if donor[0].lower()=="fred":
-#          this_donor = donor -> new object pointing to list so if you change it it'll change in data structure
-# this_donor[1].append(6000) changes the master list
-# make a function to find donor by name and return donor object
-# 
+DONORS = list(zip(donor_names,donations))
+
 def mainloop():
     ''' main interactive loop 
     "send a thank you" "create a report" or "quit"
@@ -30,77 +24,79 @@ def mainloop():
         print("Please type 1, 2, or 3")
 
 def thank_you():
+    ''' Update donor records and print thank you notes.'''
     while True:
         fullname = input("To send a thank you, "
             "select from one of these options: \n"
             "Enter a donor name (new or existing)\n"
-            "Enter all to list existing donors \n"
-            "Enter stop to return to main menu \n >")
-        ## check for and remove anxillary quotes
+            "Enter all to list existing DONORS \n"
+            "Enter menu to return to main menu \n >")
         fullname = remove_inputquotes(fullname)
-        if fullname == 'stop':
+        if fullname == 'menu':
             break
         if fullname.lower() == 'all':
             print("All Donors:")
-            [print(x[0]) for x in donors]
+            [print(x[0]) for x in DONORS]
         else:
             try: 
-                i = [x[0] for x in donors].index(fullname)
+                i = [x[0] for x in DONORS].index(fullname)
                 print("Existing Donor")
                 amount = float(input("Donation amount: "))
-                this_donor = donors[i]
+                this_donor = DONORS[i]
                 this_donor[1].append(amount)
                 print_letter(this_donor)
             except ValueError:
                 print("New Donor")
                 amount = float(input("Donation amount: "))
-                donors.append((fullname,[amount]))
-                this_donor = donors[-1]
+                DONORS.append((fullname,[amount]))
+                this_donor = DONORS[-1]
                 print_letter(this_donor)
 
 
 def print_report():
-    print("this is the print report function")
+    ''' Pretty-print a table of donor statistics '''
     while True:
         choice = input("To generate a summary report, \n"
-            "type go now. To return to the main menu,\n"
-            "type stop now>")
+            "type run now.\n"
+            "To return to the main menu,\n"
+            "type menu now>")
         choice = remove_inputquotes(choice)
-        if choice == 'stop':
+        if choice == 'menu':
             break
         else:
             [name,total,number,ave]=[[],[],[],[]]
-            for x in range(len(donors)):
-                this_donor = donors[x]
+            for x in range(len(DONORS)):
+                this_donor = DONORS[x]
                 name.append(this_donor[0])
-                total.append(sum(this_donor[1]))
+                total.append(round(sum(this_donor[1])))
                 number.append(len(this_donor[1]))
                 ave.append(round(total[x]/number[x]))
             report_data = list(zip(name,total,number,ave))
-            report_data = sorted(report_data,key = lambda y:int(y[2]),reverse = True)
+            report_data = sorted(report_data,key = lambda y:int(y[1]),reverse = True)
             print_table(report_data)
             
 
 
 
-
-
-
 def print_letter(a_donor):
-    fs = "Thank you, {}, for your generous gift of ${}."
+    ''' Generate a formatted thank you note to a donor '''
+    fs = "Thank you, {}, for your generosity and recent gift of ${}."
     print(fs.format(a_donor[0],a_donor[1][-1]))
 
 def remove_inputquotes(a_string):
+    '''check for and remove anxillary quotes'''
     if a_string[0]==a_string[-1]=='"' or a_string[0]==a_string[-1]=="'":
         a_string = a_string[1:-1]
     return a_string
 
 def print_table(list_data):
+    ''' Pretty-print the donor records '''
+    ### TO DO: Program spacing, alignment of columns for long names
     headers=('Donor Name','Total Given','Num Gifts','Average Gift')
     num_headers = len(headers)
-    fs1 = ' | '.join(num_headers*["{}"])
+    fs1 = '    |    '.join(num_headers*["{}"])
     width = len(fs1.format(*headers))
-    fs2 = '    '.join(["{:8}","$      {:4d}","      {:2d}","$      {:4d}"])
+    fs2 = '    '.join(["{:15}","$      {:4d}","        {:2d}      ","$      {:4d}"])
     print(fs1.format(*headers))
     print(width*"-")
     for i in range(len(list_data)):
