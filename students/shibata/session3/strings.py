@@ -20,4 +20,4 @@ Python String Format Cookbook
 https://mkaz.tech/code/python-string-format-cookbook/
 """
 
-print ("file_{:0>3d} : {:.2f}, {:.2e}, {:.2e}".format(2, 123.4567, 10000, 12345.67))
+print ("file_{:0>3d} : {:.2f}, {:.2e}, {:.3g}".format(2, 123.4567, 10000, 12345.67))
