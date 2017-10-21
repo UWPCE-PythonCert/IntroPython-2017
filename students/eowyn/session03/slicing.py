@@ -41,6 +41,6 @@ if __name__=="__main__":
     assert swap_middle([1,2,3,4,5,6]) == [3,4,5,6,1,2]
     assert swap_middle((1,2,3,4,5,6)) == (3,4,5,6,1,2)
 
-assert remove_endfours_odd_items("abcdefghijk") == ("eg")
-assert remove_endfours_odd_items((0,1,2,3,4,5,6,7,8,9,10))==(4,6)
-assert remove_endfours_odd_items([0,1,2,3,4,5,6,7,8,9,10])==[4,6]
+    assert remove_endfours_odd_items("abcdefghijk") == ("eg")
+    assert remove_endfours_odd_items((0,1,2,3,4,5,6,7,8,9,10))==(4,6)
+    assert remove_endfours_odd_items([0,1,2,3,4,5,6,7,8,9,10])==[4,6]
