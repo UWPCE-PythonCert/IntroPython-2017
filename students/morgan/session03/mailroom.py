@@ -2,45 +2,7 @@
 # name, donation total, number of donations and average of donations
 
 
-# def thanks(x):
-
-
-# def report(x):
-
-
-
-# donar_list[
-# [john, 1234, 5, <need to refactor average after donation> ],
-# [],
-# ]
-
 def main_loop():
-    
-    '''this is the version I was originally using before reading through the file
-    from chris and realizing it's the same but morce concise'''
-
-    # answer = input("Select from one of the following options?\n"
-    #         "(1) Send a Thank You\n"
-    #         "(2) Make a Report\n"
-    #         "(3) Quit\n"
-    #         ">")
-
-    # if answer == 1 or answer == '1':
-    #     #send letter 
-    #     print(1)
-    #     thank_you()
-    # elif answer == 2 or answer == '2':
-    #     #make report
-    #     print(2)
-    #     main_loop()
-    # elif answer == 3 or answer == '3':
-    #     #quit
-    #     print(3)
-    #     quit()
-    # else:
-    #     answer == None
-    #     print('\nPlease Enter a valid option\n')
-    #     main_loop()
 
     while True:
         answer = str(input("Select from one of these options:\n"
