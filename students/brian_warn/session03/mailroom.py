@@ -62,6 +62,7 @@ def main():
     def create_report():
         ''' Create the report of donors and amounts. Present in formatted output. '''
         donor_report = []
+        # Perform calculations for the number of gifts, total amount given by a donor, and a donor's average gift.
         for name,gifts in donor_gifts.items():
             total = sum(gifts)
             number_gifts = len(gifts)
