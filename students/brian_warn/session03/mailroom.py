@@ -11,9 +11,6 @@ donor_gifts = {
     'Mark Zuckerberg': [2000000]
 }
 
-# for key, value in donor_gift_dict.iteritems():
-#     print("For ", key, "length ", len(value))
-
 
 def main():
 # thank_you -->
@@ -42,7 +39,7 @@ def main():
             else:
                 break
 
-        # Enter the donation amount
+        # Enter the donation amount. Input taken as an integer-only value
         while(True):
             donation_amount = int(input("Please enter the donation amount (Enter 'menu' to return to the original menu.) --> "))
             if donation_amount == 'menu':
@@ -56,6 +53,7 @@ def main():
 
         # Store the donation and send a thank you
         donor_gifts[ty_name].append(donation_amount)
+        # Generate thank you note.  Format placeholders don't have any padding in order to produce a clean message.
         print("\nDear {d:}, \nThank you for your generous donation of ${t:<,.2f}.".format(d=ty_name, t=donation_amount))
 
 
