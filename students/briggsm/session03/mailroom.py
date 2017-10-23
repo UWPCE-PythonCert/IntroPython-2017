@@ -50,7 +50,6 @@ def read_donation(donor_name):
     print("An active donor with that name was not found.")
     return 0
 
-
 def update_donation(donor_name, donation_index, updated_amount):
     '''Update a particular donation.'''
     for i in range(len(Donors)):
@@ -81,7 +80,7 @@ def read_thankyou(donor_name):
             thankyou = '''
                 Dear {},
 
-                Thank you for your generous donation of $ {}. Your
+                Thank you for your generous donation of $ {0:.2f}. Your
                 support enables us to keep doing good in the world. Which means
                 your money, earned through whatever means money is earned in
                 the amounts you have earned, is now doing good. We thank you. The
@@ -110,11 +109,11 @@ def get_report_data():
         total += Donors[i][y]
         amounts += " {}) {}".format(count, Donors[i][y])
         average = total / count
-        report.append([donor_name, total, count, average])
+        report.append([donor_name, "$ {0:.2f}".format(total), count, "$ {0:.2f}".format(average)])
     return report
 
 def get_maxlength(reportdata, column):
-    ''''''
+    '''With a list of lists and a column index, will return the maximum length of a line.'''
     maxlength = 0
     for a in range(len(reportdata)):
         celllength = len(str(reportdata[a][column]))
@@ -122,20 +121,22 @@ def get_maxlength(reportdata, column):
             maxlength = celllength
     return maxlength
 
-
 def get_report_format(reportdata):
-    ''''''
+    '''With a list of lists, assesmbles a table version of the report.'''
     for a in range(len(reportdata)):
         row = ""
         for b in range(len(reportdata[a])):
+            colno = len(reportdata[a])-1
             size = len(str(reportdata[a][b]))
             max = get_maxlength(reportdata, b)
             fill = max-size
             filler = " " * fill
             row += "{}{} | ".format(str(reportdata[a][b]), filler)
+            if a == 1:
+                print(("-" * max) + " | ", end="")
+            if a == 1 and b == colno:
+                print ("\n")
         print (row)
-        if a == 0:
-            print ("- - " * max)
 
 def read_report():
     '''Print a report for the entire organization history.'''
@@ -165,7 +166,7 @@ def mainloop():
             donor_name = input("Type the donor name. > ")
             read_donation(donor_name)
             go = "Yes"
-        if choice == 3:         # Update donation
+        elif choice == 3:         # Update donation
             donor_name = input("Type the donor name. > ")
             read_donation(donor_name)
             donation_rawindex = int(input("Type the index of the amount. > "))
@@ -177,7 +178,7 @@ def mainloop():
             donor_name = input("Type the donor name. > ")
             delete_donor(donor_name)
             go = "Yes"
-        if choice == 5:         # Thank donor.
+        elif choice == 5:         # Thank donor.
             donor_name = input("Type the donor name. > ")
             read_thankyou(donor_name)
             go = "Yes"
