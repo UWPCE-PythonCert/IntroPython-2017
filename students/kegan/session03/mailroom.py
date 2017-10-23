@@ -3,6 +3,9 @@
 """
 Kathryn Egan
 
+This program manages donors and their donations for
+Miuvenile Care, a charity organizaiton for disadvantaged
+kittens.
 """
 
 
@@ -26,6 +29,9 @@ def main():
             'prompt': 'Create a Report',
             'module': print_report},
         '3': {
+            'prompt': 'Write Thank Yous',
+            'module': write_thank_yous},
+        '4': {
             'prompt': 'Quit',
             'module': exit_program}}
     while True:
@@ -38,9 +44,8 @@ def main():
 
 
 def exit_program():
-    """ Exits program and writes donor thank yous to files."""
+    """ Exits program."""
     from sys import exit
-    write_thank_yous()
     print('Exiting...')
     exit()
 
