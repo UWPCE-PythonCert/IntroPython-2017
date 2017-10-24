@@ -160,6 +160,19 @@ In [17]: % timeit use_loop(seq)
 1000 loops, best of 3: 385 µs per loop
 
 
+``if __name__ == "__main__":``
+------------------------------
+
+This can be confusing, but one key note:
+
+Put as little as possible in this block -- the idea is that most of your code can be run / used as a module, and *onlyl* the code that has to be run in a script goes here. Often that is simply somethign like:
+
+.. code-block:: python
+
+    if __name__ == "__main__":
+        main_function()
+
+
 
 
 
