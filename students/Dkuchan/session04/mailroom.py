@@ -55,12 +55,12 @@ def reportcreator()
     
     i=0
     for i in range(0,len(roster)):
-        j=0
-        numgifts=len(roster[1]-1)
+        j=1
+        numgifts=len(roster[i])-1
         totaldonations=0
-        for j in range(1,numgifts):
-            totaldonations+=roster[i,j]
-        averagedonations=averagedonations=totaldonations/numgifts
+        for j in range(1,numgifts+1):
+            totaldonations+=roster[i][j]
+        averagedonations=totaldonations/numgifts
         print(roster(i,0) + ' ' * maxfl-10 + ' ' + '$' + {:.2f}.format(totaldonations) + ' ' * NUMBESPACE + '|' + {:.0f}.format(numgifts) + ' ' + '$' + {:.2f}.format(averagedonations))
 
 
