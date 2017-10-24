@@ -116,17 +116,18 @@ def send_a_thank_you():
             answer = menu_thank_you()
 
 
-answer = print_menu()
-while True:
-    if answer == '3':
-        break
-    elif answer == '1':
-        send_a_thank_you()
-        answer = print_menu()
-    elif answer == '2':
-        create_a_report()
-        answer = print_menu()
-    else:
-        print("You entered {}".format(answer))
-        print("Menu\n1. Send a Thank You\n2. Create a Report\n3. Quit")
-        answer = input("Enter a number between 1 and 3 (e.g 3) > ")
+if __name__ == '__main__':
+    answer = print_menu()
+    while True:
+        if answer == '3':
+            break
+        elif answer == '1':
+            send_a_thank_you()
+            answer = print_menu()
+        elif answer == '2':
+            create_a_report()
+            answer = print_menu()
+        else:
+            print("You entered {}".format(answer))
+            print("Menu\n1. Send a Thank You\n2. Create a Report\n3. Quit")
+            answer = input("Enter a number between 1 and 3 (e.g 3) > ")
