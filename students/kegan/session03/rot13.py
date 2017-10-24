@@ -1,5 +1,8 @@
 """
 Kathryn Egan
+
+Prompts user for a string that it will encode according
+to ROT13 protocol and print to console.
 """
 
 
