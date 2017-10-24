@@ -25,7 +25,6 @@ for line in objFile:
     lstTable.append(dicRow)
 objFile.close()
 
-
 # Display a menu of choices to the user
 while(True):
     print ("""
@@ -68,13 +67,18 @@ while(True):
 
         #                    print("list: " + row["Name"])
                             if (strName == row["Name"]):
-                                print("name is in the list, use " + row["Name"] + " who already donated total $" + row["Total"] + " of " + row["Num"] + " donations")
+                                print("name is in the list, use " + row["Name"] + " who already donated total $" + str(row["Total"]) + " of " + str(row["Num"]) + " donations")
 
-                                strTotal = str(input("What is the Total Given? - ")).strip()
-                                strTotal = float(strTotal + row["Total"])
-                                strNum = str(input("How many Number of Gifts? - ")).strip()
-                                strNum = int(strNum + row["Num"])
-                                dicRow = {"Name":strName,"Total":strTotal,"Num":strNum}
+#                                floatTotal = float(input("What is the Total Given? - ")).strip()
+                                floatTotal = float(input("What is the Total Given? - "))
+
+                                floatTotal = float(floatTotal) + float(row["Total"])
+                                print(floatTotal)
+#                                intNum = int(input("How many Number of Gifts? - ")).strip()
+                                intNum = int(input("How many Number of Gifts? - "))
+                                intNum = int(intNum) + int(row["Num"])
+                                print(intNum)
+                                dicRow = {"Name":strName,"Total":floatTotal,"Num":intNum}
                                 lstTable.append(dicRow)
 #                                lstTable.append(dicRow)
                                 print("Donor Name | Total Given | Num Gifts | Average Gift\n------------------------------------------------------------------")
@@ -88,12 +92,12 @@ while(True):
                                                         #            print(row["Name"] + '         $' + row["Total"] + row["Num"]  + '  $' + "{:.2f}".format(float(row["Total"])/int(row["Num"])))
                                                         #            print ("{}, ${:.2f}, {:.2f}, ${:.2f}".format(row["Name"], row["Total"], row["Num"], float(row["Total"])/int(row["Num"])))
                                     print ("{}, ${:.2f}, {}, ${:.2f}".format(row["Name"], float(row["Total"]), row["Num"], float(row["Total"])/int(row["Num"])))
-#                                    break #to show the menu
+                            break #to show the menu
 
                         else:
-                            strTotal = str(input("What is the Total Given? - ")).strip()
-                            strNum = str(input("How many Number of Gifts? - ")).strip()
-                            dicRow = {"Name":strName,"Total":strTotal,"Num":strNum}
+                            floatTotal = str(input("What is the Total Given? - ")).strip()
+                            intNum = str(input("How many Number of Gifts? - ")).strip()
+                            dicRow = {"Name":strName,"Total":floatTotal,"Num":intNum}
                             lstTable.append(dicRow)
                             print("Donor Name | Total Given | Num Gifts | Average Gift\n------------------------------------------------------------------")
         #                while(strName == row["Name"]):
@@ -128,10 +132,15 @@ while(True):
                             print()#adding a new line
                         continue #to show the menu
 
+
+
+
+
     elif(strChoice == '2'):
         print("Donor Name                | Total Given | Num Gifts | Average Gift\n------------------------------------------------------------------")
         for row in lstTable:
-            print(row["Name"] + '         $' + row["Total"] + '  $' + row["Num"] )
+#            print(row["Name"] + '         $' + row["Total"] + '  $' + row["Num"] )
+            print ("{}, ${:.2f}, {}, ${:.2f}".format(row["Name"], float(row["Total"]), row["Num"], float(row["Total"])/int(row["Num"])))
             continue #to show the menu
 
     elif (strChoice == '3'):
