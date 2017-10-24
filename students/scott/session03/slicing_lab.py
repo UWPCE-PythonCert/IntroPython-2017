@@ -21,7 +21,7 @@ def reversed(seq):
 
 '''with the middle third, then last third, then the first third in the new order'''
 def thirds(seq):
-    l = len(seq) // 3
+    i = len(seq) // 3
     return seq[i:-1] + seq[-1:] + seq[:i]
 
 
