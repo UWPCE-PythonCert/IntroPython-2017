@@ -114,6 +114,50 @@ Let's run this code, and see what we get.
 
 What if you add stuff to a list while looping?
 
+Adding up immutables in loops
+-----------------------------
+
+Mostly about strings, but it's an issue for numbers, too:
+
+
+
+In [8]: l
+Out[8]: ['this', 'that', 'the', 'other', 'thing']
+
+In [9]: sum(l, "")
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-9-327c710c973b> in <module>()
+----> 1 sum(l, "")
+
+TypeError: sum() can't sum strings [use ''.join(seq) instead]
+
+In [10]: def use_sum(seq):
+    ...:     return sum(seq)
+    ...: 
+
+In [11]: def use_loop(seq):
+    ...:     val = 0
+    ...:     for i in seq:
+    ...:         val += i
+    ...:     return val
+    ...: 
+
+In [12]: seq = list(range(100))
+
+In [13]: use_sum(seq)
+Out[13]: 4950
+
+In [14]: use_loop(seq)
+Out[14]: 4950
+
+In [15]: seq = list(range(10000))
+
+In [16]: % timeit use_sum(seq) 
+10000 loops, best of 3: 73.3 µs per loop
+
+In [17]: % timeit use_loop(seq) 
+1000 loops, best of 3: 385 µs per loop
 
 
 
