@@ -88,6 +88,32 @@ But ``input()`` always returns a string -- no need to wrap a call to ``str()`` a
 
 You may have seen code like this on the web, as ``input()`` behaves differently in Python 2.
 
+Deleting from a list while looping through it
+---------------------------------------------
+
+This may seem like an obvious way to filter a list:
+
+.. code-block:: python
+
+  for item in a_list:
+      if something:
+          a_list.remove(item)
+         
+But it turns out that removing stuff from alist while looping through can make a mess of things. Let's try it:
+
+.. code-block:: python
+
+  a_list = list(range(10))
+  print(a_list)
+  # loop to remove the odd numbers
+  for item in a_list:
+      if item % 2: # is it an odd number?
+          a_list.remove(item)
+
+Let's run this code, and see what we get.
+
+What if you add stuff to a list while looping?
+
 
 
 
