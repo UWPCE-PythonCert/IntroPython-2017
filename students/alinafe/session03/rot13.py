@@ -39,22 +39,32 @@ Try decrypting this:
 #ord('a') = 97
 #ord('z') = 122
 
+
 def setn(x, low, high):
     while x > high:
         x -= 26
     while x < low:
         x += 26
     return x
-
+#set the high and low
+#>>> set(2, 65,90)
+#80
+#>>> chr(80)
+#'P'
+#>>> setnorm(90, 65,90)
+#90
+#>>> chr(90)
+#'Z'
 
 def rot13(word, num):
     some_word = ''
     for l in word:
         if l.isupper():
             some_word += chr(setn(ord(l) + num, 65, 90))
+
             #https://docs.python.org/3/library/functions.html#ord
             #For example, ord('A) returns the integer 65
-        elif not letter.isalpha():
+        elif not l.isalpha():
             some_word += l
         else:
             some_word += chr(setn(ord(l) + num, 97, 122))
@@ -63,4 +73,13 @@ def rot13(word, num):
     return some_word
 
 print(rot13("Zntargvp sebz bhgfvqr arne pbeare", 13))
+#(if Z=90)+13 = 77 = M etc..
 #Magnetic from outside near corner
+
+
+if __name__ == "__main__":
+    print (rot13("Zntargvp sebz bhgfvqr arne pbeare",13))
+
+
+    assert (rot13("Zntargvp sebz bhgfvqr arne pbeare",13) ==
+            "Magnetic from outside near corner")
