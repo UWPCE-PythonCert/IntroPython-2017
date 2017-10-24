@@ -1,7 +1,7 @@
 #mailroom.py
 #root data--------------------------------------
 
-roster=[['Dan',100,200,300],['Abbey',100,200,300],["Megan",100,200,300],['Spencer',100,200,300],['Marylee',100,200,300]]        #roster is a matrix containing names in column 0 and donations in 1,2,or 3
+roster=[['Dan',100,200,300,400],['Abbey',100,200,300],["Megan",100,200,300,100,100],['Spencer',100,200,300],['Marylee',100,200,300]]        #roster is a matrix containing names in column 0 and donations in 1,2,or 3
 
 #root data--------------------------------------
 
@@ -9,6 +9,9 @@ roster=[['Dan',100,200,300],['Abbey',100,200,300],["Megan",100,200,300],['Spence
 
 #A Note on the Thank you Section:  I would rather set this up to allow me to select numbers which correspond to names rather than having to type the name in correctly but that is not what the instruction say
 def thankyouUI():
+    print("thankyouUI")
+"""
+
     print("You have chosen to create a thank you note")
     print("Here are the names in the database")
     numnames=len(roster)
@@ -30,18 +33,21 @@ def thankyouUI():
 #once we have a name look at available donations
 # Query user, which donation would you like to thank them for?
 # trigger thank you not generator
-
-def thankyougen(X,Y)
+"""
+"""
+def thankyougen()
+    print("thanksyougen")
     print("Thank you " + roster(X,0) + "for your generous donation of " + roster(X,Y) + ".")
+"""
 
 
-
-def reportcreator()
-    #identify the longest name
+def reportcreator():
+    print("ReportCreator")
+"""    #identify the longest name
     i=0
     maxfl=0
     for i in range(0,len(roster)):
-        fieldlen=len(roster(i,0))
+        fieldlen=len(roster[i][0])
         if fieldlen>maxfl:
             maxfl=fieldlen
             maxpos=i
@@ -62,13 +68,10 @@ def reportcreator()
             totaldonations+=roster[i][j]
         averagedonations=totaldonations/numgifts
         print(roster(i,0) + ' ' * maxfl-10 + ' ' + '$' + {:.2f}.format(totaldonations) + ' ' * NUMBESPACE + '|' + {:.0f}.format(numgifts) + ' ' + '$' + {:.2f}.format(averagedonations))
+"""
 
 
 
-
-while true:
-
-    try:
 
 
 
@@ -91,28 +94,24 @@ while true:
 
 
 #primary function calling loop
-while true:
-    try:
-        print("Welcome to Mailroom Script")
-        print("What would you like to do?")
-        print("1:Send a Thank You note")
-        print("2:Create a report")
-        print("3:Quit")
-        userselection=input("Please enter desired option (1,2,3): ")
-            if userselction!=1 or userselction!=2 or userselction!=3:
-                print("Please enter 1,2 or 3")
-                userselection=input("Please enter desired option (1,2,3): ")
-                continue
-            elif userselection=1:
-                thankyou()
-            elif userselection=2:
-                createreport()
-            elif userselection=3:
-                quit()
-                break
+while True:
+    print("Welcome to Mailroom Script")
+    print("What would you like to do?")
+    print("1:Send a Thank You note")
+    print("2:Create a report")
+    print("3:Quit")
+    userselection = input("Please enter desired option (1,2,3): ")
+    userselection = int(userselection)
+    if userselection == 1 or userselection == 2 or userselection == 3:
+        break
+    else:
+        print("Please enter 1,2 or 3")
+        continue
 
-
-
-
-
-    break
+if userselection == 1:
+    thankyouUI()
+elif userselection == 2:
+    reportcreator()
+elif userselection == 3:
+    print("Quit")
+    exit()
