@@ -14,7 +14,7 @@ def thankyouUI():
     numnames=len(roster)
     for i in range(0,numnames):
         print(roster(i))
-thankyouselection=input("To whome would you like to send a note?: ")
+    thankyouselection=input("To whome would you like to send a note?: ")
     j=0
     for j in range(0,numnames):
         if thankyouselection in roster:
@@ -32,10 +32,42 @@ thankyouselection=input("To whome would you like to send a note?: ")
 # trigger thank you not generator
 
 def thankyougen(X,Y)
-    print"Thank you " + roster(X,0) + "for your generous donation of " + roster(X,Y) + "."
+    print("Thank you " + roster(X,0) + "for your generous donation of " + roster(X,Y) + ".")
+
+
+
+def reportcreator()
+    #identify the longest name
+    i=0
+    maxfl=0
+    for i in range(0,len(roster)):
+        fieldlen=len(roster(i,0))
+        if fieldlen>maxfl:
+            maxfl=fieldlen
+            maxpos=i
+
+    #identify longest donation 
+    if maxfl<=10:
+        print("Donor Name",end="")
+        headerstring="Donor Name" + ' ' * (maxfl - 10) + '|' + " Total Given " + '|' + " Num Gifts " + '|' + " Average Gift "
+    else print(headerstring)
+    print('-' * len(headerstring))
+    
+    i=0
+    for i in range(0,len(roster)):
+        j=0
+        numgifts=len(roster[1]-1)
+        totaldonations=0
+        for j in range(1,numgifts):
+            totaldonations+=roster[i,j]
+        averagedonations=averagedonations=totaldonations/numgifts
+        print(roster(i,0) + ' ' * maxfl-10 + ' ' + '$' + {:.2f}.format(totaldonations) + ' ' * NUMBESPACE + '|' + {:.0f}.format(numgifts) + ' ' + '$' + {:.2f}.format(averagedonations))
+
+
 
 
 while true:
+
     try:
 
 
@@ -70,12 +102,14 @@ while true:
             if userselction!=1 or userselction!=2 or userselction!=3:
                 print("Please enter 1,2 or 3")
                 userselection=input("Please enter desired option (1,2,3): ")
+                continue
             elif userselection=1:
                 thankyou()
             elif userselection=2:
                 createreport()
             elif userselection=3:
                 quit()
+                break
 
 
 
