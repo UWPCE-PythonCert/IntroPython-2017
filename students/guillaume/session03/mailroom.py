@@ -18,10 +18,11 @@ def read_data(textfile):
 
 
 def write_data(textfile, donors):
+    '''
+    '''
     file = open(textfile, 'w')
     for donor in donors:
-        donor_str = ', '.join(map(str, donor)) + '\n'
-        file.write(donor_str)
+        file.write('{}\n'.format(', '.join(map(str, donor))))
     file.close()
 
 
