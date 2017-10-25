@@ -7,7 +7,7 @@ parse students.txt file to get languages used by students
 infile = "students.txt"
 
 all_langs = []
-with open(infile) as students:
+with open(infile, 'r') as students:
     students.readline()
     for line in students:
         line = line.strip()
