@@ -10,9 +10,6 @@
 # Last modified on 10/22/2017 by David Kan
 
 
-#import pdb
-
-
 # Define global varables and data structure
 donors = []
 donor_name = ['david', 'brian', 'larry', 'mary', 'tyler']
