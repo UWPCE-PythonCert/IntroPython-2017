@@ -88,6 +88,13 @@ But ``input()`` always returns a string -- no need to wrap a call to ``str()`` a
 
 You may have seen code like this on the web, as ``input()`` behaves differently in Python 2.
 
+<<<<<<< HEAD
+recursion in an interactive loop
+--------------------------------
+
+not a great idea!
+
+=======
 Deleting from a list while looping through it
 ---------------------------------------------
 
@@ -171,6 +178,7 @@ Put as little as possible in this block -- the idea is that most of your code ca
 
     if __name__ == "__main__":
         main_function()
+>>>>>>> 1cb728a7cd85d9b388616be57569c07092c6f847
 
 
 
