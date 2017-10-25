@@ -20,20 +20,37 @@ d = {'name': 'Chris', 'city': 'Seattle', 'cake': 'Chocolate'}
 print(d)
 #d.count('n')
 
-
+set2 = set()
 for i in range(0,20):
     if i%2 == 0:
-        print(i)
+        set2.add(i)
+print(set2)
 
 
+set3 = set()
 for i in range(0,20):
     if i%3 == 0:
-        print(i)
+        set3.add(i)
+print(set3)
 
 
-
+set4 = set()
 for i in range(0,20):
     if i%4 == 0:
-        print(i)
+        set4.add(i)
+print(set4)
 
-set2[(0,2,4,6,8,10,12,14,16,18,20)]
+print(set3.issubset(set2))
+print(set4.issubset(set2))
+
+
+letters = set('Python')
+print(letters)
+letters.add('i')
+print(letters)
+
+no_changey = frozenset(('marathon'))
+print(no_changey)
+
+print(letters.union(no_changey))
+print(letters.intersection(no_changey))
