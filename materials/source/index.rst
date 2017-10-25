@@ -40,12 +40,22 @@ Week 3: October 17
 Week 4: October 24
 ..................
 
+:ref:`session_1_04`
+
+:ref:`notes_session04`
+
 
 Week 5: October 31
 ..................
 
+:ref:`session_1_05`
+
+:ref:`notes_session05`
+
+
 Week 6: November 7
 ..................
+
 
 Week 7: November 14
 ...................
@@ -55,8 +65,10 @@ November 21: Thanksgiving week -- no class
 Week 8: November 28
 ...................
 
+
 Week 9: December 5
 ..................
+
 
 Week 10: December 12
 ....................
