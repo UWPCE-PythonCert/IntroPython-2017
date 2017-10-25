@@ -88,6 +88,11 @@ But ``input()`` always returns a string -- no need to wrap a call to ``str()`` a
 
 You may have seen code like this on the web, as ``input()`` behaves differently in Python 2.
 
+recursion in an interactive loop
+--------------------------------
+
+not a great idea!
+
 
 
 
