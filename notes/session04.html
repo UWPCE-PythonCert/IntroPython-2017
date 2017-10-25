@@ -158,15 +158,124 @@
 <p>A collection of notes to go over in class, to keep things organized.</p>
 <div class="section" id="lightning-talks">
 <h2>Lightning Talks<a class="headerlink" href="#lightning-talks" title="Permalink to this headline">¶</a></h2>
-<p>Up today:</p>
+<p>The ones we didn’t get to last week:</p>
+<p>Eric V Adams</p>
+<p>Tian Chuan Yen</p>
+<p>And Scheduled for today:</p>
 <p>Brian Warn</p>
 <p>Guillaume R Thomas</p>
 <p>Marlon M Estrada</p>
 <p>Shibata Hiroyuki</p>
-<p>Are you ready? We’ll do them in the middle of the session.</p>
+<p>Let’s do the folks from last week right now. And the others in the middle of the session.</p>
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mutable-default-parameters">
+<h3>Mutable default parameters<a class="headerlink" href="#mutable-default-parameters" title="Permalink to this headline">¶</a></h3>
+<p>This is a real “gotcha” in Python. One of you wrote a non-recursive solution to the sum_series problem. It worked great – EXCEPT if it got called more than once! Any idea what the problem is?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sum_series</span><span class="p">(</span><span class="n">nth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a list of sums given a seed and return the Nth number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">nth</span><span class="p">):</span>
+        <span class="n">sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">sequence</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">sequence</span><span class="p">[</span><span class="n">nth</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>So this uses the logic of starting out with the first two values in the series, and then looping to build up the series from there.</p>
+<p>And [0, 1] is set as a default to start the series off – the start of the Fibonacci series.  So if you pass in only one argument, you should get the Fibonacci number:</p>
+<p>Remember that the start of the Fibonacci series is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>What happens when you run this code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">21</span><span class="p">]:</span> <span class="n">sum_series</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">21</span><span class="p">]:</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>All good.</p>
+<blockquote>
+<div>In [22]: sum_series(6)
+Out[22]: 1
+# WTF???</div></blockquote>
+<p>The issue is is that:</p>
+<p>Default Arguments get evaluated <strong>when the function is defined</strong>. So every time the function is called, it will use the <em>same</em> list! Each time adding more and more to the list.</p>
+<p>Let’s explore that some more, and some solutions….</p>
+</div>
+<div class="section" id="str-input">
+<h3><code class="docutils literal"><span class="pre">str(input(...))</span></code>???<a class="headerlink" href="#str-input" title="Permalink to this headline">¶</a></h3>
+<p>Minor issue, but a number of you have written code like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">answer</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;some prompt &gt; &quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>But <code class="docutils literal"><span class="pre">input()</span></code> always returns a string – no need to wrap a call to <code class="docutils literal"><span class="pre">str()</span></code> around it.</p>
+<p>You may have seen code like this on the web, as <code class="docutils literal"><span class="pre">input()</span></code> behaves differently in Python 2.</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+recursion in an interactive loop
+——————————–</p>
+<p>not a great idea!</p>
+<p>This may seem like an obvious way to filter a list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">something</span><span class="p">:</span>
+        <span class="n">a_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But it turns out that removing stuff from alist while looping through can make a mess of things. Let’s try it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="c1"># loop to remove the odd numbers</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">item</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># is it an odd number?</span>
+        <span class="n">a_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s run this code, and see what we get.</p>
+<p>What if you add stuff to a list while looping?</p>
+</div>
+<div class="section" id="adding-up-immutables-in-loops">
+<h3>Adding up immutables in loops<a class="headerlink" href="#adding-up-immutables-in-loops" title="Permalink to this headline">¶</a></h3>
+<p>Mostly about strings, but it’s an issue for numbers, too:</p>
+<p>In [8]: l
+Out[8]: [‘this’, ‘that’, ‘the’, ‘other’, ‘thing’]</p>
+</div>
+<div class="section" id="in-9-sum-l">
+<h3>In [9]: sum(l, “”)<a class="headerlink" href="#in-9-sum-l" title="Permalink to this headline">¶</a></h3>
+<p>TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-9-327c710c973b&gt; in &lt;module&gt;()
+—-&gt; 1 sum(l, “”)</p>
+<p>TypeError: sum() can’t sum strings [use ‘’.join(seq) instead]</p>
+<dl class="docutils">
+<dt>In [10]: def use_sum(seq):</dt>
+<dd>…:     return sum(seq)
+…:</dd>
+<dt>In [11]: def use_loop(seq):</dt>
+<dd>…:     val = 0
+…:     for i in seq:
+…:         val += i
+…:     return val
+…:</dd>
+</dl>
+<p>In [12]: seq = list(range(100))</p>
+<p>In [13]: use_sum(seq)
+Out[13]: 4950</p>
+<p>In [14]: use_loop(seq)
+Out[14]: 4950</p>
+<p>In [15]: seq = list(range(10000))</p>
+<p>In [16]: % timeit use_sum(seq)
+10000 loops, best of 3: 73.3 µs per loop</p>
+<p>In [17]: % timeit use_loop(seq)
+1000 loops, best of 3: 385 µs per loop</p>
+</div>
+<div class="section" id="if-name-main">
+<h3><code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code><a class="headerlink" href="#if-name-main" title="Permalink to this headline">¶</a></h3>
+<p>This can be confusing, but one key note:</p>
+<p>Put as little as possible in this block – the idea is that most of your code can be run / used as a module, and <em>onlyl</em> the code that has to be run in a script goes here. Often that is simply somethign like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main_function</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; 1cb728a7cd85d9b388616be57569c07092c6f847</p>
+</div>
 </div>
 </div>
 
