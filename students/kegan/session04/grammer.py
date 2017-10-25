@@ -2,9 +2,7 @@
 Kathryn Egan
 
 Uses ngrams to produce a randomly-generated text based off
-of user-provided input text. User specifies length of ngram
-and can provide a feeder n-1gram that the program will use
-to start text.
+of user-provided input text. User specifies length of ngram.
 
 All numbers and certain punctuation are stripped from input text.
 Other punctuation and newlines are preserved.
@@ -36,8 +34,6 @@ def main():
     parser.add_argument('n', help='number of grams, 2-6', type=int)
     parser.add_argument(
         'sentences', type=int, help='number of sentences in output, 1-500')
-    parser.add_argument(
-        '-f', '--feeder', help='csv n_1gram to feed the grammer (optional)')
     args = parser.parse_args()
 
     # check that num sentences is 1-500
@@ -48,14 +44,6 @@ def main():
     if 2 > args.n > 6:
         print('Number of grams must be between 2 and 6')
         return
-    # check that feeder is viable n-1gram
-    feeder = None
-    if args.feeder:
-        feeder = tuple(args.feeder.lower().split(','))
-    if feeder and len(feeder) != args.n - 1:
-        message = 'Passed feeder is length {}. Must pass feeder of length {}.'
-        print(message.format(len(feeder), args.n - 1))
-        return
 
     # read in text, tokenize, ngramize, produce output, write to file
     with open(args.input_file, 'r') as f:
@@ -65,17 +53,12 @@ def main():
     if not tokens:
         print('Text in {} is not suitable.'.format(args.input_file))
         return
-    ngrams = generate_ngrams(tokens, args.n)
+    ngrams, starters = generate_ngrams(tokens, args.n)
     # write ngrams for given text to file
     ngram_file = args.input_file[:-4] + '_{}grams.txt'.format(args.n)
     with open(ngram_file, 'w') as f:
-        f.write(ngrams_to_string(ngrams))
-    # check whether the feeder n-1gram is in ngrams
-    all_ngrams = set(ngrams[True].keys()).union(ngrams[False])
-    if feeder and feeder not in all_ngrams:
-        print('Feeder not found. Try again.')
-        return
-    output = generate_output(ngrams, args.n, args.sentences, feeder)
+        f.write(ngrams_to_string(ngrams, starters))
+    output = generate_output(ngrams, starters, args.n, args.sentences)
     output = textify(output)
     print(output)
     return
@@ -246,21 +229,69 @@ def clause_punctuation(char):
 def generate_ngrams(tokens, n):
     """ Generates ngrams of length n as an n-1gram
     tuple mapped to list of all possible final tokens in ngram.
+    Generates a list of n-1grams that start sentences.
     Args:
         tokens (list of str) : list of tokens
         n (int) : length of ngram
     Returns:
-        dic (tuple:list) : n-1gram mapped to list of all final tokens
+        ngrams (dic tuple:list) : n-1gram mapped to list of all final tokens
+        starters (list of tuple) : list of n-1grams that start sentences
     """
     ngrams = {}
+    starters = []
     for index in range(len(tokens) - n + 1):
         n_1gram = tuple(tokens[index:index + n - 1])
-        start = tokens[index - 1] == '.'
         endgram = tokens[index + n - 1]
-        ngrams.setdefault(start, {})
-        ngrams[start].setdefault(n_1gram, [])
-        ngrams[start][n_1gram].append(endgram)
-    return ngrams
+        ngrams.setdefault(n_1gram, [])
+        ngrams[n_1gram].append(endgram)
+        # assumes preceding period means start of sentence
+        if tokens[index - 1] == '.':
+            starters.append(n_1gram)
+    return ngrams, starters
+
+
+def ngrams_to_string(ngrams, starters):
+    """ Returns given ngrams as a pretty-printed sting.
+    Args:
+        ngrams (dic tuple:list) : n-1gram mapped to list of final tokens
+        starters (list of tuple) : list of n-1grams that start sentences
+    Returns:
+        str : pretty-printed ngrams
+    """
+    stringrams = []
+    for n_1gram in sorted(ngrams):
+        stringrams.append('_'.join(n_1gram))
+        if n_1gram in starters:
+            stringrams.append('*STARTER*')
+        for endgram in sorted(ngrams[n_1gram]):
+            stringrams.append('\t' + endgram)
+        stringrams.append('')
+    stringrams = '\n'.join(stringrams)
+    return stringrams
+
+
+def generate_output(ngrams, starters, n, sentences):
+    """ Generates given number of sentences using ngrams.
+    Args:
+        ngrams (dic tuple:list) : n-1grams mapped to list of final tokens
+        starters (list of tuple) : list of n-1grams that start sentences
+        n (int) : length of ngram
+        sentences (int) : number of sentences to produce
+    Returns:
+        list of str : tokens generated using ngrams
+    """
+    output = []
+    count = 0
+    while True:
+        # initialize a new sentence with a random n-1gram
+        if not output or output[-1] in ('.', '...'):
+            count += 1
+            if count == sentences:
+                return output
+            output = initialize(output, ngrams, starters)
+        # choose next random endgram in sentence given n_1gram
+        else:
+            output = get_next(output, ngrams, n)
 
 
 def choose_random(elements):
@@ -273,95 +304,43 @@ def choose_random(elements):
     return elements[randint(0, len(elements) - 1)]
 
 
-def ngrams_to_string(ngrams):
-    """ Returns given ngrams as a pretty-printed sting.
-    Args:
-        dic (tuple:list) : n-1gram mapped to list of final tokens
-    Returns:
-        str : pretty-printed ngrams
-    """
-    stringrams = []
-    for bool in sorted(ngrams):
-        stringrams.append(str(bool) + '\n')
-        for n_1gram in sorted(ngrams[bool]):
-            stringrams.append('_'.join(n_1gram))
-            for endgram in sorted(ngrams[bool][n_1gram]):
-                stringrams.append('\t' + endgram)
-            stringrams.append('')
-    stringrams = '\n'.join(stringrams)
-    return stringrams
-
-
-def generate_output(ngrams, n, sentences, feeder):
-    """ Generates given number of sentences using ngrams
-    and feeder n-1gram if provided. The feeder n-1gram is a user-specified
-    n_1gram that the program will use to generate the first sentence.
-    Args:
-        ngrams (dic tuple:list) : n-1grams mapped to list of final tokens
-        n (int) : length of ngram
-        sentences (int) : number of sentences to produce
-        feeder (tuple) : user-specified first n-1 gram
-    Returns:
-        list of str : tokens generated using ngrams
-    """
-    output = []
-    cursor = 1
-    count = 0
-    while True:
-        # initialize output with feeder if given
-        if not output:
-            output = initialize(output, ngrams, feeder)
-        # initialize a new sentence with a random n-1gram
-        elif output[-1] in ('.', '...'):
-            count += 1
-            if count == sentences:
-                return output
-            output = initialize(output, ngrams)
-            # adjust cursor to point to end of new n_1gram
-            cursor = len(output) - n + 1
-        # choose next random endgram in sentence given n_1gram
-        else:
-            n_1gram = tuple(output[cursor:cursor + n])
-            try:
-                endgram = choose_random(list(ngrams[False][n_1gram]))
-            except KeyError:
-                print(
-                    'Failed out on n_1gram:\n{}\n'.format('\n'.join(n_1gram)))
-                endgram = '...'
-            output.append(endgram)
-            cursor += 1
-
-
-def initialize(output, ngrams, feeder=None):
+def initialize(output, ngrams, starters):
     """ Initializes sentence with feeder if given, otherwise
     randomly-chosen ngram.
     Args:
         output (list of str) : current list of tokens
         ngrams (dic tuple:list) : n-1grams mapped to list of final tokens
-        feeder (tuple) : user-specified first n-1 gram
+        starters (list of tuple) : list of n-1grams that start sentences
     Returns:
         list of str : updated list of tokens
     """
-    if feeder:
-        n_1gram = feeder
-        # prefer ngrams that start a sentence
-        try:
-            endgram = choose_random(ngrams[True][n_1gram])
-        except KeyError:
-            endgram = choose_random(ngrams[False][n_1gram])
-        return add_ngram(output, n_1gram, endgram)
-    # never begin sentence with punctuation or new paragraph
     while True:
-        n_1gram = choose_random(list(ngrams[True]))
+        n_1gram = choose_random(starters)
+        # never begin sentence with punctuation or new paragraph
         if not punctuation(n_1gram[0]) and not n_1gram[0] == '\\newline':
             break
-    endgram = choose_random(ngrams[True][n_1gram])
-    return add_ngram(output, n_1gram, endgram)
-
-
-def add_ngram(output, n_1gram, endgram):
+    endgram = choose_random(ngrams[n_1gram])
     for token in n_1gram:
         output.append(token)
+    output.append(endgram)
+    return output
+
+
+def get_next(output, ngrams, n):
+    """ Initializes sentence with feeder if given, otherwise
+    randomly-chosen ngram.
+    Args:
+        output (list of str) : current list of tokens
+        ngrams (dic tuple:list) : n-1grams mapped to list of final tokens
+        n (int) : length of ngram
+    Returns:
+        list of str : updated list of tokens
+    """
+    n_1gram = tuple(output[len(output) - n + 1:len(output)])
+    if n_1gram not in ngrams:
+        output = output[:-1]
+        n_1gram = tuple(output[len(output) - n + 1:len(output)])
+    endgram = choose_random(ngrams[n_1gram])
     output.append(endgram)
     return output
 
