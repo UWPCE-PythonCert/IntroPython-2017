@@ -7,3 +7,4 @@ Richard, B, 1000
 Phong, T, 6000, 50000
 Greg, Bristol, 88000
 Sterenn, RAOUL, 5000
+Elouan, THOMAS, 5000
