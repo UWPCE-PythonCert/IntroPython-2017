@@ -27,12 +27,12 @@ a new paragraph is started.
 """
 import argparse
 from random import randint
-from datetime import datetime
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file')
+    parser.add_argument('output_file')
     parser.add_argument('n', help='number of grams, 2-6', type=int)
     parser.add_argument(
         'sentences', type=int, help='number of sentences in output, 1-500')
@@ -62,13 +62,17 @@ def main():
         text = f.read()
     text = snip_gutenberg(text)
     tokens = tokenize(text)
-    ngrams = generate_ngrams2(tokens, args.n)
-    stringrams = ngrams_to_string(ngrams)
+    if not tokens:
+        print('Text in {} is not suitable.'.format(args.input_file))
+        return
+    ngrams = generate_ngrams(tokens, args.n)
     # write ngrams for given text to file
-    with open(args.input_file[:-4] + '_{}grams.txt'.format(args.n), 'w') as f:
-        f.write(stringrams)
+    ngram_file = args.input_file[:-4] + '_{}grams.txt'.format(args.n)
+    with open(ngram_file, 'w') as f:
+        f.write(ngrams_to_string(ngrams))
     # check whether the feeder n-1gram is in ngrams
-    if feeder and feeder not in set(ngrams[True].keys()).union(ngrams[False]):
+    all_ngrams = set(ngrams[True].keys()).union(ngrams[False])
+    if feeder and feeder not in all_ngrams:
         print('Feeder not found. Try again.')
         return
     output = generate_output(ngrams, args.n, args.sentences, feeder)
@@ -76,8 +80,7 @@ def main():
     print(output)
     return
     # write output to file
-    filename = args.input_file[:-4] + '_' + str(datetime.today()) + '.txt'
-    with open(filename, 'w') as f:
+    with open(args.output_file, 'w') as f:
         f.write(output)
 
 
@@ -96,11 +99,9 @@ def snip_gutenberg(text):
         if line.startswith('***START') or line.startswith('*** START'):
             collect = True
             gutenberg = True
-            continue
         elif line.startswith('***END') or line.startswith('*** END'):
             collect = False
-            continue
-        if collect:
+        elif collect:
             modified.append(line)
     if gutenberg:
         return '\n'.join(modified)
@@ -119,87 +120,130 @@ def tokenize(text):
     Returns:
         list of str : tokens in text
     """
-    titles = {
-        'mrs.': 'mrs',
-        'misses': 'misses',
-        'mr.': 'mr',
-        'mister': 'mister',
-        'ms.': 'ms',
-        'miss': 'miss',
-        'lady': 'lady',
-        'sir': 'sir',
-        'dr.': 'dr'}
     text = text.strip().lower()
     text = text.replace('\n\n', ' \\newline ')
-    for title, replacement in titles.items():
-        text = text.replace(title + ' ', replacement + '\\title')
+    text = join_title_name(text)
     results = []
-    for index in range(len(text)):
+    index = 0
+    # while loop allows free incrementing index
+    while index < len(text):
         char = text[index]
-        # replace unwanted chars with whitespace
-        if not char.isalpha() and not punctuation(char):
-            results.append(' ')
+        if char.isnumeric():
+            # skip over any numeric characters including
+            # any sequential alpha characters
+            while text[index].isalnum() and index < len(text):
+                index += 1
+            continue
+        # keep alpha characters and backslashes
+        if char.isalpha() or char == '\\':
+            results.append(char)
         # split clause-ending punctuation from preceding token
-        elif punctuation(char, clause=True):
+        elif clause_punctuation(char):
             results.append(' ')
             results.append(char)
-        # keep if ' is apostrophe, remove if single quotation mark
-        elif char == '\'':
-            start = index - 1
-            end = index + 1
-            startalpha = False if start < 0 else text[start].isalpha()
-            endalpha = False if end > len(text) - 1 else text[end].isalpha()
-            # single quotation mark has non alpha on one side
-            # will also inadvertently lose apostrophes on plurals
-            if not startalpha or not endalpha:
-                results.append(' ')
-            else:
-                results.append(char)
-        # char is alpha
-        else:
+        # keep in-word apostrophes, remove single quotation marks
+        elif apostrophe(text, index, char):
             results.append(char)
-    results = ''.join(results)
+        # replace all other characters with whitespace
+        else:
+            results.append(' ')
+        index += 1
+    results = ''.join(results).strip()
     results = results.split()
     return results
 
 
-def punctuation(char, clause=False):
+def join_title_name(text):
+    """ Replaces periods and whitespace intervening
+    a title and a name with \\title to preserve
+    title + name combo.
+    Args:
+        text (str) : text to use
+    Returns:
+        str : text with titles and names joined
+    """
+    # ordered tuple to preserve order of operations
+    titles = (
+        ('mrs.', 'mrs'),
+        ('mrs', 'mrs'),
+        ('misses', 'misses'),
+        ('mr.', 'mr'),
+        ('mr', 'mr'),
+        ('mister', 'mister'),
+        ('ms.', 'ms'),
+        ('ms', 'ms'),
+        ('miss', 'miss'),
+        ('lady', 'lady'),
+        ('sir', 'sir'),
+        ('dr.', 'dr'),
+        ('dr', 'dr'))
+    for title, replacement in titles:
+        in_string = ' ' + title + ' '
+        out_string = ' ' + replacement + '\\title'
+        text = text.replace(in_string, out_string)
+    return text
+
+
+def apostrophe(text, index, char):
+    """ Returns whether the apostrophe at the given index
+    is a single quote (vs. apostrophe). This is determined
+    by examining whether the leading or following character
+    is not alpha. Will erroneously count plural apostrophes
+    as single quotes.
+    Args:
+        text (str) : text to evaluate
+        index (int) : index of apostrophe
+    Returns:
+        bool :
+            True if character is singe quote
+            False if character is apostrophe
+    """
+    if char not in ('\'', '’'):
+        return False
+    start = index - 1
+    end = index + 1
+    startalpha = False if start < 0 else text[start].isalpha()
+    endalpha = False if end > len(text) - 1 else text[end].isalpha()
+    return startalpha and endalpha
+
+
+def single_quote(char):
+    """ Returns whether given character is a single quote symbol.
+    Args:
+        char (str) : character to evaluate
+    Returns:
+        bool : True if character is single quote, False otherwise
+    """
+    return char in ('\'', '’')
+
+
+def punctuation(char):
     """ Returns whether the given character is ALLOWED
     punctuation for tokenization process.
     Args:
         char (str) : character to evaluate
-        quote (bool) :
-            True if evaluation should include single quote
-            False otherwise
     Returns:
         bool :
             True if character is an allowed form of punctuation
             False otherwise
     """
-    clause_punc = ['?', '!', '.', ',', ':', ';']
-    mid = ['\\', '\'']
-    return char in clause_punc if clause else char in clause_punc + mid
+    return char == '\\' or clause_punctuation(char) or single_quote(char)
+
+
+def clause_punctuation(char):
+    """ Returns whether given character is a form of
+    clause-ending punctuation.
+    Args:
+        char (str) : character to evaluate
+    Returns:
+        bool :
+            True if character is a clause-ending punctuation
+            False otherwise
+    """
+    return char in ('?', '!', '.', ',', ':', ';')
 
 
 def generate_ngrams(tokens, n):
-    """ Generates ngrams of length n as an n-1gram
-    tuple mapped to list of all possible final tokens in ngram.
-    Args:
-        tokens (list of str) : list of tokens
-        n (int) : length of ngram
-    Returns:
-        dic (tuple:list) : n-1gram mapped to list of all final tokens
-    """
-    ngrams = {}
-    for index in range(len(tokens) - n + 1):
-        n_1gram = tuple(tokens[index:index + n - 1])
-        endgram = tokens[index + n - 1]
-        ngrams.setdefault(n_1gram, [])
-        ngrams[n_1gram].append(endgram)
-    return ngrams
-
-
-def generate_ngrams2(tokens, n):
     """ Generates ngrams of length n as an n-1gram
     tuple mapped to list of all possible final tokens in ngram.
     Args:
@@ -216,27 +260,6 @@ def generate_ngrams2(tokens, n):
         ngrams.setdefault(start, {})
         ngrams[start].setdefault(n_1gram, [])
         ngrams[start][n_1gram].append(endgram)
-    return ngrams
-
-
-def generate_ngrams3(tokens, n):
-    """ Generates ngrams of length n as an n-1gram
-    tuple mapped to final token in ngram.
-    Args:
-        tokens (list of str) : list of tokens
-        n (int) : length of ngram
-    Returns:
-        dic (tuple:str) : n-1gram mapped to final token
-    """
-    ngrams = {}
-    # create unigrams through ngrams
-    for gram_length in range(1, n + 1):
-        ngrams.setdefault(gram_length, {})
-        for index in range(len(tokens) - gram_length + 1):
-            n_1gram = tuple(tokens[index:index + gram_length - 1])
-            endgram = tokens[index + gram_length - 1]
-            ngrams[gram_length].setdefault(n_1gram, [])
-            ngrams[gram_length][n_1gram].append(endgram)
     return ngrams
 
 
@@ -258,10 +281,10 @@ def ngrams_to_string(ngrams):
         str : pretty-printed ngrams
     """
     stringrams = []
-    for bool in ngrams:
+    for bool in sorted(ngrams):
         stringrams.append(str(bool) + '\n')
         for n_1gram in sorted(ngrams[bool]):
-            stringrams.append(', '.join(n_1gram))
+            stringrams.append('_'.join(n_1gram))
             for endgram in sorted(ngrams[bool][n_1gram]):
                 stringrams.append('\t' + endgram)
             stringrams.append('')
@@ -289,11 +312,11 @@ def generate_output(ngrams, n, sentences, feeder):
         if not output:
             output = initialize(output, ngrams, feeder)
         # initialize a new sentence with a random n-1gram
-        elif output[-1].startswith('.'):
+        elif output[-1] in ('.', '...'):
             count += 1
             if count == sentences:
                 return output
-            output = initialize(output, ngrams, feeder=None)
+            output = initialize(output, ngrams)
             # adjust cursor to point to end of new n_1gram
             cursor = len(output) - n + 1
         # choose next random endgram in sentence given n_1gram
@@ -302,12 +325,14 @@ def generate_output(ngrams, n, sentences, feeder):
             try:
                 endgram = choose_random(list(ngrams[False][n_1gram]))
             except KeyError:
-                endgram = '...\n\n'
+                print(
+                    'Failed out on n_1gram:\n{}\n'.format('\n'.join(n_1gram)))
+                endgram = '...'
             output.append(endgram)
             cursor += 1
 
 
-def initialize(output, ngrams, feeder):
+def initialize(output, ngrams, feeder=None):
     """ Initializes sentence with feeder if given, otherwise
     randomly-chosen ngram.
     Args:
@@ -319,17 +344,22 @@ def initialize(output, ngrams, feeder):
     """
     if feeder:
         n_1gram = feeder
+        # prefer ngrams that start a sentence
         try:
             endgram = choose_random(ngrams[True][n_1gram])
         except KeyError:
             endgram = choose_random(ngrams[False][n_1gram])
-    else:
-        # never begin sentence with punctuation or new paragraph
-        while True:
-            n_1gram = choose_random(list(ngrams[True]))
-            if not punctuation(n_1gram[0]) and not n_1gram == 'newline':
-                break
-        endgram = choose_random(ngrams[True][n_1gram])
+        return add_ngram(output, n_1gram, endgram)
+    # never begin sentence with punctuation or new paragraph
+    while True:
+        n_1gram = choose_random(list(ngrams[True]))
+        if not punctuation(n_1gram[0]) and not n_1gram[0] == '\\newline':
+            break
+    endgram = choose_random(ngrams[True][n_1gram])
+    return add_ngram(output, n_1gram, endgram)
+
+
+def add_ngram(output, n_1gram, endgram):
     for token in n_1gram:
         output.append(token)
     output.append(endgram)
@@ -343,36 +373,49 @@ def textify(tokens):
     Returns:
         str : formatted tokens as string
     """
-    capitalized = ['i', 'i\'ll', 'i\'d']
     output = []
     prev = ''
     start = True
     for token in tokens:
-        # replaces newline token with double new line
-        if token == '\\newline':
-            token = '\n\n'
-            output.append(token)
-            prev = token
-            continue
-        if '\\title' in token:
-            title, name = token.split('\\title')
-            for element in token.split('\\title'):
-                output.append(element)
-                output.append(' ')
-            prev = token
-            continue
-        # capitalize pre-specified words or words starting new sentences
-        if start or prev in ('.', '?', '!', '\n\n') or token in capitalized:
-            token = token.capitalize()
-            start = False
+        token = token.replace('\\newline', '\n\n')
+        token = token.replace('\\title', ' ')
         # remove preceding whitespace when token is a type of punctuation
-        if punctuation(token):
-            output = output[:-1]
-        prev = token
+        output = output[:-1] if punctuation(token) else output
+        token = token.capitalize() if capital(start, prev, token) else token
+        start = False
         output.append(token)
-        output.append(' ')
+        output.append(get_buffer(token))
+        prev = token
     output = ''.join(output).strip()
     return output
+
+
+def capital(start, prev, token):
+    """ Returns True if given token should be capitalized.
+    Args:
+        start (bool) : start of text
+        prev (str) : previous token
+        token (str) : current token
+    Returns:
+        bool : True if token should be capitalized, False otherwise
+    """
+    cap_next = ('.', '?', '!', '\n\n', '\\newline')
+    cap_this = ('i', 'i\'ll', 'i\'d', 'i’ll', 'i’d')
+    return start or prev in cap_next or token in cap_this
+
+
+def get_buffer(token):
+    """ Returns appropriate following character for given token.
+    Args:
+        token (str) : token to assess
+    Returns:
+        str : buffering character post-token
+    """
+    if token == '...':
+        return '\n\n'
+    elif token == '\n\n':
+        return ''
+    return ' '
 
 
 if __name__ == '__main__':
