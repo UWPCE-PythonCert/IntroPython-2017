@@ -1,10 +1,10 @@
 
 :orphan:
 
-.. _notes_session05:
+.. _notes_session07:
 
 ####################
-Notes for Session 05
+Notes for Session 07
 ####################
 
 A collection of notes to go over in class, to keep things organized.
@@ -12,16 +12,9 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
+The ones we didn't get to last week:
+
 Marlon M Estrada
-
-Ali Dehghani
-
-David K Kan
-
-Evgeny S Uvarov
-
-Srikanth Thadigol Reddappa
-
 
 
 Issues that came up during the week.
