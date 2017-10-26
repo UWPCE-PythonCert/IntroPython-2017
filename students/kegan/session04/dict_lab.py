@@ -19,11 +19,11 @@ print('Dictionary values: {}'.format(dic.values()))
 print('"cake" in dictionary keys: {}'.format('cake' in dic))
 print('"Mango" in dictionary values: {}'.format('Mango' in dic.values()))
 
-t_dict = dict((key, value.lower().count('t')) for key, value in dic.items())
+t_dict = {key: value.lower().count('t') for key, value in dic.items()}
 
-s2 = set([i for i in range(21) if i % 2 == 0])
-s3 = set([i for i in range(21) if i % 3 == 0])
-s4 = set([i for i in range(21) if i % 4 == 0])
+s2 = {i for i in range(21) if i % 2 == 0}
+s3 = {i for i in range(21) if i % 3 == 0}
+s4 = {i for i in range(21) if i % 4 == 0}
 print('s2:{}'.format(s2))
 print('s3:{}'.format(s3))
 print('s4:{}'.format(s4))
