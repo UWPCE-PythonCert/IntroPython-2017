@@ -1,10 +1,10 @@
 
 :orphan:
 
-.. _notes_session05:
+.. _notes_session07:
 
 ####################
-Notes for Session 05
+Notes for Session 07
 ####################
 
 A collection of notes to go over in class, to keep things organized.

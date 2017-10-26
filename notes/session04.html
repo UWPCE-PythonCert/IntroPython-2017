@@ -164,7 +164,6 @@
 <p>And Scheduled for today:</p>
 <p>Brian Warn</p>
 <p>Guillaume R Thomas</p>
-<p>Marlon M Estrada</p>
 <p>Shibata Hiroyuki</p>
 <p>Let’s do the folks from last week right now. And the others in the middle of the session.</p>
 </div>
@@ -198,7 +197,7 @@
 <div>In [22]: sum_series(6)
 Out[22]: 1
 # WTF???</div></blockquote>
-<p>The issue is is that:</p>
+<p>The issue is that:</p>
 <p>Default Arguments get evaluated <strong>when the function is defined</strong>. So every time the function is called, it will use the <em>same</em> list! Each time adding more and more to the list.</p>
 <p>Let’s explore that some more, and some solutions….</p>
 </div>
@@ -210,26 +209,43 @@ Out[22]: 1
 </div>
 <p>But <code class="docutils literal"><span class="pre">input()</span></code> always returns a string – no need to wrap a call to <code class="docutils literal"><span class="pre">str()</span></code> around it.</p>
 <p>You may have seen code like this on the web, as <code class="docutils literal"><span class="pre">input()</span></code> behaves differently in Python 2.</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-recursion in an interactive loop
-——————————–</p>
+</div>
+<div class="section" id="recursion-in-an-interactive-loop">
+<h3>recursion in an interactive loop<a class="headerlink" href="#recursion-in-an-interactive-loop" title="Permalink to this headline">¶</a></h3>
 <p>not a great idea!</p>
+<p>you can do something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mainloop</span><span class="p">():</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;A question &gt; &quot;</span><span class="p">)</span>
+        <span class="o">....</span>
+        <span class="k">if</span> <span class="n">ans</span> <span class="o">==</span> <span class="s2">&quot;again&quot;</span>
+            <span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Let’s look at this:</p>
+<p><code class="docutils literal"><span class="pre">examples/session04/recursive_mainloop.py</span></code></p>
+<p>(do a <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">upstream</span> <span class="pre">master</span></code> if you don’t see it.)</p>
+</div>
+<div class="section" id="deleting-from-a-list-while-looping-through-it">
+<h3>Deleting from a list while looping through it<a class="headerlink" href="#deleting-from-a-list-while-looping-through-it" title="Permalink to this headline">¶</a></h3>
 <p>This may seem like an obvious way to filter a list:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">something</span><span class="p">:</span>
         <span class="n">a_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>But it turns out that removing stuff from alist while looping through can make a mess of things. Let’s try it:</p>
+<p>But it turns out that removing stuff from a list while looping through can make a mess of things. Let’s try it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
-<span class="c1"># loop to remove the odd numbers</span>
+<span class="c1"># loop to remove everything...</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">item</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># is it an odd number?</span>
+    <span class="k">if</span> <span class="n">item</span><span class="p">:</span> <span class="c1"># is it an nonzero number?</span>
         <span class="n">a_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Let’s run this code, and see what we get.</p>
+<p><code class="docutils literal"><span class="pre">examples/session04/deleting_in_loop.py</span></code></p>
 <p>What if you add stuff to a list while looping?</p>
 </div>
 <div class="section" id="adding-up-immutables-in-loops">
@@ -269,12 +285,11 @@ Out[14]: 4950</p>
 <div class="section" id="if-name-main">
 <h3><code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code><a class="headerlink" href="#if-name-main" title="Permalink to this headline">¶</a></h3>
 <p>This can be confusing, but one key note:</p>
-<p>Put as little as possible in this block – the idea is that most of your code can be run / used as a module, and <em>onlyl</em> the code that has to be run in a script goes here. Often that is simply somethign like:</p>
+<p>Put as little as possible in this block – the idea is that most of your code can be run / used as a module, and <em>only</em> the code that has to be run in a script goes here. Often that is simply something like:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main_function</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; 1cb728a7cd85d9b388616be57569c07092c6f847</p>
 </div>
 </div>
 </div>
