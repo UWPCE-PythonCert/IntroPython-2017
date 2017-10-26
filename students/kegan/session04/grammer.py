@@ -17,11 +17,10 @@ The program tracks which n-1grams start a sentence and only uses
 those n-1grams to start sentences.
 
 Otherwise, all n-1grams and final tokens to complete the ngram
-are randomly chosen.
+are randomly chosen, in effect weighted by their frequency in source text.
 
 If any chosen ngram results in a failure of the program to choose
-the next n-1gram, then the sentence is ended with an ellipses and
-a new paragraph is started.
+the next n-1gram, then the previous choice is repeated until success.
 """
 import argparse
 from random import randint
@@ -104,7 +103,10 @@ def tokenize(text):
         list of str : tokens in text
     """
     text = text.strip().lower()
-    text = text.replace('\n\n', ' \\newline ')
+    text = text.replace('\n\n', ' \\newparagraph ')
+    text = text.replace('\n', ' ')
+    # replace underscores ahead of time to ease downstream functions
+    text = text.replace('_', ' ')
     text = join_title_name(text)
     results = []
     index = 0
@@ -122,8 +124,7 @@ def tokenize(text):
             results.append(char)
         # split clause-ending punctuation from preceding token
         elif clause_punctuation(char):
-            results.append(' ')
-            results.append(char)
+            results.extend([' ', char])
         # keep in-word apostrophes, remove single quotation marks
         elif apostrophe(text, index, char):
             results.append(char)
@@ -137,33 +138,13 @@ def tokenize(text):
 
 
 def join_title_name(text):
-    """ Replaces periods and whitespace intervening
-    a title and a name with \\title to preserve
-    title + name combo.
-    Args:
-        text (str) : text to use
-    Returns:
-        str : text with titles and names joined
-    """
-    # ordered tuple to preserve order of operations
-    titles = (
-        ('mrs.', 'mrs'),
-        ('mrs', 'mrs'),
-        ('misses', 'misses'),
-        ('mr.', 'mr'),
-        ('mr', 'mr'),
-        ('mister', 'mister'),
-        ('ms.', 'ms'),
-        ('ms', 'ms'),
-        ('miss', 'miss'),
-        ('lady', 'lady'),
-        ('sir', 'sir'),
-        ('dr.', 'dr'),
-        ('dr', 'dr'))
-    for title, replacement in titles:
-        in_string = ' ' + title + ' '
-        out_string = ' ' + replacement + '\\title'
-        text = text.replace(in_string, out_string)
+    import re
+    titles = [
+        'mrs', 'mr', 'lady', 'sir', 'dr', 'ms',
+        'miss', 'missus', 'misses', 'mister']
+    regex = '|'.join(titles)
+    text = re.sub(
+        r'\b({})\.? '.format(regex), r'\1\\title', text)
     return text
 
 
@@ -239,7 +220,9 @@ def generate_ngrams(tokens, n):
     """
     ngrams = {}
     starters = []
-    for index in range(len(tokens) - n + 1):
+    for index, token in enumerate(tokens):
+        if index == len(tokens) - n:
+            break
         n_1gram = tuple(tokens[index:index + n - 1])
         endgram = tokens[index + n - 1]
         ngrams.setdefault(n_1gram, [])
@@ -317,11 +300,12 @@ def initialize(output, ngrams, starters):
     while True:
         n_1gram = choose_random(starters)
         # never begin sentence with punctuation or new paragraph
-        if not punctuation(n_1gram[0]) and not n_1gram[0] == '\\newline':
+        if not punctuation(n_1gram[0]) and not n_1gram[0] == '\\newparagraph':
             break
     endgram = choose_random(ngrams[n_1gram])
-    for token in n_1gram:
-        output.append(token)
+    # for token in n_1gram:
+    #     output.append(token)
+    output.extend(n_1gram)
     output.append(endgram)
     return output
 
@@ -356,7 +340,7 @@ def textify(tokens):
     prev = ''
     start = True
     for token in tokens:
-        token = token.replace('\\newline', '\n\n')
+        token = token.replace('\\newparagraph', '\n\n')
         token = token.replace('\\title', ' ')
         # remove preceding whitespace when token is a type of punctuation
         output = output[:-1] if punctuation(token) else output
@@ -378,7 +362,7 @@ def capital(start, prev, token):
     Returns:
         bool : True if token should be capitalized, False otherwise
     """
-    cap_next = ('.', '?', '!', '\n\n', '\\newline')
+    cap_next = ('.', '?', '!', '\n\n', '\\newparagraph')
     cap_this = ('i', 'i\'ll', 'i\'d', 'i’ll', 'i’d')
     return start or prev in cap_next or token in cap_this
 
