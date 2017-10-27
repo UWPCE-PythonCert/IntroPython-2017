@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+
 """ Program to manage donations. """
 
 # Define the static donor list
@@ -25,11 +27,11 @@ donors = [
          ]
 
 
-def print_lines(lines=2):
+def print_lines(lines=2,dest=sys.stdout):
     """ Print variable number of linefeeds for clarity. """
 
     for i in range(lines):
-        print("")
+        print("",file=dest)
 
 
 def print_report():
@@ -113,14 +115,14 @@ def get_donation_amount(informal_name):
             print("The value must be numeric.  Please try again or (q)uit.")
 
 
-def print_thank_you(donor_id,hint):
+def print_thank_you(donor_id,hint="wonderful",dest=sys.stdout):
     """ Print a thank you letter. """
 
     letter =  "\n"
-    letter += "Dearest {} {},\n"
+    letter += "Dearest {first_name} {last_name},\n"
     letter += "\n"
     letter += "We are are grateful for the generious donation on the behalf of\n"
-    letter += "the {} family.\n"
+    letter += "the {last_name} family.\n"
     letter += "\n"
     letter += "It is through the donations of {} patrions like yourself that\n"
     letter += "allows us to continue to support the community.\n"
@@ -130,16 +132,13 @@ def print_thank_you(donor_id,hint):
     letter += "Tux Humboldt\n"
     letter += "Shark Loss Prevention Institue\n"
 
-    print_lines()
-    print("-"*80)
+    print_lines(2,dest)
+    print("-"*80,file=dest)
 
-    print(letter.format(
-        donors[donor_id]["first_name"],donors[donor_id]["last_name"],
-        donors[donor_id]["last_name"],
-        hint))
+    print(letter.format(hint,**donors[donor_id]),file=dest)
 
-    print("-"*80)
-    print_lines()
+    print("-"*80,file=dest)
+    print_lines(2,dest)
 
 
 def thank_you_entry():
@@ -212,6 +211,16 @@ def thank_you_entry():
         print_thank_you(donor_id,hint)
 
 
+def thank_all_donors():
+	for index in range(len(donors)):
+		#dest=sys.stdout
+		donor_name = donors[index]["last_name"]+"_"+donors[index]["first_name"]
+		donor_name = donor_name.strip().lower().replace(" ", "_").replace(",", "")
+		donor_file="thank_you_" + donor_name
+		dest = open(donor_file, "w")
+		print_thank_you(index,"wonderful",dest)
+		dest.close()
+
 def main():
     """ Main menu / input loop. """
     
@@ -222,8 +231,9 @@ def main():
     menu += "\n"
     menu += "Select from the following:\n"
     menu += "\n"
-    menu += "(P)rint Donor Report\n"
+    menu += "(L)ist Donors\n"
     menu += "(E)nter Donation\n"
+    menu += "(P)rint Donor Letters\n"
     menu += "(Q)uit\n"
     menu += "\n"
 
@@ -233,10 +243,13 @@ def main():
         print_lines()
 
         print(menu)
-        selection=str(input("(p)rint, (e)nter, (q)uit: ")).lower().strip()
+        selection=str(input("(l)ist, (e)nter, (q)uit: ")).lower().strip()
 
-        if selection in ["1", "p", "print"]:
+        if selection in ["1", "l", "list"]:
             print_report()
+
+        if selection in ["p", "print"]:
+        	thank_all_donors()
 
         # accept either send or enter
         if selection in ["2", "s", "send", "e", "enter"]:
