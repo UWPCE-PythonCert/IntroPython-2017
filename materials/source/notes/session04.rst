@@ -196,9 +196,3 @@ Put as little as possible in this block -- the idea is that most of your code ca
 
     if __name__ == "__main__":
         main_function()
-
-
-
-
-
-
