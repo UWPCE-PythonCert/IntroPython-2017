@@ -54,6 +54,7 @@ def process_line(line):
     '''
 
     line.replace("-"," ")
+    line.replace("--"," ")
     words = []
     for word in line.split():
         word = word.strip(string.punctuation + string.whitespace)
@@ -62,10 +63,17 @@ def process_line(line):
     return words
 
 def process_output(word_list):
+    '''
+    Add random punctuation followed by capitalization to a list of words. Sentences are 
+    between 4 and 18 words long hard-coded but must be multiples of 3 to have them 
+    begin/end where trigrams begin/end.
+    '''
     i = 0
-    #print("total number of words: ",len(word_list))
+        #print("total number of words: ",len(word_list))
     while i < len(word_list):
-        sentence_length = random.randint(6,12)
+        sentence_length = random.randint(4,18)
+        while sentence_length%3 != 0:
+            sentence_length = random.randint(4,18)
         #print("i: ",i," ,i plus sentence length: ",i+sentence_length)
         word_list[i] = word_list[i].capitalize()
         try:
@@ -78,9 +86,8 @@ def process_output(word_list):
 
 
 
-
 if __name__ == "__main__":
-    construct_text("sherlock_small.txt",20)
+    construct_text("sherlock.txt",20)
 
 
 
