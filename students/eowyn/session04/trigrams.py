@@ -24,12 +24,7 @@ def convert_text(filename):
         # doesn't include the last char, so this is a pair of words
         pair = tuple(words[i:i + 2])
         follower = words[i + 2]
-        if pair in trigrams:
-            # TO DO: should be able to do this in one call... find that dictionary method
-            trigrams[pair].append(follower)
-        else:
-            # assign a key - value , key must be immutable
-            trigrams[pair] = [follower]
+        trigrams.setdefault(pair,[]).append(follower)
     return trigrams
 
 
