@@ -2,53 +2,75 @@
 
 """
 
-trigrams
+trigrams with sherlock writing
 
 """
-import random
+# import random module
+from random import randint
 
-words = """
-One night--it was on the twentieth of March, 1888--I was
-returning from a journey to a patient (for I had now returned to
-civil practice), when my way led me through Baker Street. As I
-passed the well-remembered door, which must always be associated
-in my mind with my wooing, and with the dark incidents of the
-Study in Scarlet, I was seized with a keen desire to see Holmes
-again, and to know how he was employing his extraordinary powers.
-His rooms were brilliantly lit, and, even as I looked up, I saw
-his tall, spare figure pass twice in a dark silhouette against
-the blind. He was pacing the room swiftly, eagerly, with his head
-sunk upon his chest and his hands clasped behind him. To me, who
-knew his every mood and habit, his attitude and manner told their
-own story. He was at work again. He had risen out of his
-drug-created dreams and was hot upon the scent of some new
-problem. I rang the bell and was shown up to the chamber which
-had formerly been in part my own.
-""".split()
-
-# words = "I wish I may I wish I might".split()
-
-
-# function to make pairs and followers
-def make_trigrams(words):
-    trigrams = {}
+# function to make pairs and followers in trigram dictionary
+def gen_trigrams(words):
+    # make an empty dicitonary for the trigrams
+    trigrams_dict = {}
     for i in range(len(words)-2):
         pair = tuple(words[i:i+2])
         follower = words[i+2]
         print(pair, follower)
-        if pair in trigrams:
-            trigrams[pair].append(follower)
-        trigrams[pair] = [follower]
+        if pair in trigrams_dict:
+            trigrams_dict[pair].append(follower)
+        trigrams_dict[pair] = [follower]
+    return(trigrams_dict)
 
-# function to randomly select pairs and followers
-def select_trigrams():
-    pass
-# function to write a new file
+def build_new_text(word_dict):
+    # create index to hold a random integer
+    rand_index = randint(0, len(word_dict.keys()))
+    # create list to hold words
+    new_list = []
+    # set counter to 0
+    index = 0
 
-#main function, open & read file, split file, make_trigrams,
+    # build sentences using index counter. Use for loop to add keys and values
+    for keys,values in word_dict.items():
+        if rand_index == index:
+            new_list.append(keys[0])
+            new_list.append(keys[1])
+            new_list = append_next_word(new_list, values)
+            print(new_list)
+            break
+        index += 1
+    last_two = tuple(new_list[-2:])
+
+    while True:
+        try:
+            new_list = append_next_word(new_list, word_dict[last_two])
+            last_two = tuple(new_list[-2:])
+        except KeyError:
+            break
+
+    return new_list
+
+def append_next_word(new_word_list, words):
+    if len(words) == 1:
+        new_word_list.append(words[0])
+    else:
+        rand_index = randint(0, (len(words)-1))
+        new_word_list.append(words[rand_index])
+    return new_word_list
+
+# main function
+# use functions: make trigrams
 if __name__ == "__main__":
+    # open & read file, split file,
     f = "sherlock_small.txt"
     t = open(f)
-    text =(t.read())
-    text = text.split()
-    make_trigrams(text)
+    w =(t.read())
+    w = w.split()
+
+    # run supporting functions
+    trigram_list = gen_trigrams(w)
+    new_text = build_new_text(trigram_list)
+
+    # display new text on screen, write new file to save text
+    print(" ".join(new_text))
+    x = open("new_book.txt", "w+")
+    x.write(" ".join(new_text))
