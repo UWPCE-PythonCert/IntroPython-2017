@@ -11,3 +11,13 @@ and produce:
 array = (2, 123.4567, 10000, 12345.67)
 print ("file_00",array[0],":","{:.2f}".format(array[1]),"{:.2e}".format(array[2]),"{:.2e}".format(array[3]))
 # .format()
+
+
+"""
+10/21/2017 Update
+Read below “Cookbook”:
+Python String Format Cookbook
+https://mkaz.tech/code/python-string-format-cookbook/
+"""
+
+print ("file_{:0>3d} : {:.2f}, {:.2e}, {:.3g}".format(2, 123.4567, 10000, 12345.67))
