@@ -10,17 +10,18 @@ import math
 
 #Set up initial data structure (use list since it needs to be mutable)
 donors_list = [ ("Paul", [100000, 1200000, 750000, 25000]), 
-                ("Jerry", [20000, 43126]), 
+                ("Jerry", [20000, 43126]),  
                 ("Clark", [1292, 6788, 128, 9827]), 
                 ("Terry", [11, 2000000, 1000001, 45]), 
                 ("Arthur", [50, 100] ), 
                 ("Jim", [4567, 1999, 43213]), 
                 ("Martha", [3500000, 49])]
 
+if __name__ == "__main__":
+    interactive_loop()
+
 
 def interactive_loop():
-
-    if __name__ == "__main__":
         program_status = True
         while program_status:
             selection = start_menu()
@@ -64,7 +65,7 @@ def get_donor():
         if donor == "list":
             print_list()
         elif donor == 'menu':
-            start_menu()
+            interactive_loop()
         else:
             break
 

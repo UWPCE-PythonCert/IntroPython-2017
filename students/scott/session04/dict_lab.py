@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 
+import sys
+
 d = {'name': 'Chris', 'city': 'Seattle', 'cake': 'Chocolate'}
 print(d)
+
+
+
 d.pop('cake')
 print(d)
 d['fruit'] = 'Mango'
@@ -9,16 +14,20 @@ print(d)
 print(d.keys())
 print(d.values())
 print('cake' in d)
-print('Mango' in d) #this returns false.....should return True
+print('Mango' in d.values()) #this returns false.....should return True, I think I fixed it by referring to d.values()
 
 
 # I need to count the number of "t" in each key, and store that as the corresponding value for that key
 # count doesn't seem to work.....I get a 'key error'
 
 
+
 d = {'name': 'Chris', 'city': 'Seattle', 'cake': 'Chocolate'}
 print(d)
 #d.count('n')
+
+
+
 
 set2 = set()
 for i in range(0,20):
