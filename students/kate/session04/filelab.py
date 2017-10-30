@@ -16,9 +16,13 @@ with open(file) as students:
         if langs[0].strip()[0].isupper():
             langs = langs[1:]
         all_langs.extend(langs)
-        print(langs)
+        # print(langs)
 
 new_langs = [lang.strip() for lang in all_langs if lang.strip()]
 all_langs = set(all_langs)
 
-print(langs)
+# display new text on screen, write new file to save text
+print("Here are all the langs!")
+print(all_langs)
+x = open("langs.txt", "w+")
+x.write(" ".join(all_langs))
