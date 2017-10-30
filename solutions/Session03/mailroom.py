@@ -107,7 +107,8 @@ def send_thank_you():
     # also an exit point to the main menu, we want to make sure this is
     # done before mutating the donors list object.
     while True:
-        amount_str = input("Enter a donation amount (or 'menu' to exit) > ").strip()
+        amount_str = input(
+            "Enter a donation amount (or 'menu' to exit) > ").strip()
         if amount_str == "menu":
             return
         # Make sure amount is a valid amount before leaving the input loop
