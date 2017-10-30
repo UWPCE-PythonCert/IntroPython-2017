@@ -1,6 +1,28 @@
 #!/usr/bin/env python
 # name, donation total, number of donations and average of donations
 
+infile = 'donors.txt'
+
+donors = {}
+
+with open(infile) as donor_input:
+    donor_input.readline()
+    for line in donor_input:
+        # line = line.strip()
+        name_string = line.split('-')[0].strip()
+        donation_string = line.split('-')[1].strip(' ').strip()
+        donation_list = donation_string.split(',')
+        
+        donation_list = [float(x) for x in donation_list]
+
+        print(donation_list[0])
+        
+
+        print(name_string.strip())
+        print(donation_list)
+        # donors.setdefault(name_string,[]).append(donation_list)
+        donors[name_string] = donation_list
+
 
 def main_loop():
 
@@ -8,32 +30,70 @@ def main_loop():
         answer = str(input("Select from one of these options:\n"
               "(1) Send a Thank You\n"
               "(2) Create a Report\n"
-              "(3) quit\n"
+              "(3) Send Letters To Everyone\n"
+              "(4) quit\n"
               "> "))
-        if answer =='3':
+        if answer =='4':
             break
         elif answer =='1':
             thank_you()
         elif answer =='2':
-            print_report(donor_list)
+            print_report(donors)
+        elif answer =='3':
+            email_all(donors)
         else:
             print("\nPlease type 1, 2, or 3")
             
+def email_all(donors):
+    
 
+    for x in donors:
+        print('Dear {name:},\n'
+            'Thank you for your support. You have donated a total of ${total:.2f}.\n'
+            'Thank you,\n'
+            '-The Students-\n'.format(name=x, total=sum(donors[x])))
+
+        # print('\nDear {}, \n'
+        # 'Thank you for your generous donation of ${:.2f}.\n'
+        # 'We look forward to your continued support\n'
+        # '-= The Students =-\n'.format(name, donor_donation))
     
 
 def print_report(donors):
     '''need the list of donors sorted before I can print them accurately,
     found the sorted function while looking for a way to do this'''
-    donors = sorted(donors, key=lambda x: x[1], reverse=True)
+    # sort = []
+    # donor_list = []
+    # for x in donors:
+    #     sort.append(x) 
+    #     sort.append(donors[x])
+    #     donor_list.append(sort)
+    #     # + donors[x][1]
 
+    # print(donor_list[0])
+    # print(donor_list[1])
+    # print(donor_list[2])
+
+    # for key, value in donors.iteritems():
+    #     temp = [key,value]
+    #     sort.append(temp)
+
+    '''convert dictionary to list'''
+    sort = list(donors.items())
+    '''sort new list by sum of all donations'''    
+    sort = sorted(sort, key=lambda x: x[1:], reverse=True)
+    
     print("\n\n")
-    print("{msg1: <50}|{msg2:<13}|{msg3:<14}|{msg4:<12}".format(msg1='Donor Name',
+    print("{msg1: <20}|{msg2:<13}|{msg3:<14}|{msg4:<12}".format(msg1='Donor Name',
         msg2='Total Donated', msg3='Donation Count', msg4='Average Gift'))
 
-    for x in donors:
-        print('{:<50}|{:>12.2f}|{:^14}|{:>12.2f}'.format(x[0],x[1],x[2],x[1]/x[2]))
+    # for key, value in sorted(donors.iteritems(), key=lambda (k,sum(v)):(v,k)):
+        # print('{:<20}|{:>13.2f}|{:^14}|{:>12.2f}'.format(x,sum(donors[x]),len(donors[x][:]),sum(donors[x])/len(donors[x])))
 
+    for x in sort:
+        print('{:<20}|{:>13.2f}|{:^14}|{:>12.2f}'.format(x[0],sum(x[1][:]),len(x[1]),sum(x[1][:])/len(x[1])))
+        # print(x, x[0], sum(x[1][:]))
+        
     print("\n\n")
 
 
@@ -70,7 +130,7 @@ def thank_you():
     
 
 
-def write_letter(name, donor_donation):
+def write_letter(name, donor_donation=None):
     '''writes a brief letter to the donor with their most current donation'''
     print('\nDear {}, \n'
         'Thank you for your generous donation of ${:.2f}.\n'
@@ -108,19 +168,23 @@ if __name__ == "__main__":
 
     '''could use a dictionary here but wanted to play with formatting a list'''
 
-    donor_list = [
-    ['William Gates, III', 653784.49, 2],
-    # 32682.24
-    ['Mark Zuckerberg', 16396.10, 3],
-    # 5465.37
-    ['Jeff Bezos', 877.33, 1],
-    # 877.33
-    ['dude',200.00, 2],
-    # 100
-    ['Paul Allen', 708.42, 3]
-    # 236.14
-    ]
-     
+    # donor_list = [
+    # ['name':'William Gates, III', 'donations':[653784.49], 'count':2],
+    # # 32682.24
+    # ['name':'Mark Zuckerberg', 'donations':16396.10, 'count':3],
+    # # 5465.37
+    # ['name':'Jeff Bezos', 'donations':877.33, 'count':1],
+    # # 877.33
+    # ['name':'dude','donations':200.00, 2],
+    # # 100
+    # ['name':'Paul Allen', 'donations':708.42, 3]
+    # # 236.14
+    # ]
+    
+    # print(donors)
+    # print(donors['Jeff Bezos'][0])
+    # print(type(donors['Jeff Bezos'][0]))
+    # print(sum(donors['Jeff Bezos']))
     print('starting...')
     main_loop()
 
