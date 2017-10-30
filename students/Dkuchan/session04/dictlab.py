@@ -21,3 +21,32 @@ del dandict['cake']
 #DISPLAY DICT
 print(dandict)
 
+#add entry for fruit
+dandict['fruit'] = 'Mango'
+
+
+#DISPLAY DICT
+print(dandict)
+
+#display keys
+print(dandict.keys())
+
+print()
+print()
+
+#display values
+
+#for i in dandict:
+ #   print(dandict[i])
+
+#OR MORE SIMPLY
+print(dandict.values())
+
+
+#in function for dicts
+print("is 'cake' in the dictionary?")
+print('cake' in dandict)
+
+print("is 'mango' in the dictionary?")
+print('Mango' in dandict.values())
+
