@@ -111,7 +111,8 @@ def send_thank_you():
     # Read a valid donor to send a thank you from, handling special commands to
     # let the user navigate as defined.
     while True:
-        name = input("Enter a donor's name (or list to see all donors or 'menu' to exit)> ").strip()
+        name = input("Enter a donor's name (or list to see all donors or "
+                     "'menu' to exit)> ").strip()
         if name == "list":
             print(list_donors())
         elif name == "menu":
@@ -200,6 +201,7 @@ def print_donor_report():
 
 def quit():
     sys.exit(0)
+
 
 if __name__ == "__main__":
 
