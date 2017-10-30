@@ -23,7 +23,6 @@ Brian Warn
 
 Guillaume R Thomas
 
-Marlon M Estrada
 
 Shibata Hiroyuki
 
@@ -69,7 +68,7 @@ All good.
     Out[22]: 1
     # WTF???
 
-The issue is is that:
+The issue is that:
 
 Default Arguments get evaluated **when the function is defined**. So every time the function is called, it will use the *same* list! Each time adding more and more to the list.
 
@@ -88,13 +87,29 @@ But ``input()`` always returns a string -- no need to wrap a call to ``str()`` a
 
 You may have seen code like this on the web, as ``input()`` behaves differently in Python 2.
 
-<<<<<<< HEAD
 recursion in an interactive loop
 --------------------------------
 
 not a great idea!
 
-=======
+you can do something like:
+
+.. code-block:: python
+
+    def mainloop():
+        while True:
+            ans = input("A question > ")
+            ....
+            if ans == "again"
+                mainloop()
+
+Let's look at this:
+
+``examples/session04/recursive_mainloop.py``
+
+(do a ``git pull upstream master`` if you don't see it.)
+
+
 Deleting from a list while looping through it
 ---------------------------------------------
 
@@ -105,19 +120,22 @@ This may seem like an obvious way to filter a list:
   for item in a_list:
       if something:
           a_list.remove(item)
-         
-But it turns out that removing stuff from alist while looping through can make a mess of things. Let's try it:
+
+But it turns out that removing stuff from a list while looping through can make a mess of things. Let's try it:
 
 .. code-block:: python
 
   a_list = list(range(10))
   print(a_list)
-  # loop to remove the odd numbers
+  # loop to remove everything...
   for item in a_list:
-      if item % 2: # is it an odd number?
+      if item: # is it an nonzero number?
           a_list.remove(item)
+  print(a_list)
 
 Let's run this code, and see what we get.
+
+``examples/session04/deleting_in_loop.py``
 
 What if you add stuff to a list while looping?
 
@@ -141,14 +159,14 @@ TypeError: sum() can't sum strings [use ''.join(seq) instead]
 
 In [10]: def use_sum(seq):
     ...:     return sum(seq)
-    ...: 
+    ...:
 
 In [11]: def use_loop(seq):
     ...:     val = 0
     ...:     for i in seq:
     ...:         val += i
     ...:     return val
-    ...: 
+    ...:
 
 In [12]: seq = list(range(100))
 
@@ -160,10 +178,10 @@ Out[14]: 4950
 
 In [15]: seq = list(range(10000))
 
-In [16]: % timeit use_sum(seq) 
+In [16]: % timeit use_sum(seq)
 10000 loops, best of 3: 73.3 µs per loop
 
-In [17]: % timeit use_loop(seq) 
+In [17]: % timeit use_loop(seq)
 1000 loops, best of 3: 385 µs per loop
 
 
@@ -172,16 +190,9 @@ In [17]: % timeit use_loop(seq)
 
 This can be confusing, but one key note:
 
-Put as little as possible in this block -- the idea is that most of your code can be run / used as a module, and *onlyl* the code that has to be run in a script goes here. Often that is simply somethign like:
+Put as little as possible in this block -- the idea is that most of your code can be run / used as a module, and *only* the code that has to be run in a script goes here. Often that is simply something like:
 
 .. code-block:: python
 
     if __name__ == "__main__":
         main_function()
->>>>>>> 1cb728a7cd85d9b388616be57569c07092c6f847
-
-
-
-
-
-
