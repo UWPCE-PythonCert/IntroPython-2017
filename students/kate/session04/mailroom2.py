@@ -7,11 +7,17 @@ using dictionaries
 import math
 
 # define global donor list and $
-donors = [("Hermione Granger", [43.01, 13.17]),
-            ("Molly Weasley", [87.03]),
-            ("Luna Lovegood", [61.03, 44.87, 44.32]),
-            ("Sybill Trelawney", [16.23, 43.87, 10.0]),
-            ]
+# donors = [("Hermione Granger", [43.01, 13.17]),
+            #("Molly Weasley", [87.03]),
+            #("Luna Lovegood", [61.03, 44.87, 44.32]),
+            #("Sybill Trelawney", [16.23, 43.87, 10.0]),
+            #]
+donors_dict = {
+    'Hermione Granger': [43.01, 13.17],
+    'Molly Weasley':87.03,
+    'Luna Lovegood':[61.03, 44.87, 27.77],
+    'Sybill Trelawney':[77.56, 33.45,  756.32]
+    }
 
 #create a function for the main menu
 def main_menu():
@@ -38,47 +44,50 @@ def write_thankyou(donor_input, amount):
 
 def send_thankyou():
     while True:
-        donor_input = input("""
+        donor_input = input('''
         Enter a donor's name.
-        Select 1. to see all donors
-        Select 2. to exit to main menu
+
+        *or*
+        Select 1. - View donor list
+        Select 2. - Return to main menu
 
         >
-        """).strip()
+        ''').strip()
 
         if donor_input == '1':
-                print_donors()
+                print_donors_list()
         elif donor_input == '2':
             return
         else:
             break
 
     while True:
-        amount = input("Enter a donation amount (or type 'quit' to exit to main menu) > ").strip()
+        amount = input("Enter a donation amount > ").strip()
         if amount == "quit":
             return
         else:
             amount = float(amount)
             break
 
-    donors.append((donor_input, amount))
+    donors[donor_input] = amount
+    # donors.append((donor_input, amount))
     print(write_thankyou(donor_input, amount))
     print(send_thankyou())
     return
 
-def find_donor(name):
-    for donor in donors:
+#def find_donor(name):
+#    for donor in donors:
         # do a case-insenstive compare
-        if name.strip().lower() == donor[0].lower():
-            return donor
-    return None
+        # if name.strip().lower() == donor[0].lower():
+#            return donor
+#    return None
 
 
 # loop through the donor list and print the 0th element of the list
-def print_donors():
+def print_donors_list():
     print("Donors:\n")
-    for donor in donors:
-        print(donor[0])
+    for key in donors_dict:
+        print(key)
 
 # this forces the first item, not the 0th item, to be the first item
 def sort_key(item):
@@ -86,19 +95,20 @@ def sort_key(item):
 
 # print donor report
 def print_report():
-    # First, reduce the raw data into a summary list view
+    # create a row for each donor
     report_rows = []
+
     # establish some variables
-    for (name, gifts) in donors:
-        total_gifts = sum(gifts)
-        num_gifts = len(gifts)
+    for key, value in donors:
+        total_gifts = sum(value)
+        num_gifts = len(value)
         avg_gift = total_gifts / num_gifts
-        report_rows.append((name, total_gifts, num_gifts, avg_gift))
+        report_rows.append((key, total_gifts, num_gifts, avg_gift))
 
     # sort the report data using sort_key function
     report_rows.sort(key=sort_key)
 
-    # print table with spaces
+    # print table with spaces for formatting
     print("{:30s}  {:10s}  {:10s}  {:10s}".format(
           "Donor Name", "Total Given", "Num Gifts", "Average Gift"))
     print("*" * 66)
