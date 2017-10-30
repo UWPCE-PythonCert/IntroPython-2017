@@ -88,7 +88,10 @@ print(next(iter(tiny.keys())))
 # iterate over -- an "iterator" is the actual object that saves state and
 # returns the actual items. You can't call next() on an iterable:
 
-next(tiny.keys())
+try:
+    next(tiny.keys())
+except TypeError:
+    print("You got a TypeError !")
 
 # you get a type error:
 # TypeError: 'dict_keys' object is not an iterator
@@ -124,11 +127,21 @@ next(tiny.keys())
 # let's say you want a random, rather than arbitrary item, but you don't want to
 # create the full list of keys.
 
-# We can leverage the iterator protocol, by calling next() (or using a for loop)
-# a random number of times:
+# We can leverage the iterator protocol, by using a for loop and breaking it
+# when we've gotten a random number of keys:
 
+# pick a random number less than the total number of items in the dict:
 
+r = random.randint(0, len(tiny) - 1)
 
+print("random number")
 
+# now loop through the keys until you get to that random number:
+for i, key in enumerate(tiny.keys()):
+    if i >= r:
+        break
+print("A random key:", key)
 
+# this is a bit better than crating the whole list and calling choice() on it,
+# as it will, on average, only use half the keys
 

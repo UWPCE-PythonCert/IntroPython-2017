@@ -32,9 +32,8 @@ infilename = "students.txt"
 # https://docs.python.org/3/library/collections.html#collections.Counter
 
 from collections import Counter
-all_langs = Counter()
 
-# all_langs = {}
+all_langs = Counter()
 
 with open(infilename) as f:
     f.readline()  # read and toss the header
@@ -45,6 +44,8 @@ with open(infilename) as f:
         langs = langs.replace(',', ' ').replace('and', ' ')
         langs = langs.split()  # separate the languages
         for lang in langs:
+            if lang[0].isupper():  # there are some names in there!
+                continue
             lang = lang.strip().capitalize()  # clean them up -- and make case the same
             if lang:  # don't want empty strings
                     all_langs[lang] += 1
