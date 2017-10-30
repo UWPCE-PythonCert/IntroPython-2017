@@ -1,10 +1,10 @@
-Guillaume, THOMAS, 1000, 10000, 50000
-John, SMITH, 50000
-Jane, Doe, 70000
-Steve, Job, 25000
-Bill, Gates, 55000, 75000, 5000
-Richard, B, 1000
-Phong, T, 6000, 50000
-Greg, Bristol, 88000
-Sterenn, RAOUL, 5000
-Elouan, THOMAS, 5000
+Guillaume, THOMAS, [100, 1000, 5000]
+John, SMITH, [5000]
+Jane, Doe, [7000]
+Steve, Job, [2500]
+Bill, Gates, [5500, 7500, 500]
+Richard, B, [100]
+Phong, T, [600, 5000]
+Greg, Bristol, [8800]
+Sterenn, RAOUL, [500]
+Elouan, THOMAS, [500, 200]
