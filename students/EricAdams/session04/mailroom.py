@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 
 """
-Mailroom Exercise -- as of Session 3 -- no dictionaries or Exceptions
+Used Chris's solution to session 3 version and added to it to create this,
+(session 4) version
+
+Mailroom Exercise -- as of Session 4--  dictionaries yes  Exceptions no
 
 Note: this is not the most robust or flexible code -- but it does the
 job with the simplest of Python data structures.
+
+Adding dictionaries
+Adding function send_thank_you_to_file.
 """
 
 from textwrap import dedent  # nifty utility!
+import sys
 import math
 
 # In memory representation of the donor database
@@ -18,11 +25,10 @@ import math
 
 
 # Making this a global, so it can be accessed from various functions
-donor_db = [("William Gates, III", [653772.32, 12.17]),
-            ("Jeff Bezos", [877.33]),
-            ("Paul Allen", [663.23, 43.87, 1.32]),
-            ("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
-            ]
+donor_db = {"William Gates, III": [653772.32, 12.17],
+            "Jeff Bezos": [877.33],
+            "Paul Allen": [663.23, 43.87, 1.32],
+            "Mark Zuckerberg": [1663.23, 4300.87, 10432.0]}
 
 
 # loop through the donor list and print the 0th element of the list
@@ -30,11 +36,12 @@ def print_donors():
     """
     loop through the donor list and print the 0th element of the list
     which is the donors name
+    donor name is now the key, since changing over to dict
     """
 
     print("Donor list:\n")
-    for donor in donor_db:
-        print(donor[0])
+    for donor in donor_db.keys():
+        print(donor)
 
 
 def find_donor(name):
@@ -45,11 +52,13 @@ def find_donor(name):
 
     :returns: The donor data structure -- None if not in the donor_db
     """
-    for donor in donor_db:
+    donor = name.lower()
+    for key in donor_db.keys():
         # do a case-insenstive compare
-        if name.strip().lower() == donor[0].lower():
-            return donor
-    return None
+        if donor == key.strip().lower():
+            return key
+        else:
+            return None
 
 
 def main_menu_selection():
@@ -62,6 +71,7 @@ def main_menu_selection():
 
       't' - Send a Thank You
       'r' - Create a Report
+      'f' - Send Thank You to a file
       'q' - Quit
 
       > '''))
@@ -84,7 +94,7 @@ def gen_letter(donor):
 
                          Sincerely,
                             -The Team
-          '''.format(donor[0], donor[1][-1]))
+          '''.format(donor, donor_db[donor][-1]))
 
 
 def send_thank_you():
@@ -95,7 +105,8 @@ def send_thank_you():
     # let the user navigate as defined.
     while True:
         name = input("Enter a donor's name "
-                     "(or 'list' to see all donors or 'menu' to exit)> ").strip()
+                     "(or 'list' to see all donors or 'menu' to exit)> "
+                     ).strip()
         if name == "list":
             print_donors()
         elif name == "menu":
@@ -115,23 +126,27 @@ def send_thank_you():
         amount = float(amount_str)
         # NOTE: this is getting a bit carried away...
         #       maybe better to put in its own function
-        if math.isnan(amount) or math.isinf(amount) or round(amount, 2) == 0.00:
+        if math.isnan(amount) or math.isinf(amount) or round(amount,
+                                                             2) == 0.00:
             print("error: donation amount is invalid\n")
             continue  # not really needed, but makes it more clear
         else:
             break
 
-    # If this is a new user, ensure that the database has the necessary data structure.
+    # If this is a new user, ensure that the database has the necessary
+    # data structure.
     donor = find_donor(name)
     if donor is None:
-        donor = (name, [])
-        donor_db.append(donor)
+        donor = name
+        donor_db[donor] = []
 
     # Record the donation
-    # Note how the donor object can be manipulated while it is in the donors list.
-    donor[1].append(amount)
+    # Note how the donor object can be manipulated while it is in the donors
+    # list.
+    donor_db[donor].append(amount)
 
     print(gen_letter(donor))
+    send_thank_you_to_file(donor)
 
 
 def sort_key(item):
@@ -145,7 +160,8 @@ def print_donor_report():
     """
     # First, reduce the raw data into a summary list view
     report_rows = []
-    for (name, gifts) in donor_db:
+    for name in donor_db.keys():
+        gifts = donor_db[name]
         total_gifts = sum(gifts)
         num_gifts = len(gifts)
         avg_gift = total_gifts / num_gifts
@@ -161,15 +177,25 @@ def print_donor_report():
         print("{:25s}   {:11.2f}   {:9d}   {:12.2f}".format(*row))
 
 
+def send_thank_you_to_file(donor):
+    """
+    Writes the thank you letter to a file with file name = donor.txt
+    :param donor
+    :return none
+    """
+    file_name = donor + '.txt'
+    f = open(file_name, 'w')
+    text = gen_letter(donor)
+    f.write(text)
+    f.close()
+
+
+# added an input dictionary.
+
+
+input_db = {'t': send_thank_you, 'r': print_donor_report, 'q': sys.exit}
 if __name__ == "__main__":
     running = True
     while running:
         selection = main_menu_selection()
-        if selection == "t":
-            send_thank_you()
-        elif selection == "r":
-            print_donor_report()
-        elif selection == "q":
-            running = False
-        else:
-            print("error: menu selection is invalid!")
+        input_db[selection]()
