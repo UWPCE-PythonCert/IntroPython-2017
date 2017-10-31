@@ -22,18 +22,37 @@ def copyf(inputf, outputf):
             else:
                 break
 
-#def langlist():
-
-#    with open(inputf,'r') as slist:
 
 
-# infile = "students.txt"
+def langlist():
+    """" From students.txt, generates a list of all the languages that have been used, and how many students on each language """
 
-# with open(infile) as students:
-#     students.readlines()
+    # Create a empty dictionary
+    langcount = {}
 
+    with open('students.txt','r') as slist:
+        slist.readline()
+        for line in slist:
+            langonly = line.split(':')[1].strip()
+            # Remove empty entries
+            if langonly:
+                langsplit = langonly.split(',')
+                for lang in langsplit:
+                    # split the individual language, and again, make sure no empty entries
+                    if lang and lang.split()[0].islower():
+                        lang = lang.split()[0]
+                        # If language is new in dict, put 1 as value
+                        if lang not in langcount:
+                            langcount[lang] = 1
+                        # If language is not new, value + 1
+                        else:
+                            langcount[lang] += 1
+                        #print(lang)
+    print(langcount)
+        
 
 if __name__ == '__main__':
     pdir()
     copyf('students.txt', 'students_backup.txt')
     copyf('spongebob.jpg', 'spongebob_backup.jpg')
+    langlist()
