@@ -4,7 +4,7 @@ import os
 
 def pdir():
     """ Write a program which prints the full path to all files in the current directory, one per line """
-   
+
     for f in os.listdir('.'):
         # Check if item is a file (not a directory)
         if os.path.isfile(f):
@@ -25,7 +25,7 @@ def copyf(inputf, outputf):
 
 
 def langlist():
-    """" From students.txt, generates a list of all the languages that have been used, and how many students on each language """
+    """ From students.txt, generates a list of all the languages that have been used, and how many students on each language """
 
     # Create a empty dictionary
     langcount = {}
@@ -49,10 +49,13 @@ def langlist():
                             langcount[lang] += 1
                         #print(lang)
     print(langcount)
-        
+
 
 if __name__ == '__main__':
+    """ Main function """
+
     pdir()
+    # Test copy for both text and binary files
     copyf('students.txt', 'students_backup.txt')
     copyf('spongebob.jpg', 'spongebob_backup.jpg')
     langlist()
