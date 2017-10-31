@@ -1,10 +1,10 @@
 
 :orphan:
 
-.. _notes_session07:
+.. _notes_session10:
 
 ####################
-Notes for Session 07
+Notes for Session 10
 ####################
 
 A collection of notes to go over in class, to keep things organized.
@@ -12,11 +12,11 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
-Brian Nagata
+Hiroyuki Takechi
 
-Rajaramesh V Yaramati
+Jacob Olsby
 
-Zandra Eng
+Larry Beausoleil
 
 
 Issues that came up during the week.
