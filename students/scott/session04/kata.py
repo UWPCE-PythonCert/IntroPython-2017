@@ -3,8 +3,6 @@
 import re
 import random
 
-
-
 text_file = "sherlock_small.txt"  # Define the name of the text file
 
 text_file_open = open(text_file)
@@ -13,16 +11,11 @@ raw_words = text_file_open.read()  # raw_words is the entire raw contents of the
 
 words_list = ""  # need to define _words_list
 
-
-
-
 def make_words(text):
     words_list = re.sub('[^0-9a-zA-Z]+', ' ', raw_words).split(" ")  # strips out apostrophes, spaces and hyphens, replces with whitespace, splits into list
     print(len(words_list))
     del words_list[len(words_list)-1]
-
     trigrams = {}  #make empty dict
-    
     for i in range(len(words_list)-2):   # make trigram + follower pairs
         pair = tuple(words_list[i:i+2])
         follower = words_list[i+2]
@@ -33,17 +26,11 @@ def make_words(text):
     return trigrams
 trigrams = make_words(words_list)  # so now we've got our full list of trigrams and pairs
 
-
 # Now to build the new story!
-
 # I need a random number for each k, v pair
-
-
-
 def write_new_story(input_dict):
     new_story = []
     start_pair = random.choice(list(trigrams.keys()))
-
 
     for i in range(len(trigrams) + 250):
         if start_pair in trigrams.keys():
@@ -54,7 +41,6 @@ def write_new_story(input_dict):
     return ' '.join(new_story)
 
 # ok, now I need to figure out how to end my story
-
 final_story = write_new_story(trigrams)
 print(final_story)
 print(len(final_story))
