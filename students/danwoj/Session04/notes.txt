@@ -1,0 +1,5 @@
+- Parse the text and put it into a list of words
+- Think about how to use punctuation. One possibility is to add the vocabulary to each word (e.g. book and book. are two unique words)
+- Loop through this monster list of words, every pair of words and the word that follows. Store it in some sort of data structure.
+
+
