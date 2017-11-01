@@ -38,14 +38,23 @@ def main():
         print('Please choose from the following options:')
         prompt = '\n'.join(['{} {}'.format(
             num, option['prompt']) for num, option in options.items()])
-        answer = input(prompt + '\n>')
+        answer = safe_input(prompt + '\n>')
         if answer in options:
             options[answer]['function']()
+
+
+def safe_input(prompt):
+    try:
+        answer = input(prompt)
+    except (KeyboardInterrupt, EOFError):
+        return '4'  # returns the option that quits the program
+    return answer
 
 
 def exit_program():
     """ Exits program."""
     from sys import exit
+    print()
     print('Exiting...')
     exit()
 
