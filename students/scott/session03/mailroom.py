@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-"""this program will store donor information, 
-and allow users to send a thank you to a specific donor, 
+"""this program will store donor information,
+and allow users to send a thank you to a specific donor,
 create a report of donations, or quit the program"""
 
 from textwrap import dedent  # nifty utility!
@@ -29,9 +29,11 @@ def note():
     donation = input("How much did they donate?: ")
     donors_list[donor].append(int(donation))
 
-    print("Dear {},\nThank you for your " \
+    print("Dear {},\nThank you for your "
           "donation of ${}.\n\n".format(donor,donation))
-    print("Your contribution will enable future generations to autonomize their day-to-day lives, without being ruthlessly slaughtered by the AI they create.")
+    print("Your contribution will enable future generations \
+         to autonomize their day-to-day lives, without being \
+         ruthlessly slaughtered by the AI they create.")
     print()
     print(" We look forward to interacting with you in the future!")
     print()
@@ -41,7 +43,7 @@ def note():
 
 def report():
     print("\n\n")
-    print("{msg1: <50}| {msg2: <12}| " \
+    print("{msg1: <50}| {msg2: <12}| "
           "{msg3:<10}| {msg4: <12}".format(msg1="Donor Name",
                                            msg2="Total Given",
                                            msg3="Num Gifts",
