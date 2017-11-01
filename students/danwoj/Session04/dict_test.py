@@ -4,11 +4,28 @@ donations = [[200, 500], [2000.00, 3000.50, 3000.00], [1500.00, 500.25], [400.00
 
 keys = ['f_name', 'l_name', 'don_amt', 'don_num']
 donor_dict = dict.fromkeys(keys, None)
+donor_dict['f_name'] = donor_fnames
+donor_dict['l_name'] = donor_lnames
+donor_dict['don_amt'] = donations
+donor_dict['don_num'] = []
+
+for i in donor_dict['don_amt']:
+	donor_dict['don_num'].append(len(i))
+
+for i in donor_dict:
+	tot_amt = sum(item['don_amt'] for item in donor_dict['don_amt'])
+	print('tot_amt: ', tot_amt)
+
+
+
 
 #donor_dict = dict(zip('f_name', donor_fnames))
 
-for i in range(len(donor_fnames)):
-	donor_dict[f_name].append(donor_fnames)
+
+#for i in range(len(donor_fnames)):
+#	donor_dict['f_name'].append(donor_fnames)
+
+
 
 print(donor_dict)
 
