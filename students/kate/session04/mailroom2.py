@@ -6,12 +6,7 @@ using dictionaries
 """
 import math
 
-# define global donor list and $
-# donors = [("Hermione Granger", [43.01, 13.17]),
-            #("Molly Weasley", [87.03]),
-            #("Luna Lovegood", [61.03, 44.87, 44.32]),
-            #("Sybill Trelawney", [16.23, 43.87, 10.0]),
-            #]
+# define global donor dict and $
 donors_dict = {
     'Hermione Granger': [43.01, 13.17],
     'Molly Weasley':87.03,
@@ -69,7 +64,7 @@ def send_thankyou():
             amount = float(amount)
             break
 
-    donors[donor_input] = amount
+    donors_dict[donor_input] = amount
     # donors.append((donor_input, amount))
     print(write_thankyou(donor_input, amount))
     print(send_thankyou())
@@ -99,7 +94,7 @@ def print_report():
     report_rows = []
 
     # establish some variables
-    for key, value in donors:
+    for key, value in donors_dict:
         total_gifts = sum(value)
         num_gifts = len(value)
         avg_gift = total_gifts / num_gifts
