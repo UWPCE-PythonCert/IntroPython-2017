@@ -20,16 +20,15 @@ def list_fruit():
 
 
 def remove_fruit():
-    '''remove last or user specified fruit from list'''
+    '''remove last and user specified fruit from list'''
     fruits = ['Apples','Pears','Oranges','Peaches']
     print(fruits)
     del fruits[-1]
     print(fruits)
     choice = input("Which fruit should be removed? > ")
-    print(choice,type(choice))
-    ## this works in ipython but not here...?
-    ## should remove all instances of choice
-    fruits = [x for x in fruits if x!= choice]
+    ## remove all instances of choice
+    fruits2 = [x for x in fruits if x!= choice]
+    print(fruits2)
 
 
 def remove_disliked_fruit():
