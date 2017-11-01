@@ -1,18 +1,18 @@
 Name: Languages
 Adams, Eric V:  python, java, perl
-Anderson, Katherine Marguerite: Kate 
+Anderson, Katherine Marguerite: Kate
 Baughman, Eowyn C: fortran, java, matlab, bash
 Beausoleil, Larry: python, powershell
 Briggs, Matthew D: c#, javascript, python, typescript
 Chao, Po-Sung: c++, java
 Chudasma, Amitkumar: Amit shell, python
-Dehghani, Ali: 
+Dehghani, Ali:
 Egan, Kathryn: python, java
 Eng, Zandra: new
 Estrada, Marlon M: java, python, ruby
 Heinemann, Morgan: c++, python
 Kan, David K: java, c#, python
-Kuchan, Daniel W: Dan c++, matlab, 
+Kuchan, Daniel W: Dan c++, matlab,
 Maeda, Matthew Sachio: Matt, c, perl, java, erlang, python
 Matenda, Alinafe: Nafe, java, perl, c#, c++, python
 Nagata, Brian: bash, python
