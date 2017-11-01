@@ -39,18 +39,13 @@ def fizzbuzz3(n):
     Or print on one line...
     """
     for i in range(1, n + 1):
-        num = True
         if i % 3 == 0:
-            print("\nFizz", end='')
-            num = False
+            print("Fizz", end="")
         if i % 5 == 0:
-            if num:
-                print()
-            print("Buzz", end='')
-            num = False
-        else:
-            if num:
-                print("\n", i, end='')
+            print("Buzz", end="")
+        elif i % 3: # have to somehow check if you need to print the number
+            print(i, end="")
+        print()
 
 
 def fizzbuzz4(n):

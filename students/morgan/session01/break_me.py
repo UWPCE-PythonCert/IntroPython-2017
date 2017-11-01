@@ -13,3 +13,4 @@ def syntax():
 def attribute():
 	a = 1
 	a.append(2)   #AttributeError
+	
