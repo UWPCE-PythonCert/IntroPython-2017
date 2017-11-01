@@ -56,6 +56,8 @@ def print_thank_you():
     while True:
         donor = input(
             'Who donated? (Enter LIST to see current list of donors)\n>')
+        if not donor:
+            continue
         if donor.upper() != 'LIST':
             break
         print()
@@ -74,6 +76,8 @@ def print_thank_you():
 
 def get_donation():
     """ Prompts user for and returns donation amount.
+    Will passive aggressively make a thank you for a
+    zero-dollar amount.
     Returns:
         float : amount donated"""
     while True:
@@ -116,9 +120,8 @@ def get_thank_you(donor, donations):
         'first': ', '.join([
             dollar(d) for d in donations[:-1]]),
         'rest': dollar(donations[-1]),
-        'totalling': ', totalling {}${},'.format(
-            'an incredible ' if total > 500 else '', dollar(total))
-            if num > 1 else ''}
+        'totalling': '' if num < 1 else ', totalling {}${},'.format(
+            'an incredible ' if total > 500 else '', dollar(total))}
     message = \
         'Dear {donor},\nThank you for your generous gift{s} of ' +\
         '{first}{and}{rest}. Your donation{s}{totalling} will ' +\
@@ -210,23 +213,6 @@ def average(donations):
     """
     avg = sum(donations) / len(donations)
     return round(avg, 2)
-
-
-def pad(string, length, trailing):
-    """ Adds leading or trailing whitespace to a string
-    up to a given total length. Orientation gives whether
-    whitespace should be leading or trailing.
-    Args:
-        string (str) : string to pad with whitespace
-        length (int) : desired length of string after padding
-        trailing (str) :
-            True if you want trailing whitespace
-            False if you want leading whitespace
-    Returns:
-        str : string padded with whitespace
-    """
-    padding = ' ' * (length - len(string))
-    return string + padding if trailing else padding + string
 
 
 def stringify(row, separator):
