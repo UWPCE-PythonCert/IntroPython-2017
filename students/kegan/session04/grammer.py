@@ -3,8 +3,8 @@ Kathryn Egan
 
 Uses ngrams to produce a randomly-generated text based off
 of user-provided input text. User specifies length of ngram.
-Output is written to a text of the same name as the input with
-the ngram type:
+Output is written to consol and a text file of the same name
+as the input with the ngram type:
 
 [input_file]_output_[uni|bi|tri|quadri]gram.txt
 
@@ -59,6 +59,7 @@ def main():
     ngrams = ngrams_to_string(ngrams)
     write_output(args, output)
     write_ngrams(args, ngrams)
+    print(output)
 
 
 def check_args(args):
@@ -112,20 +113,26 @@ def write_ngrams(args, ngrams):
 
 def snip_gutenberg(text):
     """ Hacky way to emove Gutenberg's legal and publishing
-    header/footer from text if it exists.
+    header/footer from text if it exists. Resort to regex
+    to make code more simple and robust. Will miss any
+    publishing information that Gutenberg put between the
+    start and end lines.
     Args:
         text (str) : text to modify
     Returns:
         str : modified text
     """
+    import re
     modified = []
     collect = False
     gutenberg = False
+    start = re.compile('\*+ *START.*PROJECT GUTENBERG')
+    end = re.compile('\*+ *END.*PROJECT GUTENBERG')
     for line in text.split('\n'):
-        if line.startswith('***START') or line.startswith('*** START'):
+        if not collect and start.search(line):
             collect = True
             gutenberg = True
-        elif line.startswith('***END') or line.startswith('*** END'):
+        elif collect and end.search(line):
             collect = False
         elif collect:
             modified.append(line)
@@ -159,11 +166,8 @@ def tokenize(text, n):
         token, punctuation = split_punctuation(token)
         lowtoken = token.lower()
         tokens.extend([t for t in [lowtoken, punctuation] if t])
-        if lowtoken not in formats:
-            formats[lowtoken] = {}
-        if token not in formats[lowtoken]:
-            formats[lowtoken][token] = 0
-        formats[lowtoken][token] += 1
+        formats[lowtoken][token] = \
+            formats.setdefault(lowtoken, {}).setdefault(token, 0) + 1
     formats = get_formats(formats)
     # reformat each token according to its commonest format
     tokens = [formats[t] if t in formats else t for t in tokens]
@@ -172,7 +176,7 @@ def tokenize(text, n):
             'ERROR: Text must have at least {} ' +\
             'tokens in it to generate {}grams'
         sys.exit(message.format(n, n))
-    # Enforce well-formed text
+    # Enforce well-formed text so program will end
     if tokens and tokens[-1] not in ('?', '!', '.'):
         tokens.append('.')
     return tokens
@@ -205,7 +209,7 @@ def get_title(title, token):
         token (str) : current token, which may be joined with a title
     """
     titles = (
-        'Mrs', 'Mr', 'Lady', 'Sir', 'Dr', 'Ms',
+        'Mrs', 'Mr', 'M', 'Lady', 'Sir', 'Dr', 'Ms',
         'Miss', 'Missus', 'Misses', 'Mister')
     # current token is a title, update title tracker and reset token
     if token.strip('.') in titles:
@@ -306,8 +310,7 @@ def generate_ngrams(tokens, n):
             break
         n_1gram = tuple(tokens[index:index + n - 1])
         endgram = tokens[index + n - 1]
-        ngrams.setdefault(n_1gram, [])
-        ngrams[n_1gram].append(endgram)
+        ngrams.setdefault(n_1gram, []).append(endgram)
         # assumes preceding period means start of sentence
         if index == 0 or tokens[index - 1] == '.':
             starters.append(n_1gram)
