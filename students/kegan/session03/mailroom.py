@@ -24,23 +24,23 @@ def main():
     options = {
         '1': {
             'prompt': 'Send a Thank You',
-            'module': print_thank_you},
+            'function': print_thank_you},
         '2': {
             'prompt': 'Create a Report',
-            'module': print_report},
+            'function': print_report},
         '3': {
             'prompt': 'Write Thank Yous',
-            'module': write_thank_yous},
+            'function': write_thank_yous},
         '4': {
             'prompt': 'Quit',
-            'module': exit_program}}
+            'function': exit_program}}
     while True:
         print('Please choose from the following options:')
         prompt = '\n'.join(['{} {}'.format(
-            option, options[option]['prompt']) for option in options])
+            num, option['prompt']) for num, option in options.items()])
         answer = input(prompt + '\n>')
         if answer in options:
-            options[answer]['module']()
+            options[answer]['function']()
 
 
 def exit_program():
@@ -63,8 +63,7 @@ def print_thank_you():
         print('\n'.join(sorted(DONORS)))
         print()
     donor = ' '.join(donor.split()).title()
-    if donor not in DONORS:
-        DONORS[donor] = []
+    DONORS.setdefault(donor, [])
     donation = get_donation()
     DONORS[donor].append(donation)
     thankyou = get_thank_you(donor, [donation])
@@ -115,11 +114,11 @@ def get_thank_you(donor, donations):
         's': 's' if num > 1 else '',
         'and': ' and ' if num > 1 else '',
         'first': ', '.join([
-            '${}'.format(dollar(d)) for d in donations[:-1]]),
-        'rest': '$' + dollar(donations[-1]),
+            dollar(d) for d in donations[:-1]]),
+        'rest': dollar(donations[-1]),
         'totalling': ', totalling {}${},'.format(
-            'an incredible ' if total > 500
-            else '', dollar(total)) if num > 1 else ''}
+            'an incredible ' if total > 500 else '', dollar(total))
+            if num > 1 else ''}
     message = \
         'Dear {donor},\nThank you for your generous gift{s} of ' +\
         '{first}{and}{rest}. Your donation{s}{totalling} will ' +\
@@ -128,6 +127,17 @@ def get_thank_you(donor, donations):
         'Regards,\nBungelina Bigglesnorf\nChairwoman, Miuvenile Care'
     message = message.format(**substrings)
     return message
+
+
+def dollar(amount):
+    """ Returns amount in dollar format. Removes trailing
+    .00s to create a clean amount.
+    Args:
+        amount (float) : dollar amount to format
+    Returns:
+        str : dollar amount as a string
+    """
+    return '${:,.2f}'.format(amount).replace('.00', '')
 
 
 def print_report():
@@ -160,7 +170,7 @@ def update_widths(line):
         item = line[index]
         # dollar amounts are slightly longer in final report
         if type(item) is float:
-            item = dollar(item, report=True)
+            item = '{:,.2f}'.format(item)
         item = str(item)
         if len(item) > COLUMN_WIDTHS[index]:
             COLUMN_WIDTHS[index] = len(item)
@@ -202,50 +212,6 @@ def average(donations):
     return round(avg, 2)
 
 
-def dollar(amount, report=False):
-    """ Returns amount in a format suitable for showing
-    dollar amounts, e.g. 181.98 or 211. Removes cents
-    from any whole dollar amount.
-     Args:
-        amount (float) : amount to turn into dollar format
-        report (True) : True returns report format, otherwise basic format
-    Returns:
-        str : amount in dollar format
-    """
-    if report:  # XXXX.XX
-        return '{:.2f}'.format(amount)
-    else:  # X,XXX or X,XXX.XX
-        dollars = get_dollars(amount // 1)
-        cents = get_cents(amount % 1)
-        return dollars + cents
-
-
-def get_dollars(dollars):
-    """ Returns dollar amount as a string with 100s
-    separated by commas (e.g. XX,XXX,XXX)
-    Args:
-        dollars (float) : dollar amount
-    Returns:
-        str : dollars as a string with commas
-    """
-    dollars = str(int(dollars))
-    dollars = ','.join(reversed([
-        dollars[max(0, index - 2):index + 1]
-        for index in list(range(len(dollars)))[::-3]]))
-    return dollars
-
-
-def get_cents(cents):
-    """ Returns cent amount as a string with no
-    leading 0. Returns empty string if cents = 0.
-    Args:
-        cents (float) : cents
-    Returns:
-        str : cents in string format
-    """
-    return '' if cents == 0 else '{:.2f}'.format(cents)[1:]
-
-
 def pad(string, length, trailing):
     """ Adds leading or trailing whitespace to a string
     up to a given total length. Orientation gives whether
@@ -259,16 +225,13 @@ def pad(string, length, trailing):
     Returns:
         str : string padded with whitespace
     """
-    while len(string) < length:
-        if trailing:
-            string = string + ' '
-        else:
-            string = ' ' + string
-    return string
+    padding = ' ' * (length - len(string))
+    return string + padding if trailing else padding + string
 
 
 def stringify(row, separator):
-    """ Returns given row as a string.
+    """ Returns given row as a string. Formats values based
+    on type.
     Args:
         row (list of str) : list of items in row
         separator (str) : separator for columns
@@ -276,23 +239,17 @@ def stringify(row, separator):
         str : row as a string
     """
     line = []
-    trailing = True  # trailing WS on first line
     for value, width in zip(row, COLUMN_WIDTHS):
         # monetary values get WS inserted between $ and number
         if type(value) is float:
-            value = dollar(value, report=True)
-            value = pad(value, width, trailing)
-            value = '$' + value + ' '
+            value = '{:,.2f}'.format(value)
+            value = '${}{} '.format(' ' * (width - len(str(value))), value)
         # numbers have leading WS with one extra WS in front and back
         elif type(value) is int:
-            value = str(value)
-            value = pad(value, width, trailing)
-            value = ' ' + value + ' '
+            value = ' {}{} '.format(' ' * (width - len(str(value))), value)
         # names having trailing WS with one extra WS
         else:  # str format
-            value = pad(value, width, trailing)
-            value += ' '  # WS cushion for both left/right columns
-        trailing = False
+            value = '{}{} '.format(value, ' ' * (width - len(value)))
         line.append(value)
     return separator.join(line).strip()
 
