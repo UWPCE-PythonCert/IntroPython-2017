@@ -1,0 +1,31 @@
+Name: Languages
+Adams, Eric V:  python, java, perl
+Anderson, Katherine Marguerite: Kate 
+Baughman, Eowyn C: fortran, java, matlab, bash
+Beausoleil, Larry: python, powershell
+Briggs, Matthew D: c#, javascript, python, typescript
+Chao, Po-Sung: c++, java
+Chudasma, Amitkumar: Amit shell, python
+Dehghani, Ali: Nothing
+Egan, Kathryn: python, java
+Eng, Zandra: new
+Estrada, Marlon M: java, python, ruby
+Heinemann, Morgan: c++, python
+Kan, David K: java, c#, python
+Kuchan, Daniel W: Dan c++, matlab, 
+Maeda, Matthew Sachio: Matt, c, perl, java, erlang, python
+Matenda, Alinafe: Nafe, java, perl, c#, c++, python
+Nagata, Brian: bash, python
+Navitsky, John:bash, python, ansible
+Olsby, Jacob: Jake, c#, powershell, python, sql
+Peterson, Scott B: python, r, visualbasic
+Shibata, Hiroyuki: php, mysql, python
+Takata, James: Jim, rex, db
+Takechi, Hiroyuki: Hiro, r
+Thadigol Reddappa, Srikanth: Sri, perl, python
+Thomas, Guillaume R: Tom, shell, python, vb
+Uvarov, Evgeny S: Gene, python
+Warn, Brian: fortran, perl, sql, python
+Wojciechowski, Daniel: Dan, c, c++, lisp
+Yaramati, Rajaramesh V: Ramesh, bash, python, sql
+Yen, Tian Chuan: java, python

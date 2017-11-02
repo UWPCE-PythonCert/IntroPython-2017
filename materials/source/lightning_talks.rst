@@ -57,14 +57,14 @@ Shibata Hiroyuki
 Ali Dehghani
 ------------
 
-David K Kan
------------
+David K Kan: progressbar2
+-------------------------
 
-Evgeny S Uvarov
----------------
+Evgeny S Uvarov: paramiko
+-------------------------
 
-Srikanth Thadigol Reddappa
---------------------------
+Srikanth Thadigol Reddappa: solar eclipse times, plotted
+--------------------------------------------------------
 
 Alinafe Matenda
 ---------------
