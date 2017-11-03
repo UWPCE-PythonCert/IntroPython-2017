@@ -12,9 +12,11 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
-The ones we didn't get to last week:
+Alinafe Matenda
 
-Marlon M Estrada
+Daniel W Kuchan
+
+Kathryn Egan
 
 
 Issues that came up during the week.

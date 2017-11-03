@@ -12,9 +12,11 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
-The ones we didn't get to last week:
+Brian Nagata
 
-Marlon M Estrada
+Rajaramesh V Yaramati
+
+Zandra Eng
 
 
 Issues that came up during the week.
