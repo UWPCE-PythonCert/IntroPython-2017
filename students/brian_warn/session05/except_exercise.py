@@ -49,3 +49,7 @@ try:
 except IndexError as e:
     print("Index error: " + str(e))
 
+try:
+    last_fun()
+except:
+    print("Need to figure out a way to handle the incorrectly defined import statement")
