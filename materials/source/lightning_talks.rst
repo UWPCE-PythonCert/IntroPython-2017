@@ -51,8 +51,13 @@ Guillaume R Thomas: What do I do with Python?
 Marlon M Estrada
 ----------------
 
-Shibata Hiroyuki
+Shibata Hiroyuki: Why Am I Here?
 ----------------
+
+hacker-typer for Atom: https://github.com/zamarrowski/hacker-typer
+
+:download:`tcpclient.py <../../students/shibata/tcpclient.py>`
+
 
 Ali Dehghani
 ------------
@@ -110,4 +115,3 @@ Jacob Olsby
 
 Larry Beausoleil
 ----------------
-
