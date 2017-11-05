@@ -200,14 +200,18 @@ def print_donor_report():
 
 
 def quit():
+    """
+    quit the program
+
+    Note: you could put the sys.exit call directly in the dict
+          but this lets you put extra code in there if you want.
+    """
     sys.exit(0)
 
 
 if __name__ == "__main__":
 
     donor_db = get_donor_db()
-
-    running = True
 
     selection_dict = {"1": send_thank_you,
                       "2": print_donor_report,
