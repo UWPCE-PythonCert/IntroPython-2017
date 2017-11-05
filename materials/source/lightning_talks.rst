@@ -39,6 +39,8 @@ Brian Warn: Python and PDFs
 
 The PyPDF2 package:  https://pythonhosted.org/PyPDF2/
 
+:download:`Python_and_PDFs.pptx <../../students/brian_warn/session04/Python_and_PDFs.pptx>`
+
 :download:`pdf.py <../../students/brian_warn/session04/pdf.py>`
 
 
@@ -51,8 +53,13 @@ Guillaume R Thomas: What do I do with Python?
 Marlon M Estrada
 ----------------
 
-Shibata Hiroyuki
+Shibata Hiroyuki: Why Am I Here?
 ----------------
+
+hacker-typer for Atom: https://github.com/zamarrowski/hacker-typer
+
+:download:`tcpclient.py <../../students/shibata/tcpclient.py>`
+
 
 Ali Dehghani
 ------------
@@ -110,4 +117,3 @@ Jacob Olsby
 
 Larry Beausoleil
 ----------------
-

@@ -71,7 +71,7 @@ for key in tiny.keys():
 # (notice that it's the SAME arbitrary key as the first item of the list method --
 # it IS the first item off the list.
 
-# So this leads us to the solution we ALMOST got to in class:
+# So this leads us to another solution:
 #
 # for loops use the "iterator protocol". You can use that directly if you want
 # to control how things are iterated over.
@@ -86,12 +86,13 @@ print(next(iter(tiny.keys())))
 # Wait! what is that `iter()` call? the `iter()` function takes a "iterable"
 # and returns and "iterator" from it.  An "iterable" is something you can
 # iterate over -- an "iterator" is the actual object that saves state and
-# returns the actual items. You can't call next() on an iterable:
+# returns the specific items. You can't call next() on an iterable:
 
 try:
     next(tiny.keys())
-except TypeError:
+except TypeError as err:
     print("You got a TypeError !")
+    print(err)
 
 # you get a type error:
 # TypeError: 'dict_keys' object is not an iterator
@@ -99,7 +100,7 @@ except TypeError:
 # So what should one do in this case? Isn't part of Python's Philosophy:
 #   There is only one way to do it?
 #
-# This is why, in class, I thought there should be a quick and easy way to do this.
+# This is why I thought there should be a quick and easy way to do this.
 #
 # However, on further thought, this is pretty unusual thing to need to do:
 #  .popitems() makes sense -- you sometimes need to pull out a item from a dict
