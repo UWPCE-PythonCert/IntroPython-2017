@@ -155,10 +155,11 @@ if __name__ == "__main__":
         # Don't add list(new_key) to output
         # output_list = output_list + list(new_key) +
         # [random_trigram_followers]
-        # output_list = output_list + list(new_key[1]) + [random_trigram_followers]
+        # output_list = output_list + list(new_key[1]) +
+        # [random_trigram_followers]
         output_list = output_list + [random_trigram_followers]
-        # if len(output_list) > 2500:
-        #     break
+        if len(output_list) > 2500:
+            break
     t = " ".join(output_list)
     # print(t)
     with open('trigrams.txt', 'w') as f_output:
