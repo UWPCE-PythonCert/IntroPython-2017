@@ -104,6 +104,7 @@ def print_report():
         avg_gift = total_gifts / num_gifts
         report_rows.append((keys, total_gifts, num_gifts, avg_gift))
 
+
     # sort the report data using sort_key function
     report_rows.sort(key=sort_key)
 
@@ -111,8 +112,12 @@ def print_report():
     print("{:30s}  {:10s}  {:10s}  {:10s}".format(
           "Donor Name", "Total Given", "Num Gifts", "Average Gift"))
     print("*" * 66)
-    for row in report_rows:
-        print("{:30s}   {:10f}   {:10d}   {:10f}".format(*row))
+#    for row in report_rows:
+#        print("{:30s}   {:10f}   {:10d}   {:10f}".format(*row))
+
+    rows = [print("{:30s}   {:10f}   {:10d}   {:10f} ".format(*row)) for row in report_rows]
+    # print(rows(range[0,len(rows)])
+
 
 if __name__ == "__main__":
     running = True
