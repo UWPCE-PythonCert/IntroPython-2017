@@ -26,40 +26,65 @@ The set of data will be in the form of a trigram created as follows:
  The final output file will be a mutated form of the input text file.
  """
 import random
+# import string
 
 # raw_input_list = []
-input_list = []
+input_string = []
 # initial_trigram_key = tuple()
 # output_list = []
 
+# Make these strings instead of lists for the str.translate method
+
 # List of chars to remove or replace with a space from input text
-replace_punc = ['-',
-                "'",
-                ',',
-                '.',
-                ')',
-                '(',
-                '"',
-                '?',
-                ';',
-                '\n']
+# unwanted_punc = ['-',
+#                  "'",
+#                  ',',
+#                  '.',
+#                  ')',
+#                  '(',
+#                  '"',
+#                  '?',
+#                  ';',
+#                  '\n']
+
+# substitution_chars = [' ',
+#                       ' ',
+#                       ' ',
+#                       ' ',
+#                       ' ',
+#                       ' ',
+#                       ' ',
+#                       ' ',
+#                       ' ',
+#                       ' ']
+substitution_chars = ' ' * 10
+unwanted_punc = '-' + "'" + ',' + '.' + ')' + '(' + '"' + '?' + ';' + '\n'
 
 
-def replace_unwanted_punctuation(raw_input_list, replace_punc):
-    """ Build up an input list with unwanted punctuation replaced
-    :param1 = a list of char with punctuation
-    :param2 = a list of char unwanted punctuation
-    :return a list of char free of unwanted punctuation
+def replace_unwanted_punctuation(raw_input_string, unwanted_punc,
+                                 substitution_chars):
+    """ Build up an input string with unwanted punctuation replaced
+    in accordance with a string of chars
+    :param1 = a string with punctuation
+    :param2 = a string of unwanted punctuation
+    :param3 = a string of char to substitue for the unwanted punctuation
+    :return a string free of unwanted punctuation
     """
-    for i, x in enumerate(raw_input_list):
-        if x in replace_punc:
-            input_list.append(' ')
-        else:
-            input_list.append(x)
-    return input_list
+    # Now that the read in file is one string. Use str.translate
+    # for i, x in enumerate(raw_input_list):
+    #     if x in replace_punc:
+    #         input_list.append(' ')
+    #     else:
+    #         input_list.append(x)
+
+    # maketrans returns a table
+    transition_table = raw_input_string.maketrans(
+        unwanted_punc, substitution_chars)
+    input_string = raw_input_string.translate(transition_table)
+    return input_string
 
 
-def create_the_trigram(input_list):
+def create_the_trigram(input_string):
     """ Create a trigram from a list.
     :param1 = a list
     :return = a dictionary, (trigram)
@@ -67,12 +92,12 @@ def create_the_trigram(input_list):
     trigram = {}
     # we need a pair hence the len(input_list) - 2
     #   instead of len(input_list) - 1
-    for i in range(len(input_list) - 2):
+    for i in range(len(input_string) - 2):
         # must be a tuple in order to be a key in trigram
-        trigram_key = tuple(input_list[i:i + 2])
-        trigram_value = input_list[i + 2]
+        trigram_key = tuple(input_string[i:i + 2])
+        trigram_followers = input_string[i + 2]
         # this is so nifty, I had to use it
-        trigram.setdefault(trigram_key, []).append(trigram_value)
+        trigram.setdefault(trigram_key, []).append(trigram_followers)
     return trigram
 
 
@@ -82,10 +107,12 @@ def initial_output_list(trigram):
     :param = dictionary, (trigram)
     :return list
     """
-    random_number = random.randrange(0, len(trigram) - 1)
-    for i, j in enumerate(trigram):
+    # Remove - 1
+    # random_number = random.randrange(0, len(trigram) - 1)
+    random_number = random.randrange(0, len(trigram))
+    for i, trigram_key in enumerate(trigram):
         if i == random_number:
-            initial_trigram_key = j
+            initial_trigram_key = trigram_key
             break
     output_list = list(initial_trigram_key) + trigram[initial_trigram_key]
     return output_list
@@ -93,17 +120,21 @@ def initial_output_list(trigram):
 
 if __name__ == "__main__":
     with open('./sherlock.txt', 'r') as f_input:
-        raw_input_list = list(f_input.read())
+        # Keeping this as one big string so string methods can be used
+        # Changing var to reflect that it is a string now
+        # raw_input_list = list(f_input.read())
+        raw_input_string = f_input.read()
 
     # Clean up the input
-    input_list = replace_unwanted_punctuation(raw_input_list, replace_punc)
+    input_string = replace_unwanted_punctuation(
+        raw_input_string, unwanted_punc, substitution_chars)
 
     # get a list of words, instead of chars
-    input_text = "".join(input_list)
-    input_list = input_text.split(" ")
+    input_text = "".join(input_string)
+    input_string = input_text.split(" ")
 
     # Create the trigram from the cleaned up input
-    trigram = create_the_trigram(input_list)
+    trigram = create_the_trigram(input_string)
 
     # Build the text output.text
     # Start with a random word from the trigram
@@ -114,16 +145,20 @@ if __name__ == "__main__":
         # Next keyword pair = last two elements of output_list
         new_key = tuple(output_list[-2:])
         try:
-            trigram_value_list = trigram[new_key]
+            trigram_followers_list = trigram[new_key]
         except KeyError:
-            # pick a random word in trigram_value_list
             print('exiting')
             break
-        random_trigram_value = random.choice(trigram_value_list)
-        new_value = random_trigram_value
-        output_list = output_list + list(new_key) + [new_value]
-        if len(output_list) > 2500:
-            break
+        random_trigram_followers = random.choice(trigram_followers_list)
+        # useless line
+        # new_value = random_trigram_followers
+        # Don't add list(new_key) to output
+        # output_list = output_list + list(new_key) +
+        # [random_trigram_followers]
+        # output_list = output_list + list(new_key[1]) + [random_trigram_followers]
+        output_list = output_list + [random_trigram_followers]
+        # if len(output_list) > 2500:
+        #     break
     t = " ".join(output_list)
     # print(t)
     with open('trigrams.txt', 'w') as f_output:
