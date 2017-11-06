@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
 """
-
 trigrams with sherlock writing
-
 """
 # import random module
 from random import randint
@@ -23,13 +21,14 @@ def gen_trigrams(words):
 
 def build_new_text(word_dict):
     # create index to hold a random integer
-    rand_index = randint(0, len(word_dict.keys()))
+    rand_index = randint(0, len(word_dict))
     # create list to hold words
     new_list = []
     # set counter to 0
     index = 0
 
     # build sentences using index counter. Use for loop to add keys and values
+
     for keys,values in word_dict.items():
         if rand_index == index:
             new_list.append(keys[0])
