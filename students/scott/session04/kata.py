@@ -27,12 +27,11 @@ def make_words(text):
 trigrams = make_words(words_list)  # so now we've got our full list of trigrams and pairs
 
 # Now to build the new story!
-# I need a random number for each k, v pair
 def write_new_story(input_dict):
     new_story = []
     start_pair = random.choice(list(trigrams.keys()))
 
-    for i in range(len(trigrams) + 250):
+    for i in range(len(trigrams)):
         if start_pair in trigrams.keys():
             new_word = random.choice(trigrams[start_pair]) # dicts are not indexed, however you use similar syntax to indexing, but you pass in a key value, not an index number
             new_start_pair = (start_pair[1], new_word)  # i needed parentheses to make this a tuple, since dictionary keys are tuples and you need to have a tuple to find that key in the dictionary
@@ -40,7 +39,6 @@ def write_new_story(input_dict):
             new_story.append(new_word)
     return ' '.join(new_story)
 
-# ok, now I need to figure out how to end my story
 final_story = write_new_story(trigrams)
 print(final_story)
 print(len(final_story))

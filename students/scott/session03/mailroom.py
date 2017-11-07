@@ -29,8 +29,8 @@ def note():
     donation = input("How much did they donate?: ")
     donors_list[donor].append(int(donation))
 
-    print("Dear {},\nThank you for your "
-          "donation of ${}.\n\n".format(donor,donation))
+    print("Dear {},\nMuch thanks for your "
+          "generous donation of ${}.\n\n".format(donor, donation))
     print("Your contribution will enable future generations \
          to autonomize their day-to-day lives, without being \
          ruthlessly slaughtered by the AI they create.")
