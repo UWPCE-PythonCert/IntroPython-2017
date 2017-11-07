@@ -59,10 +59,14 @@ def verbose_way():
         print("grade must be a float")
         sys.exit()
 
-    my_args = ArgsObject(my_args)
-    output = get_output(my_args)
-
-    return output
+    # print output
+    nickname = ', aka {},'.format(
+        my_args['nickname']) if my_args['nickname'] else ''
+    honors = ' (Honors)' if my_args['honors'] else ''
+    print(
+        "{}{} received a {:.1f} in {}{}.".format(
+            my_args['name'].title(), nickname, my_args['grade'],
+            my_args['course'], honors))
 
 
 def argparse_way():
@@ -82,31 +86,17 @@ def argparse_way():
     parser.add_argument(
         '--honors', '-H', action='store_true',
         help='honors class (optional)')
+    # parse command-line arguments
     args = parser.parse_args()
-    output = get_output(args)
-    return output
 
-
-class ArgsObject:
-    """ Mini object just to make presentation easier. """
-    def __init__(self, dic):
-        self.course = dic['course']
-        self.name = dic['name']
-        self.grade = dic['grade']
-        self.nickname = dic['nickname']
-        self.honors = dic['honors']
-
-
-def get_output(args):
-    """ Returns the given parameters as a descriptive string."""
+    # print output
     nickname = ', aka {},'.format(args.nickname) if args.nickname else ''
     honors = ' (Honors)' if args.honors else ''
-    output = "{}{} received a {:.1f} in {}{}.".format(
-        args.name.title(), nickname, args.grade, args.course, honors)
-    return output
+    print(
+        "{}{} received a {:.1f} in {}{}.".format(
+            args.name, nickname, args.grade, args.course, honors))
 
 
 if __name__ == '__main__':
-    output = verbose_way()
-    # output = argparse_way()
-    print(output)
+    verbose_way()
+    # argparse_way()
