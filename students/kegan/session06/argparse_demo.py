@@ -3,12 +3,12 @@ Kathryn Egan
 
 https://docs.python.org/3/library/argparse.html
 """
-import sys
-import argparse
 
 
 def verbose_way():
     """ Verbose, ugly way of dealing with command-line args."""
+    import sys
+
     usage = \
         'USAGE: argparse_demo.py [course] [name] ' +\
         '[grade] [--nickname NICKNAME] [--honors]'
@@ -67,8 +67,9 @@ def verbose_way():
 
 def argparse_way():
     """ Simple, descriptive way of dealing with command-line args. """
-    parser = argparse.ArgumentParser()
+    from argparse import ArgumentParser
 
+    parser = ArgumentParser()
     # add a positional argument
     parser.add_argument('course')
     # include a help message
@@ -81,10 +82,8 @@ def argparse_way():
     parser.add_argument(
         '--honors', '-H', action='store_true',
         help='honors class (optional)')
-
     args = parser.parse_args()
     output = get_output(args)
-
     return output
 
 
@@ -108,6 +107,6 @@ def get_output(args):
 
 
 if __name__ == '__main__':
-    # output = verbose_way()
-    output = argparse_way()
+    output = verbose_way()
+    # output = argparse_way()
     print(output)
