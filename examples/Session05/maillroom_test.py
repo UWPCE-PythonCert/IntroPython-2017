@@ -174,10 +174,17 @@ def input_sc(textfile):
     while bool:
         print(welcome)
         selection = input('Please type a number between 1 & 4:\n')
-        if selection.isdecimal():
+        try:
             selection = int(selection)
-            bool = prog_dic.get(selection, 'None')(textfile)
-
+        except ValueError:
+            print("You typed a bad value!!".upper())
+        else:
+            try:
+                bool = prog_dic[selection](textfile)
+            except KeyError:
+                print("You typed a bad value!!".upper())
+        finally:
+            print("Going around again")
 
 if __name__ == '__main__':
     '''
