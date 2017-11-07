@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/Library/Frameworks/Python.framework/Versions/3.6/bin/python
 
 """
 An exercise in playing with Exceptions.
@@ -17,13 +17,15 @@ first_try = ['spam', 'cheese', 'mr death']
 try:
     joke = fun(first_try[0])
 except NameError as ne:
-    print("fun() is not coded properly: " + str(ne))
+    print("Whoops, there is no joke for:", first_try[0])
 
 # Here is a try/except block. Add an else that prints not_joke
 try:
     not_joke = fun(first_try[2])
 except SyntaxError as se:
     print("Run Away!" + str(se))
+else:
+    print(not_joke)
 
 
 # What did that do? You can think of else in this context, as well as in
@@ -34,6 +36,8 @@ except SyntaxError as se:
 #
 # try calling the more_fun function with the 2nd language in the list,
 # again assigning it to next_joke.
+
+
 #
 # If there are no exceptions, call the more_fun function with the last
 # language in the list regardless of whether there was an exception
@@ -46,10 +50,9 @@ langs = ['java', 'c', 'python']
 
 try:
     more_joke = more_fun(langs[0])
-except IndexError as e:
-    print("Index error: " + str(e))
-
-try:
+except IndexError as ie:
+    # print("Error is: ", ie)
+    next_joke = more_fun(langs[1])
+    print(next_joke)
+finally:
     last_fun()
-except:
-    print("Need to figure out a way to handle the incorrectly defined import statement")
