@@ -85,9 +85,9 @@ if __name__ == "__main__":
     bar = ProgressBar()
 
     # Demo the main three commonly used progressbars
-    wrapping_an_iterable(bar)
+    # wrapping_an_iterable(bar)
     # context_wrapper()
     # progressbars_unknown_length()
 
     # Demo of progressbar for unknown length
-    # read_csv_file(bar)
+    read_csv_file(bar)

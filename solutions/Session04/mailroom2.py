@@ -30,7 +30,7 @@ def get_donor_db():
 
 def list_donors():
     """
-    creates a list of the donors as a string, so they can be printed
+    Create a list of the donors as a string, so they can be printed
 
     Not calling print from here makes it more flexible and easier to
     test
@@ -43,10 +43,9 @@ def list_donors():
 
 def find_donor(name):
     """
-    find a donor in the donor db
+    Find a donor in the donor db
 
     :param: the name of the donor
-
     :returns: The donor data structure -- None if not in the donor_db
     """
     key = name.strip().lower()
@@ -58,7 +57,6 @@ def add_donor(name):
     Add a new donor to the donor db
 
     :param: the name of the donor
-
     :returns: the new Donor data structure
     """
     name = name.strip()
@@ -88,7 +86,6 @@ def gen_letter(donor):
     Generate a thank you letter for the donor
 
     :param: donor tuple
-
     :returns: string with letter
 
     note: This doesn't actually write to a file -- that's a separate
@@ -104,22 +101,10 @@ def gen_letter(donor):
           '''.format(donor[0], donor[1][-1]))
 
 
-def send_thank_you():
+def take_donation(name):
     """
-    Execute the logic to record a donation and generate a thank you message.
+    Ask user for donation amount, and then add it  to the DB
     """
-    # Read a valid donor to send a thank you from, handling special commands to
-    # let the user navigate as defined.
-    while True:
-        name = input("Enter a donor's name (or list to see all donors or "
-                     "'menu' to exit)> ").strip()
-        if name == "list":
-            print(list_donors())
-        elif name == "menu":
-            return
-        else:
-            break
-
     # Now prompt the user for a donation amount to apply. Since this is
     # also an exit point to the main menu, we want to make sure this is
     # done before mutating the db.
@@ -149,7 +134,25 @@ def send_thank_you():
 
     # Record the donation
     donor[1].append(amount)
+    # print the thank you letter
     print(gen_letter(donor))
+
+
+def send_thank_you():
+    """
+    Execute the logic to record a donation and generate a thank you message.
+    """
+    # Read a valid donor to send a thank you from, handling special commands to
+    # let the user navigate as defined.
+    while True:
+        name = input("Enter a donor's name or 'list' to see all donors or "
+                     "'menu' to exit to main menu > ").strip()
+        if name == "list":
+            print(list_donors())
+        elif name == "menu":
+            return
+        else:
+            take_donation(name)
 
 
 def sort_key(item):
@@ -192,6 +195,7 @@ def save_letters_to_disk():
         letter = gen_letter(donor)
         # I don't like spaces in filenames...
         filename = donor[0].replace(" ", "_") + ".txt"
+        print("writting letter to:", donor[0])
         open(filename, 'w').write(letter)
 
 
@@ -200,14 +204,18 @@ def print_donor_report():
 
 
 def quit():
+    """
+    quit the program
+
+    Note: you could put the sys.exit call directly in the dict
+          but this lets you put extra code in there if you want.
+    """
     sys.exit(0)
 
 
 if __name__ == "__main__":
 
     donor_db = get_donor_db()
-
-    running = True
 
     selection_dict = {"1": send_thank_you,
                       "2": print_donor_report,
