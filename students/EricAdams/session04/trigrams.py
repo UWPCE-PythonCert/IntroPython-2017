@@ -158,7 +158,7 @@ if __name__ == "__main__":
         # output_list = output_list + list(new_key[1]) +
         # [random_trigram_followers]
         output_list = output_list + [random_trigram_followers]
-        if len(output_list) > 2500:
+        if len(output_list) > 5000:
             break
     t = " ".join(output_list)
     # print(t)
