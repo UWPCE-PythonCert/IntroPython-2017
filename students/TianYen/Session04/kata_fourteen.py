@@ -37,5 +37,5 @@ if __name__ == "__main__":
     # get_trigrams('I wish I may I wish I might'.split(' '))
     # get_new_text(('I', 'wish'))
     get_trigrams(text)
-    get_new_text(choice(list(trigrams.keys())))
+    get_new_text(choice(list(trigrams)))
     # get_new_text(trigrams.get())
