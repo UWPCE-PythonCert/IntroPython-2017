@@ -67,7 +67,7 @@ similarly:
 
 ``for k in dict:``
 
-loops through the keys. So need for:
+loops through the keys. So no need for:
 
 ``for k in dict.keys():``
 
