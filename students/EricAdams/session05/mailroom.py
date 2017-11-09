@@ -12,6 +12,7 @@ job with the simplest of Python data structures.
 Adding dictionaries
 Adding function send_thank_you_to_file.
 Adding some exception and exception handling
+Adding comprehensions
 """
 
 from textwrap import dedent  # nifty utility!
@@ -179,12 +180,19 @@ def print_donor_report():
     # First, reduce the raw data into a summary list view
     report_rows = []
     try:
-        for name in donor_db.keys():
-            gifts = donor_db[name]
-            total_gifts = sum(gifts)
-            num_gifts = len(gifts)
-            avg_gift = total_gifts / num_gifts
-            report_rows.append((name, total_gifts, num_gifts, avg_gift))
+        # for name in donor_db.keys():
+        #     gifts = donor_db[name]
+        #     total_gifts = sum(gifts)
+        #     num_gifts = len(gifts)
+        #     avg_gift = total_gifts / num_gifts
+        #     report_rows.append((name, total_gifts, num_gifts, avg_gift))
+
+        # Personally I think that the comprehension is less clear than the
+        # for loop.
+        # Wonder if the comprehension is faster?
+
+        report_rows = [(name, sum(donor_db[name]), len(donor_db[name]), sum(
+            donor_db[name]) / len(donor_db[name])) for name in donor_db.keys()]
     except TypeError:
         print('\nOne of the gift entries in donor_db'
               ' is not number, (possible a string?\n')
