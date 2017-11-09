@@ -158,7 +158,7 @@ def test_fun2_args4():
     d = {'this': 45,
          'that': 65,
          }
-    result = kwargs_ex.fun2(6, **d, 7, other=80)
+    result = kwargs_ex.fun2(6, *t, 7, other=80)
 
     assert result[0] == (6, 4, 5, 6, 7, 7)
     assert result[1] == {'other': 80, 'that': 65, 'this': 45}
