@@ -1,43 +1,63 @@
 #!/usr/bin/env python
 
 import sys
-import io
+import json
 
 """ Program to manage donations. """
 
-# Define the static donor list
-donors = [ 
-        { "last_name": "Smith", "first_name": "Joe", 
-            "donations": [ 
-                { "amount": 10000.00 }, { "amount": 2100.00 }, { "amount": 2330.20 } ] },
-        { "last_name": "Gates, III", "first_name": "William",
-            "donations": [
-                { "amount": 326892.00 }, { "amount": 326892.49 } ] },
-        { "last_name": "Zuckerberg", "first_name": "Mark",
-            "donations": [
-                { "amount": 5000.00 }, { "amount": 5000.00 }, { "amount": 6396.10 }  ] },
-        { "last_name": "Bezos", "first_name": "Jeff",
-            "donations": [
-                { "amount": 877.33 } ] },
-        { "last_name": "Allen", "first_name": "Paul",
-            "donations": [
-                { "amount": 10.00 }, { "amount": 600.00 }, { "amount": 98.42} ] },
-        { "last_name": "Adams", "first_name": "Georgia", 
-            "donations": [
-                { "amount": 200 }, { "amount": 500 }, { "amount": 200000 }, { "amount": 700 } ] }
-         ]
+def load_donor_file(donor_file="donors.json"):
+    """ load donors from file into dict, donors """
+    try:
+        with open(donor_file,'r') as donor_data:
+            try:
+                donors = json.load(donor_data)
+            except (json.decoder.JSONDecodeError) as e:
+                # catch malformed json
+                print("The donors file is corrupt!")
+                print(e)
+                print("Please correct or delete the file.")
+                sys.exit(1)
+            return donors
+    except (FileNotFoundError):
+            # if the file isn't found, that's ok, give them
+            # an empty donor list and we'll save anything
+            # they enter upon exit.
+            return []
+    except (PermissionError):
+        # if the file is there, but you can't read it, don't continue
+        # because you won't be able to save the file on exit, risking
+        # loss of data.  Fail early, fail often.
+        print("Insufficent permission to access the donor file!")
+        print("Please correct the permissions.")
+        sys.exit(1)
 
 
-def safe_input(prompt=">"):
+def save_donor_file(donors,donor_file="donors.json"):
+    """ save donors to json file """
+    try:
+        with open(donor_file,'w') as donor_data:
+            donor_data.write(json.dumps(donors))
+        return True
+    except (PermissionError,OSError) as e:
+        print("Sorry, couldn't write the donor file!")
+        print(e)
+        return False
+
+
+def safe_input(prompt=">",mock=False,mock_in=""):
     """ Generic input routine. """
     # return null if anything goes wrong
-    selection=""
-    try:
-        selection=input(prompt).strip()
-    except (KeyboardInterrupt, EOFError):
-        # don't exit the program on ctrl-c, ctrl-d
-        pass
-    return selection
+    if not mock:
+        # normal input mode
+        try:
+            selection=input(prompt).strip()
+        except (KeyboardInterrupt, EOFError):
+            # don't exit the program on ctrl-c, ctrl-d
+            selection=""
+        return selection
+    else:
+        # return what the test program told you to
+        return mock_in
 
 
 def print_lines(lines=2,dest=sys.stdout):
@@ -161,7 +181,7 @@ def thank_you_entry():
     menu += "DONATION ENTRY (Donor Name)\n"
     menu += "---------------------------\n"
     menu += "\n"
-    menu += "Enter the full name (first, last) of the donor\n"
+    menu += "Enter the full name (first last) of the donor\n"
     menu += "for whom you would like to enter a donation,\n"
     menu += "(l)ist to see a list of the existing donors, or\n"
     menu += "(q)uit to return to the previous menu.\n"
@@ -234,10 +254,10 @@ def thank_all_donors():
         print_thank_you(index,"wonderful",dest)
         dest.close()
 
+
 def main():
     """ Main menu / input loop. """
     
-
     menu =  "\n"
     menu += "DONATION WIZARD MAIN MENU\n"
     menu += "-------------------------\n"
@@ -245,7 +265,7 @@ def main():
     menu += "Select from the following:\n"
     menu += "\n"
     menu += "(L)ist Donors\n"
-    menu += "(E)nter Donation\n"
+    menu += "(E)nter/(A)dd Donation\n"
     menu += "(P)rint Donor Letters\n"
     menu += "(Q)uit\n"
     menu += "\n"
@@ -258,71 +278,42 @@ def main():
         print(menu)
         selection=safe_input("(l)ist, (e)nter, (q)uit: ").lower()
 
-        if selection in ["1", "l", "list"]:
+        if selection in ["l", "list"]:
             print_report()
 
         if selection in ["p", "print"]:
             thank_all_donors()
 
         # accept either send or enter
-        if selection in ["2", "s", "send", "e", "enter"]:
+        if selection in ["s", "send", "e", "enter", "a", "add"]:
             thank_you_entry()
 
         if selection in ["d", "debug"]:
             print_lines()
             print("Donors:", donors)
 
+        if selection in ["q", "quit"]:
+            saved = save_donor_file(donors)
+            if saved:
+                print("{} donor records saved.".format(len(donors)))
+            else:
+                print("Please resolve the issues with the donor file before exiting.")
+                # if you are testing, don't get stuck in the loop
+                if mock:
+                    mock_in="exit"
+                shall_abort = safe_input("Enter 'exit' to quit anyways and abandon changes:",mock)
+                if not 'exit' in shall_abort:
+                    # if they don't want to exit, clear the selection so we don't exit
+                    selection = None
+
     print_lines()
     print("Thank you for using Donation Wizard!")
     print_lines()
 
 
-def print_fatal(routine="importaint"):
-    """ Upon fatal error, print message and exit. """
-    print("The {} function has malfunctioned.  Contact customer support!".format(routine))
-    sys.exit(1)
-
-
-def sanity_tests():
-
-    # verify the parse_name() function
-    try:
-        assert parse_name("Mary Jo Smith, IV") == {
-            'full_name': 'Mary Jo Smith, Iv', 
-            'informal_name': 'Mary Jo Smith',
-            'suffix': 'IV',
-            'last_name': 'Smith',
-            'first_name': 'Mary Jo' }
-    except AssertionError:
-        print_fatal("parse_name()")
-
-    # verify the print_lines() function
-    out = io.StringIO()
-    print_lines(3,out)
-    output = out.getvalue()
-    out.close()
-    try:
-        assert output == "\n\n\n"
-    except AssertionError:
-        print_fatal("print_lines()")
-
-    # verify the print_thank_you() function
-    out = io.StringIO()
-    print_thank_you(0,"testfull",out)
-    output = out.getvalue()
-    out.close()
-    try:
-        assert "Dearest Joe Smith," in output
-    except AssertionError:
-        print_fatal("print_thank_you()")
-
-
-if __debug__:
-    sanity_tests()
-
-
 # call the main input loop
 if __name__ == "__main__":
+    donors = load_donor_file()
     main()
 
 
