@@ -2,6 +2,7 @@
 
 import mailroom
 import pytest
+import os.path
 
 
 def test_safeinput():
@@ -14,6 +15,11 @@ def test_return_to_menu():
     assert result is True
 
 
+def test_remove_inputquotes():
+    astring = "'hello'"
+    output = 'hello'
+    assert mailroom.remove_inputquotes(astring) == output
+
 
 def test_generate_letter():
     mailroom.DONORS = {'Fred Armisen': [240, 422, 1000],
@@ -21,7 +27,6 @@ def test_generate_letter():
                        'Margaret Atwood': [300, 555]}
     output = 'Thank you, Margaret Atwood, for your generosity and recent gift of $555.'
     assert mailroom.generate_letter('Margaret Atwood') == output
-
 
 
 def test_generate_report_data():
@@ -35,14 +40,12 @@ def test_generate_report_data():
 
 
 def test_setup_table():
-        ''' this is not working'''
-    output = """
-    'Donor Name                              |
+    ''' this is not working'''
+    output = """'Donor Name                              |
     Total Given |Num Gifts |Average Gift'\n,
     '----------------------------------------
     -------------------------------------'"""
     assert mailroom.setup_table() == output
-
 
 
 def test_setup_body():
@@ -97,7 +100,23 @@ def test_add_donation_existing():
 
 
 def test_select_action1():
-    ''' not sure how to test if correct action was completed'''
+    ''' not sure how to test if correct action was completed
+    something called "mock" has this capability?'''
     pass
 
 
+def test_file_existance():
+    mailroom.DONORS = {'Fred Armisen': [240, 422, 1000],
+                       'Heinz the Baron Krauss von Espy': [1500, 2300],
+                       'Margaret Atwood': [300, 555]}
+    mailroom.send_letters()
+    c1 = os.path.isfile("Margaret_Atwood.txt")
+    c2 = os.path.isfile("Fred_Armisen.txt")
+    c3 = os.path.isfile("Heinz_the_Baron_Krauss_von_Espy.txt")
+    output = c1 and c2 and c3
+    assert output is True
+
+
+def test_select_actionbad():
+    arg_dict = {"1": "dummy1", "2": "dummy2", "3": "dummy3"}
+    assert mailroom.select_action(arg_dict,"5") == False
