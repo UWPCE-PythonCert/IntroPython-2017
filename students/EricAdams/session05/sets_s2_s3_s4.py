@@ -20,6 +20,9 @@ s2 = {y for y in range(0, 21) if y % 2 == 0}
 s3 = {y for y in range(0, 21) if y % 3 == 0}
 s4 = {y for y in range(0, 21) if y % 4 == 0}
 
+# Extra credit: do it all as a one-liner by nesting a set comprehension
+# inside a list comprehension. (OK, that may be getting carried away!)
+
 
 def numbers_divisible_by_a_seq_of_divisors(seq):
     """ Create a list of sequences each sequence member divisible
@@ -27,17 +30,32 @@ def numbers_divisible_by_a_seq_of_divisors(seq):
     :param a list of divisors, (integers).
     :return a list of sets.
     """
-    list_of_sets_of_sequences = []
-    # s = set()
-    for divisor in seq:
-        s = set()
-        for y in range(0, 21):
-            if y % divisor == 0:
-                s.add(y)
-        list_of_sets_of_sequences.append(s.copy)
-    for i in range(0, len(seq)):
-        print('Set of numbers divisible by {} is {}'.format(
-            seq[i], list_of_sets_of_sequences[i]()))
+    # list_of_sets_of_sequences = []
+    # # s = set()
+    # for divisor in seq:
+    #     s = set()
+    #     for y in range(0, 21):
+    #         if y % divisor == 0:
+    #             s.add(y)
+    #     list_of_sets_of_sequences.append(s.copy)
+    # for i in range(0, len(seq)):
+    #     print('Set of numbers divisible by {} is {}'.format(
+    #         seq[i], list_of_sets_of_sequences[i]()))
+
+    # This will get a set.
+    # set_of_sequence = {number for number in range(0, 21) if number % 2 == 0}
+    # Now create a list of sets.
+    # follow the pattern "[i for x in seq]" where i =
+    #                                                {number for number
+    #                                                in range(0, 21) if
+    #                                                number % 2 == 0}
+    # Replace % 2 with % divisor to make the statement more generic
+
+    list_of_sets_of_sequences = [{number for number in range(0, 21)
+                                  if number % divisor == 0} for divisor in seq]
+    return list_of_sets_of_sequences
 
 
-numbers_divisible_by_a_seq_of_divisors([2, 4, 5])
+for x in range(2, 5):
+    print('Divisible by {}'.format(x))
+    print(numbers_divisible_by_a_seq_of_divisors([x]))
