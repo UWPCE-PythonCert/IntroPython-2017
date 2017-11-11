@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import io
 
 """ Program to manage donations. """
 
@@ -25,6 +26,18 @@ donors = [
             "donations": [
                 { "amount": 200 }, { "amount": 500 }, { "amount": 200000 }, { "amount": 700 } ] }
          ]
+
+
+def safe_input(prompt=">"):
+    """ Generic input routine. """
+    # return null if anything goes wrong
+    selection=""
+    try:
+        selection=input(prompt).strip()
+    except (KeyboardInterrupt, EOFError):
+        # don't exit the program on ctrl-c, ctrl-d
+        pass
+    return selection
 
 
 def print_lines(lines=2,dest=sys.stdout):
@@ -100,17 +113,17 @@ def get_donation_amount(informal_name):
         print_lines()
 
         print(menu.format(informal_name))
-        selection=input("Donation amount or (q)uit: ")
+        selection=safe_input("Donation amount or (q)uit: ")
 
         # let them bail if they want
-        if selection.lower().strip() in ["q", "quit"]:
+        if selection.lower() in ["q", "quit"]:
             return None
 
         # protect against non numeric input
         try:
             amount=float(selection)
             return amount
-        except:
+        except ValueError:
             print_lines()
             print("The value must be numeric.  Please try again or (q)uit.")
 
@@ -159,14 +172,14 @@ def thank_you_entry():
         print_lines()
 
         print(menu)
-        selection=input("Donor Name, (l)ist or (q)uit: ")
+        selection=safe_input("Donor Name, (l)ist or (q)uit: ")
 
         # check for a quit directive
-        if selection.lower().strip() in ["q", "quit"]:
+        if selection.lower() in ["q", "quit"]:
             return
 
         # check for a list directive
-        if selection.lower().strip() in ["l", "list"]:
+        if selection.lower() in ["l", "list"]:
             print_report()
             continue
 
@@ -243,7 +256,7 @@ def main():
         print_lines()
 
         print(menu)
-        selection=str(input("(l)ist, (e)nter, (q)uit: ")).lower().strip()
+        selection=safe_input("(l)ist, (e)nter, (q)uit: ").lower()
 
         if selection in ["1", "l", "list"]:
             print_report()
@@ -262,6 +275,50 @@ def main():
     print_lines()
     print("Thank you for using Donation Wizard!")
     print_lines()
+
+
+def print_fatal(routine="importaint"):
+    """ Upon fatal error, print message and exit. """
+    print("The {} function has malfunctioned.  Contact customer support!".format(routine))
+    sys.exit(1)
+
+
+def sanity_tests():
+
+    # verify the parse_name() function
+    try:
+        assert parse_name("Mary Jo Smith, IV") == {
+            'full_name': 'Mary Jo Smith, Iv', 
+            'informal_name': 'Mary Jo Smith',
+            'suffix': 'IV',
+            'last_name': 'Smith',
+            'first_name': 'Mary Jo' }
+    except AssertionError:
+        print_fatal("parse_name()")
+
+    # verify the print_lines() function
+    out = io.StringIO()
+    print_lines(3,out)
+    output = out.getvalue()
+    out.close()
+    try:
+        assert output == "\n\n\n"
+    except AssertionError:
+        print_fatal("print_lines()")
+
+    # verify the print_thank_you() function
+    out = io.StringIO()
+    print_thank_you(0,"testfull",out)
+    output = out.getvalue()
+    out.close()
+    try:
+        assert "Dearest Joe Smith," in output
+    except AssertionError:
+        print_fatal("print_thank_you()")
+
+
+if __debug__:
+    sanity_tests()
 
 
 # call the main input loop

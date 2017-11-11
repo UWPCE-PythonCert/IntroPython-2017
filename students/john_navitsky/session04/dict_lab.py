@@ -24,8 +24,8 @@ print( "Mango" in person.values() )
 # create a new dict from old
 new_dict = {}
 for key in person:
-	old_value=person[key].lower()
-	new_dict[key]=old_value.count("t")
+    old_value=person[key].lower()
+    new_dict[key]=old_value.count("t")
 print(new_dict)
 
 # for convience create a dict for the sets
@@ -33,13 +33,13 @@ s = { 2: set(), 3: set(), 4: set() }
 
 # loop through the combinations and build up the sets
 for item in range(21):
-	for entry in range(2,5):
-		if item % entry == 0:
-			s[entry].add(item)
+    for entry in range(2,5):
+        if item % entry == 0:
+            s[entry].add(item)
 
 # print sets
 for item in range(2,5):
-	print(item,s[item])
+    print(item,s[item])
 
 # some tests
 print("s3 is a subset of s2:", s[2].issubset(s[3]))
