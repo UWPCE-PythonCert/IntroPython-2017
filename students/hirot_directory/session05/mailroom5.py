@@ -116,8 +116,10 @@ def send_letters():
             f.close()
 
     except IOError as i:
-        print("Error code is", i)
-    print("letter drafts are in the folder for your review. Please review before mailing out.")
+        print("Sorry, program crashed. Error code is", i)
+
+    else:
+      print("letter drafts are in the folder for your review. Please review before mailing out.")
 
 
 dict_answer = {1: thank_you_loop, 2: create_report, 3: send_letters, 4: quit}
