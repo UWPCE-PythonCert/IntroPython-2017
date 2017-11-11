@@ -59,7 +59,8 @@ def quit():
             print("Good bye...")
             sys.exit()
         else:
-            return True
+          return True
+  
 
     # except ValueError as e:
     #     print("Error happened. Error is ",type(e),"Please type 1, 2 or 3")
@@ -134,10 +135,7 @@ def mainloop():
                                "(3) Send letters to everyone\n"
                                "(4) quit\n"
                                )
-            result = dict_answer[answer]()
-
-            if result:
-                break
+            dict_answer[answer]()
 
         except KeyError as k:
             print("Sorry...Program crashed....Error type is....", type(k), "Please type 1, 2 or 3")
