@@ -60,15 +60,12 @@ def quit():
             sys.exit()
         else:
           return True
-  
 
-    # except ValueError as e:
-    #     print("Error happened. Error is ",type(e),"Please type 1, 2 or 3")
     except KeyError as k:
         print("Error happened. Error is ",type(k),"Please type 1, 2 or 3")
 
 
-dict_choice = {'1': print_list, '2': make_donation, '3': quit} # '3' : quit
+dict_choice = {'1': print_list, '2': make_donation, '3': quit}
 
 
 def thank_you_loop():
@@ -88,25 +85,6 @@ def thank_you_loop():
             print("Error happened. Error is ", type(k) , "Please type 1, 2 or 3")
 
 
-# def create_report():
-#     print("{msg1: <50}| {msg2: <12}| " \
-
-#           "{msg3:<10}| {msg4: <12}".format(msg1="Donor Name",
-
-#                                            msg2="Total Given",
-
-#                                            msg3="Num Gifts",
-
-#                                            msg4="Average Gift"))
-#     for d in donor_dict:
-#         t = sum(donor_dict[d])
-#         n = len(donor_dict[d])
-#         a = t / n
-
-#         print("{d: <50} ${t: 12.2f}{n: 12d}{a: 14.2f}".format(d=d, t=t, n=n, a=a))
-
-
-
 def send_letters():
     try:
         for n, d in donor_dict.items():
@@ -124,7 +102,8 @@ def send_letters():
       print("letter drafts are in the folder for your review. Please review before mailing out.")
 
 
-dict_answer = {'1': thank_you_loop, '2': print_list, '3': send_letters, '4': quit} # '2': create_report, '4': quit
+dict_answer = {'1': thank_you_loop, '2': print_list, '3': send_letters, '4': quit}
+
 
 def mainloop():
     while True:
