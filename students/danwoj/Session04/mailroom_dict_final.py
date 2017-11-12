@@ -66,65 +66,29 @@ def ent_don():
 				return True
 		add_name(f_name, l_name)
 		i = len(donor_dict['f_name'])
-#		counter = len(donor_dict['l_name'])
-#		print('New Name #2. Counter value is: ', counter)
-#		print('The counter says: ', counter)
-#		print('The i before the add_value function', i)
 		add_value(i)
 		return True
 
 	elif nd_value == 3:
 		return True
 
-	# This statement checks to see if the counter was changed from the previous conditional. If it was not changed, then that indicates a new donor
-#	if (new_don == 1):
-#		# This adds a new donor and his or her donation to the data set
-#		print ('The name', d_name, 'is not in the donor list. Adding', d_name, 'as a new donor.\n')
-#		donor_names.append(d_name)
-#		d_amt = float(input('Please enter the donation amount: '))
-#		donations.append([d_amt])
-#		ty_message(d_name, d_amt)
-#		thank_you()
-#		return True
-
-
-
 #This function adds a new donor name into the donor dictionary.
 def add_name(fn_val, ln_val):
 	print('The name', fn_val, ln_val, 'is not in the donor list. Adding them as a new donor.\n')
 	donor_dict['f_name'].append(fn_val)
 	donor_dict['l_name'].append(ln_val)
-#	print('the length of the dict', len(donor_dict['f_name']))
-#	print(donor_dict['f_name'], donor_dict['l_name'])
 	return True
 
 #This function adds a donation value to the corresponding donor.
 def add_value(counter):
-#	print('The counter is: ', counter)
 	d_amt = float(input('Please enter the donation amount: '))
 
-
-#	print('d_amt is: ', d_amt)
-#	print('length of donor dict l_name: ', len(donor_dict['l_name']))
 	if counter <= len(donor_dict['don_amt']):
-#		print('Condition 1')
 		donor_dict['don_amt'][counter].append(d_amt)
-#		print('donor dict: ', donor_dict['don_amt'])
-#		d_amt_list = []
-#		d_amt_list.append(d_amt) 
-#		print('d_amt_list: ', d_amt_list)
-#		donor_dict['don_amt'].append([d_amt])
-#		print('donor_dict[don_amt]: ', donor_dict['don_amt'][counter-1])
-#		print('###', donor_dict[don_amt])
 		print_letter(counter, d_amt)		
 	else:
-#		print('Condition 2')
 		d_amt_list = [d_amt]
 		donor_dict['don_amt'].append(d_amt_list)
-#		print('donor dict: ', donor_dict['don_amt'])		
-#		donor_dict['don_amt'].append([d_amt])
-#		counter += 1
-#		print('###, donor_dict[don_amt]: ', donor_dict['don_amt'])
 		print_letter(counter-1, d_amt)
 	return True
 
@@ -159,12 +123,20 @@ def mainloop():
 
 	while True:
 		# This creates the initial program menu
+
 		print('\n###########################\n#    Mail Room Program    #\n###########################\n')
 		for k, v in menu.items():
 			print('%s: %s' % (k,v[0]))
+
+#		try:
+#			m_value = int(input('\nEnter your number choice: '))
+#		except ValueError:
+ #   		print('Input must be an integer, try again.')
+
+
 		m_value = int(input('\nEnter your number choice: '))
 		if m_value == 3:
-			print('\nQuitting Program\n')
+			print('\nQuitting Program\n') 
 			break
 		elif m_value == 2:
 			run_report()

@@ -30,24 +30,33 @@ for i in range(len(new_words)-2):
 	else:
 		trigrams[pair] = [follower]
 
-# Ths variable 'counter' sets the length of the trigrams test an output 
-# which is approximately the same size as the original text file that 
-# was read.
+'''
+Ths variable 'counter' sets the length of the trigrams test an output 
+which is approximately the same size as the original text file that was read.
+'''
+
 counter = (len(trigrams.keys()))//3
 
-# To be completely honest, I found the random function in the following 
-# for loop on the Internet. It sounded like the person asking for this 
-# had the exact same situation as I did and it happens to work. I'm still 
-# trying to understand everything it's doing.
+'''
+To be completely honest, I found the random function in the following 
+ for loop on the Internet. It sounded like the person asking for this 
+ had the exact same situation as I did and it happens to work. I'm still 
+ trying to understand everything it's doing.
+'''
+
 import random
 
 f = open("trigrams-output.txt","w") # Opens file for text output.
 for i in range(counter):
 	which_list, item = random.choice([(name, value) for name, values in trigrams.items() for value in values])
 	pair_word1, pair_word2 = which_list
-# The following conditionals check for the the first and last input. 
-# If it's the first, it ensures the sentence begins with a capital letter. 
-# If it's the last, it adds a period to end the late sentence.
+
+'''
+The following conditionals check for the the first and last input. 
+ If it's the first, it ensures the sentence begins with a capital letter. 
+ If it's the last, it adds a period to end the late sentence.
+'''
+
 	if i == 0:
 		text_output = pair_word1.capitalize() + ' ' + pair_word2 + ' ' + item + ' '
 		s = str(text_output)

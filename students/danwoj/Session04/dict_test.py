@@ -1,7 +1,17 @@
+#!/usr/bin/python
+ 
+import time
+
+'''
+These are hard-coded values to build out the donor dictionary.
+'''
 donor_fnames = ['Bill', 'Melvin', 'Daphnie', 'Chauncey', 'Frieda']
 donor_lnames = ['Gates', 'Smith', 'Jones', 'Doe', 'Whatever']
 donations = [[200, 500], [2000.00, 3000.50, 3000.00], [1500.00, 500.25], [400.00], [2000.12, 3000, 4000]]
 
+'''
+The next few lines essentially builds out the donor dictionary.
+'''
 keys = ['f_name', 'l_name', 'don_amt', 'don_num']
 donor_dict = dict.fromkeys(keys, None)
 donor_dict['f_name'] = donor_fnames
@@ -12,10 +22,15 @@ donor_dict['don_num'] = []
 for i in donor_dict['don_amt']:
 	donor_dict['don_num'].append(len(i))
 
+# This line creates a menu dictionary
 menu = {'1': ['Enter New Donation', 'List Donors'], '2': ['Run Donor Report', 'Enter Donation'], '3': ['Quit Program', 'Go Back']}
 
-
-# This is the function that prints off a thank you message for new donations
+'''
+This function inputs a new donation. First it prints off a menu and allows the 
+user to select from one of three options. Option one just print out a list of 
+existing donors in the dictionary. The second option takes in a new donation. 
+The third sends the user back to the previous menu.
+'''
 def ent_don():
 	# Prints off basis input menu
 	print('\n#########################\n#  Enter New Donation   #\n#########################\n')
@@ -31,82 +46,80 @@ def ent_don():
 			q += 1
 		ent_don()
 
-	# Enters a new donation if the user selects that option from the menu
+	# This conditional enters a new donation if the user selects that option from the menu
 	elif nd_value == 2:
-		counter = 0
+#		counter = 0
 		new_don = 1
 		f_name, l_name = input("Please enter the donor's name: \n").split()
 
-		for i in donor_dict['l_name']:
-			print('this is the first i value: ', i)
-			if l_name == i:
-				print('l_name is: ', l_name, 'i is:', i)
-				for j in donor_dict['f_name'][counter]:
-					print('f_name is: ', f_name, 'j is: ', j)
-					counter += 1
-					if f_name+l_name == j+i:
-						print(f_name + l_name)
-						print(j + i)
-						print(donor_dict['f_name'][counter-1], donor_dict['l_name'][counter-1], 'is in the list.\n')
-						add_value(counter)
-				add_name(f_name, l_name)
-				counter = len(donor_dict['l_name'])
-				print('New Name #1. Counter value is: ', counter)
-				add_value(counter)
+		'''
+		This next for loop goes through the dictionary to see if the donor is already 
+		in it. If so, it will call the add_value function to record the existing donor's 
+		new contribution. Otherwise, it calls the add_name function to add the new donor.
+		'''
+
+		for i in range(len(donor_dict['l_name'])):
+#			print("The value of i is: ", i)
+			if l_name == donor_dict['l_name'][i] and f_name == donor_dict['f_name'][i]:
+				print('\n', donor_dict['f_name'][i], donor_dict['l_name'][i], 'is in the list.\n')
+				add_value(i)
 				return True
-			else:
-				counter += 1
-				print('No match')
 		add_name(f_name, l_name)
-		counter = len(donor_dict['l_name'])
-		print('New Name #2. Counter value is: ', counter)
-		add_value(counter)
+#		counter = len(donor_dict['l_name'])
+#		print('New Name #2. Counter value is: ', counter)
+#		print('The counter says: ', counter)
+		print('The i before the add_value function', i)
+		add_value(i)
 		return True
 
-		# Loop searches for the donor's name in the existing data set
-#		for i in range (len(donor_names)):
-#			# If the donor is in the list, this adds to their existing record
-#			if d_name == donor_names[i]:
-#				# This counter is used to indicate whether or not the donor was in the list in subsequent logic
-#				new_don = 0
-#				print('Name ', donor_names[i], 'is in the list.\n')
-#				d_amt = float(input('Please enter the donation amount: '))
-#				donations[i].append(d_amt)
-#				ty_message(d_name, d_amt)
-		# This statement checks to see if the counter was changed from the previous conditional. If it was not changed, then that indicates a new donor
-		if (new_don == 1):
-			# This adds a new donor and his or her donation to the data set
-			print ('The name', d_name, 'is not in the donor list. Adding', d_name, 'as a new donor.\n')
-			donor_names.append(d_name)
-			d_amt = float(input('Please enter the donation amount: '))
-			donations.append([d_amt])
-			ty_message(d_name, d_amt)
-			thank_you()
+
+	# This statement checks to see if the counter was changed from the previous conditional. If it was not changed, then that indicates a new donor
+	if (new_don == 1):
+		# This adds a new donor and his or her donation to the data set
+		print ('The name', d_name, 'is not in the donor list. Adding', d_name, 'as a new donor.\n')
+		donor_names.append(d_name)
+		d_amt = float(input('Please enter the donation amount: '))
+		donations.append([d_amt])
+		ty_message(d_name, d_amt)
+		thank_you()
 		return True
 	elif nd_value == 3:
 		return True
 
+
+#This function adds a new donor name into the donor dictionary.
 def add_name(fn_val, ln_val):
-	print('This is the add_name funtion')
+	print('The name', fn_val, ln_val, 'is not in the donor list. Adding them as a new donor.\n')
 	donor_dict['f_name'].append(fn_val)
 	donor_dict['l_name'].append(ln_val)
-	print(donor_dict['f_name'], donor_dict['l_name'])
+#	print(donor_dict['f_name'], donor_dict['l_name'])
 	return True
 
+#This function adds a donation value to the corresponding donor.
 def add_value(counter):
 	d_amt = float(input('Please enter the donation amount: '))
-	print('d_amt is: ', d_amt)
+#	print('d_amt is: ', d_amt)
 	if counter == len(donor_dict['l_name']):
 #		d_amt_list = []
 #		d_amt_list.append(d_amt) 
 #		print('d_amt_list: ', d_amt_list)
 		donor_dict['don_amt'].append([d_amt])
-		print('donor_dict[don_amt]: ', donor_dict['don_amt'])		
+		print('donor_dict[don_amt]: ', donor_dict['don_amt'][counter-1])		
 	else:
-		donor_dict['don_amt'][counter-1].append(d_amt)
-		print('Donor Amounts List: ', donor_dict['don_amt'])
+		donor_dict['don_amt'].append([d_amt])
+		counter += 1
+	print_letter(counter, d_amt)
 	return True
 
+# This function generates a "thank you" letter in a text document
+def print_letter(i, d_amt):
+	file_name = str(donor_dict['l_name'][i]) + '_' + str(donor_dict['f_name'][i]) + '_' + time.strftime("%d") + time.strftime("%b") + time.strftime("%y") + '.txt'
+	print('file_name is:', file_name)
+	f = open(file_name, "w+")
+	f.write(time.strftime("%B") + ' ' + time.strftime("%d") + ',' + time.strftime("%Y") + '\n\nDear ' + donor_dict['f_name'][i] + ',\n\n' + 
+	'Thank you so much for your generous donation of $' '%.2f' % d_amt + '. This contribution is so important to the work our organization does and we express our deepest appreciation of your support to our important cause.')
+	f.close()
+	return True
 
 # This is the function that prints off the donor report
 def run_report():
@@ -124,25 +137,6 @@ def run_report():
 		spacer3 = 8-len(str(num_dons))
 		print(donor_dict['f_name'][j], donor_dict['l_name'][j], ' '*spacer1, '|', '$', '%.2f' % tot_don, ' '*spacer2, '|', num_dons, ' '*spacer3, '|', '$', '%.2f' % avg_don)
 		j += 1
-
-
-
-
-
-#	i = 0
-	# This loop goes through each donor record in the dataset
-#	for i in range (len(donor_names)):
-#		j = 0
-#		tot_don = 0
-#		avg_don = 0
-		# This loop creates the total and average donation values for each donor
-#		for j in range (len(donations[i])):
-#			tot_don = tot_don + donations[i][j]
-#			avg_don = avg_don + donations[i][j]
-#		avg_don = avg_don / (j+1)
-		# This prints off each donor's row in the report
-#		print(donor_names[i], ' '*(14-len(donor_names[i])), '| $', '%.2f' % tot_don, ' '*(8-len('%.2f' % tot_don)), '|', j+1, ' '*(8-len(str(j+1))), '| $', '%.2f' % avg_don)
-#	return True
 
 def mainloop():
 
