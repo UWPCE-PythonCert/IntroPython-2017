@@ -164,6 +164,32 @@
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mutating-vs-re-assigning">
+<h3>Mutating vs. re-assigning<a class="headerlink" href="#mutating-vs-re-assigning" title="Permalink to this headline">¶</a></h3>
+<p>I’ve seen code like this in a few trigram solutions:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span> <span class="o">+</span> <span class="p">[</span><span class="n">follower</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>(<code class="docutils literal"><span class="pre">output</span></code> is a list of strings, follower is a single string)</p>
+<p>What it does is add a new item to a list.</p>
+<p>But is that an efficient way to do that?</p>
+<p>If you are adding one element to a list – append() is the way to go. This works fine, but it’s creating a whole new list just to throw it away again:</p>
+<p>output_list.append (random_trigram_followers)</p>
+<p>and if you are adding another list of objects, you want to use extend(). The way it is now, you are actually doing:</p>
+<ol class="arabic simple">
+<li>create a list with random_trigram_followers in it.</li>
+<li>create a new list with the contents of output_list the new list.</li>
+<li>re-assign the name output_list to that new list.</li>
+<li>throw away the original output_list and the temporary list you created for random_trigram_followers</li>
+</ol>
+<p>That’s a LOT of overhead!</p>
+<p>Be cognizant of when you are mutating (changing) an object vs creating a new one and assigning it to the same name. When you do assignment (=) you are probably creating a new object.</p>
+<p>+= is different – it is the “in_place” operator, so:</p>
+<p>a_list += another_list</p>
+<p>does not create an new lists – it adds to the original list “in place” – it is identical to:</p>
+<p>a_list.extend(another_list)</p>
+<p>And is an efficient operation.</p>
+</div>
 </div>
 </div>
 
