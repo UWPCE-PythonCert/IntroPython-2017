@@ -6,6 +6,7 @@ infile = 'donors.txt'
 donors = {}
 
 with open(infile) as donor_input:
+    '''imports donors from file and creates a dictionary with 'name':[donations]'''
     donor_input.readline()
     for line in donor_input:
         # line = line.strip()
@@ -26,6 +27,7 @@ with open(infile) as donor_input:
 
 
 def main_loop():
+    '''main question tree of what action to perform'''
 
     while True:
         answer = str(input("Select from one of these options:\n"
@@ -46,7 +48,7 @@ def main_loop():
             print("\nPlease type 1, 2, or 3")
 
 def email_all(donors):
-    '''print to file an email for each donor in the dictionary'''
+    '''print to file a customized email for each donor in the dictionary'''
     print('\n')
     for x in donors:
         f = open(x+'.txt', 'w')
@@ -59,7 +61,8 @@ def email_all(donors):
     print('\n')
 
 def print_report(donors):
-        
+    '''prints a list of the donors by descending total donated'''
+
     '''convert dictionary to list'''
     sort = list(donors.items())
     '''sort new list by sum of all donations'''    
@@ -79,7 +82,7 @@ def print_report(donors):
 
 
 def thank_you():
-    '''takes in the name or 'list' command'''
+    '''receives input to 1) provide list of donors OR 2) add/update donor and donation'''
     donor_input = input("Enter a donor's full name or type 'list' for all donors \n"
         "> ")
     
@@ -107,7 +110,7 @@ def add_donation(name, donation):
 
 
 def write_letter(name, donation):
-    '''writes a brief letter to the donor with their most current donation'''
+    '''print letter for name and donation as provided'''
     print('\nDear {}, \n'
         'Thank you for your generous donation of ${:.2f}.\n'
         'We look forward to your continued support\n'

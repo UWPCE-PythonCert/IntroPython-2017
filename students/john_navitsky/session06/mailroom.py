@@ -1,30 +1,63 @@
 #!/usr/bin/env python
 
 import sys
+import json
 
 """ Program to manage donations. """
 
-# Define the static donor list
-donors = [ 
-        { "last_name": "Smith", "first_name": "Joe", 
-            "donations": [ 
-                { "amount": 10000.00 }, { "amount": 2100.00 }, { "amount": 2330.20 } ] },
-        { "last_name": "Gates, III", "first_name": "William",
-            "donations": [
-                { "amount": 326892.00 }, { "amount": 326892.49 } ] },
-        { "last_name": "Zuckerberg", "first_name": "Mark",
-            "donations": [
-                { "amount": 5000.00 }, { "amount": 5000.00 }, { "amount": 6396.10 }  ] },
-        { "last_name": "Bezos", "first_name": "Jeff",
-            "donations": [
-                { "amount": 877.33 } ] },
-        { "last_name": "Allen", "first_name": "Paul",
-            "donations": [
-                { "amount": 10.00 }, { "amount": 600.00 }, { "amount": 98.42} ] },
-        { "last_name": "Adams", "first_name": "Georgia", 
-            "donations": [
-                { "amount": 200 }, { "amount": 500 }, { "amount": 200000 }, { "amount": 700 } ] }
-         ]
+def load_donor_file(donor_file="donors.json"):
+    """ load donors from file into dict, donors """
+    try:
+        with open(donor_file,'r') as donor_data:
+            try:
+                donors = json.load(donor_data)
+            except (json.decoder.JSONDecodeError) as e:
+                # catch malformed json
+                print("The donors file is corrupt!")
+                print(e)
+                print("Please correct or delete the file.")
+                sys.exit(1)
+            return donors
+    except (FileNotFoundError):
+            # if the file isn't found, that's ok, give them
+            # an empty donor list and we'll save anything
+            # they enter upon exit.
+            return []
+    except (PermissionError):
+        # if the file is there, but you can't read it, don't continue
+        # because you won't be able to save the file on exit, risking
+        # loss of data.  Fail early, fail often.
+        print("Insufficent permission to access the donor file!")
+        print("Please correct the permissions.")
+        sys.exit(1)
+
+
+def save_donor_file(donors,donor_file="donors.json"):
+    """ save donors to json file """
+    try:
+        with open(donor_file,'w') as donor_data:
+            donor_data.write(json.dumps(donors))
+        return True
+    except (PermissionError,OSError) as e:
+        print("Sorry, couldn't write the donor file!")
+        print(e)
+        return False
+
+
+def safe_input(prompt=">",mock=False,mock_in=""):
+    """ Generic input routine. """
+    # return null if anything goes wrong
+    if not mock:
+        # normal input mode
+        try:
+            selection=input(prompt).strip()
+        except (KeyboardInterrupt, EOFError):
+            # don't exit the program on ctrl-c, ctrl-d
+            selection=""
+        return selection
+    else:
+        # return what the test program told you to
+        return mock_in
 
 
 def print_lines(lines=2,dest=sys.stdout):
@@ -100,17 +133,17 @@ def get_donation_amount(informal_name):
         print_lines()
 
         print(menu.format(informal_name))
-        selection=input("Donation amount or (q)uit: ")
+        selection=safe_input("Donation amount or (q)uit: ")
 
         # let them bail if they want
-        if selection.lower().strip() in ["q", "quit"]:
+        if selection.lower() in ["q", "quit"]:
             return None
 
         # protect against non numeric input
         try:
             amount=float(selection)
             return amount
-        except:
+        except ValueError:
             print_lines()
             print("The value must be numeric.  Please try again or (q)uit.")
 
@@ -148,7 +181,7 @@ def thank_you_entry():
     menu += "DONATION ENTRY (Donor Name)\n"
     menu += "---------------------------\n"
     menu += "\n"
-    menu += "Enter the full name (first, last) of the donor\n"
+    menu += "Enter the full name (first last) of the donor\n"
     menu += "for whom you would like to enter a donation,\n"
     menu += "(l)ist to see a list of the existing donors, or\n"
     menu += "(q)uit to return to the previous menu.\n"
@@ -159,14 +192,14 @@ def thank_you_entry():
         print_lines()
 
         print(menu)
-        selection=input("Donor Name, (l)ist or (q)uit: ")
+        selection=safe_input("Donor Name, (l)ist or (q)uit: ")
 
         # check for a quit directive
-        if selection.lower().strip() in ["q", "quit"]:
+        if selection.lower() in ["q", "quit"]:
             return
 
         # check for a list directive
-        if selection.lower().strip() in ["l", "list"]:
+        if selection.lower() in ["l", "list"]:
             print_report()
             continue
 
@@ -221,10 +254,10 @@ def thank_all_donors():
         print_thank_you(index,"wonderful",dest)
         dest.close()
 
+
 def main():
     """ Main menu / input loop. """
     
-
     menu =  "\n"
     menu += "DONATION WIZARD MAIN MENU\n"
     menu += "-------------------------\n"
@@ -232,7 +265,7 @@ def main():
     menu += "Select from the following:\n"
     menu += "\n"
     menu += "(L)ist Donors\n"
-    menu += "(E)nter Donation\n"
+    menu += "(E)nter/(A)dd Donation\n"
     menu += "(P)rint Donor Letters\n"
     menu += "(Q)uit\n"
     menu += "\n"
@@ -243,21 +276,35 @@ def main():
         print_lines()
 
         print(menu)
-        selection=str(input("(l)ist, (e)nter, (q)uit: ")).lower().strip()
+        selection=safe_input("(l)ist, (e)nter, (q)uit: ").lower()
 
-        if selection in ["1", "l", "list"]:
+        if selection in ["l", "list"]:
             print_report()
 
         if selection in ["p", "print"]:
             thank_all_donors()
 
         # accept either send or enter
-        if selection in ["2", "s", "send", "e", "enter"]:
+        if selection in ["s", "send", "e", "enter", "a", "add"]:
             thank_you_entry()
 
         if selection in ["d", "debug"]:
             print_lines()
             print("Donors:", donors)
+
+        if selection in ["q", "quit"]:
+            saved = save_donor_file(donors)
+            if saved:
+                print("{} donor records saved.".format(len(donors)))
+            else:
+                print("Please resolve the issues with the donor file before exiting.")
+                # if you are testing, don't get stuck in the loop
+                if mock:
+                    mock_in="exit"
+                shall_abort = safe_input("Enter 'exit' to quit anyways and abandon changes:",mock)
+                if not 'exit' in shall_abort:
+                    # if they don't want to exit, clear the selection so we don't exit
+                    selection = None
 
     print_lines()
     print("Thank you for using Donation Wizard!")
@@ -266,6 +313,7 @@ def main():
 
 # call the main input loop
 if __name__ == "__main__":
+    donors = load_donor_file()
     main()
 
 
