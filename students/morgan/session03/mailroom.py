@@ -117,7 +117,7 @@ def thank_you():
         add_donor(donor_input, donor_donation)
         write_letter(donor_input, donor_donation)
 
-    elif name_in_list(donor_input):
+    elif donor_input in donors:
         '''if the donor exists in the list, will fetch the index of that entry
         and add the donation to the donors list and increment the number of donations.
         I wanted to make sure the correctly capitalized name was kept and used
@@ -137,14 +137,14 @@ def write_letter(name, donor_donation=None):
         'We look forward to your continued support\n'
         '-= The Students =-\n'.format(name, donor_donation))
 
-def name_in_list(name):
-    '''searches the list of donors and returns the index for that donor's entry
-    or False if does not exist in donor list'''
+# def name_in_list(name):
+#     '''searches the list of donors and returns the index for that donor's entry
+#     or False if does not exist in donor list'''
 
-    for x in donor_list:
-        if str.lower(x[0]) == str.lower(name):
-            return donor_list.index(x)
-    return False   
+#     for x in donor_list:
+#         if str.lower(x[0]) == str.lower(name):
+#             return donor_list.index(x)
+#     return False   
 
 def add_donor(name, donation):
     '''appends the donor to the list of donors. Only used when they don't exist yet
@@ -154,7 +154,6 @@ def add_donor(name, donation):
     
 
 def add_donation(name, donation):
-
     '''adds the donation to the matching donor from the existing list, made it
     case insensitive but still needs to be string literal match of name'''
 
@@ -190,4 +189,4 @@ if __name__ == "__main__":
 
     
 
-    
+    '''goal: create function to add a donor if they don't exist'''
