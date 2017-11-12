@@ -1,6 +1,0 @@
-2017 10 17 Session 03
-
-Separation of Concerns: better to have a module produce content that is returned to a higher level function than to output that content itself
-
-Interning: python uses the same id for integers through about 300
-

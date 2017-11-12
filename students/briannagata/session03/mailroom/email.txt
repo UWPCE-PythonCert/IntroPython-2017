@@ -1,0 +1,5 @@
+Dear [DONOR],
+    Thank you for your kind donation of $[DONATION]!
+
+Sincerely,
+UW
