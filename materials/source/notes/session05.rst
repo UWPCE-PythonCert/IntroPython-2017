@@ -27,6 +27,15 @@ Srikanth Thadigol Reddappa
 Issues that came up during the week.
 ====================================
 
+git and generated files
+-----------------------
+
+In general, you don't want to put generated files in git.
+
+In this case, the letters your mailroom program created.
+
+**Caution:** be very careful with ``git add .`` or ``git add *`` -- generally better to specifically add the files you now you need.
+
 Style
 -----
 
@@ -40,6 +49,25 @@ And don't use "Hungarian Notation" -- it is really non-pythonic, and sometimes a
 
 The best way to do this is with a linter in your editor -- like the Anaconda package in Sublime. A number of you are getting really annoyed by all the "noise" that the linter creates. But if you keep your code in PEP8 style, it won't be there!
 
+sorting
+-------
 
+``.sort()`` vs ``sorted()``
 
+What is the "key" thing? how do you make one?
+
+Minor Issues
+------------
+
+Remember that:
+
+``something in a_dict`` checks if ``this`` is a key
+
+similarly:
+
+``for k in dict:``
+
+loops through the keys. So no need for:
+
+``for k in dict.keys():``
 

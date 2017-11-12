@@ -39,6 +39,8 @@ Brian Warn: Python and PDFs
 
 The PyPDF2 package:  https://pythonhosted.org/PyPDF2/
 
+:download:`Python_and_PDFs.pptx <../../students/brian_warn/session04/Python_and_PDFs.pptx>`
+
 :download:`pdf.py <../../students/brian_warn/session04/pdf.py>`
 
 
@@ -51,29 +53,39 @@ Guillaume R Thomas: What do I do with Python?
 Marlon M Estrada
 ----------------
 
-Shibata Hiroyuki
+Shibata Hiroyuki: Why Am I Here?
 ----------------
+
+hacker-typer for Atom: https://github.com/zamarrowski/hacker-typer
+
+:download:`tcpclient.py <../../students/shibata/tcpclient.py>`
+
 
 Ali Dehghani
 ------------
 
-David K Kan
------------
+David K Kan: progressbar2
+-------------------------
 
-Evgeny S Uvarov
----------------
+Evgeny S Uvarov: paramiko
+-------------------------
 
-Srikanth Thadigol Reddappa
---------------------------
+Srikanth Thadigol Reddappa: solar eclipse times, plotted
+--------------------------------------------------------
 
-Alinafe Matenda
----------------
+Alinafe Matenda: Driving Postgress with Python
+----------------------------------------------
 
-Daniel W Kuchan
----------------
 
-Kathryn Egan
-------------
+Daniel W Kuchan: Internet of kind of dumb things
+------------------------------------------------
+
+Automatically turning on a nightlight when you get our of bed.
+
+Integrate it with the Internet
+
+Kathryn Egan: The argparse module
+---------------------------------
 
 Brian Nagata
 ------------
@@ -110,4 +122,3 @@ Jacob Olsby
 
 Larry Beausoleil
 ----------------
-
