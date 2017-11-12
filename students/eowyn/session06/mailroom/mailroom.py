@@ -2,9 +2,10 @@
 
 import sys
 
-''' --------------------------------------------------------------
-GLOBAL VARIABLE: DONORS is the database of donor names, amounts
--------------------------------------------------------------------'''
+#  --------------------------------------------------------------
+# GLOBAL VARIABLE: DONORS is the database of donor names, amounts
+# -------------------------------------------------------------------
+
 donor_names = ["Margaret Atwood", "Fred Armisen",
                "Heinz the Baron Krauss von Espy"]
 donations = [[300, 555], [240, 422, 1000], [1500, 2300]]
@@ -13,9 +14,9 @@ del donor_names
 del donations
 
 
-''' --------------------------------------------------------------
-Following are helper functions to control program flow
--------------------------------------------------------------------'''
+# --------------------------------------------------------------
+# Following are helper functions to control program flow
+# -------------------------------------------------------------------
 
 
 def safe_input():
@@ -31,9 +32,9 @@ def return_to_menu():
     return True
 
 
-''' --------------------------------------------------------------
-Following are helper functions for generating reports
--------------------------------------------------------------------'''
+# --------------------------------------------------------------
+# Following are helper functions for generating reports
+# -------------------------------------------------------------------
 
 
 def generate_report_data():
@@ -80,10 +81,10 @@ def print_table(list_data):
     print(setup_body(list_data))
 
 
-''' --------------------------------------------------------------
-Following are helper functions for adding donations to DONORS and
-sending thank you notes to donors
--------------------------------------------------------------------'''
+# --------------------------------------------------------------
+# Following are helper functions for adding donations to DONORS and
+# sending thank you notes to donors
+# -------------------------------------------------------------------
 
 
 def collect_donor_input():
@@ -117,8 +118,13 @@ def update_donors():
 
 def list_donors():
     ''' List all DONORS '''
-    print("All Donors:")
-    [print(x) for x in DONORS]
+    print(make_donor_list())
+
+
+def make_donor_list():
+    ''' generate string of donor names '''
+    outputstr = ""
+    return ("Donor Names:" + "".join([outputstr + '\n' + x for x in DONORS]))
 
 
 def generate_letter(donor_name):
@@ -130,10 +136,10 @@ def generate_letter(donor_name):
     return fs.format(donor_name, DONORS[donor_name][-1])
 
 
-''' --------------------------------------------------------------
-Following are helper functions for accepting and responding to
-keyboard input
--------------------------------------------------------------------'''
+# --------------------------------------------------------------
+# Following are helper functions for accepting and responding to
+# keyboard input
+# -------------------------------------------------------------------
 
 
 def remove_inputquotes(a_string):
@@ -156,14 +162,14 @@ def select_action(arg_dict, answer):
     ''' Execute an action from arg_dict that corresponds to answer.
     Return None if action was executed and False if an error occurs'''
     try:
-        return arg_dict.get(answer)()
-    except (KeyError, TypeError):
+        return arg_dict[answer]()
+    except (KeyError):
         return False
 
 
-''' --------------------------------------------------------------
-Following are primary actions called by MAINLOOP
--------------------------------------------------------------------'''
+# --------------------------------------------------------------
+# Following are primary actions called by MAINLOOP
+# --------------------------------------------------------------
 
 
 def send_letters():
@@ -175,6 +181,15 @@ def send_letters():
     print("Successfully saved letters for each donor.")
 
 
+def run_interactive_loop(arg_dict, prompt_string):
+    while True:
+        answer = get_user_input(prompt_string)
+        if answer:
+            result = select_action(arg_dict, answer)
+            if result:
+                    return
+
+
 def thank_you_loop():
     ''' Primary loop to update and thank DONORS
     update DONORS, print donor names, or return to main menu
@@ -184,12 +199,7 @@ def thank_you_loop():
     (1) Update donor and send thank-you\n
     (2) List all existing DONORS\n
     (3) Return to main menu\n >"""
-    while True:
-        answer = get_user_input(prompt_string)
-        if answer:
-            result = select_action(arg_dict, answer)
-            if result:
-                    return
+    run_interactive_loop(arg_dict, prompt_string)
 
 
 def print_report_loop():
@@ -200,17 +210,12 @@ def print_report_loop():
     prompt_string = """Select one:\n
     (1) Generate a summary report\n
     (2) Return to the main menu\n"""
-    while True:
-        answer = get_user_input(prompt_string)
-        if answer:
-            result = select_action(arg_dict, answer)
-            if result:
-                    return
+    run_interactive_loop(arg_dict, prompt_string)
 
 
-''' --------------------------------------------------------------
-The MAINLOOP to control the entire program
--------------------------------------------------------------------'''
+# --------------------------------------------------------------
+# The MAINLOOP to control the entire program
+# -------------------------------------------------------------------
 
 
 def mainloop():
@@ -224,12 +229,7 @@ def mainloop():
     (2) Create a Report\n
     (3) Send letters to everyone\n
     (4) Quit\n>"""
-    while True:
-        answer = get_user_input(prompt_string)
-        if answer:
-            result = select_action(arg_dict, answer)
-            if result:
-                continue
+    run_interactive_loop(arg_dict, prompt_string)
 
 
 if __name__ == "__main__":
