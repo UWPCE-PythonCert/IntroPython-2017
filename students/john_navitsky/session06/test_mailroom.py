@@ -11,7 +11,7 @@ def test_true():
 
 def test_parse_name():
     assert mailroom.parse_name("Mary Jo Smith, IV") == {
-        'full_name': 'Mary Jo Smith, Iv', 
+        'full_name': 'Mary Jo Smith, IV', 
         'informal_name': 'Mary Jo Smith',
         'suffix': 'IV',
         'last_name': 'Smith',

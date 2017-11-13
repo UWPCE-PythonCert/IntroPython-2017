@@ -1,7 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import json
+import datetime
+import hashlib
 
 """ Program to manage donations. """
 
@@ -96,23 +98,31 @@ def print_report():
 
 
 def parse_name(full_name):
-        """ Convert string name into constituent parts. """
+        """ Convert string name into constituent parts, return dict of parts. """
 
         # capture suffix, if present.  we assume it will follow a comma
         try:
-            suffix=full_name.split(",")[1].strip()
+            suffix=full_name.split(",")[1].strip().upper()
         except:
             suffix=""
 
         # name with suffix removed
-        informal_name=full_name.split(",")[0].strip()
-        # we assume the last name is one word minus the suffix
-        last_name=informal_name.split()[-1].strip()
-        # we assume the first name(s) is everything to the left of the last name
-        first_name=" ".join(informal_name.split()[0:-1])
+        informal_name=full_name.split(",")[0].strip().title()
 
-        return { "full_name": full_name.title(), "informal_name": informal_name.title(),
-            "suffix": suffix.upper(), "last_name": last_name.title(), "first_name": first_name.title() }
+        # we assume the last name is one word minus the suffix
+        last_name=informal_name.split()[-1].strip().title()
+       
+        # we assume the first name(s) is everything to the left of the last name
+        first_name=" ".join(informal_name.split()[0:-1]).title()
+
+        # ensure standard capitalization in stuffix
+        if suffix:
+        	new_full_name=", ".join([informal_name, suffix])
+        else:
+        	new_full_name=informal_name
+
+        return { "full_name": new_full_name, "informal_name": informal_name,
+            "suffix": suffix, "last_name": last_name, "first_name": first_name }
 
 
 def get_donation_amount(informal_name):
@@ -213,7 +223,9 @@ def thank_you_entry():
             existing_full_name = existing_donor["first_name"]+" "+existing_donor["last_name"]
             # if we get a match, store the index of the donor record
             if existing_full_name.lower().strip() == current_donor["full_name"].lower().strip():
-                donor_id=donor_index
+            	current_donor=existing_donor
+            	#print("CUR:", current_donor)
+            	donor_id=donor_index
 
         # prompt for new donation, cancel if None returned
         new_donation=get_donation_amount(current_donor["informal_name"])
@@ -224,21 +236,29 @@ def thank_you_entry():
 
         # donor_id will be None if it didn't match an existing entry
 
+        today = datetime.datetime.utcnow().date().isoformat() + "Z"
+        # datetime.datetime.strptime(<iso date>,'%Y-%m-%dZ')
+
         # add donation to an existing donor
         if donor_id is not None:
-            donors[donor_id]["donations"].append({ "amount": new_donation})
+            donors[donor_id]["donations"].append({ "amount": new_donation, "date": today })
             hint="returning"
-            #print("existing donor:",donors[donor_id])
-
-        # add a new donor
         else:
-            donors.append( { "last_name": ", ".join(filter(None,[current_donor["last_name"], current_donor["suffix"]])),
-                "first_name": current_donor["first_name"],
-                "donations": [ { "amount": new_donation} ] } )
+            now = datetime.datetime.utcnow().isoformat() + "Z"
+            # datetime.datetime.strptime(<iso time>,'%Y-%m-%dT%H:%M:%S.%fZ')
+
+            id_source = current_donor["full_name"] + now
+            user_id = hashlib.md5( id_source.encode() ).hexdigest()
+            donors.append( { 
+                # "last_name": ", ".join(filter(None,[current_donor["last_name"], current_donor["suffix"]])),
+                # "first_name": current_donor["first_name"],
+                "created": now,
+                "user_id": user_id,
+                "donations": [ { "amount": new_donation, "date": today } ],
+                **current_donor } )
             # set the donor_id to the new donor
             donor_id=len(donors)-1
             hint="new"
-            #print(donors[donor_id])
 
         # thank the donor for the new donation
         print_thank_you(donor_id,hint)
