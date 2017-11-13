@@ -189,6 +189,7 @@ def print_thank_you(current_donor,hint="wonderful",dest=sys.stdout):
 
 
 def match_donor(current_donor, donors):
+        """ See if record matches existing record, if so, return full record. """
         for donor_id in donors:
             existing_donor=donors[donor_id]
             if existing_donor["full_name"].lower() == current_donor["full_name"].lower():
@@ -198,6 +199,11 @@ def match_donor(current_donor, donors):
 
 
 def update_donor(current_donor, donors, new_donation):
+        """ Update the donor database with new donation or donor record as needed. """
+
+        # match to existing record, if exists
+        current_donor = match_donor(current_donor, donors)
+
         # datetime.datetime.strptime(<iso date>,'%Y-%m-%dZ')
         today = datetime.datetime.utcnow().date().isoformat() + "Z"
 
@@ -261,9 +267,6 @@ def thank_you_entry(donors):
         if current_donor["first_name"] == "" or current_donor["last_name"] == "":
             print("You must enter both a first and last name.")
             continue
-
-        # pull in current donor info, if any
-        current_donor=match_donor(current_donor, donors)
 
         # prompt for new donation, cancel if None returned
         new_donation=get_donation_amount(current_donor)
