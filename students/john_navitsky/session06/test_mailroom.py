@@ -4,6 +4,7 @@ import mailroom
 import pytest
 import io
 import os
+from pprint import pprint
 
 
 def test_true():
@@ -188,3 +189,51 @@ def test_match_donor():
         'first_name': 'Joe' }
     return_donor = mailroom.match_donor(a_donor, test_donors)
     assert return_donor["donor_id"] == "04cee581bd27183b30922324c454547e"
+
+
+def test_update_donor_match():
+    test_donors = {'04cee581bd27183b30922324c454547e': {'created': '2017-11-13T06:15:06.829472Z',
+                                  'donations': [{'amount': 100.0,
+                                                 'date': '2017-11-13Z'},
+                                                {'amount': 150.0,
+                                                 'date': '2017-11-13Z'}],
+                                  'donor_id': '04cee581bd27183b30922324c454547e',
+                                  'first_name': 'Joe',
+                                  'full_name': 'Joe Smith',
+                                  'informal_name': 'Joe Smith',
+                                  'last_name': 'Smith',
+                                  'suffix': ''}}
+    a_donor = {
+        'full_name': 'Joe Smith', 
+        'informal_name': 'Joe Smith',
+        'suffix': '',
+        'last_name': 'Smith',
+        'first_name': 'Joe' }
+    donation = 777.77
+    mailroom.update_donor(current_donor=a_donor, donors=test_donors, new_donation=donation)
+    pprint(test_donors)
+    assert len(test_donors["04cee581bd27183b30922324c454547e"]["donations"]) == 3
+
+
+def test_update_donor_no_match():
+    test_donors = {'04cee581bd27183b30922324c454547e': {'created': '2017-11-13T06:15:06.829472Z',
+                                  'donations': [{'amount': 100.0,
+                                                 'date': '2017-11-13Z'},
+                                                {'amount': 150.0,
+                                                 'date': '2017-11-13Z'}],
+                                  'donor_id': '04cee581bd27183b30922324c454547e',
+                                  'first_name': 'Joe',
+                                  'full_name': 'Joe Smith',
+                                  'informal_name': 'Joe Smith',
+                                  'last_name': 'Smith',
+                                  'suffix': ''}}
+    a_donor = {
+        'full_name': 'Jane Jones', 
+        'informal_name': 'Jane Jones',
+        'suffix': '',
+        'last_name': 'Jones',
+        'first_name': 'Jane' }
+    donation = 777.77
+    mailroom.update_donor(current_donor=a_donor, donors=test_donors, new_donation=donation)
+    pprint(test_donors)
+    assert len(test_donors) == 2
