@@ -70,7 +70,7 @@ def print_lines(lines=2,dest=sys.stdout):
         print("",file=dest)
 
 
-def print_report(dest=sys.stdout):
+def print_report(donors,dest=sys.stdout):
     """ Print formatted list of all donors. """
 
     print_lines(2,dest)
@@ -214,7 +214,7 @@ def thank_you_entry():
 
         # check for a list directive
         if selection.lower() in ["l", "list"]:
-            print_report()
+            print_report(donors)
             continue
 
         # protect against no entry
@@ -269,18 +269,22 @@ def thank_you_entry():
         print_thank_you(current_donor,hint)
 
 
-def thank_all_donors():
+def thank_all_donors(donors,dest_override=None):
     """ loop through donors, open file, print a thank you letter. """
     for donor_id in donors:
         donor=donors[donor_id]
         file_name="_".join(filter( None, [ "thank_you", donor["last_name"], donor["suffix"], donor["first_name"] ])).lower()
         file_name=file_name.replace(" ", "_")
-        dest = open(file_name, "w")
+        if not dest_override:
+            dest = open(file_name, "w")
+        else:
+            dest = dest_override
         print_thank_you(donor,"wonderful",dest)
-        dest.close()
+        if not dest_override:
+            dest.close()
 
 
-def main():
+def main(donors):
     """ Main menu / input loop. """
     
     menu =  "\n"
@@ -304,10 +308,10 @@ def main():
         selection=safe_input("(l)ist, (e)nter, (q)uit: ").lower()
 
         if selection in ["l", "list"]:
-            print_report()
+            print_report(donors)
 
         if selection in ["p", "print"]:
-            thank_all_donors()
+            thank_all_donors(donors)
 
         # accept either send or enter
         if selection in ["s", "send", "e", "enter", "a", "add"]:
@@ -340,6 +344,6 @@ def main():
 # call the main input loop
 if __name__ == "__main__":
     donors = load_donor_file()
-    main()
+    main(donors)
 
 
