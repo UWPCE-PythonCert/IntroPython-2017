@@ -32,12 +32,18 @@ def test_mock_input():
     assert mailroom.safe_input(mock=True,mock_in="foo") == "foo"
 
 
-# def test_print_thank_you():
-#      # verify the print_thank_you() function
-#     out = io.StringIO()
-#     mailroom.print_thank_you(0,"testfull",out)
-#     output = out.getvalue()
-#     out.close()
-#     assert "Dearest Joe Smith," in output
+def test_print_thank_you():
+    # verify the print_thank_you() function
+    a_donor = {
+        'full_name': 'Mary Jo Smith, IV', 
+        'informal_name': 'Mary Jo Smith',
+        'suffix': 'IV',
+        'last_name': 'Smith',
+        'first_name': 'Mary Jo' }
+    out = io.StringIO()
+    mailroom.print_thank_you(a_donor,"testfull",out)
+    output = out.getvalue()
+    out.close()
+    assert "Dearest Mary Jo Smith, IV," in output
 
 
