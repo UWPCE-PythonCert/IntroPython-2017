@@ -188,7 +188,40 @@ def print_thank_you(current_donor,hint="wonderful",dest=sys.stdout):
     print_lines(2,dest)
 
 
-def thank_you_entry():
+def match_donor(current_donor, donors):
+        for donor_id in donors:
+            existing_donor=donors[donor_id]
+            if existing_donor["full_name"].lower() == current_donor["full_name"].lower():
+                # if the owner exists, pull in the complete donor record
+                current_donor=existing_donor
+        return current_donor
+
+
+def update_donor(current_donor, donors, new_donation):
+        # datetime.datetime.strptime(<iso date>,'%Y-%m-%dZ')
+        today = datetime.datetime.utcnow().date().isoformat() + "Z"
+
+        # add donation to an existing donor
+        if "donor_id" in current_donor.keys():
+            donor_id=current_donor["donor_id"]
+            donors[donor_id]["donations"].append({ "amount": new_donation, "date": today })
+            hint="returning"
+        else:
+            # datetime.datetime.strptime(<iso time>,'%Y-%m-%dT%H:%M:%S.%fZ')
+            now = datetime.datetime.utcnow().isoformat() + "Z"
+            # id is a hash of the full donor name plus high resolution time
+            id_seed = current_donor["full_name"] + now
+            donor_id = hashlib.md5( id_seed.encode() ).hexdigest()
+            # add the donor
+            donors[donor_id] = { 
+                "created": now,
+                "donor_id": donor_id,
+                "donations": [ { "amount": new_donation, "date": today } ],
+                **current_donor } 
+            hint="new"
+
+
+def thank_you_entry(donors):
     """ Enter new donation and send thank you. """
 
     menu =  "\n"
@@ -229,12 +262,8 @@ def thank_you_entry():
             print("You must enter both a first and last name.")
             continue
 
-        # determine if the provided name matches an existing record
-        for donor_id in donors:
-            existing_donor=donors[donor_id]
-            if existing_donor["full_name"].lower() == current_donor["full_name"].lower():
-                # if the owner exists, pull in the complete donor record
-                current_donor=existing_donor
+        # pull in current donor info, if any
+        current_donor=match_donor(current_donor, donors)
 
         # prompt for new donation, cancel if None returned
         new_donation=get_donation_amount(current_donor)
@@ -243,27 +272,8 @@ def thank_you_entry():
             print("Donation cancelled!")
             return
 
-        # datetime.datetime.strptime(<iso date>,'%Y-%m-%dZ')
-        today = datetime.datetime.utcnow().date().isoformat() + "Z"
-
-        # add donation to an existing donor
-        if "donor_id" in current_donor.keys():
-            donor_id=current_donor["donor_id"]
-            donors[donor_id]["donations"].append({ "amount": new_donation, "date": today })
-            hint="returning"
-        else:
-            # datetime.datetime.strptime(<iso time>,'%Y-%m-%dT%H:%M:%S.%fZ')
-            now = datetime.datetime.utcnow().isoformat() + "Z"
-            # id is a hash of the full donor name plus high resolution time
-            id_seed = current_donor["full_name"] + now
-            donor_id = hashlib.md5( id_seed.encode() ).hexdigest()
-            # add the donor
-            donors[donor_id] = { 
-                "created": now,
-                "donor_id": donor_id,
-                "donations": [ { "amount": new_donation, "date": today } ],
-                **current_donor } 
-            hint="new"
+        # update the donor list with the new donation
+        hint = update_donor(current_donor, donors, new_donation)
 
         # thank the donor for the new donation
         print_thank_you(current_donor,hint)
@@ -315,7 +325,7 @@ def main(donors):
 
         # accept either send or enter
         if selection in ["s", "send", "e", "enter", "a", "add"]:
-            thank_you_entry()
+            thank_you_entry(donors)
 
         if selection in ["d", "debug"]:
             print_lines()

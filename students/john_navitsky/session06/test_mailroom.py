@@ -3,6 +3,7 @@
 import mailroom
 import pytest
 import io
+import os
 
 
 def test_true():
@@ -106,3 +107,84 @@ def test_print_report():
     assert "Donor Name           | Total Given    | Num Gifts | Average Gift" in output
     assert "Joe Smith             $        250.00           2  $      125.00" in output
     assert "Mary Jo Kline, III    $      1,000.00           1  $    1,000.00" in output
+
+
+
+#def save_donor_file(donors,donor_file="donors.json"):
+
+def test_save_file():
+    # verify the print_thank_you() function
+    test_donors = {'04cee581bd27183b30922324c454547e': {'created': '2017-11-13T06:15:06.829472Z',
+                                      'donations': [{'amount': 100.0,
+                                                     'date': '2017-11-13Z'},
+                                                    {'amount': 150.0,
+                                                     'date': '2017-11-13Z'}],
+                                      'donor_id': '04cee581bd27183b30922324c454547e',
+                                      'first_name': 'Joe',
+                                      'full_name': 'Joe Smith',
+                                      'informal_name': 'Joe Smith',
+                                      'last_name': 'Smith',
+                                      'suffix': ''},
+ '55af71b4c7c2dd90c67bb001e1b2d99f': {'created': '2017-11-13T06:15:29.087828Z',
+                                      'donations': [{'amount': 1000.0,
+                                                     'date': '2017-11-13Z'}],
+                                      'donor_id': '55af71b4c7c2dd90c67bb001e1b2d99f',
+                                      'first_name': 'Mary Jo',
+                                      'full_name': 'Mary Jo Kline, III',
+                                      'informal_name': 'Mary Jo Kline',
+                                      'last_name': 'Kline',
+                                      'suffix': 'III'}}
+    test_donor_file="test_donor_file"
+    mailroom.save_donor_file(test_donors,donor_file=test_donor_file)
+    with open(test_donor_file) as test_data:
+        test_values = test_data.read()
+    assert "04cee581bd27183b30922324c454547e" in test_values
+    assert "55af71b4c7c2dd90c67bb001e1b2d99f" in test_values
+    
+def test_load_donor_file():
+    test_donors = {'04cee581bd27183b30922324c454547e': {'created': '2017-11-13T06:15:06.829472Z',
+                                      'donations': [{'amount': 100.0,
+                                                     'date': '2017-11-13Z'},
+                                                    {'amount': 150.0,
+                                                     'date': '2017-11-13Z'}],
+                                      'donor_id': '04cee581bd27183b30922324c454547e',
+                                      'first_name': 'Joe',
+                                      'full_name': 'Joe Smith',
+                                      'informal_name': 'Joe Smith',
+                                      'last_name': 'Smith',
+                                      'suffix': ''},
+ '55af71b4c7c2dd90c67bb001e1b2d99f': {'created': '2017-11-13T06:15:29.087828Z',
+                                      'donations': [{'amount': 1000.0,
+                                                     'date': '2017-11-13Z'}],
+                                      'donor_id': '55af71b4c7c2dd90c67bb001e1b2d99f',
+                                      'first_name': 'Mary Jo',
+                                      'full_name': 'Mary Jo Kline, III',
+                                      'informal_name': 'Mary Jo Kline',
+                                      'last_name': 'Kline',
+                                      'suffix': 'III'}}
+    test_donor_file="test_donor_file"
+    return_dict = mailroom.load_donor_file(donor_file=test_donor_file)
+    assert test_donors == return_dict
+    os.remove(test_donor_file)
+
+
+def test_match_donor():
+    test_donors = {'04cee581bd27183b30922324c454547e': {'created': '2017-11-13T06:15:06.829472Z',
+                                  'donations': [{'amount': 100.0,
+                                                 'date': '2017-11-13Z'},
+                                                {'amount': 150.0,
+                                                 'date': '2017-11-13Z'}],
+                                  'donor_id': '04cee581bd27183b30922324c454547e',
+                                  'first_name': 'Joe',
+                                  'full_name': 'Joe Smith',
+                                  'informal_name': 'Joe Smith',
+                                  'last_name': 'Smith',
+                                  'suffix': ''}}
+    a_donor = {
+        'full_name': 'Joe Smith', 
+        'informal_name': 'Joe Smith',
+        'suffix': '',
+        'last_name': 'Smith',
+        'first_name': 'Joe' }
+    return_donor = mailroom.match_donor(a_donor, test_donors)
+    assert return_donor["donor_id"] == "04cee581bd27183b30922324c454547e"
