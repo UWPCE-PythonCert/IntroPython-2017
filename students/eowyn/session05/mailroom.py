@@ -18,7 +18,8 @@ def quit_code():
 
 def return_to_menu():
     ''' Raise a zero division error to trigger exit out of loop'''
-    return 5/0
+    # raise NotImplementedError
+    return True
 
 def list_donors():
     ''' List all DONORS '''
@@ -96,23 +97,25 @@ def update_donor():
 def thank_you():
     ''' Update donor records and print thank you notes.'''
     arg_dict = {"1": update_donor, "2": list_donors, "3": return_to_menu}
-    try:
-        while True:
+
+    while True:
+        try:
+            answer = input("To send a thank you, select one:\n "
+                           "(1) Update donor and send thank-you\n"
+                           "(2) List all existing DONORS\n"
+                           "(3) Return to main menu\n >")
+        except (EOFError, KeyboardInterrupt, TypeError):
+            safe_input()
+        else:
             try:
-                answer = input("To send a thank you, select one:\n "
-                               "(1) Update donor and send thank-you\n"
-                               "(2) List all existing DONORS\n"
-                               "(3) Return to main menu\n >")
-            except (EOFError, KeyboardInterrupt, TypeError):
-                safe_input()
+                result = arg_dict.get(answer)()
+            # errors are for if key doesn't exist or is None
+            except (KeyError, TypeError):
+                continue
             else:
-                try:
-                    arg_dict.get(answer)()
-                except (KeyError, TypeError):
-                # errors are for if key doesn't exist or is None
-                    continue
-    except ZeroDivisionError:
-        pass
+                if result:
+                    return
+
 
 def print_report():
     ''' Print donor report or return to menu '''
