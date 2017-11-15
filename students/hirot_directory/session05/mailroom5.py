@@ -32,8 +32,8 @@ def print_list():
 
                                            msg4="Average Gift"))
     for d in donor_dict:
-        t = sum(donor_dict[d][1])
-        n = len(donor_dict[d][1]) 
+        t = sum(donor_dict[d])
+        n = len(donor_dict[d]) 
         a = t / n
 
         print("{d: <50} ${t: 12.2f}{n: 12d}{a: 14.2f}".format(d=d, t=t, n=n, a=a))
