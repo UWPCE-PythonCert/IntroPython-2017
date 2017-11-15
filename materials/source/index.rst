@@ -64,7 +64,11 @@ Week 6: November 7
 Week 7: November 14
 ...................
 
-November 21: Thanksgiving week -- no class
+:ref:`session_1_07`
+
+:ref:`notes_session07`
+
+**November 21: Thanksgiving week -- no class**
 
 Week 8: November 28
 ...................
