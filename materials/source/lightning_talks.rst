@@ -54,7 +54,7 @@ Marlon M Estrada
 ----------------
 
 Shibata Hiroyuki: Why Am I Here?
-----------------
+--------------------------------
 
 hacker-typer for Atom: https://github.com/zamarrowski/hacker-typer
 
@@ -73,14 +73,19 @@ Evgeny S Uvarov: paramiko
 Srikanth Thadigol Reddappa: solar eclipse times, plotted
 --------------------------------------------------------
 
-Alinafe Matenda
----------------
+Alinafe Matenda: Driving Postgress with Python
+----------------------------------------------
 
-Daniel W Kuchan
----------------
 
-Kathryn Egan
-------------
+Daniel W Kuchan: Internet of kind of dumb things
+------------------------------------------------
+
+Automatically turning on a nightlight when you get our of bed.
+
+Integrate it with the Internet
+
+Kathryn Egan: The argparse module
+---------------------------------
 
 Brian Nagata
 ------------

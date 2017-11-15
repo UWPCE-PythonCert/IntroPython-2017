@@ -212,14 +212,14 @@ def thank_you_entry():
 
 
 def thank_all_donors():
-	for index in range(len(donors)):
-		#dest=sys.stdout
-		donor_name = donors[index]["last_name"]+"_"+donors[index]["first_name"]
-		donor_name = donor_name.strip().lower().replace(" ", "_").replace(",", "")
-		donor_file="thank_you_" + donor_name
-		dest = open(donor_file, "w")
-		print_thank_you(index,"wonderful",dest)
-		dest.close()
+    for index in range(len(donors)):
+        #dest=sys.stdout
+        donor_name = donors[index]["last_name"]+"_"+donors[index]["first_name"]
+        donor_name = donor_name.strip().lower().replace(" ", "_").replace(",", "")
+        donor_file="thank_you_" + donor_name
+        dest = open(donor_file, "w")
+        print_thank_you(index,"wonderful",dest)
+        dest.close()
 
 def main():
     """ Main menu / input loop. """
@@ -249,7 +249,7 @@ def main():
             print_report()
 
         if selection in ["p", "print"]:
-        	thank_all_donors()
+            thank_all_donors()
 
         # accept either send or enter
         if selection in ["2", "s", "send", "e", "enter"]:
