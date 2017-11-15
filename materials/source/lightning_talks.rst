@@ -54,7 +54,7 @@ Marlon M Estrada
 ----------------
 
 Shibata Hiroyuki: Why Am I Here?
-----------------
+--------------------------------
 
 hacker-typer for Atom: https://github.com/zamarrowski/hacker-typer
 
