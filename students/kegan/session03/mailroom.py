@@ -128,7 +128,7 @@ def get_thank_you(donor, donations):
         'first': ', '.join([
             dollar(d) for d in donations[:-1]]),
         'rest': dollar(donations[-1]),
-        'totalling': '' if num < 1 else ', totalling {}${},'.format(
+        'totalling': '' if num < 2 else ', totalling {}{},'.format(
             'an incredible ' if total > 500 else '', dollar(total))}
     message = \
         'Dear {donor},\nThank you for your generous gift{s} of ' +\
