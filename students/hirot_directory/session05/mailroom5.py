@@ -32,8 +32,8 @@ def print_list():
 
                                            msg4="Average Gift"))
     for d in donor_dict:
-        t = sum(donor_dict[d])
-        n = len(donor_dict[d]) 
+        t = sum(donor_dict[d][1])
+        n = len(donor_dict[d][1]) 
         a = t / n
 
         print("{d: <50} ${t: 12.2f}{n: 12d}{a: 14.2f}".format(d=d, t=t, n=n, a=a))
@@ -59,13 +59,13 @@ def quit():
             print("Good bye...")
             sys.exit()
         else:
-          return True
+          return True # refactoring
 
     except KeyError as k:
         print("Error happened. Error is ",type(k),"Please type 1, 2 or 3")
 
 
-dict_choice = {'1': print_list, '2': make_donation, '3': quit}
+dict_choice = {'1': print_list, '2': make_donation, '3': quit} # refactoring
 
 
 def thank_you_loop():
@@ -76,9 +76,9 @@ def thank_you_loop():
                           "(2) Enter a donation\n"  
                           "(3) Exit\n"
                           )
-            result = dict_choice[choice]()
+            result = dict_choice[choice]() # refactoring
 
-            if result:
+            if result: # refactoring
               break
 
         except KeyError as k:
