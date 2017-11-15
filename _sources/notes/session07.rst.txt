@@ -12,6 +12,8 @@ A collection of notes to go over in class, to keep things organized.
 Lightning Talks
 ===============
 
+Marlon M Estrada (if you are prepared)
+
 Brian Nagata
 
 Rajaramesh V Yaramati
@@ -59,4 +61,20 @@ does not create an new lists -- it adds to the original list "in place" -- it is
 
 a_list.extend(another_list)
 
-And is an efficient operation.
+And it is an efficient operation.
+
+DRY and the dict-driven menu
+----------------------------
+
+Eowyn came up with a really slick way to handle the mailroom menus -- really DRY code!
+
+This is also a great example of what writing your code to be testable does for you. Making the code testable, she took as much logic out of the code with the input() function -- and eventually found that the interaction loops were essentially the exact same code.
+
+Let's take a look:
+
+https://github.com/UWPCE-PythonCert/IntroPython-2017/blob/master/students/eowyn/session06/mailroom/mailroom.py
+
+--------------
+
+
+
