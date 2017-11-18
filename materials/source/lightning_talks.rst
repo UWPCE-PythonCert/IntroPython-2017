@@ -50,8 +50,11 @@ Guillaume R Thomas: What do I do with Python?
 :download:`Python_Projects.py <../../students/guillaume/Python Class Current project.pptx>`
 
 
-Marlon M Estrada
-----------------
+Marlon M Estrada: pipenv
+------------------------
+
+https://docs.pipenv.org/
+
 
 Shibata Hiroyuki: Why Am I Here?
 --------------------------------
@@ -87,14 +90,19 @@ Integrate it with the Internet
 Kathryn Egan: The argparse module
 ---------------------------------
 
-Brian Nagata
-------------
+Brian NagataL pdb debugger
+--------------------------
 
-Rajaramesh V Yaramati
----------------------
 
-Zandra Eng
-----------
+Rajaramesh V Yaramati: database status checking tool
+----------------------------------------------------
+
+Common interface for multiple database types, instances..
+
+Zandra Eng: How I got here
+--------------------------
+
+
 
 John Navitsky
 -------------
