@@ -1,54 +1,81 @@
+''''
+Matt Briggs Trigram Exercise
+Version 2.0 2017.11.19
+'''
+
 import random as rand
 
+
 def create_corpus(infile):
-    '''Input: a filename
-       Output: a list of words.'''
+    ''' Input: a filename of a text file
+        Output: a list of words from the text file.'''
     corpus = []
     with open(infile) as lines:
         lines.readline()
         for line in lines:
             line = line.strip()
             words = line.split(" ")
-            for i in range(len(words)):
-                corpus.append(words[i])
+            for word in enumerate(words):
+                corpus.append(word[1])
     return corpus
 
+
 def create_trigram(textlist):
-    '''Input: a list of words from a text body.
-       Output: a dictionary of two words in sequence and the word after.'''
+    ''' Input: a list of words from a text body.
+        Output: a dictionary of two words in sequence and the word after.'''
     trigram = {}
-    for w in range(len(textlist[:-2])):
-        firstword = textlist[w]
-        secondword = textlist[w+1]
-        thirdword = textlist[w+2]
-        trigram[thirdword] = (firstword, secondword)
+    for x in range(len(textlist[:-2])):
+        firstword = textlist[x]
+        secondword = textlist[x+1]
+        thirdword = textlist[x+2]
+        #print("[({},{}] = {}".format(firstword, secondword, thirdword))
+        if (firstword, secondword) in trigram:
+            trigram[(firstword, secondword)].append(thirdword)
+        else:
+            trigram[(firstword, secondword)] = [thirdword]
     return trigram
+
 
 def get_values(trigram):
     '''Input: a dictionary.
-       Output: a list of keys.'''
+       Output: a list of word pair keys.'''
     words = []
     for w in trigram.keys():
         words.append(w)
     return words
 
-def get_random_item(listofwords):
-    '''Input: a list of items.
-       Output: a random item as a string.'''
-    choose = rand.randint(0,len(listofwords))
-    return str(listofwords[choose])
 
-def create_random_text(listofwords, trigram, wordcount):
-    outstring = ""
-    for i in range(wordcount):
-        pick = get_random_item(listofwords)
-        getpair = trigram[pick]
-        outstring += getpair[0] + " " + getpair[1] + " "
-    return outstring
+def create_new_corpus(trigram, listofwordpairs, wordcount):
+    ''' Input: trigram dictionary, trigrams list of word pairs as a list, wordcount resulttext
+        Output: a list of the containing the new text.'''
+    seed = rand.choice(listofwordpairs)
+    new_corpus = []
+    new_corpus.append(seed[0])
+    new_corpus.append(seed[1])
+    for i in range(1, wordcount):
+        if (new_corpus[i-1], new_corpus[i]) in listofwordpairs:
+            new_corpus.append(rand.choice(trigram[(new_corpus[i-1], new_corpus[i])]))
+        else:
+            seedit = rand.choice(listofwordpairs)
+            new_corpus.append(rand.choice(trigram[seedit]))
+    return (new_corpus)
+
+
+def create_text_from_list(word_list):
+    ''' Input: A list containing the words in order.
+        Output: a single string.'''
+    output = ""
+    for word in word_list:
+        output += word + " "
+    return output
+
 
 if __name__ == "__main__":
-    text_body = create_corpus("text.txt")
+    infile = input("Type the filename of a text to use for the trigram. > ")
+    wordcount = int(input("Type the number of words in the generated text. > "))
+    text_body = create_corpus(infile)
     threegram = create_trigram(text_body)
-    listofwords = get_values(threegram)
-    mystory = create_random_text(listofwords, threegram, 250)
-    print (mystory)
+    listofwordpairs = list(threegram)
+    new_text_list = create_new_corpus(threegram, listofwordpairs, wordcount)
+    story = create_text_from_list(new_text_list)
+    print(story)
