@@ -88,3 +88,8 @@ def test_fun2_args():
 
 	assert result[0] == t
 	assert result[1] == {'this': 45}
+
+def test_print_fun(capfd):
+	kwargs_ex.print_fun()
+	out, err = capfd.readouterr()
+	assert out == 'Hello World!\n'

@@ -13,3 +13,6 @@ def fun(fore_color='blue',
 
 def fun2(*args, **kwargs):
 	return (args, kwargs)
+
+def print_fun():
+	print('Hello World!')

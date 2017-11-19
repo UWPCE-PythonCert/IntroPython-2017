@@ -4,87 +4,21 @@ import mailroom
 
 import pytest
 
-#def test_basic():
-#	assert True
+def test_add_name():
+	assert mailroom.add_name('Dan', 'Woj') is True
 
-#def test_kw_new_order1():
-#	result = kwargs_ex.fun(fore_color='blue', 
-#							back_color='red',
-#							link_color='yellow',
-#							visited_color='green')
-#	assert result == ('blue', 'red', 'yellow', 'green')
+def test_add_name2(capsys):
+	mailroom.add_name('Dan', 'Woj')
+	out, err = capsys.readouterr()
+	assert out == 'The name Dan Woj is not in the donor list. Adding them as a new donor.\n\n'
 
-#def test_kw_new_order2():
-#	result = kwargs_ex.fun('green', 
-#							'blue',
-#							'purple',
-#							'red')
-#	assert result == ('green', 'blue', 'purple', 'red')
+def test_add_value():
+	
 
-#def test_kw_combo():
-#	result = kwargs_ex.fun('green', 
-#							'blue',
-#							visited_color='green',
-#							link_color='yellow')
-#	assert result == ('green', 'blue', 'yellow', 'green')
+def test_print_letter():
+	assert mailroom.print_letter(4, 1234) is True
 
-#def test_kw_tuple():
-#	tup = ('green', 
-#			'blue',
-#			'purple',	
-#			'red'
-#			)
-#	result = kwargs_ex.fun(*tup)
-
-#	assert result == ('green', 'blue', 'purple', 'red')
-#	assert result == tup
-
-#def test_kw_dict():
-#	dic = {'fore_color': 'blue', 
-#			'back_color': 'red',
-#			'link_color': 'yellow',	
-#			'visited_color': 'green'
-#			}
-#	result = kwargs_ex.fun(**dic)
-
-#	assert result == ('blue', 'red', 'yellow', 'green')
-
-#def test_default():
-#	result = kwargs_ex.fun()
-
-#	assert result == ('blue', 'red', 'yellow', 'green')
-
-#def test_kw_combo_bad():
-#	with pytest.raises(TypeError):
-#		result = kwargs_ex.fun('green',
-#								visited_color='green',
-#								no_color='green'
-#								)
-
-#def test_fun2_empty():
-#	result = kwargs_ex.fun2()
-
-#	assert result == ((), {})
-
-#def test_fun2_pos():
-#	result = kwargs_ex.fun2(2, 3)
-
-#	assert result == ((2, 3), {})
-
-#def test_fun2_kw():
-#	result = kwargs_ex.fun2(this=45)
-
-#	assert result == ((), {'this': 45})
-
-#def test_fun2_both():
-#	result = kwargs_ex.fun2(4, 5, this=45)
-
-#	assert result[0] == (4, 5)
-#	assert result[1] == {'this': 45}
-
-#def test_fun2_args():
-#	t = (4, 5, 6, 7)
-#	result = kwargs_ex.fun2(*t, this=45)
-
-#	assert result[0] == t
-#	assert result[1] == {'this': 45}
+def test_run_report(capfd):
+	mailroom.run_report()
+	out, err = capfd.readouterr()
+	assert out == '\n######################  Donor Report ######################\n\nDonor Name         | Total Given | Num Gifts | Average Gift\n-----------------------------------------------------------\nBill Gates         | $ 700.00    | 2         | $ 350.00\nMelvin Smith       | $ 8000.00   | 3         | $ 2666.67\nDaphnie Jones      | $ 2000.00   | 2         | $ 1000.00\nChauncey Doe       | $ 400.00    | 1         | $ 400.00\nFrieda Whatever    | $ 9000.00   | 3         | $ 3000.00\n'
