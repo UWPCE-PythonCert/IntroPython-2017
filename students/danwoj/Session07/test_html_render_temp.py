@@ -97,32 +97,32 @@ def test_render_body():
 	assert my_stuff in contents
 	assert more_stuff in contents
 
-def test_render_non_strings():
-    # this is crating a html page with a single body() element in it
-    el_object = Html(Body('any string I like'))
-    with open('test_render_non_strings_output.html', 'w') as out_file:
-    	el_object.render(out_file)
-    with open('test_render_non_strings_output.html', 'r') as in_file:
-    	contents = in_file.read()
-    # make sure extra whitespace at beginning or end doesn't mess things up.
-    contents = contents.strip()
+#def test_render_non_strings():
+#    # this is crating a html page with a single body() element in it
+#    el_object = Html(Body('any string I like'))
+#    with open('test_render_non_strings_output.html', 'w') as out_file:
+#    	el_object.render(out_file)
+#    with open('test_render_non_strings_output.html', 'r') as in_file:
+#    	contents = in_file.read()
+#    # make sure extra whitespace at beginning or end doesn't mess things up.
+#    contents = contents.strip()
 
-    print(contents)  # so we can see what's going on if a test fails
+#    print(contents)  # so we can see what's going on if a test fails
 
     # so what should the results be?
     # the html tag is the outer tag, so the contents should start and end with that.
-    assert contents.startswith('<html>')
-    assert contents.endswith('</html>')
+#    assert contents.startswith('<html>')
+#    assert contents.endswith('</html>')
 
     # the body tags had better be there too
-    assert '<body>' in contents
-    assert '</body' in contents
+#    assert '<body>' in contents
+#    assert '</body' in contents
 
     # we want the tesxt, too:
-    assert 'any string I like' in contents
+#    assert 'any string I like' in contents
 
     # now lets get pretty specific:
     # the opening tag should come before the ending tag
-    assert contents.index('<body>') < contents.index('</body>')
+#    assert contents.index('<body>') < contents.index('</body>')
     # the opening tag should come before the content
-    assert contents.index('<body>') < contents.index('any string')
+#    assert contents.index('<body>') < contents.index('any string')

@@ -4,8 +4,8 @@
 This is the testing file for 'html_render.py' program
 '''
 
-import html_render
-from html_render import Element, Body, Para, Html
+import html_render2
+from html_render2 import Element, Body, Para, Html
 
 def render_element(element, filename='temp_render_file.html', remove=True):
     """
