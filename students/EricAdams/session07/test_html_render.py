@@ -3,7 +3,7 @@
 
 import os
 
-from html_render import Element, Body, P, Html
+from html_render import Element, Body, P, Html, Head, OnelineTag, Title
 
 # test utilities
 
@@ -27,7 +27,7 @@ def render_element(element, filename='temp_render_file.html', remove=True):
     NOTE: - this could be refactored, and still used everywhere.
     """
     with open(filename, 'w') as out_file:
-        element.render(out_file)
+        element.render(out_file, '    ')
     with open(filename, 'r') as in_file:
         contents = in_file.read()
     # NOTE: you could comment out this if you want to see the file.
@@ -65,7 +65,7 @@ def test_tag_exists():
 
 
 def test_indent_exists():
-    assert Element.indent == '  '
+    assert Element.indent == ''
 
 
 def test_render():
@@ -155,7 +155,7 @@ def test_render_non_strings():
     assert '<body>' in contents
     assert '</body' in contents
 
-    # we want the tesxt, too:
+    # we want the text, too:
     assert 'any string I like' in contents
 
     # now lets get pretty specific:
@@ -163,3 +163,69 @@ def test_render_non_strings():
     assert contents.index('<body>') < contents.index('</body>')
     # the opening tag should come before the content
     assert contents.index('<body>') < contents.index('any string')
+
+
+def test_render_with_indent():
+    # this is crating a html page with a single body() element in it
+    el_object = Html(Body(P('any string I like')))
+
+    contents = render_element(el_object)
+    # make sure extra whitespace at beginning or end doesn't mess things up.
+    contents = contents.strip()
+
+    print(contents)  # so we can see what's going on if a test fails
+
+    # so what should the results be?
+    # the html tag is the outer tag, so the contents should start
+    # and end with that.
+    assert contents.startswith('<html>')
+    assert contents.endswith('</html>')
+
+    # the body tags had better be there too
+    # 1 level of indentation, (4 spaces)
+    assert '    <body>' in contents
+    assert '    </body' in contents
+    # two levels of indentation, (8 spaces)
+    assert '        <p> in contents'
+    assert '        </p>' in contents
+
+    # we want the text, too, indented 4 spaces:
+    assert '        any string I like' in contents
+
+    # now lets get pretty specific:
+    # the opening tag should come before the ending tag
+    assert contents.index('    <body>') < contents.index('    </body>')
+    # the opening tag should come before the <p> tag
+    assert contents.index('    <body>') < contents.index('<p>')
+    # opening tag before the ending tag
+    assert contents.index('        <p>') < contents.index('        </p>')
+    assert contents.index('<p>') < contents.index('any string I like')
+
+    # Step 3 add <head>, <title> and ability to print the title on
+    # one line
+
+
+# does the head object render with head tags
+def test_head_element():
+    head_obj = Head('PythonClass = Revision 1087:')
+    contents = render_element(head_obj)
+    print(contents)
+    assert contents == '<head>\nPythonClass = Revision 1087:\n</head>'
+
+
+# Title open and close tags on same line as text
+def test_title_element():
+    title_obj = Title('PythonClass = Revision 1087:')
+    contents = render_element(title_obj)
+    print(contents)
+    assert contents == '<title>PythonClass = Revision 1087:</title>'
+
+
+def test_title_Non_Strings():
+    head_object = Head()
+    head_object.append(Title("PythonClass = Revision 1087:"))
+    contents = render_element(head_object)
+    print(contents)
+    # title tags on same line as title text
+    assert '<title>PythonClass' in contents
+    assert 'Revision 1087:</title>' in contents
