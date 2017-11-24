@@ -17,4 +17,4 @@ def test_thing():
 
     m.assert_called_once_with('foo')
     assert result == [["1", "2", "3"], ["4", "5", "6"]]
-    assert False
+    #assert False
