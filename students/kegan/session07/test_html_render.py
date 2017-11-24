@@ -120,3 +120,56 @@ def test_attrs3():
     expected = '\n'.join(elements) + '\n'
     check_render(html, expected)
 
+
+def test_link():
+    html = Html()
+    body = Body()
+    body.append('let me')
+    body.append(A('https://www.tutorialspoint.com/html/', 'google'))
+    body.append('that for you')
+    html.append(body)
+    elements = [
+        '<html>',
+        '    <body>',
+        '        let me',
+        '        <a href="https://www.tutorialspoint.com/html/">google</a>',
+        '        that for you',
+        '    </body>',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
+
+
+def test_list():
+    html = Html()
+    ul = Ul(id='MyList')
+    ul.append(Li('first item'))
+    ul.append(Li('second item'))
+    html.append(ul)
+    elements = [
+        '<html>',
+        '    <ul id="MyList">',
+        '        <li>',
+        '            first item',
+        '        </li>',
+        '        <li>',
+        '            second item',
+        '        </li>',
+        '    </ul>',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
+
+
+def test_header():
+    html = Html()
+    html.append(Header(1, 'My Header'))
+    html.append(Header(2, 'Second Header'))
+    elements = [
+        '<html>',
+        '    <h1>My Header</h1>',
+        '    <h2>Second Header</h2>',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
+

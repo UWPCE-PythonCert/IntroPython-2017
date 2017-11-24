@@ -89,3 +89,18 @@ class Body(Element):
 
 class P(Element):
     tag = 'p'
+
+
+class Ul(Element):
+    tag = 'ul'
+
+
+class Li(Element):
+    tag = 'li'
+
+
+class Header(OneLineTag):
+
+    def __init__(self, level, content):
+        self.tag = 'h' + str(level)
+        Element.__init__(self, content)
