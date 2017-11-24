@@ -56,6 +56,13 @@ class SelfClosingTag(Element):
         file_out.write('\n')
 
 
+class A(OneLineTag):
+    tag = 'a'
+
+    def __init__(self, link, content):
+        Element.__init__(self, content, href=link)
+
+
 class Title(OneLineTag):
     tag = 'title'
 
