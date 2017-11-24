@@ -18,38 +18,42 @@ class Element:
         self.content.append(content)
 
     def render(self, file_out, ind=0):
-        attrs = ''.join([
-            ' {}="{}"'.format(key, self.attrs[key])
-            for key in sorted(self.attrs)])
-        file_out.write('{}<{}{}>\n'.format(ind * self.indent, self.tag, attrs))
+        file_out.write(self.open_tag(ind))
+        file_out.write('\n')
         for c in self.content:
             try:
                 c.render(file_out, ind + 1)
             except AttributeError:
                 file_out.write('{}{}\n'.format((ind + 1) * self.indent, c))
-        file_out.write('{}</{}>\n'.format(ind * self.indent, self.tag))
+        file_out.write(self.close_tag(ind))
+        file_out.write('\n')
+
+    def open_tag(self, ind, selfclosing=False):
+        attrs = ''.join([
+            ' {}="{}"'.format(key, self.attrs[key])
+            for key in sorted(self.attrs)])
+        close = ' /' if selfclosing else ''
+        tag = '{}<{}{}{}>'.format(ind * self.indent, self.tag, attrs, close)
+        return tag
+
+    def close_tag(self, ind):
+        tag = '{}</{}>'.format(ind * self.indent, self.tag)
+        return tag
 
 
 class OneLineTag(Element):
     def render(self, file_out, ind=0):
-        attrs = ''.join([
-            ' {}="{}"'.format(key, self.attrs[key])
-            for key in sorted(self.attrs)])
-        file_out.write('{}<{}{}>'.format(ind * self.indent, self.tag, attrs))
+        file_out.write(self.open_tag(ind))
         for c in self.content:
-            try:
-                c.render(file_out, ind + 1)
-            except AttributeError:
-                file_out.write(c)
-        file_out.write('</{}>\n'.format(self.tag))
+            file_out.write(c)
+        file_out.write(self.close_tag(0))
+        file_out.write('\n')
 
 
 class SelfClosingTag(Element):
     def render(self, file_out, ind=0):
-        attrs = ''.join([
-            ' {}="{}"'.format(key, self.attrs[key])
-            for key in sorted(self.attrs)])
-        file_out.write('{}<{}{} />\n'.format(ind * self.indent, self.tag, attrs))
+        file_out.write(self.open_tag(ind, selfclosing=True))
+        file_out.write('\n')
 
 
 class Title(OneLineTag):
