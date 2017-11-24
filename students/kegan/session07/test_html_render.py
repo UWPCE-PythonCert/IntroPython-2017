@@ -1,44 +1,85 @@
 """
 Kathryn Egan
 """
-from html_render import Element
-from html_render import Body
-from html_render import Paragraph
+from html_render import *
 
 
-def test_new_element():
-    element1 = Element()
-    assert element1.content == []
-    element2 = Element('content')
-    assert element2.content == ['content']
-
-
-def test_add_content():
+def test_element_init():
+    element = Element()
+    assert element.content == []
     element = Element('content')
-    element.add_content('more content')
+    assert element.content == ['content']
+    element = Element('')
+    assert element.content == ['']
+
+
+def test_append():
+    element = Element()
+    element.append('content')
+    element.append('more content')
     assert element.content == ['content', 'more content']
 
 
+# def test_render_no_indent():
+#     html = Html()
+#     html.append(Body('body content'))
+#     html.append(P())
+#     temp = 'html_test.html'
+#     with open(temp, 'w') as f:
+#         html.render(f)
+#     with open(temp, 'r') as f:
+#         assert f.read() == '<html><body>body content</body><p></p></html>'
+
+
+def check_render(html, expected):
+    temp = 'html_test.html'
+    with open(temp, 'w') as f:
+        html.render(f)
+    with open(temp, 'r') as f:
+        assert f.read() == expected
+
+
 def test_render():
-    element = Element('stuff')
-    element.add_content('more stuff')
-    element.add_content('stuffy stuff')
-    with open('test1', 'w') as out_file:
-        element.render(out_file)
-    with open('test1', 'r') as in_file:
-        contents = in_file.read()
-    assert contents.startswith('<html>')
-    assert contents.endswith('</html>')
-    assert 'stuff' in contents
+    html = Html()
+    body = Body()
+    body.append(P('paragraph 1'))
+    body.append(P('paragraph 2'))
+    html.append(body)
+    elements = [
+        '<html>',
+        '    <body>',
+        '        <p>',
+        '            paragraph 1',
+        '        </p>',
+        '        <p>',
+        '            paragraph 2',
+        '        </p>',
+        '    </body>',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
 
 
-def test_html():
-    assert HTML.tag == 'html'
+def test_one_line_tag():
+    html = Html()
+    html.append(Title('this is the title'))
+    elements = [
+        '<html>',
+        '    <title>this is the title</title>',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
 
 
-def test_body():
-    assert Body.tag == 'body'
+def test_self_closing_tag():
+    html = Html()
+    html.append(Hr())
+    html.append(Br())
+    elements = [
+        '<html>',
+        '    <hr />',
+        '    <br />',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
 
-
-def test_paragraph():
-    assert Paragraph.tag == 'p'
