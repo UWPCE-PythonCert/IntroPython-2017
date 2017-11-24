@@ -109,3 +109,14 @@ def test_attrs2():
     expected = '\n'.join(elements) + '\n'
     check_render(html, expected)
 
+
+def test_attrs3():
+    html = Html()
+    html.append(Hr(style="dashed"))
+    elements = [
+        '<html>',
+        '    <hr style="dashed" />',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
+
