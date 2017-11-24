@@ -83,3 +83,29 @@ def test_self_closing_tag():
     expected = '\n'.join(elements) + '\n'
     check_render(html, expected)
 
+
+def test_attrs1():
+    html = Html()
+    attrs = {'class': 'intro', 'font': 'Arial'}
+    html.append(P('paragraph', **attrs))
+    elements = [
+        '<html>',
+        '    <p class="intro" font="Arial">',
+        '        paragraph',
+        '    </p>',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
+
+
+def test_attrs2():
+    html = Html()
+    attrs = {'style': 'bold'}
+    html.append(Title('title', **attrs))
+    elements = [
+        '<html>',
+        '    <title style="bold">title</title>',
+        '</html>']
+    expected = '\n'.join(elements) + '\n'
+    check_render(html, expected)
+
