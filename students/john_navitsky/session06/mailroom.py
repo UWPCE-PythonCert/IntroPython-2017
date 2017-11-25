@@ -1,7 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import json
+import datetime
+import hashlib
+from pprint import pprint
 
 """ Program to manage donations. """
 
@@ -20,9 +23,9 @@ def load_donor_file(donor_file="donors.json"):
             return donors
     except (FileNotFoundError):
             # if the file isn't found, that's ok, give them
-            # an empty donor list and we'll save anything
+            # an empty donor dict and we'll save anything
             # they enter upon exit.
-            return []
+            return {}
     except (PermissionError):
         # if the file is there, but you can't read it, don't continue
         # because you won't be able to save the file on exit, risking
@@ -67,19 +70,20 @@ def print_lines(lines=2,dest=sys.stdout):
         print("",file=dest)
 
 
-def print_report():
+def print_report(donors,dest=sys.stdout):
     """ Print formatted list of all donors. """
 
-    print_lines()
+    print_lines(2,dest)
   
     # print report header
     #      index    name   total gvn #gifts  avg gift
-    print("{0:5} | {1:20} | {2:14} | {3:9} | {4:12}".format(
-        "ID","Donor Name","Total Given","Num Gifts","Average Gift"))
-    print("-"*72)
+    print("{0:20} | {1:14} | {2:9} | {3:12}".format(
+        "Donor Name","Total Given","Num Gifts","Average Gift"),file=dest)
+    print("-"*72,file=dest)
 
-    # enumerate so we have the list index handy
-    for donor_index, donor in enumerate(donors):
+    for donor_id in donors:
+
+        donor=donors[donor_id]
 
         num_donations=len(donor["donations"])
 
@@ -89,40 +93,50 @@ def print_report():
 
         average_donation = total_donations / num_donations
 
-        #      index      name     total gvn    #gifts    avg gift
-        print("{0:05d}   {1:20}  ${2:14,.2f}   {3:9.0f}  ${4:12,.2f}".format(
-            donor_index,donor["first_name"]+" "+donor["last_name"],
-            total_donations,num_donations,average_donation))
+        #                 name     total gvn    #gifts    avg gift
+        print("{0:20}  ${1:14,.2f}   {2:9.0f}  ${3:12,.2f}".format(
+            donor["full_name"],
+            total_donations,
+            num_donations,
+            average_donation), file=dest)
 
 
-def parse_name(full_name):
-        """ Convert string name into constituent parts. """
+def parse_name(entered_name):
+        """ Convert string name into constituent parts, return dict of parts. """
 
         # capture suffix, if present.  we assume it will follow a comma
         try:
-            suffix=full_name.split(",")[1].strip()
+            suffix=entered_name.split(",")[1].strip().upper()
         except:
             suffix=""
 
         # name with suffix removed
-        informal_name=full_name.split(",")[0].strip()
+        informal_name=entered_name.split(",")[0].strip().title()
+
         # we assume the last name is one word minus the suffix
-        last_name=informal_name.split()[-1].strip()
+        last_name=informal_name.split()[-1].strip().title()
+       
         # we assume the first name(s) is everything to the left of the last name
-        first_name=" ".join(informal_name.split()[0:-1])
+        first_name=" ".join(informal_name.split()[0:-1]).title()
 
-        return { "full_name": full_name.title(), "informal_name": informal_name.title(),
-            "suffix": suffix.upper(), "last_name": last_name.title(), "first_name": first_name.title() }
+        # ensure standard capitalization in suffix
+        if suffix:
+            new_full_name=", ".join([informal_name, suffix])
+        else:
+            new_full_name=informal_name
+
+        return { "full_name": new_full_name, "informal_name": informal_name,
+            "suffix": suffix, "last_name": last_name, "first_name": first_name }
 
 
-def get_donation_amount(informal_name):
+def get_donation_amount(current_donor):
     """ Get a donation. """
 
     menu =  "\n"
     menu += "GIFT ENTRY (ammount)\n"
     menu += "-----------------------\n"
     menu += "\n"
-    menu += "Enter the numeric amount {} has donated or\n"
+    menu += "Enter the numeric amount {informal_name} has donated or\n"
     menu += "(q)uit to return to cancel the donation and\n"
     menu += "return to the previous menu.\n"
     menu += "\n"
@@ -132,7 +146,7 @@ def get_donation_amount(informal_name):
 
         print_lines()
 
-        print(menu.format(informal_name))
+        print(menu.format(**current_donor))
         selection=safe_input("Donation amount or (q)uit: ")
 
         # let them bail if they want
@@ -148,11 +162,11 @@ def get_donation_amount(informal_name):
             print("The value must be numeric.  Please try again or (q)uit.")
 
 
-def print_thank_you(donor_id,hint="wonderful",dest=sys.stdout):
+def print_thank_you(current_donor,hint="wonderful",dest=sys.stdout):
     """ Print a thank you letter. """
 
     letter =  "\n"
-    letter += "Dearest {first_name} {last_name},\n"
+    letter += "Dearest {full_name},\n"
     letter += "\n"
     letter += "We are are grateful for the generious donation on the behalf of\n"
     letter += "the {last_name} family.\n"
@@ -168,13 +182,52 @@ def print_thank_you(donor_id,hint="wonderful",dest=sys.stdout):
     print_lines(2,dest)
     print("-"*80,file=dest)
 
-    print(letter.format(hint,**donors[donor_id]),file=dest)
+    print(letter.format(hint,**current_donor),file=dest)
 
     print("-"*80,file=dest)
     print_lines(2,dest)
 
 
-def thank_you_entry():
+def match_donor(current_donor, donors):
+        """ See if record matches existing record, if so, return full record. """
+        for donor_id in donors:
+            existing_donor=donors[donor_id]
+            if existing_donor["full_name"].lower() == current_donor["full_name"].lower():
+                # if the owner exists, pull in the complete donor record
+                current_donor=existing_donor
+        return current_donor
+
+
+def update_donor(current_donor, donors, new_donation):
+        """ Update the donor database with new donation or donor record as needed. """
+
+        # match to existing record, if exists
+        current_donor = match_donor(current_donor, donors)
+
+        # datetime.datetime.strptime(<iso date>,'%Y-%m-%dZ')
+        today = datetime.datetime.utcnow().date().isoformat() + "Z"
+
+        # add donation to an existing donor
+        if "donor_id" in current_donor.keys():
+            donor_id=current_donor["donor_id"]
+            donors[donor_id]["donations"].append({ "amount": new_donation, "date": today })
+            hint="returning"
+        else:
+            # datetime.datetime.strptime(<iso time>,'%Y-%m-%dT%H:%M:%S.%fZ')
+            now = datetime.datetime.utcnow().isoformat() + "Z"
+            # id is a hash of the full donor name plus high resolution time
+            id_seed = current_donor["full_name"] + now
+            donor_id = hashlib.md5( id_seed.encode() ).hexdigest()
+            # add the donor
+            donors[donor_id] = { 
+                "created": now,
+                "donor_id": donor_id,
+                "donations": [ { "amount": new_donation, "date": today } ],
+                **current_donor } 
+            hint="new"
+
+
+def thank_you_entry(donors):
     """ Enter new donation and send thank you. """
 
     menu =  "\n"
@@ -200,62 +253,51 @@ def thank_you_entry():
 
         # check for a list directive
         if selection.lower() in ["l", "list"]:
-            print_report()
+            print_report(donors)
+            continue
+
+        # protect against no entry
+        if not selection:
             continue
 
         # parse the string into name components
         current_donor=parse_name(selection)
 
-        # determine if the provided name matches an existing record
-        donor_id=None
-        for donor_index, existing_donor in enumerate(donors):
-            # assemble full name from first_name, last_name
-            existing_full_name = existing_donor["first_name"]+" "+existing_donor["last_name"]
-            # if we get a match, store the index of the donor record
-            if existing_full_name.lower().strip() == current_donor["full_name"].lower().strip():
-                donor_id=donor_index
+        # reject blatantly bad input
+        if current_donor["first_name"] == "" or current_donor["last_name"] == "":
+            print("You must enter both a first and last name.")
+            continue
 
         # prompt for new donation, cancel if None returned
-        new_donation=get_donation_amount(current_donor["informal_name"])
+        new_donation=get_donation_amount(current_donor)
         if new_donation is None:
             print_lines()
             print("Donation cancelled!")
             return
 
-        # donor_id will be None if it didn't match an existing entry
-
-        # add donation to an existing donor
-        if donor_id is not None:
-            donors[donor_id]["donations"].append({ "amount": new_donation})
-            hint="returning"
-            #print("existing donor:",donors[donor_id])
-
-        # add a new donor
-        else:
-            donors.append( { "last_name": ", ".join(filter(None,[current_donor["last_name"], current_donor["suffix"]])),
-                "first_name": current_donor["first_name"],
-                "donations": [ { "amount": new_donation} ] } )
-            # set the donor_id to the new donor
-            donor_id=len(donors)-1
-            hint="new"
-            #print(donors[donor_id])
+        # update the donor list with the new donation
+        hint = update_donor(current_donor, donors, new_donation)
 
         # thank the donor for the new donation
-        print_thank_you(donor_id,hint)
+        print_thank_you(current_donor,hint)
 
 
-def thank_all_donors():
-    for index in range(len(donors)):
-        #dest=sys.stdout
-        donor_name = donors[index]["last_name"]+"_"+donors[index]["first_name"]
-        donor_name = donor_name.strip().lower().replace(" ", "_").replace(",", "")
-        donor_file="thank_you_" + donor_name
-        dest = open(donor_file, "w")
-        print_thank_you(index,"wonderful",dest)
-        dest.close()
+def thank_all_donors(donors,dest_override=None):
+    """ loop through donors, open file, print a thank you letter. """
+    for donor_id in donors:
+        donor=donors[donor_id]
+        file_name="_".join(filter( None, [ "thank_you", donor["last_name"], donor["suffix"], donor["first_name"] ])).lower()
+        file_name=file_name.replace(" ", "_")
+        if not dest_override:
+            dest = open(file_name, "w")
+        else:
+            dest = dest_override
+        print_thank_you(donor,"wonderful",dest)
+        if not dest_override:
+            dest.close()
 
 
-def main():
+def main(donors):
     """ Main menu / input loop. """
     
     menu =  "\n"
@@ -279,18 +321,19 @@ def main():
         selection=safe_input("(l)ist, (e)nter, (q)uit: ").lower()
 
         if selection in ["l", "list"]:
-            print_report()
+            print_report(donors)
 
         if selection in ["p", "print"]:
-            thank_all_donors()
+            thank_all_donors(donors)
 
         # accept either send or enter
         if selection in ["s", "send", "e", "enter", "a", "add"]:
-            thank_you_entry()
+            thank_you_entry(donors)
 
         if selection in ["d", "debug"]:
             print_lines()
-            print("Donors:", donors)
+            pprint(donors)
+            print_lines()
 
         if selection in ["q", "quit"]:
             saved = save_donor_file(donors)
@@ -314,6 +357,6 @@ def main():
 # call the main input loop
 if __name__ == "__main__":
     donors = load_donor_file()
-    main()
+    main(donors)
 
 
