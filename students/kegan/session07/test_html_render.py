@@ -31,6 +31,12 @@ def test_append():
 #         assert f.read() == '<html><body>body content</body><p></p></html>'
 
 
+def prepare(elements):
+    output = '\n'.join(['    ' + element for element in elements])
+    output = '<!DOCTYPE html>\n{}\n'.format(output)
+    return output
+
+
 def check_render(html, expected):
     temp = 'html_test.html'
     with open(temp, 'w') as f:
@@ -56,7 +62,7 @@ def test_render():
         '        </p>',
         '    </body>',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
@@ -67,7 +73,7 @@ def test_one_line_tag():
         '<html>',
         '    <title>this is the title</title>',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
@@ -80,7 +86,7 @@ def test_self_closing_tag():
         '    <hr />',
         '    <br />',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
@@ -94,7 +100,7 @@ def test_attrs1():
         '        paragraph',
         '    </p>',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
@@ -106,7 +112,7 @@ def test_attrs2():
         '<html>',
         '    <title style="bold">title</title>',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
@@ -117,7 +123,7 @@ def test_attrs3():
         '<html>',
         '    <hr style="dashed" />',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
@@ -136,7 +142,7 @@ def test_link():
         '        that for you',
         '    </body>',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
@@ -157,19 +163,35 @@ def test_list():
         '        </li>',
         '    </ul>',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
 
 def test_header():
     html = Html()
-    html.append(Header(1, 'My Header'))
-    html.append(Header(2, 'Second Header'))
+    html.append(H(1, 'My Header'))
+    html.append(H(2, 'Second Header'))
     elements = [
         '<html>',
         '    <h1>My Header</h1>',
         '    <h2>Second Header</h2>',
         '</html>']
-    expected = '\n'.join(elements) + '\n'
+    expected = prepare(elements)
     check_render(html, expected)
 
+
+def test_meta():
+    html = Html()
+    head = Head()
+    head.append(Meta(charset='UTF-8'))
+    head.append(Title('Title'))
+    html.append(head)
+    elements = [
+        '<html>',
+        '    <head>',
+        '        <meta charset="UTF-8" />',
+        '        <title>Title</title>',
+        '    </head>',
+        '</html>']
+    expected = prepare(elements)
+    check_render(html, expected)
