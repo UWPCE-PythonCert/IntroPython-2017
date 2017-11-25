@@ -1,10 +1,14 @@
 #!/usr/bin/env python
+import sys
 
 donors = {"John Doe": [152.33, 700], "Jane Doe": [23.19, 50, 15.99]}
 
-
 def main_loop():
     """ Main menu to call different functions """
+    menu_dict = {'s': thank_you,
+                 'c': report,
+                 'e': email_all,
+                 'q': sys.exit}
     while True:
         print("\n========== Donation Management System Main Menu ==========")
         print("*                 (s) Send a Thank You                   *")
@@ -13,17 +17,10 @@ def main_loop():
         print("*                 (q) Quit                               *")
         print("==========================================================")
         result = input("Please select a menu item: ")
-        if result == 's':
-            thank_you()
-        elif result == 'c':
-            report()
-        elif result == 'e':
-            email_all()
-        elif result == 'q':
-            break
-        else:
-            print("\n*** Selected item not in the menu. Please try again. ***\n")
-
+        try:
+            menu_dict[result]()
+        except KeyError:
+            print("\n*** Selected item not in the menu. Please try again. ***")
 
 def email(n):
     """ Send donor an email with latest donation """
@@ -36,7 +33,6 @@ def email(n):
         Sincerely,
         The Donation Management
         """.format(n, donors.get(n)[-1])
-
 
 def thank_you():
     """ Thank you function """
@@ -55,8 +51,13 @@ def thank_you():
             if result not in donors:
                 donors[result] = []
             amount = input("Please enter the amount of donation: ")
-            donors[result].append(float(amount))
-            print("\nSending Thank You email...\n{}".format(email(result)))
+            try:
+                donors[result].append(float(amount))
+                print("\nSending Thank You email...\n{}".format(email(result)))
+            except ValueError:
+                print("*** Wrong value format, please enter a valid number. ***")
+                # Make sure to remove the donor if donation amount not entered correctly
+                donors.pop(result)
 
 def report():
     """ Generate report """
@@ -74,7 +75,6 @@ def report():
         # Print report
         print("* {: <30}{:16.2f}{: >16}{:18.2f} *".format(donor, total, don, avg))
     print("====================================================================================")
-
 
 def email_all():
     """ Write a full set of letters to everyone to individual files on disk """
