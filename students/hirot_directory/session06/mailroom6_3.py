@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 
 """
-
-Mailroom5.py
-session05: 
-  Dictionary for the menu selections
-  Comprehension
-  Exception Handling
-session06:
-  Refactoring for unittest
+Mailroom6_3.py
+UnitTest
 
 """
 
@@ -21,7 +15,7 @@ donor_dict = { donor_names:donations for (donor_names, donations) in zip(donor_n
 
 
 def print_list():
-
+    # print(donor_dict)
     print("{msg1: <50}| {msg2: <12}| " \
 
           "{msg3:<10}| {msg4: <12}".format(msg1="Donor Name",
@@ -33,7 +27,7 @@ def print_list():
                                            msg4="Average Gift"))
     for d in donor_dict:
         t = sum(donor_dict[d])
-        n = len(donor_dict[d]) 
+        n = len(donor_dict[d])
         a = t / n
 
         print("{d: <50} ${t: 12.2f}{n: 12d}{a: 14.2f}".format(d=d, t=t, n=n, a=a))
@@ -59,30 +53,53 @@ def quit():
             print("Good bye...")
             sys.exit()
         else:
-          return True # refactoring
+            return mainloop() # refactoring candidate
 
+    except ValueError as e:
+        print("Error happened. Error is ",type(e),"Please type 1, 2 or 3")
     except KeyError as k:
         print("Error happened. Error is ",type(k),"Please type 1, 2 or 3")
 
 
-dict_choice = {'1': print_list, '2': make_donation, '3': quit} # refactoring
+dict_choice = {1: print_list, 2: make_donation, 3: quit}
 
 
 def thank_you_loop():
     while True:
         try: 
-            choice = input("Select from one of these options:\n"
+            choice = int(input("Select from one of these options:\n"
                           "(1) Show a list\n"
                           "(2) Enter a donation\n"  
                           "(3) Exit\n"
-                          )
-            result = dict_choice[choice]() # refactoring
+                          ))
+            dict_choice[choice]()
 
-            if result: # refactoring
-              break
-
+        except ValueError as e:
+            print("Error happened. Error is ", type(e) , "Please type 1, 2 or 3")
         except KeyError as k:
             print("Error happened. Error is ", type(k) , "Please type 1, 2 or 3")
+
+
+
+
+
+def create_report():
+    print("{msg1: <50}| {msg2: <12}| " \
+
+          "{msg3:<10}| {msg4: <12}".format(msg1="Donor Name",
+
+                                           msg2="Total Given",
+
+                                           msg3="Num Gifts",
+
+                                           msg4="Average Gift"))
+    for d in donor_dict:
+        t = sum(donor_dict[d])
+        n = len(donor_dict[d])  # list.count() is to count inside of the list (i.e. # by blue)
+        a = t / n
+
+        print("{d: <50} ${t: 12.2f}{n: 12d}{a: 14.2f}".format(d=d, t=t, n=n, a=a))
+
 
 
 def send_letters():
@@ -96,28 +113,29 @@ def send_letters():
             f.close()
 
     except IOError as i:
-        print("Sorry...Program crashed....Error type is...", type(i))
-
-    else:
-      print("letter drafts are in the folder for your review. Please review before mailing out.")
+        print("Error code is", i)
+    print("letter drafts are in the folder for your review. Please review before mailing out.")
 
 
-dict_answer = {'1': thank_you_loop, '2': print_list, '3': send_letters, '4': quit}
-
+dict_answer = {1: thank_you_loop, 2: create_report, 3: send_letters, 4: quit}
 
 def mainloop():
     while True:
         try:
-            answer = input("Select from one of these options:\n"
+            answer = int(input("Select from one of these options:\n"
                                "(1) Send a Thank you\n"
                                "(2) Create a Report\n"
                                "(3) Send letters to everyone\n"
                                "(4) quit\n"
-                               )
+                               ))
             dict_answer[answer]()
 
+        except ValueError as e:
+            print("Error happened. Error is ", type(e), "Please type 1, 2 or 3")
         except KeyError as k:
-            print("Sorry...Program crashed....Error type is....", type(k), "Please type 1, 2 or 3")
+            print("Error happened. Error is ", type(k), "Please type 1, 2 or 3")
+
+
 
 
 if __name__ == "__main__":
