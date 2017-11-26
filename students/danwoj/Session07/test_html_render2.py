@@ -5,7 +5,7 @@ This is the testing file for 'html_render.py' program
 '''
 
 import html_render2
-from html_render2 import Element, Body, Para, Html
+from html_render2 import Element, Body, Para, Html, Head, OneLineTag, Title
 
 def render_element(element, filename='temp_render_file.html', remove=True):
     """
@@ -58,7 +58,7 @@ def test_tag_exists():
 	assert el_object.tag == 'html'
 
 def test_indent_exists():
-	assert Element.indent == '  '
+	assert Element.indent == ''
 
 def test_render():
 	my_stuff = 'spam, spam, spam'
@@ -69,8 +69,8 @@ def test_render():
 		el_object.render(out_file)
 	with open('test_render_output.html', 'r') as in_file:
 		contents = in_file.read()
-	assert contents.startswith('<html>\n')
-	assert contents.endswith('</html>\n')
+	assert contents.startswith('<!DOCTYPE html>\n')
+	assert contents.endswith('</html>')
 	assert my_stuff in contents
 	assert more_stuff in contents
 
@@ -92,37 +92,96 @@ def test_render_body():
 		el_object.render(out_file)
 	with open('test_render_body_output.html', 'r') as in_file:
 		contents = in_file.read()
-	assert contents.startswith('<body>\n')
-	assert contents.endswith('</body>\n')
+	assert contents.startswith('        <body>')
+	assert contents.endswith('        </body>')
 	assert my_stuff in contents
 	assert more_stuff in contents
 
 def test_render_non_strings():
-    # this is crating a html page with a single body() element in it
-    el_object = Html(Body('any string I like'))
+    # This is crating a html page with a single body() element in it
+    el_object = Html(Body('spam, spam, spam, wonderful spam'))
     with open('test_render_non_strings_output.html', 'w') as out_file:
     	el_object.render(out_file)
     with open('test_render_non_strings_output.html', 'r') as in_file:
     	contents = in_file.read()
-    # make sure extra whitespace at beginning or end doesn't mess things up.
+    # Make sure extra whitespace at beginning or end doesn't mess things up.
     contents = contents.strip()
 
-    print(contents)  # so we can see what's going on if a test fails
+    print(contents)  # To see what's going on if a test fails
 
-    # so what should the results be?
-    # the html tag is the outer tag, so the contents should start and end with that.
-    assert contents.startswith('<html>')
+    # Ensure the file begins with 'DOCTYPE' tag per the example
+    assert contents.startswith('<!DOCTYPE html>')
     assert contents.endswith('</html>')
 
-    # the body tags had better be there too
+    # Validates the 'body' tag is in the file
     assert '<body>' in contents
-    assert '</body' in contents
+    assert '</body>' in contents
 
-    # we want the tesxt, too:
-    assert 'any string I like' in contents
+    # Validates sample text is in the file
+    assert 'spam, spam, spam, wonderful spam' in contents
 
-    # now lets get pretty specific:
-    # the opening tag should come before the ending tag
+    # The opening tag should come before the ending tag
     assert contents.index('<body>') < contents.index('</body>')
-    # the opening tag should come before the content
-    assert contents.index('<body>') < contents.index('any string')
+    # The opening tag should come before the content
+    assert contents.index('<body>') < contents.index('wonderful spam')
+
+def test_render_hbp():
+    '''
+    This test renders an HTML file with properly formed 'head', 'body',
+    and 'para' tags within it.
+    '''
+#    el_object2 = Head('words')
+#    el_object3 = Body(Para('more words'))
+#    el_object = str(el_object2) + str(el_object3)
+#    el_object = Html(el_object)
+    el_object = Html(Head(Body(Para('spam, spam, spam, wonderful spam'))))
+    with open('test_render_hbp_output.html', 'w') as out_file:
+    	el_object.render(out_file)
+    with open('test_render_hbp_output.html', 'r') as in_file:
+    	contents = in_file.read()
+    # Make sure extra whitespace at beginning or end doesn't mess things up.
+    contents = contents.strip()
+
+    print(contents)  # To see what's going on if a test fails
+
+    # Ensure the file begins with 'DOCTYPE' tag per the example
+    assert contents.startswith('<!DOCTYPE html>')
+    assert contents.endswith('</html>')
+
+    # Validates the 'Body' tag is in the file
+    assert '<body>' in contents
+    assert '</body>' in contents
+
+    # Validates the 'Para' tag is in the file
+    assert '<p>' in contents
+    assert '</p>' in contents
+
+    # Validates the 'Head' tag is in the file
+    assert '<head>' in contents
+    assert '</head>' in contents
+
+    # Validates sample text is in the file
+    assert 'spam, spam, spam, wonderful spam' in contents
+
+    # The opening tag should come before the ending tag
+    assert contents.index('<p>') < contents.index('</p>')
+    # The opening tag should come before the content
+    assert contents.index('<p>') < contents.index('wonderful spam')
+    # The next two assertions validate the 'Head' tags remain above the 'Body'
+    assert contents.index('<head>') < contents.index('<body>')
+    assert contents.index('</head>') < contents.index('<body>')
+    # The next two assertions validate the 'Para' tags are nested within the 'Body'
+    assert contents.index('<body>') < contents.index('<p>')
+    assert contents.index('</p>') < contents.index('</body>')
+
+def test_onelinetag():
+	el_object = OneLineTag('PythonClass - Session 6 example')
+	assert el_object.content == ['PythonClass - Session 6 example']
+
+def test_title_tag():
+	assert Title.tag == 'title'
+
+#def test_adding_empty_string():
+#	el_object = Element('')
+#	assert el_object.content == ['']
+
