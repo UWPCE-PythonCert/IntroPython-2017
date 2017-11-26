@@ -2,7 +2,7 @@
 
 class Element():
     tag = 'html'
-    indent = '  '
+    indent = ""
 
     def __init__(self, content=None):
         if content is None:
@@ -12,18 +12,24 @@ class Element():
 
     def append(self, content):
         self.content.append(content)
+        #print(self.content)
 
-    def render(self, file_obj):
-        file_obj.write('<' + self.tag + '>')
+    def render(self, file_obj, ind = ""):
+        file_obj.write('<' + self.tag + '>\n')
         for each in self.content:
-            file_obj.write(each)
-        file_obj.write('</' + self.tag + '>')
+            if type(each) == str:
+                file_obj.write(ind + each + '\n')
+            else:
+                self.content = self.content.content
+                # for a in each.content:
+                #     file_obj.write(ind + a + '\n')
+        file_obj.write('</' + self.tag + '>\n')
 
 class Body(Element):
     tag = 'body'
 
-class Para(Element):
+class P(Element):
     tag = 'p'
 
-class HTML(Element):
+class Html(Element):
     tag = 'html'

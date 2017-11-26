@@ -1,5 +1,5 @@
 import html_render
-from html_render import Element, Body, Para, HTML
+from html_render import Element, Body, Para, Html
 
 def test_new_element():
     el_object = Element()
@@ -32,9 +32,9 @@ def test_reder():
     el_object = Element(mystuff)
     morestuff = 'eggs, eggs, eggs'
     el_object.append(morestuff)
-    with open('text1', 'w') as out_file:
+    with open('text1.htm', 'w') as out_file:
         el_object.render(out_file)
-    with open('text1', 'r') as in_file:
+    with open('text1.htm', 'r') as in_file:
         contents = in_file.read()
     assert contents.startswith('<html>')
     assert contents.endswith('</html>')
@@ -48,16 +48,16 @@ def test_p_tag():
     assert Para.tag == 'p'
 
 def test_html_tag():
-    assert HTML.tag == 'html'
+    assert Html.tag == 'html'
 
 def test_render_body():
     mystuff = 'spam, spam, spam'
     el_object = Body(mystuff)
     morestuff = 'eggs, eggs, eggs'
     el_object.append(morestuff)
-    with open('text1', 'w') as out_file:
+    with open('text2.htm', 'w') as out_file:
         el_object.render(out_file)
-    with open('text1', 'r') as in_file:
+    with open('text2.htm', 'r') as in_file:
         contents = in_file.read()
     assert contents.startswith('<body>')
     assert contents.endswith('</body>')
