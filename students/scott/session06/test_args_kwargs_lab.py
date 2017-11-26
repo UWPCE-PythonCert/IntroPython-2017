@@ -83,5 +83,5 @@ def test_fun2():
 
     result = args_kwargs_lab.fun2(2, 3)
     assert result == ((2, 3), {})
-
+    
     
