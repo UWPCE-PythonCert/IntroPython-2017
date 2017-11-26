@@ -11,7 +11,6 @@ class Element():
         else:
             self.content = [content]
 
-
     def append(self, content=None, **kwargs):
         self.kwargs.update(kwargs)
         if content is not None:
@@ -96,7 +95,7 @@ class Html(Element):
 
 class Meta(SelfClosingTag):
     tag = 'meta'
-    indent = 4 * ' '    
+    indent = 4 * ' '
 
 
 class Body(Element):
@@ -127,8 +126,4 @@ class Hr(SelfClosingTag):
 class Br(SelfClosingTag):
     tag = 'br'
     indent = 4 * ' '
-
-
-
-
 
