@@ -58,15 +58,22 @@ I know I started out that way -- 'cause there wasn't anything else to test. But 
 
 
 Do you always need an __init__?
-------------------------------
+-------------------------------
 
 No -- you don't :-)
 
-The ONLY thing "special" about __init__ is that it is automatically called when and instance is created.  Other than that, it's a regular method. So if you don't define one, then the superclass' __init__ will be called.
+The ONLY thing "special" about __init__ is that it is automatically called when an instance is created.  Other than that, it's a regular method. So if you don't define one, then the superclass' __init__ will be called.
 
 That's what inheritance is all about -- the subclass inherits ALL the superclasses methods -- including __init__.
 
 So never write an __init__ that does nothing but call the superclass __init__
+
+html_render
+-----------
+
+Let's look at up to step 3....
+
+And move along...
 
 
 
