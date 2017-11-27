@@ -1,0 +1,14 @@
+---
+
+- name: import group data
+  include_vars:
+    file: lightning_data.yaml
+   
+- name: ensure groups exist
+  group:
+    name: "{{item[0]}}"
+    gid: "{{item[1]}}"
+    state: present
+  with_items:
+    - "{{group_data}}"
+

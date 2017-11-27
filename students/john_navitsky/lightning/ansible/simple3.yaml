@@ -9,4 +9,4 @@
     sample_var: "foo"
 
   roles:
-    - lightning
+    - simple3
