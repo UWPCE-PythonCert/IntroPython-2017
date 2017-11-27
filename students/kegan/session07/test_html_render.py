@@ -1,5 +1,7 @@
 """
 Kathryn Egan
+
+Suite of tests for components of html_render.py
 """
 from html_render import *
 
@@ -32,12 +34,21 @@ def test_append():
 
 
 def prepare(elements):
-    output = '\n'.join(['    ' + element for element in elements])
+    """ Generates the HTML output based on given indents and
+    elements to compare rendered HTML to.
+    Args:
+        elements (list of tuples) : indent, element pairs
+    Returns:
+        str : elements as rendered HTML
+    """
+    output = '\n'.join([
+        '    ' * (indent + 1) + element for indent, element in elements])
     output = '<!DOCTYPE html>\n{}\n'.format(output)
     return output
 
 
 def check_render(html, expected):
+    """ Checks results of rendered HTML against expected output."""
     temp = 'html_test.html'
     with open(temp, 'w') as f:
         html.render(f)
@@ -52,16 +63,16 @@ def test_render():
     body.append(P('paragraph 2'))
     html.append(body)
     elements = [
-        '<html>',
-        '    <body>',
-        '        <p>',
-        '            paragraph 1',
-        '        </p>',
-        '        <p>',
-        '            paragraph 2',
-        '        </p>',
-        '    </body>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<body>'),
+        (2, '<p>'),
+        (3, 'paragraph 1'),
+        (2, '</p>'),
+        (2, '<p>'),
+        (3, 'paragraph 2'),
+        (2, '</p>'),
+        (1, '</body>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -70,9 +81,9 @@ def test_one_line_tag():
     html = Html()
     html.append(Title('this is the title'))
     elements = [
-        '<html>',
-        '    <title>this is the title</title>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<title>this is the title</title>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -82,10 +93,10 @@ def test_self_closing_tag():
     html.append(Hr())
     html.append(Br())
     elements = [
-        '<html>',
-        '    <hr />',
-        '    <br />',
-        '</html>']
+        (0, '<html>'),
+        (1, '<hr />'),
+        (1, '<br />'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -95,11 +106,11 @@ def test_attrs1():
     attrs = {'class': 'intro', 'font': 'Arial'}
     html.append(P('paragraph', **attrs))
     elements = [
-        '<html>',
-        '    <p class="intro" font="Arial">',
-        '        paragraph',
-        '    </p>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<p class="intro" font="Arial">'),
+        (2, 'paragraph'),
+        (1, '</p>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -109,9 +120,9 @@ def test_attrs2():
     attrs = {'style': 'bold'}
     html.append(Title('title', **attrs))
     elements = [
-        '<html>',
-        '    <title style="bold">title</title>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<title style="bold">title</title>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -120,9 +131,9 @@ def test_attrs3():
     html = Html()
     html.append(Hr(style="dashed"))
     elements = [
-        '<html>',
-        '    <hr style="dashed" />',
-        '</html>']
+        (0, '<html>'),
+        (1, '<hr style="dashed" />'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -135,13 +146,13 @@ def test_link():
     body.append('that for you')
     html.append(body)
     elements = [
-        '<html>',
-        '    <body>',
-        '        let me',
-        '        <a href="https://www.tutorialspoint.com/html/">google</a>',
-        '        that for you',
-        '    </body>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<body>'),
+        (2, 'let me'),
+        (2, '<a href="https://www.tutorialspoint.com/html/">google</a>'),
+        (2, 'that for you'),
+        (1, '</body>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -153,16 +164,16 @@ def test_list():
     ul.append(Li('second item'))
     html.append(ul)
     elements = [
-        '<html>',
-        '    <ul id="MyList">',
-        '        <li>',
-        '            first item',
-        '        </li>',
-        '        <li>',
-        '            second item',
-        '        </li>',
-        '    </ul>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<ul id="MyList">'),
+        (2, '<li>'),
+        (3, 'first item'),
+        (2, '</li>'),
+        (2, '<li>'),
+        (3, 'second item'),
+        (2, '</li>'),
+        (1, '</ul>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -172,10 +183,10 @@ def test_header():
     html.append(H(1, 'My Header'))
     html.append(H(2, 'Second Header'))
     elements = [
-        '<html>',
-        '    <h1>My Header</h1>',
-        '    <h2>Second Header</h2>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<h1>My Header</h1>'),
+        (1, '<h2>Second Header</h2>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)
 
@@ -187,11 +198,11 @@ def test_meta():
     head.append(Title('Title'))
     html.append(head)
     elements = [
-        '<html>',
-        '    <head>',
-        '        <meta charset="UTF-8" />',
-        '        <title>Title</title>',
-        '    </head>',
-        '</html>']
+        (0, '<html>'),
+        (1, '<head>'),
+        (2, '<meta charset="UTF-8" />'),
+        (2, '<title>Title</title>'),
+        (1, '</head>'),
+        (0, '</html>')]
     expected = prepare(elements)
     check_render(html, expected)

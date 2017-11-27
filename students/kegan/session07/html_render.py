@@ -9,7 +9,7 @@ class Element:
     indent = '    '
 
     def __init__(self, content=None, **kwargs):
-        """ Initializes an Element with content, if given
+        """ Initializes an Element with content, if given,
         and any HTML attributes of the Element.
         Args:
             content (str or Element) : text or a nested Element
@@ -30,24 +30,25 @@ class Element:
 
     def render(self, file_out, ind=0):
         """ Renders the contents of this Element into HTML
-        format and writes to file using given file handler.
+        format and pretty prints to file using given file handler.
         Args:
             file_out (TextIOWrapper) : file handler
             ind (str) : level of indentation for this Element
         """
-        file_out.write(self.get_tag(ind, 'open'))
+        file_out.write(self.get_tag(ind))
         file_out.write('\n')
         for c in self.content:
             try:
                 c.render(file_out, ind + 1)
             except AttributeError:
                 file_out.write('{}{}\n'.format((ind + 1) * self.indent, c))
-        file_out.write(self.get_tag(ind, 'close'))
+        file_out.write(self.get_tag(ind, style='close'))
         file_out.write('\n')
 
-    def get_tag(self, ind, style):
-        """ Generates a tag of according to given style with given indent.
-        Style can be 'open', 'close', or 'selfclosing' (defaults to 'open').
+    def get_tag(self, ind, style='open'):
+        """ Generates an HTML tag according to given style
+        with given level of indent. Style can be 'open',
+        'close', or 'selfclosing' (defaults to 'open').
         Args:
             ind (str) : level of indent
             style (str) : style to use
@@ -72,16 +73,16 @@ class OneLineTag(Element):
     """ Handles ne-line HTML elements. """
 
     def render(self, file_out, ind=0):
-        """ Renders the contents of this Element into HTML
-        format on one line and writes to file using given file handler.
+        """ Renders the contents of this Element into HTML format
+        on one line and writes to file using given file handler.
         Args:
             file_out (TextIOWrapper) : file handler
             ind (str) : level of indentation for this Element
         """
-        file_out.write(self.get_tag(ind, 'open'))
+        file_out.write(self.get_tag(ind))
         for c in self.content:
             file_out.write(c)
-        file_out.write(self.get_tag(0, 'close'))
+        file_out.write(self.get_tag(0, style='close'))
         file_out.write('\n')
 
 
@@ -89,7 +90,7 @@ class SelfClosingTag(Element):
     """ Handles contentless HTML elements. """
 
     def render(self, file_out, ind=0):
-        """ Renders this content-less Element into HTML
+        """ Renders this contentless Element into HTML
         and writes to file using given file handler.
         Args:
             file_out (TextIOWrapper) : file handler
@@ -97,6 +98,21 @@ class SelfClosingTag(Element):
         """
         file_out.write(self.get_tag(ind, 'selfclosing'))
         file_out.write('\n')
+
+
+class Html(Element):
+    """ HTML page. """
+    tag = 'html'
+
+    def render(self, file_out, ind=0):
+        """ Renders the contents of this Element into HTML
+        format headed by doctype. Writes to file using given file handler.
+        Args:
+            file_out (TextIOWrapper) : file handler
+            ind (str) : level of indentation for this Element
+        """
+        file_out.write('<!DOCTYPE {}>\n'.format(self.tag))
+        Element.render(self, file_out, ind=1)
 
 
 class A(OneLineTag):
@@ -110,6 +126,19 @@ class A(OneLineTag):
             content (str) : content to map hyperlink to
         """
         Element.__init__(self, content, href=link)
+
+
+class H(OneLineTag):
+    """ HTML header element. """
+
+    def __init__(self, level, content):
+        """ Initializes this element with the given level and content.
+        Args:
+            level (int) : level of this header
+            content (str) : content of this header
+        """
+        self.tag = 'h' + str(level)
+        Element.__init__(self, content)
 
 
 class Title(OneLineTag):
@@ -137,21 +166,6 @@ class Head(Element):
     tag = 'head'
 
 
-class Html(Element):
-    """ HTML page. """
-    tag = 'html'
-
-    def render(self, file_out, ind=0):
-        """ Renders the contents of this Element into HTML
-        format headed by doctype. Writes to file using given file handler.
-        Args:
-            file_out (TextIOWrapper) : file handler
-            ind (str) : level of indentation for this Element
-        """
-        file_out.write('<!DOCTYPE {}>\n'.format(self.tag))
-        Element.render(self, file_out, ind=1)
-
-
 class Body(Element):
     """ HTML body element. """
     tag = 'body'
@@ -170,17 +184,3 @@ class Ul(Element):
 class Li(Element):
     """ HTML list element. """
     tag = 'li'
-
-
-class H(OneLineTag):
-    """ HTML header element. """
-
-    def __init__(self, level, content):
-        """ Initializes this element with the given level and content.
-        Args:
-            level (int) : level of this header
-            content (str) : content of this header
-        """
-        self.tag = 'h' + str(level)
-        Element.__init__(self, content)
-
