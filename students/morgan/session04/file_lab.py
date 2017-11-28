@@ -24,3 +24,11 @@ all_langs = set(new_langs)
 print(all_langs)
 
 input('')
+
+
+
+'''sherlock holmes thing
+leave in the punctuation and create a minor subset of punctuation
+loop through massive array. get a pair and the follower, store that off in a new structure.
+randomly start with a pair of words, pull a random option from the matching subset
+'''
