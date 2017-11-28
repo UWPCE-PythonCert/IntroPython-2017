@@ -27,7 +27,8 @@ def render_element(element, filename='temp_render_file.html', remove=True):
     NOTE: - this could be refactored, and still used everywhere.
     """
     with open(filename, 'w') as out_file:
-        element.render(out_file, '    ')
+        # element.render(out_file, '    ')
+        element.render(out_file)
     with open(filename, 'r') as in_file:
         contents = in_file.read()
     # NOTE: you could comment out this if you want to see the file.
@@ -74,7 +75,8 @@ def test_render():
     more_stuff = 'eggs, eggs, eggs'
     el_object.append(more_stuff)
     contents = render_element(el_object)
-    assert contents.startswith('<html>')
+    print(contents)
+    assert contents.startswith('\n<html>')
     assert contents.endswith('</html>')
     assert my_stuff in contents
     assert more_stuff in contents
@@ -105,7 +107,8 @@ def test_render_body():
     more_stuff = 'eggs, eggs, eggs'
     el_object.append(more_stuff)
     contents = render_element(el_object)
-    assert contents.startswith('<body>')
+    print(contents)
+    assert contents.startswith('\n<body>')
     assert contents.endswith('</body>')
     assert my_stuff in contents
     assert more_stuff in contents
@@ -117,7 +120,8 @@ def test_render_para():
     more_stuff = 'eggs, eggs, eggs'
     el_object.append(more_stuff)
     contents = render_element(el_object)
-    assert contents.startswith('<p>')
+    print(contents)
+    assert contents.startswith('\n<p>')
     assert contents.endswith('</p>')
     assert my_stuff in contents
     assert more_stuff in contents
@@ -129,7 +133,8 @@ def test_render_html():
     more_stuff = 'eggs, eggs, eggs'
     el_object.append(more_stuff)
     contents = render_element(el_object)
-    assert contents.startswith('<html>')
+    print(contents)
+    assert contents.startswith('\n<html>')
     assert contents.endswith('</html>')
     assert my_stuff in contents
     assert more_stuff in contents
@@ -210,7 +215,7 @@ def test_head_element():
     head_obj = Head('PythonClass = Revision 1087:')
     contents = render_element(head_obj)
     print(contents)
-    assert contents == '<head>\nPythonClass = Revision 1087:\n</head>'
+    assert contents == '\n<head>\nPythonClass = Revision 1087:\n</head>'
 
 
 # Title open and close tags on same line as text
@@ -229,3 +234,16 @@ def test_title_Non_Strings():
     # title tags on same line as title text
     assert '<title>PythonClass' in contents
     assert 'Revision 1087:</title>' in contents
+
+
+def test_mixing_elements_and_text():
+    page = Html()
+    head = Head('Text in head element')
+    page.append(head)
+    para = P('We love Python')
+    page.append(para)
+    contents = render_element(page)
+    print(contents)
+    assert '<head>\n    Text in head element' in contents
+    assert '<p>\n        We love Python' in contents
+
