@@ -5,7 +5,7 @@ class Element():
     tag = 'html'
     indent = ''
     # keep track of the depth of recursion
-    depth = 0
+    # depth = 0
 
     def __init__(self, content=None):
         if content is None:
@@ -18,24 +18,22 @@ class Element():
 
     def render(self, file_obj, indent=''):
         # what recursion level are we going in
-        Element.depth += 1
-        html_tag = (self.indent * (Element.depth - 1) + '<' + self.tag + '>\n')
-        self.write_to_file(file_obj, html_tag)
+        # indent = self.indent + indent
+        # html_tag = (indent + '<' + self.tag + '>\n')
+        html_tag = ('\n' + indent + '<' + self.tag + '>\n')
+        indent_level = indent[:]
+        file_obj.write(html_tag)
         text = ""
+        # text = html_tag
         for each in self.content:
             try:
                 text += each
             except TypeError:
-                each.render(file_obj)
-        # what recursion level are at coming out
-        Element.depth -= 1
-        html_tag = '\n' + (self.indent * (Element.depth)) + \
-            '</' + self.tag + '>\n'
-        text = self.indent * (Element.depth) + text + html_tag
-        self.write_to_file(file_obj, text)
-
-    def write_to_file(self, file_obj, stuff_to_print):
-        file_obj.write(stuff_to_print)
+                indent = indent + self.content[0].indent
+                each.render(file_obj, indent)
+        html_tag = '\n' + indent_level + '</' + self.tag + '>'
+        text = indent_level + text + html_tag
+        file_obj.write(text)
 
 
 class Body(Element):
@@ -46,6 +44,7 @@ class Body(Element):
 class P(Element):
     tag = 'p'
     indent = '    '
+    # indent = ''
 
 
 class Html(Element):
@@ -62,19 +61,23 @@ class OnelineTag(Element):
     # override Element.render to write all on one line
     def render(self, file_obj, indent=''):
         # what recursion level are we going in
-        Element.depth += 1
-        html_tag = (self.indent * (Element.depth - 1) + '<' + self.tag + '>')
+        # indent = self.indent + indent
+        # html_tag = (indent + '<' + self.tag + '>\n')
+        html_tag = (indent + '<' + self.tag + '>')
+        # indent_level = indent[:]
         file_obj.write(html_tag)
         text = ""
+        # text = html_tag
         for each in self.content:
             try:
                 text += each
             except TypeError:
-                each.render(file_obj)
-        # what recursion level are at coming out
-        Element.depth -= 1
+                indent = indent + self.content[0].indent
+                each.render(file_obj, indent)
+        # html_tag = '\n' + indent_level + '</' + self.tag + '>'
+        # html_tag = indent_level + '</' + self.tag + '>'
         html_tag = '</' + self.tag + '>'
-        # text = self.indent * (Element.depth) + text + html_tag
+        # text = indent_level + text + html_tag
         text = text + html_tag
         file_obj.write(text)
 
