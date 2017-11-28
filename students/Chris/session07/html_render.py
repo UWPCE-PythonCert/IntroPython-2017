@@ -14,20 +14,29 @@ class Element():
     def append(self, content):
         self.content.append(content)
 
-    def render(self, file_obj):
-        all_content = ('<' + self.tag + '>')
+    def render(self, file_obj, cur_ind=""):
+        open_tag = '{}<{}>'.format(cur_ind, self.tag)
+        close_tag = '{}</{}>'.format(cur_ind, self.tag)
+
+        file_obj.write(open_tag)
+        file_obj.write("\n")
         for each in self.content:
-            try:
-                all_content += each
-            except TypeError:
-                each.render(file_obj)
-        all_content += '</' + self.tag + '>'
+            if isinstance(each, str):
+                file_obj.write(cur_ind + self.indent)
+                file_obj.write(each)
+            else:
+                each.render(file_obj, cur_ind + self.indent)
+            file_obj.write("\n")
+        file_obj.write(close_tag)
 
-        self.write_to_file(file_obj, all_content)
-
-    def write_to_file(self, file_obj, stuff_to_print):
-        file_obj.write(stuff_to_print)
-
+class OneLineTag(Element):
+    def render(self, file_obj, cur_ind=""):
+        # there is some repition here -- maybe factor that out?
+        file_obj.write('{}<{}> '.format(cur_ind, self.tag))
+        for each in self.content:
+            # OneLineTags should only have strings...
+            file_obj.write(each)
+        file_obj.write(' </{}>'.format(self.tag))
 
 class Body(Element):
     tag = 'body'
@@ -39,4 +48,12 @@ class Para(Element):
 
 class HTML(Element):
     tag = 'html'
+
+
+class Head(Element):
+    tag = 'head'
+
+
+class Title(OneLineTag):
+    tag = 'title'
 

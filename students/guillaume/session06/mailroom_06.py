@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from os import system
+from os import system, path
 
 
 def read_data_dic(textfile):
@@ -16,7 +16,7 @@ def read_data_dic(textfile):
         tmp_lst[-1] = tmp_lst[-1].rstrip(']')
         tmp_dic = {'first_name': tmp_lst[0].lstrip(),
                    'last_name': tmp_lst[1].lstrip(),
-                   'donations': [int(s.lstrip()) for s in tmp_lst[2:]]}
+                   'donations': [float(s.lstrip()) for s in tmp_lst[2:]]}
         donors.append(tmp_dic)
     file.close()
     return donors
@@ -37,17 +37,12 @@ def add_donation(ind, donors):
     '''
     boolean = True
     while boolean:
-        donation = input('\nPlease add a donation amount?\n')
-        if donation.isdecimal():
-            # need to work on test for float donation
+        try:
+            donation = float(input('\nPlease add a donation amount?\n'))
+            donors[ind]['donations'].append(donation)
             boolean = False
-            donation = int(donation)
-            print(donors[ind])
-            print(type(donors[ind]))
-            if 'donation' not in donors[ind].keys():
-                donors[ind]['donations'] = [donation]
-            else:
-                donors[ind]['donations'].append(donation)
+        except ValueError:
+            print('Input Error')
     return donors, donation
 
 
@@ -73,7 +68,6 @@ def send_thank_you(textfile):
     '''
     '''
     donors = read_data_dic(textfile)
-    print(donors)
     names = ['{first_name} {last_name}'.format(**donor) for donor in donors]
     boolean = True
     # Menu for Name cases
@@ -91,8 +85,8 @@ def send_thank_you(textfile):
             boolean = False
             names.append(name)
             donor = name.split(' ')
-            print(donor)
-            donors.append({'first_name': donor[0], 'last_name': donor[1]})
+            donors.append({'first_name': donor[0], 'last_name': donor[1],
+                          'donations': []})
             donors, donation = add_donation(-1, donors)
         else:
             print('Make sure you enter Last & first name\n')
@@ -167,20 +161,23 @@ def input_sc(textfile):
     {Quit} \n
     """.format(**selection_dic)
 
-    prog_dic = {1: send_thank_you, 2: report, 3: mass_mailing,
-                4: quit}
+    prog_dic = {'1': send_thank_you, '2': report, '3': mass_mailing,
+                '4': quit}
 
     bool = True
     while bool:
         print(welcome)
         selection = input('Please type a number between 1 & 4:\n')
-        if selection.isdecimal():
-            selection = int(selection)
-            bool = prog_dic.get(selection, lambda t: True)(textfile)
+        try:
+            bool = prog_dic[selection](textfile)
+        except KeyError:
+            print("You type a bad value!!".upper())
 
 
 if __name__ == '__main__':
     '''
     '''
     textfile = 'donors.txt'
+    system('chmod +x {}'.format(path.basename(__file__)))
+
     input_sc(textfile)
