@@ -96,7 +96,10 @@ def argparse_way():
         "{}{} received a {:.1f} in {}{}.".format(
             args.name, nickname, args.grade, args.course, honors))
 
+# docopt
+# click
+
 
 if __name__ == '__main__':
-    verbose_way()
-    # argparse_way()
+    # verbose_way()
+    argparse_way()
