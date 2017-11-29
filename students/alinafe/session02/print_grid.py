@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Grid Printer Exercise:
 """
@@ -14,6 +14,7 @@ def print_grid():
         print ('|       ', end=' ')
         print ('|       |')
     print("+--------+-------+")
+    print(locals())
 
 print_grid()
 

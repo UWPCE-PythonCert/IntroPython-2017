@@ -1,0 +1,70 @@
+raphael:session03 brwarn$ ./mailroom.py
+
+                Menu of Options
+                1) Send a Thank You
+                2) Create a Report
+                3) Quit
+                
+Which option would you like to perform? [1 to 3] - 2
+Donor Name                          Amount Donated   Total Gifts   Average Gift
+------------------------------ +  ---------------- + ----------- + ------------
+William Gates                  $        1014690.00             3      338230.00
+Jeff Bezos                     $         711075.00             2      355537.50
+Oscar Muñoz                    $         917561.00             2      458780.50
+Mark Zuckerberg                $        2000000.00             1     2000000.00
+
+                Menu of Options
+                1) Send a Thank You
+                2) Create a Report
+                3) Quit
+                
+Which option would you like to perform? [1 to 3] - 1
+Choice 1: send thank you note
+Please enter the donor's name or type 'list' to see donor names. (Enter 'menu' to return to the original menu.) --> list
+List of Donors:
+William Gates
+Jeff Bezos
+Oscar Muñoz
+Mark Zuckerberg
+Please enter the donor's name or type 'list' to see donor names. (Enter 'menu' to return to the original menu.) --> Jeff Bezos
+Please enter the donation amount (Enter 'menu' to return to the original menu.) --> 23456777
+
+Dear Jeff Bezos, 
+Thank you for your generous donation of $23,456,777.00.
+
+                Menu of Options
+                1) Send a Thank You
+                2) Create a Report
+                3) Quit
+                
+Which option would you like to perform? [1 to 3] - 1
+Choice 1: send thank you note
+Please enter the donor's name or type 'list' to see donor names. (Enter 'menu' to return to the original menu.) --> Brian Warn
+Please enter the donation amount (Enter 'menu' to return to the original menu.) --> 123456 
+
+Dear Brian Warn, 
+Thank you for your generous donation of $123,456.00.
+
+                Menu of Options
+                1) Send a Thank You
+                2) Create a Report
+                3) Quit
+                
+Which option would you like to perform? [1 to 3] - 2
+Donor Name                          Amount Donated   Total Gifts   Average Gift
+------------------------------ +  ---------------- + ----------- + ------------
+William Gates                  $        1014690.00             3      338230.00
+Jeff Bezos                     $       24167852.00             3     8055950.67
+Oscar Muñoz                    $         917561.00             2      458780.50
+Mark Zuckerberg                $        2000000.00             1     2000000.00
+Brian Warn                     $         123456.00             1      123456.00
+
+                Menu of Options
+                1) Send a Thank You
+                2) Create a Report
+                3) Quit
+                
+Which option would you like to perform? [1 to 3] - 3
+Choice 3: Quitting
+[master *+>]
+raphael:session03 brwarn$ 
