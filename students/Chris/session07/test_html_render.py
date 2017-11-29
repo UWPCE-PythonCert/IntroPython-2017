@@ -242,13 +242,15 @@ def test_indent():
     Tests that the indentation gets passed through to the renderer
     """
     html = HTML("some content")
-    file_contents = render_element(html, cur_ind="   ")
+    cur_ind = 6 * " "
+    file_contents = render_element(html, cur_ind=cur_ind)
 
     print(file_contents)
     lines = file_contents.split("\n")
 
-    assert lines[0].startswith("   <")
-    assert lines[-1].startswith("   <")
+    assert lines[0].startswith(cur_ind + "<")
+    assert lines[1].startswith(cur_ind + Element.indent + "som")
+    assert lines[-1].startswith(cur_ind + "<")
 
 
 def test_indent_contents():

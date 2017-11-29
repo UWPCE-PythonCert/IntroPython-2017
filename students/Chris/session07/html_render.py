@@ -29,6 +29,7 @@ class Element():
             file_obj.write("\n")
         file_obj.write(close_tag)
 
+
 class OneLineTag(Element):
     def render(self, file_obj, cur_ind=""):
         # there is some repition here -- maybe factor that out?
