@@ -351,5 +351,75 @@ def test_full_page_with_title():
     # assert False
 
 
+def test_single_attribute():
+    # <p style="text-align: center; font-style: oblique;">
+    #             Here is a paragraph of text -- there could be more of them, but this is enough  to show that we can do some text
+    #         </p>
+    p = Para("Here is a paragraph of text", style="text-align: center; font-style: oblique;")
+
+    results = render_element(p)
+
+    assert results.startswith('<p style="text-align: center; font-style: oblique;">')
+
+    print(results)
+
+def test_multiple_attributes():
+    # <p style="text-align: center; font-style: oblique;">
+    #             Here is a paragraph of text -- there could be more of them, but this is enough  to show that we can do some text
+    #         </p>
+    p = Para("Here is a paragraph of text",
+             id="fred",
+             color="red",
+             size="12px",
+             )
+
+    results = render_element(p)
+    print(results)
+
+    lines = results.split('\n')
+    assert lines[0].startswith('<p ')
+    assert lines[0].endswith('"> ')
+    assert 'id="fred"' in lines[0]
+    assert 'color="red"' in lines[0]
+    assert 'size="12px"' in lines[0]
+
+def test_multiple_attributes_title():
+    t = Title("Here is a paragraph of text",
+              id="fred",
+              color="red",
+              size="12px",
+              )
+
+    results = render_element(t)
+    print(results)
+
+    lines = results.split('\n')
+    assert lines[0].startswith('<title ')
+    assert lines[0].endswith('</title>')
+    assert 'id="fred"' in lines[0]
+    assert 'color="red"' in lines[0]
+    assert 'size="12px"' in lines[0]
+
+
+# test class attribute
+def test_class_attribute():
+    atts = {"id": "fred",
+            "class": "special",
+            "size": "12px",
+            }
+    p = Para("Here is a paragraph of text",
+              **atts)
+
+    results = render_element(p)
+    print(results)
+
+    lines = results.split('\n')
+    assert lines[0].startswith('<p ')
+    assert lines[0].strip().endswith('">')
+    assert 'id="fred"' in lines[0]
+    assert 'class="special"' in lines[0]
+    assert 'size="12px"' in lines[0]
+
+
 
 
