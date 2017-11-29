@@ -39,6 +39,10 @@ class Donor:
         self.updatecalcs()
 
 
+    def updatenames(newname):
+        self.first_name, self.last_name = newname.split()
+        self.fullname = str(self.first_name + ' ' + self.last_name)
+
 donorlist = []
 donorlist.append(Donor('Dan Kuchan'))
 donorlist.append(Donor('Abbey Kuchan'))
@@ -77,14 +81,83 @@ def createthanks(nametarget):
     userfront()
 
 def addoner():
+    print()
+    print()
     newdonor = input("Please enter new Donor: ")
-    donorX = Donor(str(newdonor))
-    print(donorx.fullname + " has been added to the database.")
+    donorlist.append(Donor(newdonor))
+    print(str(donorlist[-1].fullname) + " has been added to the database.")
     updateUI()
 
+def addonationUI():
+    print()
+    print()
+    print("You have chosen to add a donation to an existing donor.")
+    print("Please select an existing donor.")
+
+    for i in range(0, len(Donor.rosterraw)):
+        optionstrng = str(i) + ' : ' + str(donorlist[i].fullname)
+        print(optionstrng)
+    while True:
+        try:
+            userSelect = input("Please enter the number of your selection: ")
+            userSelect = int(userSelect)
+        except ValueError:
+            print("You have made an invalid selection!")
+            continue
+        if userSelect < len(donorlist):  # is user input in range?
+            addonation(userSelect)
+        else:
+            print("You have made an invalid selection!")
+            continue
+
+
+def addonation(nametarget):
+    print()
+    print()
+    while True:
+        try:
+            donvalue = input("Please enter the ammount of the donation: ")
+            donvalue = int(donvalue)
+        except ValueError:
+            print("You have made an invalid selection!")
+            continue
+        donorlist[nametarget].appenddonations(donvalue)
+        updateUI()
+
+def updatedonornameUI():
+    print()
+    print()
+    print("You have chosen to update the name of an existing donor.")
+    print("Please select an existing donor.")
+
+    for i in range(0, len(Donor.rosterraw)):
+        optionstrng = str(i) + ' : ' + str(donorlist[i].fullname)
+        print(optionstrng)
+    while True:
+        try:
+            userSelect = input("Please enter the number of your selection: ")
+            userSelect = int(userSelect)
+        except ValueError:
+            print("You have made an invalid selection!")
+            continue
+        if userSelect < len(donorlist):  # is user input in range?
+            updatedonorname(userSelect)
+        else:
+            print("You have made an invalid selection!")
+            continue
+
+            
+def updatedonorname(userSelection):
+    print()
+    print()
+    print("You have selected the donor name " + donorlist[userSelection].fullname + " to be replaced.")
+    newname = input("Please enter the new name: ")
+    donorlist[userSelection].updatenames(newname)
 
 
 def updateUI():
+    print()
+    print()
     print("You have chosen to update the database.")
     print("You have the following options:")
     print("1:  Add a donor.")
@@ -99,13 +172,13 @@ def updateUI():
             print("You have made an invalid selection!")
             continue
         if userSelect == 1:
-            thanksUI()
+            addoner()
             break
         elif userSelect == 2:
-            updateUI()
+            addonationUI()
             break
         elif userSelect == 3:
-            viewDBUI()
+            updatedonornameUI()
         elif userSelect == 4:
             userfront()
         else:
