@@ -33,7 +33,31 @@ If the object(s) you need to create are complex, then you can use "fixtures" to 
 
 This will start to make more and more sense as we do more testing -- and particularly when we do TDD and write the tests along with the code.
 
-do you always need an __init__?
+Example:
+........
+
+.. code-block:: python
+
+    def test_p_tag():
+        assert Para.tag == 'p'
+
+I know I started out that way -- 'cause there wasn't anything else to test. But this is really testing an implementation detail -- the Para elements has a attribute named "tag" that is 'p'. But is that a public part of the API? do we care? -- No. What we care about is that the correct tag gets rendered, so a test for THAT makes more sense:
+
+.. code-block:: python
+
+    def test_render_para():
+        my_stuff = 'spam, spam, spam'
+        p = Para(my_stuff)
+        more_stuff = 'eggs, eggs, eggs'
+        p.append(more_stuff)
+        contents = render_element(p).strip()
+        assert contents.startswith('<p>')
+        assert contents.endswith('</p>')
+        assert my_stuff in contents
+        assert more_stuff in contents
+
+
+Do you always need an __init__?
 ------------------------------
 
 No -- you don't :-)
@@ -43,22 +67,6 @@ The ONLY thing "special" about __init__ is that it is automatically called when 
 That's what inheritance is all about -- the subclass inherits ALL the superclasses methods -- including __init__.
 
 So never write an __init__ that does nothing but call the superclass __init__
-
-
-Bad OO design
--------------
-
-Script from work...depersonalized
-
-In class repo: ``examples/session08/unnecessary_oo.py``
-
-Recall Jack Dietrich's talk: "Stop Writing Classes":
-
-Also PEP8, etc....
-
-let's do a code review.
-
-
 
 
 
