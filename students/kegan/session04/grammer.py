@@ -45,7 +45,7 @@ from random import randint
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file')
-    parser.add_argument('n', help='number of grams, 2-4', type=int)
+    parser.add_argument('n', help='length of ngram, 2-4', type=int)
     parser.add_argument(
         'sentences', type=int, help='number of sentences in output, 1-500')
     args = parser.parse_args()
