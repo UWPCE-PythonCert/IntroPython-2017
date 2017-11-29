@@ -14,9 +14,12 @@ DONORS = {
     'Elon Musk': [10000.0, 150000.0, 100000.0],
     'Dad': [20.0, 5.0],
     'Donald Trump': [2.81],
-    'Billy Neighbor': [.54, .01, .25]}
-
-COLUMN_WIDTHS = [0] * 4
+    'Billy Neighbor': [.54, .01, .25],
+    'Daenerys Stormborn of the House Targaryen, ' +
+    'First of Her Name, the Unburnt, ' +
+    'Queen of the Andals and the First Men, ' +
+    'Khaleesi of the Great Grass Sea, Breaker of Chains, ' +
+    'and Mother of Dragons': [100] * 10000000}
 
 
 def main():
@@ -44,6 +47,13 @@ def main():
 
 
 def safe_input(prompt):
+    """ Translates keyboard interrupts and end of file
+    errors to exit options to Ensure that program exits gracefully.
+    Args:
+        prompt (str) : user input
+    Returns:
+        str : exit option if error is encountered otherwise input
+    """
     try:
         answer = input(prompt)
     except (KeyboardInterrupt, EOFError):
@@ -77,9 +87,9 @@ def print_thank_you():
     donation = get_donation()
     DONORS.setdefault(donor, []).append(donation)
     thankyou = get_thank_you(donor, [donation])
-    print(horizontal_line(80))
+    print('-' * 80)
     print(thankyou)
-    print(horizontal_line(80))
+    print('-' * 80)
 
 
 def get_donation():
@@ -98,16 +108,7 @@ def get_donation():
             print('Please try again.')
 
 
-def horizontal_line(length):
-    """ Returns a horizontal line of given length.
-    Args:
-        length (int) : length of horizontal line
-    Returns:
-        str : horizontal line
-    """
-    return '-' * length
-
-
+# test written
 def get_thank_you(donor, donations):
     """ Returns a thank you message for the donor based
     off given donation if any, otherwise all donations
@@ -140,6 +141,7 @@ def get_thank_you(donor, donations):
     return message
 
 
+# test written
 def dollar(amount):
     """ Returns amount in dollar format. Removes trailing
     .00s to create a clean amount.
@@ -153,38 +155,87 @@ def dollar(amount):
 
 def print_report():
     """ Prints a report showing donors and donation data to console."""
-    headers = ('Donor Name', 'Total Given', 'Num Gifts', 'Average Gift')
-    update_widths(headers)
-    data = []
-    # obtain data and determine ideal column lengths before making report
+    report = create_report()
+    print()
+    print(report)
+    print()
+
+
+# test written
+def create_report():
+    """ Returns tabular representation of donors, total donations
+    per donor, number of donations per donor, and average size
+    of gift.
+    Returns:
+        str : donor data as table
+    """
+    headers = [
+        'Donor Name' + ' ' * 10, 'Total Given', 'Num Gifts', 'Average Gift']
+    report = [' | '.join(headers)]
+    line_length = sum([len(h) for h in headers]) + len(headers) * 2 + 1
+    report.append('-' * line_length)
     for donor in sorted(DONORS, key=by_donation, reverse=True):
         donations = DONORS[donor]
-        line = [donor, sum(donations), len(donations), average(donations)]
-        update_widths(line)
-        data.append(line)
-    report = []
-    report.append(stringify(headers, '| '))
-    line_width = sum(COLUMN_WIDTHS) + len(COLUMN_WIDTHS) * 2 + 1
-    report.append(horizontal_line(line_width))
-    for row in data:
-        report.append(stringify(row, ' '))
-    print('\n' + '\n'.join(report) + '\n')
+        values = [
+            donor, sum(donations), len(donations),
+            sum(donations) / len(donations)]
+        functions = [
+            format_name, format_dollar, format_number, format_dollar]
+        row = []
+        for header, value, function in zip(headers, values, functions):
+            row.append(function(value, len(header)))
+        report.append(' '.join(row))
+    return '\n'.join(report)
 
 
-def update_widths(line):
-    """ Updates minimum column widths based on
-    the length of items (as strings) in given line.
+def format_name(donor, width):
+    """ Formats donor name for tabular report.
+    Any name longer than the column width will be
+    truncated with ellipses.
     Args:
-        line (list) : list of values
+        donor (str) : donor name
+        width (int) : width of column
+    Returns:
+        str : donor formatted for column
     """
-    for index in range(len(line)):
-        item = line[index]
-        # dollar amounts are slightly longer in final report
-        if type(item) is float:
-            item = '{:,.2f}'.format(item)
-        item = str(item)
-        if len(item) > COLUMN_WIDTHS[index]:
-            COLUMN_WIDTHS[index] = len(item)
+    donor = donor[:width - 3] + '...' if len(donor) > width else donor
+    donor += ' ' * (width + 1 - len(donor))
+    return donor
+
+
+def format_dollar(dollar, width):
+    """ Formats dollar for tabular report.
+    Any amount equal or greater than 1M will be
+    truncated to '$999,999.99+'.
+    Args:
+        dollar (float) : dollar amount
+        width (int) : width of column
+    Returns:
+        str : dollar amount formated for column
+    """
+    if dollar > 999999.99:
+        return '$999,999.99+'
+    dollar = '{:,.2f}'.format(dollar)
+    dollar = '${}{}'.format(' ' * (width - len(str(dollar))), dollar)
+    return dollar
+
+
+def format_number(number, width):
+    """ Formats number for tabular report.
+    Any amount equal ro greater than 1M will
+    be truncated to '999,999+'.
+    Args:
+        number (float) : number to format
+        width (int) : width of column
+    Returns:
+        str : dollar amount formated for column
+    """
+    if number > 9999999:
+        number = '999,999+'
+    else:
+        number = '{:,}'.format(number)
+    number = ' ' * (width + 2 - len(number)) + number + ' '
+    return number
 
 
 def write_thank_yous():
@@ -210,42 +261,6 @@ def by_donation(donor):
         float : sum of all donations for given donor
     """
     return sum(DONORS[donor])
-
-
-def average(donations):
-    """ Returns average of given donations rounded to 2 decimals.
-    Args:
-        donations (list of floats) : list of donations
-    Returns:
-        float : average of donations
-    """
-    avg = sum(donations) / len(donations)
-    return round(avg, 2)
-
-
-def stringify(row, separator):
-    """ Returns given row as a string. Formats values based
-    on type.
-    Args:
-        row (list of str) : list of items in row
-        separator (str) : separator for columns
-    Returns:
-        str : row as a string
-    """
-    line = []
-    for value, width in zip(row, COLUMN_WIDTHS):
-        # monetary values get WS inserted between $ and number
-        if type(value) is float:
-            value = '{:,.2f}'.format(value)
-            value = '${}{} '.format(' ' * (width - len(str(value))), value)
-        # numbers have leading WS with one extra WS in front and back
-        elif type(value) is int:
-            value = ' {}{} '.format(' ' * (width - len(str(value))), value)
-        # names having trailing WS with one extra WS
-        else:  # str format
-            value = '{}{} '.format(value, ' ' * (width - len(value)))
-        line.append(value)
-    return separator.join(line).strip()
 
 
 if __name__ == '__main__':
