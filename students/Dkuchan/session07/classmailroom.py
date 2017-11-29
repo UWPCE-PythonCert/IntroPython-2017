@@ -39,7 +39,7 @@ class Donor:
         self.updatecalcs()
 
 
-    def updatenames(newname):
+    def updatenames(self, newname):
         self.first_name, self.last_name = newname.split()
         self.fullname = str(self.first_name + ' ' + self.last_name)
 
@@ -146,14 +146,14 @@ def updatedonornameUI():
             print("You have made an invalid selection!")
             continue
 
-            
+
 def updatedonorname(userSelection):
     print()
     print()
     print("You have selected the donor name " + donorlist[userSelection].fullname + " to be replaced.")
     newname = input("Please enter the new name: ")
     donorlist[userSelection].updatenames(newname)
-
+    userfront()
 
 def updateUI():
     print()
