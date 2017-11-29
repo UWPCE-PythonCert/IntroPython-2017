@@ -50,11 +50,14 @@ Guillaume R Thomas: What do I do with Python?
 :download:`Python_Projects.py <../../students/guillaume/Python Class Current project.pptx>`
 
 
-Marlon M Estrada
-----------------
+Marlon M Estrada: pipenv
+------------------------
+
+https://docs.pipenv.org/
+
 
 Shibata Hiroyuki: Why Am I Here?
-----------------
+--------------------------------
 
 hacker-typer for Atom: https://github.com/zamarrowski/hacker-typer
 
@@ -73,23 +76,33 @@ Evgeny S Uvarov: paramiko
 Srikanth Thadigol Reddappa: solar eclipse times, plotted
 --------------------------------------------------------
 
-Alinafe Matenda
----------------
+Alinafe Matenda: Driving Postgress with Python
+----------------------------------------------
 
-Daniel W Kuchan
----------------
 
-Kathryn Egan
-------------
+Daniel W Kuchan: Internet of kind of dumb things
+------------------------------------------------
 
-Brian Nagata
-------------
+Automatically turning on a nightlight when you get our of bed.
 
-Rajaramesh V Yaramati
----------------------
+Integrate it with the Internet
 
-Zandra Eng
-----------
+Kathryn Egan: The argparse module
+---------------------------------
+
+Brian NagataL pdb debugger
+--------------------------
+
+
+Rajaramesh V Yaramati: database status checking tool
+----------------------------------------------------
+
+Common interface for multiple database types, instances..
+
+Zandra Eng: How I got here
+--------------------------
+
+
 
 John Navitsky
 -------------

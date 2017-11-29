@@ -176,7 +176,7 @@ def input_sc(textfile):
         selection = input('Please type a number between 1 & 4:\n')
         if selection.isdecimal():
             selection = int(selection)
-            bool = prog_dic.get(selection, 'None')(textfile)
+            bool = prog_dic.get(selection, lambda t: True)(textfile)
 
 
 if __name__ == '__main__':
