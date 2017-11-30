@@ -61,3 +61,4 @@ def test_delete_diameter():
     with pytest.raises(AttributeError):
         del c.diameter
 
+
