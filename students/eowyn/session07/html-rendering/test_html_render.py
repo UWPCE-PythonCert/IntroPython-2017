@@ -387,10 +387,8 @@ def test_li_element():
 
 def test_header_element():
     # <h2> The text of the header </h2>
-    # <h1> The text of the header </h1> -- what i have now
-
     text = 'The text of the header'
-    p = Header(text)
+    p = Header(text, hlevel=2)
     contents = render_element(p).strip()
     lines = contents.split('\n')
     print(contents)
