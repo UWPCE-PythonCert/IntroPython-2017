@@ -111,24 +111,24 @@ def render_page(page, filename):
 # # Step 5
 # #########
 
-page = hr.Html()
+# page = hr.Html()
 
-head = hr.Head()
-head.append(hr.Title("PythonClass = Revision 1087:"))
+# head = hr.Head()
+# head.append(hr.Title("PythonClass = Revision 1087:"))
 
-page.append(head)
+# page.append(head)
 
-body = hr.Body()
+# body = hr.Body()
 
-body.append(hr.P("Here is a paragraph of text -- there could be more of them, "
-                 "but this is enough  to show that we can do some text",
-              style="text-align: center; font-style: oblique;"))
+# body.append(hr.P("Here is a paragraph of text -- there could be more of them, "
+#                  "but this is enough  to show that we can do some text",
+#               style="text-align: center; font-style: oblique;"))
 
-body.append(hr.Hr())
+# body.append(hr.Hr())
 
-page.append(body)
+# page.append(body)
 
-render_page(page, "test_html_output5.html")
+# render_page(page, "test_html_output5.html")
 
 # # Step 6
 # #########
@@ -197,39 +197,39 @@ render_page(page, "test_html_output5.html")
 # # Step 8
 # ########
 
-# page = hr.Html()
+page = hr.Html()
 
 
-# head = hr.Head()
-# head.append( hr.Meta(charset="UTF-8") )
-# head.append(hr.Title("PythonClass = Revision 1087:"))
+head = hr.Head()
+head.append( hr.Meta(charset="UTF-8") )
+head.append(hr.Title("PythonClass = Revision 1087:"))
 
-# page.append(head)
+page.append(head)
 
-# body = hr.Body()
+body = hr.Body()
 
-# body.append( hr.H(2, "PythonClass - Class 6 example") )
+body.append( hr.H(2, "PythonClass - Class 6 example") )
 
-# body.append(hr.P("Here is a paragraph of text -- there could be more of them, "
-#                  "but this is enough  to show that we can do some text",
-#                  style="text-align: center; font-style: oblique;"))
+body.append(hr.P("Here is a paragraph of text -- there could be more of them, "
+                 "but this is enough  to show that we can do some text",
+                 style="text-align: center; font-style: oblique;"))
 
-# body.append(hr.Hr())
+body.append(hr.Hr())
 
-# list = hr.Ul(id="TheList", style="line-height:200%")
+list = hr.Ul(id="TheList", style="line-height:200%")
 
-# list.append( hr.Li("The first item in a list") )
-# list.append( hr.Li("This is the second item", style="color: red") )
+list.append( hr.Li("The first item in a list") )
+list.append( hr.Li("This is the second item", style="color: red") )
 
-# item = hr.Li()
-# item.append("And this is a ")
-# item.append( hr.A("http://google.com", "link") )
-# item.append("to google")
+item = hr.Li()
+item.append("And this is a ")
+item.append( hr.A("http://google.com", "link") )
+item.append("to google")
 
-# list.append(item)
+list.append(item)
 
-# body.append(list)
+body.append(list)
 
-# page.append(body)
+page.append(body)
 
-# render_page(page, "test_html_output8.html")
+render_page(page, "test_html_output8.html")

@@ -53,7 +53,10 @@ class Head(Element):
 class OneLineTag(Element):
 
     def render(self, file_obj, ind = ''):
-        file_obj.write(ind + '<' + self.tag + '>')
+        file_obj.write(ind + '<' + self.tag)
+        for at, val in self.attributes.items():
+            file_obj.write(' ' + at + '="' + val + '"')
+        file_obj.write('>')
         for each in self.content:
             newind = ind + self.indent
             if type(each) == str:
@@ -79,3 +82,34 @@ class Hr(SelfClosingTag):
 
 class Br(SelfClosingTag):
     tag = 'br'
+
+class A(OneLineTag):
+    tag = 'a'
+
+    def __init__(self, url, content):
+        if content is None:
+            self.content = []
+        else:
+            self.content = [content]
+        self.attributes = {'href': url}
+
+class Ul(Element):
+    tag = 'ul'
+
+class Li(Element):
+    tag = 'li'
+
+class H(OneLineTag):
+    tag = 'h'
+
+    def __init__(self, h, content, **kwargs):
+        if content is None:
+            self.content = []
+        else:
+            self.content = [content]
+        self.tag += str(h)
+        self.attributes = kwargs
+
+class Meta(SelfClosingTag):
+    tag = 'meta'
+    
