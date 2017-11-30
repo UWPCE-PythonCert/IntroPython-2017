@@ -12,15 +12,7 @@ class SparseArray:
             if num != 0:
                 self._data[i] = num
 
-    @property
-    def length(self):
-        return self._length
-
-    @property
-    def data(self):
-        return self._data
-
-    def get_index(self, index):
+    def normalize_index(self, index):
         """ Maps negative index to corresponding positive index. """
         return index + self._length if index < 0 else index
 
@@ -28,7 +20,7 @@ class SparseArray:
         """ Returns the item at given index or the items in
         the range if index is a slice object. """
         try:
-            index = self.get_index(index)
+            index = self.normalize_index(index)
         # index is a slice or tuple not an int
         except TypeError:
             try:
@@ -49,13 +41,13 @@ class SparseArray:
     def get_slice(self, slice):
         """ Returns items in slice as another SparseArray. """
         # get start and raise error if past end of array
-        start = 0 if not slice.start else self.get_index(slice.start)
+        start = 0 if not slice.start else self.normalize_index(slice.start)
         if start > self._length:
             raise IndexError
         # stop should not extend beyond end of array
         stop = (
             self._length if slice.stop is None
-            else min(self._length, self.get_index(slice.stop)))
+            else min(self._length, self.normalize_index(slice.stop)))
         # step is 1 if it is undefined, reverse _data if it is < 0
         step = 1 if slice.step is None else slice.step
         reverse = True if step < 0 else False
@@ -77,7 +69,7 @@ class SparseArray:
     def __setitem__(self, index, value):
         """ Sets item at given index to given value.
         Raises IndexError if index is out of range. """
-        index = self.get_index(index)
+        index = self.normalize_index(index)
         if index >= self._length:
             raise IndexError
         self._data[index] = value
@@ -85,7 +77,7 @@ class SparseArray:
     def __delitem__(self, index):
         """ Deletes item at given index.
         Raises IndexError if index is out of range. """
-        index = self.get_index(index)
+        index = self.normalize_index(index)
         if index >= self._length:
             raise IndexError
         deleted = {}
@@ -123,11 +115,13 @@ class SparseArray:
                 return True
 
     def __add__(self, other):
+        """ Adds given iterable to this SparseArray. """
         new = SparseArray(self)
         new.extend(other)
         return new
 
     def __mul__(self, value):
+        """ Multiplies this SparseArray by the given integer. """
         new = SparseArray()
         for i in range(value):
             new.extend(self)
@@ -139,8 +133,11 @@ class SparseArray:
     def __eq__(self, other):
         """ Returns whether this SparseArray is equivalent to
         another SparseArray or another iterable. """
-        if len(other) != self._length:
-            return False
+        try:
+            if len(other) != self._length:
+                return False
+        except TypeError:
+            pass
         for key, value in enumerate(other):
             if value != 0 and (
                     key not in self._data or self._data[key] != value):
@@ -160,13 +157,13 @@ class SparseArray:
         return self.__str__()
 
     def append(self, value):
-        """ Appends the given value to the end of this SparseArray. """
+        """ Appends the given value to the end of this SparseArray. O(1) """
         if value != 0:
             self._data[self._length] = value
         self._length += 1
 
     def extend(self, other):
-        """ Extends this SparseArray with the given array. """
+        """ Extends this SparseArray with the given array. O(k) """
         for num in other:
             self.append(num)
 
@@ -181,3 +178,23 @@ class SparseArray:
             if result == value:
                 return index
         raise ValueError
+
+    def insert(self, index, value):
+        """ Inserts given value at given index. """
+        if index >= self._length:
+            if value != 0:
+                self._data[self._length] = value
+        else:
+            if index < 0:
+                index = max(self._length * -1, index)
+                index = self.normalize_index(index)
+            inserted = {}
+            if value != 0:
+                inserted[index] = value
+            for i, v in self._data.items():
+                if i < index:
+                    inserted[i] = v
+                else:
+                    inserted[i + 1] = v
+            self._data = inserted
+        self._length += 1
