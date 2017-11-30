@@ -23,6 +23,11 @@ def test_equals():
     assert a != a2
 
 
+def test_tuple():
+    a = SparseArray((0, 1, 2, 3, 0, 0, 4))
+    assert a == [0, 1, 2, 3, 0, 0, 4]
+
+
 def test_string():
     a1 = SparseArray()
     assert str(a1) == '[]'
@@ -81,6 +86,30 @@ def test_append():
     assert len(a) == 2
 
 
+def test_plus():
+    a1 = SparseArray([1])
+    a1 = a1 + [4, 5, 6]
+    assert a1 == [1, 4, 5, 6]
+    a2 = SparseArray([7, 0, 0])
+    a2 = a1 + a2
+    assert a2 == [1, 4, 5, 6, 7, 0, 0]
+    assert a1 == [1, 4, 5, 6]
+    a2 += [4, 0, 0]
+    assert a2 == [1, 4, 5, 6, 7, 0, 0, 4, 0, 0]
+
+
+def test_multiply():
+    a1 = SparseArray([1, 2, 3])
+    a2 = a1 * 3
+    assert a1 == [1, 2, 3]
+    assert a2 == [1, 2, 3, 1, 2, 3, 1, 2, 3]
+    a3 = SparseArray([0, 0, 0])
+    a3 *= 2
+    assert a3 == [0, 0, 0, 0, 0, 0]
+    a3 = 2 * a3
+    assert a3 == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
 def test_reversed():
     a = SparseArray([0, 0, 0, 1, 1, 0])
     rev = reversed(a)
@@ -125,8 +154,28 @@ def test_contains():
     assert 0 not in a2
 
 
-def test_sort():
-    a = SparseArray([0, 3, 0, 1, 1, 0])
-    s = sorted(a)
-    assert s == [0, 0, 0, 1, 1, 3]
-    assert type(s) == SparseArray  # fails
+def test_slicing():
+    a = SparseArray([0, 0, 1, 2, 0, 7])
+    assert a[2:5] == [1, 2, 0]
+    assert a[2:] == [1, 2, 0, 7]
+    assert a[2::2] == [1, 0]
+    assert a[:10] == [0, 0, 1, 2, 0, 7]
+    assert a[::3] == [0, 2]
+    assert a[::] == [0, 0, 1, 2, 0, 7]
+    assert a[0:1] == [0]
+    assert a[0:0] == []
+    assert a[::-1] == [7, 0, 2, 1, 0, 0]
+    assert a[::-2] == [7, 2, 0]
+    with pytest.raises(TypeError):
+        a['hello':'goodbye']
+    with pytest.raises(IndexError):
+        a[100:101]
+    assert a[:2, 4:] == [0, 0, 0, 7]
+
+
+def test_index():
+    a = SparseArray([1, 2, 0, 5, 0])
+    assert a.index(1) == 0
+    assert a.index(0) == 2
+    with pytest.raises(ValueError):
+        a.index(6)
