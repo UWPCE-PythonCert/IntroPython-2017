@@ -2,7 +2,7 @@
 Kathryn Egan
 """
 from math import pi
-from circle import Circle
+from Circle import Circle
 
 
 def test_radius_property():
