@@ -22,3 +22,9 @@ Matthew D Briggs
 Issues that came up during the week.
 ====================================
 
+"private" attributes and dunders...
+
+_ vs __
+
+
+
