@@ -65,6 +65,10 @@ class Circle:
         newrad = self.radius - other.radius
         return abs(Circle(newrad))
 
+    def __mod__(self, other):
+        newrad = self.radius - other.radius*(self.radius//other.radius)
+        return abs(Circle(newrad))
+
 #  ---------------- COMPARE OPERATORS --------------------------
 
     def __eq__(self, other):

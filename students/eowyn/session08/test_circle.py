@@ -132,7 +132,10 @@ def test_unary_arithmetic():
     assert abs(c1) == Circle(3)
 
 
-
+def test_modulo_circles():
+    c1 = Circle(5)
+    c2 = Circle(2)
+    assert c1%c2 == Circle(1)
 
 
 
