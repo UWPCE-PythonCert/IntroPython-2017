@@ -20,7 +20,7 @@ class Element():
 
     def render(self, file_obj, current_ind = ""):
         """render the html code to a file with standard indentation"""
-        self.write_open_tag(current_ind, file_obj)
+        self.write_open_tag(file_obj, current_ind)
         file_obj.write('\n')
         for each in self.content:
             if hasattr(each, 'render'):
@@ -29,13 +29,13 @@ class Element():
                 file_obj.write(((current_ind + self.indent) + each + '\n'))
         file_obj.write('{}</{}>\n'.format(current_ind, self.tag))
 
-    def write_open_tag(self, current_ind, file_obj):
-        file_obj.write('{}<{}'.format(current_ind,self.tag,))
+    def write_open_tag(self, file_obj, current_ind):
+        file_obj.write('{}<{}'.format(current_ind,self.tag))
         if self.attr != {}:
             format_attr = ' {}="{}"'
             for key, value in self.attr.items():
                 file_obj.write(format_attr.format(key, value))
-                file_obj.write('> ')
+        file_obj.write('> ')
 
 class TextWrapper():
     """
@@ -52,6 +52,14 @@ class Html(Element):
     """Subclass of Element for the html tag"""
     tag = 'html'
 
+    def render(self, file_obj, current_ind=""):
+        file_obj.write("<!DOCTYPE html>\n")
+        try: #need help here
+            file_obj.write(super().render(file_obj, current_ind))
+        except TypeError:
+            pass
+            #print("you got an error")
+
 class Body(Element):
     """Subclass of Element for the body tag"""
     tag = 'body'
@@ -64,12 +72,20 @@ class Head(Element):
     """Subclass of Element for the head tag"""
     tag = 'head'
 
+class Ul(Element):
+    """Subclass of Element for unordered lists"""
+    tag = 'ul'
+
+class Li(Element):
+    """Subclass of Element for an element in a list"""
+    tag = 'li'
+
 class OneLineTag(Element):
     """Subclass of Element, used for simple one line tags"""
 
     def render(self, file_obj, current_ind = ""):
         """render the html code to a file with standard indentation"""
-        self.write_open_tag(current_ind, file_obj)
+        self.write_open_tag(file_obj, current_ind)
         for each in self.content:
             file_obj.write((each))
         file_obj.write(' </{}>\n'.format(self.tag))
@@ -87,6 +103,24 @@ class A(OneLineTag):
             self.content = []
         else:
             self.content = [content]
+
+class H(OneLineTag):
+    """Subclass of OneLineTag for headings"""
+    tag = 'h'
+    def __init__(self, level, content=None, **kwargs):
+        self.tag += str(level)
+        self.attr = kwargs
+        if content is None:
+            self.content = []
+        else:
+            self.content = [content]
+
+    def render(self, file_obj, current_ind = ""):
+        """render the html code to a file with standard indentation"""
+        self.write_open_tag(file_obj, current_ind)
+        for each in self.content:
+            file_obj.write((each))
+        file_obj.write(' </{}>\n'.format(self.tag))
 
 class SelfClosingTag(Element):
     """Subclass of Element, used for self closing tags"""
@@ -108,3 +142,7 @@ class Hr(SelfClosingTag):
 class Br(SelfClosingTag):
     """Subclass of SelfClosingTag, used for line breaks"""
     tag = 'br'
+
+class Meta(SelfClosingTag):
+    """Subclass of SelfClosingTag, used for meta"""
+    tag = 'meta'
