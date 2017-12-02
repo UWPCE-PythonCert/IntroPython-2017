@@ -138,11 +138,19 @@ class Li(Element):
     tag = 'li'
 
 
-class Header(OneLineTag):
+class H(OneLineTag):
 
-    def __init__(self, content=None, hlevel=1, **kwargs):
-        # Include href=link in the kwargs dictionary
+    def __init__(self, hlevel, content=None, **kwargs):
+        # Include hlevel for different header levels eg <h2>
         self.tag = 'h' + str(hlevel)
         Element.__init__(self, content, **kwargs)
+
+
+class Meta(SelfClosingTag):
+    # Render method of self closing tag already uses key:value pairs
+    # So we only need to update the tag!
+    tag = 'meta'
+
+
 
 

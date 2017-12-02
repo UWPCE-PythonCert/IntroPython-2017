@@ -1,6 +1,6 @@
 import os
 from html_render import Element, Body, P, Html, Head, OneLineTag, Title
-from html_render import SelfClosingTag, Hr, Br, A, Ul, Li, Header
+from html_render import Hr, Br, A, Ul, Li, H, Meta
 from io import StringIO
 
 
@@ -338,9 +338,10 @@ def test_anchor_element():
     lines = contents.split('\n')
     assert len(lines)==1
 
+
 def test_anchor_element_additional_atts():
     atts = {"size": "12px"}
-    p = A("http://google.com", "link to google",**atts)
+    p = A("http://google.com", "link to google", **atts)
     contents = render_element(p).strip()
     print(contents)
     assert contents.startswith('<a href="http:')
@@ -353,10 +354,11 @@ def test_anchor_element_additional_atts():
     assert len(lines) == 1
     assert 'size="12px"' in lines[0]
 
+
 def test_ul_element():
     atts = {"size": "12px"}
     list_name = "These are a few of my favorite things"
-    p = Ul(list_name,**atts)
+    p = Ul(list_name, **atts)
     contents = render_element(p).strip()
     print(contents)
     lines = contents.split('\n')
@@ -365,6 +367,7 @@ def test_ul_element():
     assert lines[2].endswith('</ul>')
     assert list_name in lines[1]
     assert 'size="12px"' in lines[0]
+
 
 def test_li_element():
     list_name = "These are a few of my favorite things"
@@ -381,14 +384,16 @@ def test_li_element():
     assert len(lines) == 9
     assert lines[0].startswith('<ul')
     assert 'size="14px"' in lines[5]
-    assert lines[2].startswith(Element.extra_indent+ '<li size=')
+    assert lines[2].startswith(Element.extra_indent + '<li size=')
     assert lines[3].startswith(2*Element.extra_indent + thing1)
     assert lines[6].startswith(2*Element.extra_indent + thing2)
 
+
 def test_header_element():
     # <h2> The text of the header </h2>
+    # THIS TEST IS PASSING BUT THE RENDERED EXAMPLE LOOKS BAD
     text = 'The text of the header'
-    p = Header(text, hlevel=2)
+    p = H(2, text)
     contents = render_element(p).strip()
     lines = contents.split('\n')
     print(contents)
@@ -397,6 +402,31 @@ def test_header_element():
     assert lines[0].endswith('</h2>')
     assert contents.index(text) < contents.index('</h2>')
     assert contents.index(text) > contents.index('<h2>')
+
+
+def test_meta_element_dict():
+    # <meta charset="UTF-8" />
+    atts = {"charset": "UTF-8"}
+    p = Meta(**atts)
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert len(lines)==1
+    assert lines[0].startswith('<meta charset=')
+    assert lines[0].endswith('"UTF-8" />')
+
+
+def test_meta_element():
+    # <meta charset="UTF-8" />
+    p = Meta(charset="UTF-8")
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert len(lines)==1
+    assert lines[0].startswith('<meta charset=')
+    assert lines[0].endswith('"UTF-8" />')
+
+
 
 
 
