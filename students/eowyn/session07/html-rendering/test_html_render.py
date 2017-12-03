@@ -1,8 +1,10 @@
 import os
 from html_render import Element, Body, P, Html, Head, OneLineTag, Title
+from html_render import Hr, Br, A, Ul, Li, H, Meta
+from io import StringIO
 
 
-def render_element(el_object, filename='test1.html', remove=True):
+def render_element_file(el_object, filename='test1.html', remove=True):
     with open(filename, 'w') as out_file:
         el_object.render(out_file)
     with open(filename, 'r') as in_file:
@@ -10,6 +12,21 @@ def render_element(el_object, filename='test1.html', remove=True):
     if remove:
         os.remove(filename)
     return contents
+
+
+def test_new_element():
+    """
+    not much here, but it shows Elements can be initialized
+    """
+    el_object = Element()
+    el_object2 = Element('content')
+
+
+def render_element(element, cur_ind=""):
+    sio = StringIO()
+    element.render(sio, cur_ind)
+    return sio.getvalue()
+
 
 
 def test_add_content():
@@ -45,8 +62,8 @@ def test_render():
     more_stuff = '\neggs, eggs, eggs'
     el_object = Element(my_stuff)
     el_object.append(more_stuff)
-    contents = render_element(el_object)
-    contents = contents.strip()
+    contents = render_element(el_object).strip()
+    print(contents)
     assert contents.startswith('<html>')
     assert contents.endswith('</html>')
     assert my_stuff in contents
@@ -227,3 +244,195 @@ def test_title_indendation_twothings():
     assert len(lines) == 1
     assert lines[0].startswith('<title> ')
     assert my_stuff in lines[0]
+
+
+def test_single_attribute():
+    #            <p style="text-align: center; font-style: oblique;">
+    # Here is a paragraph of text 
+    #        </p>
+    p = P("Here is a paragraph of text",
+          style="text-align: center; font-style: oblique;")
+    results = render_element(p).strip() # need this to be string IO I think
+    print(results)
+    assert results.startswith('<p style="text-align: center; font-style: oblique;">')
+
+
+def test_multiple_attributes():
+    p = P("here is a paragraph of text",
+          id="fred", color="red", size="12px")
+    contents = render_element(p).strip()
+    print(contents)
+    lines = contents.split('\n')
+    assert lines[0].startswith('<p ')
+    assert lines[0].endswith('>')
+    assert 'id="fred"' in lines[0]
+    assert 'color="red"' in lines[0]
+    assert 'size="12px"' in lines[0]
+
+
+def test_multiple_attributes_title():
+    p = Title("here is a paragraph of text",
+              id="fred", color="red", size="12px")
+    contents = render_element(p).strip()
+    print(contents)
+    lines = contents.split('\n')
+    assert lines[0].startswith('<title ')
+    assert lines[0].endswith('title>')
+    assert 'id="fred"' in lines[0]
+    assert 'color="red"' in lines[0]
+    assert 'size="12px"' in lines[0]
+
+
+def test_class_attribute():
+    # Use a dictionary to get around class being a reserved word
+    atts = {"id": "fred", "class": "special", "size": "12px"}
+    p = P("here is a paragraph of text", **atts)
+    contents = render_element(p).strip()
+    print(contents)
+    lines = contents.split('\n')
+    assert lines[0].startswith('<p ')
+    assert lines[0].endswith('">')
+    assert 'id="fred"' in lines[0]
+    assert 'class="special"' in lines[0]
+    assert 'size="12px"' in lines[0]
+
+
+def test_self_closing_tag():
+    atts = {"id": "fred", "class": "special", "size": "12px"}
+    p = Hr(**atts)
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert lines[0].startswith('<hr')
+    assert lines[0].endswith("/>")
+    assert 'id="fred"' in lines[0]
+    assert 'class="special"' in lines[0]
+    assert 'size="12px"' in lines[0]
+    assert len(lines) == 1
+
+def test_self_closing_tag_string():
+    atts = {"id": "fred", "class": "special", "size": "12px"}
+    p = Br("Now Leasing", **atts)
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert lines[0].startswith('<br')
+    assert lines[0].endswith("/>")
+    assert 'id="fred"' in lines[0]
+    assert 'class="special"' in lines[0]
+    assert 'size="12px"' in lines[0]
+    assert len(lines) == 1
+    assert "Now Leasing" not in lines[0]
+
+
+def test_anchor_element():
+    p = A("http://google.com", "link to google")
+    contents = render_element(p).strip()
+    print(contents)
+    assert contents.startswith('<a href="http:')
+    assert contents.endswith('</a>')
+    assert 'google.com' in contents
+    assert 'link to' in contents
+    assert contents.index('google.com') < contents.index('link to')
+    assert contents.index('link to') < contents.index('</a>')
+    lines = contents.split('\n')
+    assert len(lines)==1
+
+
+def test_anchor_element_additional_atts():
+    atts = {"size": "12px"}
+    p = A("http://google.com", "link to google", **atts)
+    contents = render_element(p).strip()
+    print(contents)
+    assert contents.startswith('<a href="http:')
+    assert contents.endswith('</a>')
+    assert 'google.com' in contents
+    assert 'link to' in contents
+    assert contents.index('google.com') < contents.index('link to')
+    assert contents.index('link to') < contents.index('</a>')
+    lines = contents.split('\n')
+    assert len(lines) == 1
+    assert 'size="12px"' in lines[0]
+
+
+def test_ul_element():
+    atts = {"size": "12px"}
+    list_name = "These are a few of my favorite things"
+    p = Ul(list_name, **atts)
+    contents = render_element(p).strip()
+    print(contents)
+    lines = contents.split('\n')
+    assert len(lines) == 3
+    assert lines[0].startswith('<ul size=')
+    assert lines[2].endswith('</ul>')
+    assert list_name in lines[1]
+    assert 'size="12px"' in lines[0]
+
+
+def test_li_element():
+    list_name = "These are a few of my favorite things"
+    thing1 = "Roses on raindrops"
+    atts1 = {"size": "12px"}
+    thing2 = "Whiskers on kittens"
+    atts2 = {"size": "14px"}
+    p = Ul(list_name)
+    p.append(Li(thing1, **atts1))
+    p.append(Li(thing2, **atts2))
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert len(lines) == 9
+    assert lines[0].startswith('<ul')
+    assert 'size="14px"' in lines[5]
+    assert lines[2].startswith(Element.extra_indent + '<li size=')
+    assert lines[3].startswith(2*Element.extra_indent + thing1)
+    assert lines[6].startswith(2*Element.extra_indent + thing2)
+
+
+def test_header_element():
+    # <h2> The text of the header </h2>
+    # THIS TEST IS PASSING BUT THE RENDERED EXAMPLE LOOKS BAD
+    text = 'The text of the header'
+    p = H(2, text)
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert len(lines) == 1
+    assert lines[0].startswith('<h2>')
+    assert lines[0].endswith('</h2>')
+    assert contents.index(text) < contents.index('</h2>')
+    assert contents.index(text) > contents.index('<h2>')
+
+
+def test_meta_element_dict():
+    # <meta charset="UTF-8" />
+    atts = {"charset": "UTF-8"}
+    p = Meta(**atts)
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert len(lines)==1
+    assert lines[0].startswith('<meta charset=')
+    assert lines[0].endswith('"UTF-8" />')
+
+
+def test_meta_element():
+    # <meta charset="UTF-8" />
+    p = Meta(charset="UTF-8")
+    contents = render_element(p).strip()
+    lines = contents.split('\n')
+    print(contents)
+    assert len(lines)==1
+    assert lines[0].startswith('<meta charset=')
+    assert lines[0].endswith('"UTF-8" />')
+
+
+
+
+
+
+
+
+
+
+
