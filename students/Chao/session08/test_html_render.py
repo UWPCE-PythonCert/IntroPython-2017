@@ -65,8 +65,3 @@ def test_render_body():
     assert morestuff in contents
 
 
-def test_attributes():
-
-    p = P("Here is a paragraph of text", id="fred", color="red", size="12px")
-    results = render_element(p)
-    print(results)
