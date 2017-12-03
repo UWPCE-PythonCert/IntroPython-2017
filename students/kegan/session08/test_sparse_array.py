@@ -13,12 +13,12 @@ def test_length():
 
 def test_positive():
     a = SparseArray()
-    a._length = 5
-    assert a._positive(0) == 0
-    assert a._positive(-1) == 4
-    assert a._positive(-100) == -95
-    assert a._positive(-5) == 0
-    assert a._positive(7) == 7
+    a.length = 5
+    assert a.positive_index(0) == 0
+    assert a.positive_index(-1) == 4
+    assert a.positive_index(-100) == -95
+    assert a.positive_index(-5) == 0
+    assert a.positive_index(7) == 7
 
 
 def test_equals():
@@ -31,6 +31,7 @@ def test_equals():
     assert a != [1, 2, 3, 0, 0, 4]
     array.reverse()
     a2 = SparseArray(array)
+    print(a != a2)
     assert a != a2
 
 
@@ -66,12 +67,25 @@ def test_setter():
     a[0] = 0
     p[0] = 0
     assert a == p
+    assert len(a) == 5
+    assert len(a.data) == 4  # do not store zero
+    a[0] = 0
     a[-1] = 6
     p[-1] = 6
     assert a == p
     assert len(a) == len(p)
+    assert len(a.data) == 4
+    a[-3] = 0
+    p[-3] = 0
+    assert len(a) == len(p)
+    assert len(a.data) == 3
+    a[-3] = 5
+    p[-3] = 5
+    assert len(a.data) == 4
     with pytest.raises(IndexError):
         a[6] = 0
+    with pytest.raises(IndexError):
+        a[-8] = 1
 
 
 def test_delete():
@@ -104,6 +118,7 @@ def test_append():
     p.append(0)
     assert a == p
     assert len(a) == len(p)
+    assert len(a.data) == 1
 
 
 def test_plus():
@@ -122,6 +137,8 @@ def test_plus():
     temp = [4, 0, 0]
     a2 += temp
     p2 += temp
+    print(a2)
+    print(p2)
     assert a2 == p2
 
 
