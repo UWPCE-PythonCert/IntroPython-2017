@@ -11,14 +11,14 @@ def test_length():
     assert len(a) == len(p)
 
 
-def test_normalize_index():
+def test_positive():
     a = SparseArray()
     a._length = 5
-    assert a.normalize_index(0) == 0
-    assert a.normalize_index(-1) == 4
-    assert a.normalize_index(-100) == -95
-    assert a.normalize_index(-5) == 0
-    assert a.normalize_index(7) == 7
+    assert a._positive(0) == 0
+    assert a._positive(-1) == 4
+    assert a._positive(-100) == -95
+    assert a._positive(-5) == 0
+    assert a._positive(7) == 7
 
 
 def test_equals():
@@ -198,23 +198,15 @@ def test_contains():
 
 
 def test_slicing():
-    p = [0, 0, 1, 2, 0, 7]
+    p = [0, 1, 2, 3, 4, 5]
     a = SparseArray(p)
-    assert a[2:5] == p[2:5]
-    assert a[2:] == p[2:]
-    assert a[2::2] == p[2::2]
-    assert a[:10] == p[:10]
-    assert a[::3] == p[::3]
-    assert a[::] == p[::]
-    assert a[0:1] == p[0:1]
-    assert a[0:0] == p[0:0]
-    assert a[::-1] == p[::-1]
-    assert a[::-2] == p[::-2]
-    with pytest.raises(TypeError):
-        a['hello':'goodbye']
-    with pytest.raises(IndexError):
-        a[100:101]
-    assert a[:2, 4:] == [0, 0, 0, 7]
+    tests = [None] + list(range(-7, 7))
+    for start in tests:
+        for stop in tests:
+            for step in tests:
+                if step == 0:
+                    continue
+                assert a[start:stop:step] == p[start:stop:step]
 
 
 def test_index():
@@ -246,4 +238,15 @@ def test_insert():
     a.insert(-100, 99)
     assert a == p
 
-# test_insert()
+
+def test_count():
+    p1 = [1, 1, 1, 2, 2, 0, 0, 0, 0]
+    a1 = SparseArray(p1)
+    for i in range(4):
+        assert a1.count(i) == p1.count(i)
+    p2 = [0, 0, 0]
+    a2 = SparseArray(p2)
+    for i in range(4):
+        assert a2.count(i) == p2.count(i)
+
+test_slicing()
