@@ -147,15 +147,25 @@ def test_multiply():
 def test_reversed():
     p1 = [0, 0, 0, 1, 1, 0]
     a1 = SparseArray(p1)
-    assert reversed(a1) == reversed(p1)
+    a1 = list(reversed(a1))
+    p1 =list(reversed(p1))
+    print(a1)
+    print(p1)
+    assert a1 == p1
     p2 = []
     a2 = SparseArray()
-    assert reversed(a2) == reversed(p2)
+    assert list(reversed(a2)) == list(reversed(p2))
 
 
 def test_reverse():
     p1 = [0, 0, 0, 1, 1, 0]
     a1 = SparseArray(p1)
+    a1.reverse()
+    p1.reverse()
+    assert a1[0] == p1[0]
+    print(a1)
+    print(p1)
+    assert a1 == p1
     a1.reverse()
     p1.reverse()
     assert a1 == p1
@@ -201,6 +211,16 @@ def test_slicing():
     p = [0, 1, 2, 3, 4, 5]
     a = SparseArray(p)
     tests = [None] + list(range(-7, 7))
+    with pytest.raises(ValueError):
+        a[::0]
+    for start in tests:
+        for stop in tests:
+            for step in tests:
+                if step == 0:
+                    continue
+                assert a[start:stop:step] == p[start:stop:step]
+    a.reverse()
+    p.reverse()
     for start in tests:
         for stop in tests:
             for step in tests:
@@ -249,4 +269,4 @@ def test_count():
     for i in range(4):
         assert a2.count(i) == p2.count(i)
 
-test_slicing()
+# test_slicing()

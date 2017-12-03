@@ -20,11 +20,12 @@ class SparseArray:
         """
         self._data = {}
         self._length = len(array)
-        self.is_reversed = False
+        self._reversed = False
+        self.print = False
         for i, num in enumerate(array):
             if num != 0:
                 self._data[i] = num
-
+    
     def _positive(self, index):
         """ Maps negative index to corresponding positive index.
         E.g. in list length 5, -2 maps to 3
@@ -38,7 +39,7 @@ class SparseArray:
 
     def _reverse(self, index):
         if index is not None:
-            return len(self) - index - 1 if self.is_reversed else index
+            return len(self) - index - 1
 
     def __getitem__(self, index):
         """ Returns the item at given index or the items in
@@ -66,8 +67,9 @@ class SparseArray:
                     result.extend(self.get_slice(s))
                 return result
         else:  # O(1)
-            if index >= self._length:
+            if index >= self._length or index < 0:
                 raise IndexError
+            index = self._reverse(index) if self._reversed else index
             if index in self._data:
                 return self._data[index]
             return 0
@@ -81,24 +83,29 @@ class SparseArray:
             SparseArray :
                 SparseArray containing values in range specified by slice
         """
+        from math import fabs
         if slice.step == 0:
             raise ValueError
+        # convert step to integer
         step = 1 if slice.step is None else slice.step
-        self.is_reversed = True if step < 0 else False
-        step = step * -1 if self.is_reversed else step
+        # convert negative indexes to corresponding positive indexes
         start = self._positive(slice.start)
         stop = self._positive(slice.stop)
-        start = self._reverse(start)
-        stop = self._reverse(stop)
+        if step < 0:
+            start = self._reverse(start)
+            stop = self._reverse(stop)
+            self.reverse()
+        # start should start at 0 if it is None
         start = 0 if start is None else start
         stop = len(self) if stop is None else stop
+        # start should not be less than 0
         start = max(0, start)
         stop = min(len(self), stop)
-        input_data = reversed(self) if self.is_reversed else self
         result = SparseArray()
-        for i in range(start, stop, step):
-            value = input_data[i] if i in input_data else 0
-            result.append(value)
+        for i in range(start, stop, int(fabs(step))):
+            result.append(self[i])
+        if step < 0:
+            self.reverse()
         return result
 
     def __setitem__(self, index, value):
@@ -133,11 +140,8 @@ class SparseArray:
 
     def __iter__(self):
         """ Yields items in this SparseArray in order. O(n) """
-        for key in range(self._length):
-            if key in self._data:
-                yield self._data[key]
-            else:
-                yield 0
+        for key in range(len(self)):
+            yield self[key]
 
     def __contains__(self, value):
         """ Returns whether this SparseArray contains given value. O(m)
@@ -146,7 +150,7 @@ class SparseArray:
         Returns:
             bool : whether given value is in SparseArray
         """
-        if value == 0 and self._length > len(self._data):
+        if value == 0 and len(self) > len(self._data):
             return True
         for k, v in self._data.items():
             if v == value:
@@ -196,8 +200,7 @@ class SparseArray:
         except TypeError:
             pass
         for key, value in enumerate(other):
-            if value != 0 and (
-                    key not in self._data or self._data[key] != value):
+            if value != 0 and key not in self and self[key] != value:
                 return False
         return True
 
@@ -243,18 +246,13 @@ class SparseArray:
     def __reversed__(self):
         """ Returns a new SparseArray that is a
         reversed version of this SparseArray. O(m)
-        Returns:
-            SparseArray : reversed version of this SparseArray
         """
-        rev = SparseArray()
-        for key, value in self._data.items():
-            rev._data[self._length - key - 1] = value
-        rev._length = self._length
-        return rev
+        for i in range(len(self)):
+            yield self[self._reverse(i)]
 
     def reverse(self):
         """ Reverses the items in this SparseArray. O(m) """
-        self._data = self.__reversed__()._data
+        self._reversed = not self._reversed
 
     def index(self, value):
         """ Returns first index of given value.
