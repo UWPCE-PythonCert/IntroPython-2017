@@ -5,7 +5,7 @@ Circle class, exercise
 from math import pi
 
 class Circle:
-    def __init__ (self, radius):
+    def __init__ (self, radius=1):
         self.radius = radius
 
     @property
@@ -25,3 +25,21 @@ class Circle:
 
     def __str__(self):
         return "Circle with a radius of {}".format(self.radius)
+
+    def create__from_diameter(self, dia):
+        self.radius = dia/2 * pi
+
+    def __add__(self, other):
+        return Circle(self.radius + other.radius)
+
+    def __mul__ (self, other):
+        return Circle(self.radius * other)
+
+    def __gt__ (self, other):
+        return self.radius > other.radius
+
+    def __lt__ (self, other):
+        return self.radius < other.radius
+
+    def __eq__ (self, other):
+        return self.radius == other.radius

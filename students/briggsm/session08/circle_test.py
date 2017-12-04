@@ -38,13 +38,74 @@ def test_delete():
 
     assert True
 
-def test_repr():
-    c = Circle(10)
-
-    assert eval(repr(c)) == "Circle(10)"
+# def test_repr():
+#     c = Circle(10)
+#     assert "Circle(10)" == eval(repr(c))
 
 def test_string():
     c = Circle(10)
 
     assert str(c) == "Circle with a radius of 10"
 
+
+def test_create__from_diameter():
+    c = Circle()
+    c.create__from_diameter(10)
+    assert c.area == pi * c.radius**2
+
+
+def test_add_circles():
+    c1 = Circle(2)
+    c2 = Circle(4)
+    c3 = c1 + c2
+
+    assert Circle(6).radius == c3.radius
+
+
+def test_multiply_circles():
+    c1 = Circle(4)
+    c2 = c1 * 3
+
+    assert Circle(12).radius == c2.radius
+
+
+def test_compare_greater_true():
+    c1 = Circle(7)
+    c2 = Circle(5)
+
+    assert (c1 > c2) == True
+
+
+def test_compare_greater_false():
+    c1 = Circle(4)
+    c2 = Circle(5)
+
+    assert (c1 > c2) == False
+
+
+def test_compare_lesser_true():
+    c1 = Circle(4)
+    c2 = Circle(5)
+
+    assert (c1 < c2) == True
+
+
+def test_compare_lesser_false():
+    c1 = Circle(7)
+    c2 = Circle(5)
+
+    assert (c1 < c2) == False
+
+
+def test_compare_equal_true():
+    c1 = Circle(5)
+    c2 = Circle(5)
+
+    assert (c1 == c2) == True
+
+
+def test_compare_equal_false():
+    c1 = Circle(7)
+    c2 = Circle(5)
+
+    assert (c1 == c2) == False
