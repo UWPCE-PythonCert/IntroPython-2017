@@ -164,6 +164,39 @@
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="private-attributes-and-dunders">
+<h3>“private” attributes and dunders<a class="headerlink" href="#private-attributes-and-dunders" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">_something</span></code> vs <code class="docutils literal"><span class="pre">__something</span></code> vs <code class="docutils literal"><span class="pre">__something__</span></code></p>
+</div>
+<div class="section" id="adding-parameters-to-a-subclass-init">
+<h3>Adding parameters to a subclass __init__<a class="headerlink" href="#adding-parameters-to-a-subclass-init" title="Permalink to this headline">¶</a></h3>
+<p>In general, when you override a method in a subclass, you want the method signature to be the same. That is – all the parameters should be the same.</p>
+<p>However, sometimes, particularly with <code class="docutils literal"><span class="pre">__init__</span></code>, you may need a couple extra parameters. To keep things clean and extensible, you want to put the extra parameters at the beginning, before the super class’ parameters:</p>
+<p>And this lets you use <code class="docutils literal"><span class="pre">*args</span></code> and <code class="docutils literal"><span class="pre">**kwargs</span></code> to pass along the usual ones.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par1</span><span class="p">,</span> <span class="n">par2</span><span class="p">,</span> <span class="n">par3</span><span class="o">=</span><span class="n">something</span><span class="p">,</span> <span class="n">par4</span><span class="o">=</span><span class="n">something</span><span class="p">):</span>
+        <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">Subclass</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newpar1</span><span class="p">,</span> <span class="n">newpar2</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newpar1</span> <span class="o">=</span> <span class="n">newpar1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newpar2</span> <span class="o">=</span> <span class="n">newpar2</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example: html_render Anchor tag:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">OneLineTag</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    anchor element</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">link</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

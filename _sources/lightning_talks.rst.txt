@@ -104,14 +104,24 @@ Zandra Eng: How I got here
 
 
 
-John Navitsky
--------------
+John Navitsky: Ansible and python
+---------------------------------
 
-Matthew Sachio Maeda
---------------------
+Simple, modular, written in Python...
 
-Morgan Heinemann
-----------------
+Matthew Sachio Maeda: Celery
+----------------------------
+
+Parallel task runner.
+
+
+Morgan Heinemann: Selenium
+--------------------------
+
+Open source project for web automation.
+
+Can be driven by Python (and other languages)
+
 
 James Takata
 ------------
