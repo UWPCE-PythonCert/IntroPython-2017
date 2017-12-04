@@ -11,16 +11,6 @@ def test_length():
     assert len(a) == len(p)
 
 
-def test_positive():
-    a = SparseArray()
-    a.length = 5
-    assert a.positive_index(0) == 0
-    assert a.positive_index(-1) == 4
-    assert a.positive_index(-100) == -95
-    assert a.positive_index(-5) == 0
-    assert a.positive_index(7) == 7
-
-
 def test_equals():
     array = [0, 1, 2, 3, 0, 0, 4, 0]
     a = SparseArray(array)
@@ -35,25 +25,23 @@ def test_equals():
     a2 = SparseArray(array)
     assert a != a2
 
-lt = [
-    [],
-    [0, 1],
-    [0, 0],
-    [0, 1, 2, 3],
-]
-
-gt = [
-    [0, 2],
-    [1, 1],
-    [0, 1, 2, 3, 0, 0],
-]
-
-le = lt[::]
-le.append([0, 1, 2, 3, 0])
-ge = gt[::]
-ge.append([0, 1, 2, 3, 0])
 
 def test_comparisons():
+    lt = [
+        [],
+        [0, 1],
+        [0, 0],
+        [0, 1, 2, 3]]
+
+    gt = [
+        [0, 2],
+        [1, 1],
+        [0, 1, 2, 3, 0, 0]]
+
+    le = lt[::]
+    le.append([0, 1, 2, 3, 0])
+    ge = gt[::]
+    ge.append([0, 1, 2, 3, 0])
     array = [0, 1, 2, 3, 0]
     a = SparseArray(array)
     assert a == array
@@ -79,30 +67,6 @@ def test_comparisons():
         assert a <= temp
         assert not temp < a
     assert not a > a
-
-
-# def test_greater_than():
-#     array = [0, 1, 2, 3, 0]
-#     a = SparseArray(array)
-#     assert a > [0, 1]
-#     assert a > [0, 0]
-#     assert [0, 2] > a
-#     assert [1, 1] > a
-#     assert [0, 1, 2, 3, 0, 0] > a
-#     assert not a < [0, 1, 2, 3]
-#     assert not a < a
-#     assert [] < a
-
-
-# def test_less_equals():
-#     array = [0, 1, 2, 3, 0]
-#     a = SparseArray(array)
-#     assert a <= [0, 2]
-#     assert a <= [1, 1]
-#     assert a <= [0, 1, 2, 3, 0, 0]
-#     assert not a <= [0, 1, 2, 3]
-#     assert a <= a
-
 
 
 def test_tuple():
@@ -348,6 +312,17 @@ def test_insert():
     assert a == p
     p.insert(-100, 99)
     a.insert(-100, 99)
+    assert a == p
+    p = []
+    a = SparseArray(p)
+    p.insert(4, 2)
+    a.insert(4, 2)
+    assert a == p
+    p.insert(1, 0)
+    a.insert(1, 0)
+    assert a == p
+    p.insert(2, 0)
+    a.insert(2, 0)
     assert a == p
 
 
