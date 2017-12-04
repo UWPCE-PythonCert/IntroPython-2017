@@ -230,8 +230,8 @@ class SparseArray(list):
         # iterable with no length function
         except TypeError:
             pass
-        for key, value in enumerate(other):
-            if value != 0 and key not in self and self[key] != value:
+        for index, value in enumerate(other):
+            if self[index] != value:
                 return False
         return True
 
@@ -245,6 +245,94 @@ class SparseArray(list):
                 True if other is not equal this SparseArray, False otherwise
         """
         return not self.__eq__(other)
+
+    def __lt__(self, other):
+        index = None
+        for index, value in enumerate(other):
+            # indexes in self exhausted = other is longer
+            if len(self) <= index:
+                return True
+            if self[index] < value:
+                return True
+            if self[index] > value:
+                return False
+        # no values in other
+        # self cannot be less than other if other is nothing
+        if index is None:
+            return False
+        # all of other checked
+        elif len(self) < index:
+            return True
+        return False
+
+    def __le__(self, other):
+        index = None
+        for index, value in enumerate(other):
+            # indexes in self exhausted = other is longer
+            if len(self) <= index:
+                return True
+            if self[index] < value:
+                return True
+            if self[index] > value:
+                return False
+        # no values in other
+        # self is greater than other if other is empty and self is not
+        print(index, len(self))
+        if index is None:
+            if len(self) == 0:
+                return True
+            elif len(self) < index:
+                return True
+            return False
+        # all of other checked
+        elif len(self) - 1 <= index:
+            return True
+        return False
+
+
+    def __gt__(self, other):
+        index = None
+        for index, value in enumerate(other):
+            # indexes in self exhausted = other is longer
+            if len(self) <= index:
+                return False
+            if self[index] < value:
+                return False
+            if self[index] > value:
+                return True
+        # no values in other
+        # self is greater than other if other is empty and self is not
+        if index is None:
+            if len(self) > 0:
+                return True
+            return False
+        # all of other checked
+        elif index < len(self) - 1:
+            return True
+        return False
+
+    def __ge__(self, other):
+        index = None
+        for index, value in enumerate(other):
+            # indexes in self exhausted = other is longer
+            if len(self) <= index:
+                return False
+            if self[index] < value:
+                return False
+            if self[index] > value:
+                return True
+        # no values in other
+        # self is greater than other if other is empty and self is not
+        if index is None:
+            if len(self) == 0:
+                return True
+            elif len(self) > 0:
+                return True
+            return False
+        # all of other checked
+        elif index < len(self):
+            return True
+        return False
 
     def __len__(self):
         """ Returns the length of this array including zeroes. O(1)

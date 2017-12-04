@@ -26,13 +26,83 @@ def test_equals():
     a = SparseArray(array)
     assert a == array
     assert a == [0, 1, 2, 3, 0, 0, 4, 0]
+    assert a != [0, 1, 2, 3, 0, 0, 4, 0, 0]
+    assert a != [0, 1, 2, 3, 0, 0, 4]
     assert a != [1, 2, 3, 4]
     assert a != [0, 0, 0, 0]
     assert a != [1, 2, 3, 0, 0, 4]
     array.reverse()
     a2 = SparseArray(array)
-    print(a != a2)
     assert a != a2
+
+lt = [
+    [],
+    [0, 1],
+    [0, 0],
+    [0, 1, 2, 3],
+]
+
+gt = [
+    [0, 2],
+    [1, 1],
+    [0, 1, 2, 3, 0, 0],
+]
+
+le = lt[::]
+le.append([0, 1, 2, 3, 0])
+ge = gt[::]
+ge.append([0, 1, 2, 3, 0])
+
+def test_comparisons():
+    array = [0, 1, 2, 3, 0]
+    a = SparseArray(array)
+    assert a == array
+
+    for temp in lt:
+        assert temp < a
+        assert not a < temp
+        assert temp != a
+        assert a != temp
+
+    for temp in le:
+        assert temp <= a
+        assert not a < temp
+    assert not a < a
+
+    for temp in gt:
+        assert a < temp
+        assert not temp < a
+        assert temp != a
+        assert a != temp
+
+    for temp in ge:
+        assert a <= temp
+        assert not temp < a
+    assert not a > a
+
+
+# def test_greater_than():
+#     array = [0, 1, 2, 3, 0]
+#     a = SparseArray(array)
+#     assert a > [0, 1]
+#     assert a > [0, 0]
+#     assert [0, 2] > a
+#     assert [1, 1] > a
+#     assert [0, 1, 2, 3, 0, 0] > a
+#     assert not a < [0, 1, 2, 3]
+#     assert not a < a
+#     assert [] < a
+
+
+# def test_less_equals():
+#     array = [0, 1, 2, 3, 0]
+#     a = SparseArray(array)
+#     assert a <= [0, 2]
+#     assert a <= [1, 1]
+#     assert a <= [0, 1, 2, 3, 0, 0]
+#     assert not a <= [0, 1, 2, 3]
+#     assert a <= a
+
 
 
 def test_tuple():
@@ -140,6 +210,7 @@ def test_plus():
     print(a2)
     print(p2)
     assert a2 == p2
+    assert len(a2.data) == 6
 
 
 def test_multiply():
@@ -210,6 +281,7 @@ def test_extend():
     p.extend(extension)
     assert a == p
     assert len(a) == len(p)
+    assert len(a.data) == 3
 
 
 def test_contains():
@@ -258,15 +330,18 @@ def test_index():
 def test_insert():
     p = [1, 2, 3, 0, 4]
     a = SparseArray(p)
-    p.insert(0, 1)
+    p.insert(0, 1)  # [1, 1, 2, 3, 0, 4]
     a.insert(0, 1)
     assert a == p
-    p.insert(2, 0)
+    assert len(a.data) == 5
+    p.insert(2, 0)  # [1, 1, 0, 2, 3, 0, 4]
     a.insert(2, 0)
     assert a == p
-    p.insert(100, 77)
+    assert len(a.data) == 5
+    p.insert(100, 77)  # [1, 1, 0, 2, 3, 0, 4, 77]
     a.insert(100, 77)
     assert a == p
+    assert len(a.data) == 6
     assert len(a) == len(p)
     p.insert(-3, 5)
     a.insert(-3, 5)
