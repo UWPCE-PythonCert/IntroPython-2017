@@ -103,7 +103,7 @@ class Title(OneLineTag):
 
 class SelfClosingTag(Element):
     """
-    Base class for tags that have no content
+    base class for tags that have no content
     """
 
     def append(self, *args, **kwargs):
