@@ -3,6 +3,7 @@
 # classessheet.py
 """ This is a script to mess with classes.
     The idea is to use this practice to create class "persons" for mail room """
+import os
 
 
 class Donor:
@@ -49,8 +50,17 @@ donorlist.append(Donor('Abbey Kuchan'))
 donorlist.append(Donor('Blabedy Blah'))
 
 
+def longestname():
+    # Finds the longest name and returns its length.
+    length = 0
+    for i in range(0,len(donorlist)):
+        if len(donorlist[i].fullname) >= length:
+            length = len(donorlist[i].fullname)
+    return length
+
+
 def thanksUI():
-    # Presents the user with a UI for the thank you note function.
+    # Presents the user with a UI to select which donor gets a thank you note.
     print()
     print()
     print("You have chosen to send a thank you note.")
@@ -72,6 +82,7 @@ def thanksUI():
             continue
 
 def createthanks(nametarget):
+    # Creates a thank you note for the donor that is passed in.
     print()
     print()
     message = "Dear " + str(donorlist[nametarget].fullname) +", " + "\n" + "The Dan Kuchan Charitable Organization would like to offer its sincere thanks for your to date donation of $" + str(donorlist[nametarget].totaldonations) + "."
@@ -81,6 +92,7 @@ def createthanks(nametarget):
     userfront()
 
 def addoner():
+    # Adds a donor to the donor database.
     print()
     print()
     newdonor = input("Please enter new Donor: ")
@@ -89,6 +101,7 @@ def addoner():
     updateUI()
 
 def addonationUI():
+    # Presents the user with a UI to allow them to select which donor is affected by the donation update.
     print()
     print()
     print("You have chosen to add a donation to an existing donor.")
@@ -112,6 +125,7 @@ def addonationUI():
 
 
 def addonation(nametarget):
+    # Executes the update to the users donations.
     print()
     print()
     while True:
@@ -125,6 +139,7 @@ def addonation(nametarget):
         updateUI()
 
 def updatedonornameUI():
+    # Presents the user with a UI to allow them to select which name they want to update.
     print()
     print()
     print("You have chosen to update the name of an existing donor.")
@@ -148,6 +163,7 @@ def updatedonornameUI():
 
 
 def updatedonorname(userSelection):
+    # Executes the update to the Donor class name by calling class method updatenames()
     print()
     print()
     print("You have selected the donor name " + donorlist[userSelection].fullname + " to be replaced.")
@@ -156,6 +172,7 @@ def updatedonorname(userSelection):
     userfront()
 
 def updateUI():
+    # Presents the user with a UI to select what data they want to change.
     print()
     print()
     print("You have chosen to update the database.")
@@ -186,8 +203,20 @@ def updateUI():
             continue
 
 def viewDBUI():
+    # Draws a spreadsheet to show the contents of the database.
     print("You have chosen to view the database...")
     print("So here it is:")
+    print(donorlist[1].totaldonations)
+    columntitles = "Donor Name" + ' ' * (10 - longestname()) + "|" + "Total Given | Num Gifts | Average Gift"
+    print(columntitles)
+    for i in donorlist:
+        datastring = str(i.fullname) + (" " * 10) + " $ " + str(i.totaldonations) + "      " + str(len(i.donations)) + " $ " + str(i.averagedon)
+        print(datastring)
+    print("Returning to Main Menu")
+    print()
+    userfront()
+
+
 
 def userfront():
     # Presents the user with a main menu.
