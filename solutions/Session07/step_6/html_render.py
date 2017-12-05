@@ -140,9 +140,9 @@ class A(OneLineTag):
     """
     tag = "a"
 
-    def __init__(self, link, content, **kwargs):
+    def __init__(self, link, *args, **kwargs):
         kwargs['href'] = link
-        super().__init__(content, **kwargs)
+        super().__init__(*args, **kwargs)
         # this could also be direct:
-        # Element.__init__(self, content, **kwargs)
+        # Element.__init__(self, *args, **kwargs)
 
