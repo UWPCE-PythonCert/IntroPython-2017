@@ -88,15 +88,14 @@ class SparseArray(list):
                 return result
         else:  # O(1)
             if index < 0 or index >= len(self):
-                raise IndexError
+                raise IndexError('Index out of range')
             index = self.__ireverse(index) if self.__reversed else index
             if index in self.__data:
                 return self.__data[index]
             return 0
 
     def __slice(self, slice):
-        """ Returns items in slice as another SparseArray.
-        Raises ValueError if the specified step in slice is zero. O(k)
+        """ Returns items in slice as another SparseArray. O(k)
         Args:
             slice (slice) :
                 slice object specifying start, stop, step of desired range
@@ -105,8 +104,6 @@ class SparseArray(list):
                 SparseArray containing values in range specified by slice
         """
         from math import fabs
-        if slice.step == 0:
-            raise ValueError
         step = 1 if slice.step is None else slice.step
         start = self.__inormalize(slice.start, 0, step < 0)
         stop = self.__inormalize(slice.stop, len(self), step < 0)
@@ -119,7 +116,7 @@ class SparseArray(list):
     def __inormalize(self, index, sub, reverse):
         """ Returns normalized index. Substitutes index with given
         sub if index is None, and reverses index if a reversed
-        index is required.
+        index is required. O(1)
         Args:
             index (int) : index to normalize
             initial (bool) : whether this index starts the desired array
@@ -166,7 +163,7 @@ class SparseArray(list):
         """
         index = self.__iforward(index)
         if index < 0 or index >= len(self):
-            raise IndexError
+            raise IndexError('Index out of range')
         if value != 0:
             self.__data[index] = value
         # setting a non-zero value to zero pops value
@@ -181,7 +178,7 @@ class SparseArray(list):
         """
         index = self.__iforward(index)
         if index < 0 or index >= len(self):
-            raise IndexError
+            raise IndexError('Index out of range')
         deleted = {}
         for k, v in self.__data.items():
             if k < index:
@@ -441,7 +438,7 @@ class SparseArray(list):
         for index in range(len(self)):
             if self[index] == value:
                 return index
-        raise ValueError
+        raise ValueError('Value not in array')
 
     def insert(self, index, value):
         """ Inserts given value at given index. O(m)
