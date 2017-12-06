@@ -2,7 +2,7 @@
 Kathryn Egan
 """
 from math import pi
-from Circle import Circle
+from Circle import Circle, Sphere
 import pytest
 
 
@@ -162,3 +162,22 @@ def test_from_diameter():
     assert c1.diameter == 10
     c2 = Circle(5)
     assert c1 == c2
+
+
+def test_sphere_init():
+    s1 = Sphere(6)
+    assert type(s1) is Sphere
+    assert s1.radius == 6
+    assert s1.diameter == 6 * 2
+    s2 = Sphere.from_diameter(3)
+    assert type(s2) is Sphere
+
+
+def test_sphere_volume():
+    s = Sphere(2)
+    assert s.volume == (4 / 3) * pi * 2 ** 3
+
+
+def test_sphere_surface_area():
+    s = Sphere(8)
+    assert s.area == 4 * pi * 8 ** 2

@@ -225,3 +225,22 @@ class Circle:
             bool : True if this Circle's radius >= other's, False otherwise
         """
         return self.radius >= other.radius
+
+
+class Sphere(Circle):
+
+    @property
+    def volume(self):
+        """ Returns volume of sphere.
+        Returns:
+            float : volume of sphere
+        """
+        return (4 / 3) * pi * self.radius ** 3
+
+    @property
+    def area(self):
+        """ Returns surface area of sphere.
+        Returns:
+            float : surface area of sphere
+        """
+        return 4 * super().area
