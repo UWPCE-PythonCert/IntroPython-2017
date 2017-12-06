@@ -281,43 +281,6 @@ class SparseArray(list):
         """
         return not self.__eq__(other)
 
-    def _compare(self, other, less=True):
-        """ Accesses each item in other iterable object, and returns
-        whether this SparseArray is less than other if keyword
-        less is True, otherwise whether this SparseArray is greater
-        than other. Returns None if all indexes shared by other and self
-        point to equivalent values, to be assessed in downstream function.
-
-        Returns the final index that was accessed to effectively quantify
-        length without relying on len(), which is not implemented for
-        some iterables. O(k)
-        Args:
-            other (iterable) : other object to compare
-            less (bool) :
-                True if seeking to determine if self is less than other
-                False if seeking to determine if self is greater than other
-        Returns:
-            int or None :
-                final index accessed in other object (i.e. length of other)
-                None if other object is empty
-            bool :
-                True if less=True and self is less than other
-                True if less=False and self is greater than other
-                False if less=True and self is greater than other
-                False if less=False and self is less than other
-                None if all shared indexes point to equivalent values
-        """
-        index = None
-        for index, value in enumerate(other):
-            # indexes in self exhausted = other is longer
-            if len(self) <= index:
-                return index, less
-            if self[index] < value:
-                return index, less
-            if self[index] > value:
-                return index, not less
-        return index, None
-
     def __lt__(self, other):
         """ Returns whether self is less than other object. O(k)
         Args:
@@ -327,11 +290,18 @@ class SparseArray(list):
                 True if self is less than other
                 False if self is greater than or equal to other
         """
-        len_other, less = self._compare(other, less=True)
+        index = None
+        for index, value in enumerate(other):
+            # indexes in self exhausted = other is longer
+            if len(self) <= index:
+                return True
+            if self[index] < value:
+                return True
+            if self[index] > value:
+                return False
         return (
-            less if less is not None
-            else False if len_other is None
-            else len_other >= len(self))
+            False if index is None
+            else index >= len(self))
 
     def __gt__(self, other):
         """ Returns whether self is greater than other object. O(k)
@@ -342,11 +312,18 @@ class SparseArray(list):
                 True if self is greater than other
                 False if self is less than or equal to other
         """
-        len_other, greater = self._compare(other, less=False)
+        index = None
+        for index, value in enumerate(other):
+            # indexes in self exhausted = other is longer
+            if len(self) <= index:
+                return False
+            if self[index] < value:
+                return False
+            if self[index] > value:
+                return True
         return (
-            greater if greater is not None
-            else 0 < len(self) if len_other is None
-            else len_other < len(self) - 1)
+            0 < len(self) if index is None
+            else index < len(self) - 1)
 
     def __le__(self, other):
         """ Returns whether self is less than or equal to other object. O(k)
@@ -389,7 +366,7 @@ class SparseArray(list):
         Returns:
             str : this SparseArray as a string
         """
-        return self.__str__()
+        return str(self)
 
     def append(self, value):
         """ Appends the given value to the end of this SparseArray. O(1)
