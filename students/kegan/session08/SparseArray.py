@@ -18,12 +18,12 @@ class SparseArray(list):
             array (iterable) :
                 values to convert to SparseArray in an iterable object
         """
-        self.__data = {}  # index : non-zero value
-        self.__length = len(array)  # length of array w/ zeros
-        self.__reversed = False  # array is reversed
+        self._data = {}  # index : non-zero value
+        self._length = len(array)  # length of array w/ zeros
+        self._reversed = False  # array is reversed
         for i, num in enumerate(array):
             if num != 0:
-                self.__data[i] = num
+                self._data[i] = num
 
     @property
     def data(self):
@@ -32,9 +32,9 @@ class SparseArray(list):
         Returns:
             dic int:int : indexes mapped to non-zero values
         """
-        return self.__data
+        return self._data
 
-    def __iforward(self, index):
+    def _iforward(self, index):
         """ Converts a backwards index counting from end of array
         to a forward index starting counting from start of a array.
         Returns forward and None indexes as-is.
@@ -49,7 +49,7 @@ class SparseArray(list):
         if index is not None:
             return len(self) + index if index < 0 else index
 
-    def __ireverse(self, index):
+    def _ireverse(self, index):
         """ Reverses index to work with virtually reversed SparseArray.
         Returns None if index is None.
         Args:
@@ -75,26 +75,26 @@ class SparseArray(list):
                 SparseArray containing values in range specified by slice(s)
         """
         try:
-            index = self.__iforward(index)
+            index = self._iforward(index)
         # index is a slice or tuple not an int O(k)
         except TypeError:
             try:
-                return self.__slice(index)
+                return self._slice(index)
             # index is a tuple not a slice O(k * k) <-inefficient
             except AttributeError:
                 result = SparseArray()
                 for s in index:
-                    result.extend(self.__slice(s))
+                    result.extend(self._slice(s))
                 return result
         else:  # O(1)
             if index < 0 or index >= len(self):
                 raise IndexError('Index out of range')
-            index = self.__ireverse(index) if self.__reversed else index
-            if index in self.__data:
-                return self.__data[index]
+            index = self._ireverse(index) if self._reversed else index
+            if index in self._data:
+                return self._data[index]
             return 0
 
-    def __slice(self, slice):
+    def _slice(self, slice):
         """ Returns items in slice as another SparseArray. O(k)
         Args:
             slice (slice) :
@@ -105,15 +105,15 @@ class SparseArray(list):
         """
         from math import fabs
         step = 1 if slice.step is None else slice.step
-        start = self.__inormalize(slice.start, 0, step < 0)
-        stop = self.__inormalize(slice.stop, len(self), step < 0)
+        start = self._inormalize(slice.start, 0, step < 0)
+        stop = self._inormalize(slice.stop, len(self), step < 0)
         result = SparseArray()
         for i in range(start, stop, int(fabs(step))):
-            i = self.__ireverse(i) if step < 0 else i
+            i = self._ireverse(i) if step < 0 else i
             result.append(self[i])
         return result
 
-    def __inormalize(self, index, sub, reverse):
+    def _inormalize(self, index, sub, reverse):
         """ Returns normalized index. Substitutes index with given
         sub if index is None, and reverses index if a reversed
         index is required. O(1)
@@ -125,16 +125,16 @@ class SparseArray(list):
             int : normalized index
         """
         # convert any backwards index to forwards
-        index = self.__iforward(index)
+        index = self._iforward(index)
         # get reversed version of index if array is reversed
-        index = self.__ireverse(index) if reverse else index
+        index = self._ireverse(index) if reverse else index
         # apply limit if index does not exist
         index = sub if index is None else index
         # apply limit if index goes beyond either end of array
-        index = self.__ilimit(index)
+        index = self._ilimit(index)
         return index
 
-    def __ilimit(self, index):
+    def _ilimit(self, index):
         """ Applies limit of 0 or length of array to index,
         whichever is closer to non-viable index. If this
         array has the given index, the index is returned as-is.
@@ -161,14 +161,14 @@ class SparseArray(list):
             index (int) : index of value to change
             value (int) : desired value
         """
-        index = self.__iforward(index)
+        index = self._iforward(index)
         if index < 0 or index >= len(self):
             raise IndexError('Index out of range')
         if value != 0:
-            self.__data[index] = value
+            self._data[index] = value
         # setting a non-zero value to zero pops value
-        elif index in self.__data:
-            self.__data.pop(index)
+        elif index in self._data:
+            self._data.pop(index)
 
     def __delitem__(self, index):
         """ Deletes item at given index.
@@ -176,18 +176,18 @@ class SparseArray(list):
         Args:
             index (int) : index of value to delete
         """
-        index = self.__iforward(index)
+        index = self._iforward(index)
         if index < 0 or index >= len(self):
             raise IndexError('Index out of range')
         deleted = {}
-        for k, v in self.__data.items():
+        for k, v in self._data.items():
             if k < index:
                 deleted[k] = v
             elif k > index:
                 deleted[k - 1] = v
             # do not add deleted index to output
-        self.__data = deleted
-        self.__length -= 1
+        self._data = deleted
+        self._length -= 1
 
     def __iter__(self):
         """ Yields items in this SparseArray in order. O(n) """
@@ -203,9 +203,9 @@ class SparseArray(list):
         """
         # presence of zeros is determined by len of
         # stored data being less than virtual length
-        if value == 0 and len(self) > len(self.__data):
+        if value == 0 and len(self) > len(self._data):
             return True
-        for k, v in self.__data.items():
+        for k, v in self._data.items():
             if v == value:
                 return True
 
@@ -281,7 +281,7 @@ class SparseArray(list):
         """
         return not self.__eq__(other)
 
-    def __compare(self, other, less=True):
+    def _compare(self, other, less=True):
         """ Accesses each item in other iterable object, and returns
         whether this SparseArray is less than other if keyword
         less is True, otherwise whether this SparseArray is greater
@@ -327,7 +327,7 @@ class SparseArray(list):
                 True if self is less than other
                 False if self is greater than or equal to other
         """
-        len_other, less = self.__compare(other, less=True)
+        len_other, less = self._compare(other, less=True)
         return (
             less if less is not None
             else False if len_other is None
@@ -342,7 +342,7 @@ class SparseArray(list):
                 True if self is greater than other
                 False if self is less than or equal to other
         """
-        len_other, greater = self.__compare(other, less=False)
+        len_other, greater = self._compare(other, less=False)
         return (
             greater if greater is not None
             else 0 < len(self) if len_other is None
@@ -357,11 +357,7 @@ class SparseArray(list):
                 True if self is less than or equal to other
                 False if self is greater than other
         """
-        len_other, less = self.__compare(other, less=True)
-        return (
-            less if less is not None
-            else 0 == len(self) if len_other is None
-            else len_other >= len(self) - 1)
+        return not self.__gt__(other)
 
     def __ge__(self, other):
         """ Returns whether self is greater than or equal to other object. O(k)
@@ -372,18 +368,14 @@ class SparseArray(list):
                 True if self is greater than or equal to other
                 False if self is less than other
         """
-        len_other, greater = self.__compare(other, less=False)
-        return (
-            greater if greater is not None
-            else 0 <= len(self) if len_other is None
-            else len_other < len(self))
+        return not self.__lt__(other)
 
     def __len__(self):
         """ Returns the length of this array including zeroes. O(1)
         Returns:
             int : length of SparseArray
         """
-        return self.__length
+        return self._length
 
     def __str__(self):
         """ Returns this SparseArray as a string. O(n)
@@ -405,8 +397,8 @@ class SparseArray(list):
             value (int) : value to append to this SparseArray
         """
         if value != 0:
-            self.__data[len(self)] = value
-        self.__length += 1
+            self._data[len(self)] = value
+        self._length += 1
 
     def extend(self, other):
         """ Extends this SparseArray with the given array. O(k)
@@ -420,12 +412,12 @@ class SparseArray(list):
     def __reversed__(self):
         """ Provides an iterator on this SparseArray in reverse. O(m)? """
         for i in range(len(self)):
-            yield self[self.__ireverse(i)]
+            yield self[self._ireverse(i)]
 
     def reverse(self):
         """ Reverses the items in this SparseArray by toggling
         variable indicating virtually reversed state. O(m) """
-        self.__reversed = not self.__reversed
+        self._reversed = not self._reversed
 
     def index(self, value):
         """ Returns first index of given value.
@@ -446,16 +438,16 @@ class SparseArray(list):
             index (int) : index to insert value at
             value (int) : value to insert
         """
-        index = self.__iforward(index)
-        index = self.__ilimit(index)
+        index = self._iforward(index)
+        index = self._ilimit(index)
         inserted = {}
         if value != 0:
             inserted[index] = value
-        for i, v in self.__data.items():
+        for i, v in self._data.items():
             i = i if i < index else i + 1
             inserted[i] = v
-        self.__data = inserted
-        self.__length += 1
+        self._data = inserted
+        self._length += 1
 
     def count(self, value):
         """ Counts number of instances of value. O(m)
@@ -465,5 +457,5 @@ class SparseArray(list):
             int : count of given value
         """
         if value == 0:
-            return len(self) - len(self.__data)
-        return sum([1 for _, v in self.__data.items() if v == value])
+            return len(self) - len(self._data)
+        return sum([1 for _, v in self._data.items() if v == value])
