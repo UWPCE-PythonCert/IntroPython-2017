@@ -73,19 +73,26 @@ class Title(OneLineTag):
 class SelfClosingTag(Element):
     tag = 'selfClosingTag'
 
-    def render(self, file_obj, ind=""):
-        file_obj.write(ind)
-        opening_tag = ('<' + self.tag + '>')  
+    def render(self, file_obj, cur_ind=""):
+        file_obj.write(cur_ind)
+        opening_tag = self.get_open_tag() 
         file_obj.write(opening_tag)
         file_obj.write('\n')
 
+    def get_open_tag(self):
+        open_tag = '<{}'.format(self.tag)
+        for at, val in self.attributes.items():
+            open_tag += ' {}="{}"'.format(at, val)
+        open_tag += "/> "
+        return open_tag        
+
 
 class Horizontal(SelfClosingTag):
-    tag = 'hr /'
+    tag = 'hr '
 
 
 class LineBreak(SelfClosingTag):
-    tag = 'br /'
+    tag = 'br '
 
 
 class A(OneLineTag):
@@ -160,6 +167,10 @@ class D(Element):
 class M(SelfClosingTag):
     # <meta charset="UTF-8" />
     tag = 'meta '
+    indent = '  '
+
+    def __init__(self, content=None, **kwargs):
+        super().__init__(content, **kwargs)    
 
 
 

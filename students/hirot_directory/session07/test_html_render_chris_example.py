@@ -484,7 +484,7 @@ def test_doctype():
 
 
 def test_meta():
-     m = M()
+     m = M(charset="UTF-8")
      results = render_element(m)
      print(results)
 
