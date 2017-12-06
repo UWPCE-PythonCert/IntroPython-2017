@@ -244,3 +244,14 @@ class Sphere(Circle):
             float : surface area of sphere
         """
         return 4 * super().area
+
+    @classmethod
+    def from_volume(cls, volume):
+        """ Returns new Sphere with given volume.
+        Args:
+            volume (int) : volume of sphere
+        Returns:
+            Sphere : sphere with given volume
+        """
+        radius = (volume * 3 / (4 * pi)) ** (1 / 3)
+        return cls(radius)

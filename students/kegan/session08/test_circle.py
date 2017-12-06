@@ -181,3 +181,9 @@ def test_sphere_volume():
 def test_sphere_surface_area():
     s = Sphere(8)
     assert s.area == 4 * pi * 8 ** 2
+
+
+def test_from_volume():
+    s1 = Sphere.from_volume((4 / 3) * pi * 3 ** 3)
+    assert type(s1) is Sphere
+    assert s1.radius == 3
