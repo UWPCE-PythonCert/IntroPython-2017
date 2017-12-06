@@ -336,4 +336,29 @@ def test_count():
     for i in range(4):
         assert a2.count(i) == p2.count(i)
 
-# test_slicing()
+
+def test_iforward():
+    s1 = SparseArray([0, 1, 2, 3, 4])
+    assert s1._iforward(-1) == 4
+    assert s1._iforward(-5) == 0
+    assert s1._iforward(-6) == -1
+    assert s1._iforward(1) == 1
+    assert s1._iforward(7) == 7
+    s2 = SparseArray()
+    assert s2._iforward(-1) == -1
+    assert s2._iforward(0) == 0
+
+
+def test_ilimit():
+    s1 = SparseArray([0, 1, 2, 3])
+    assert s1._ilimit(-6) == 0
+    assert s1._ilimit(7) == 4
+    assert s1._ilimit(0) == 0
+    assert s1._ilimit(2) == 2
+
+
+def test_ireverse():
+    s1 = SparseArray([0, 1, 2, 3])
+    assert s1._ireverse(0) == 3
+    assert s1._ireverse(-1) == 4
+    assert s1._ireverse(4) == -1
