@@ -46,3 +46,11 @@ class Circle:
         return self.radius == other.radius
     def __ne__(self, other):
         return self.radius != other.radius
+
+class Sphere(Circle):
+
+    def __repr__(self):
+        return "Sphere({})".format(self.radius)
+
+    def __str__(self):
+        return "Sphere with radius: {}".format(self.radius)

@@ -5,7 +5,7 @@ Test for Circle class
 """
 
 from math import pi
-from circle import Circle
+from circle import Circle, Sphere
 import pytest
 
 def test_init():
@@ -80,3 +80,21 @@ def test_circle_sort():
     for c in circles:
         assert circles.index(c) == c.radius
 
+def test_sphere_radius():
+    s = Sphere(5)
+
+    assert s.radius == 5
+    assert s.diameter == 10
+
+def test_sphere_from_diameter():
+    s = Sphere.from_diameter(10)
+
+    assert s.radius == 5
+    assert s.diameter == 10
+
+def test_sphere_str_repr():
+    s = Sphere(5)
+    #print(c)
+    assert repr(s) == 'Sphere(5)'
+    t = eval(repr(s))
+    assert t.radius == 5
