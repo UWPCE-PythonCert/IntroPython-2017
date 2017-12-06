@@ -3,7 +3,7 @@
 # classessheet.py
 """ This is a script to mess with classes.
     The idea is to use this practice to create class "persons" for mail room """
-import os
+# import os
 
 
 class Donor:
@@ -12,10 +12,10 @@ class Donor:
 
         self.first_name, self.last_name = list(name.split())
         self.donations = [1, 2, 3, 4, 5, 6, 7]
-        self.fullname = str(self.first_name + ' ' + self.last_name)
-        #self.averagedon = sum(self.donations) / len(self.donations)
-        #self.maxdon = max(self.donations)
-        #self.totaldonations = sum(self.donations)
+        # self.fullname = str(self.first_name + ' ' + self.last_name)
+        # self.averagedon = sum(self.donations) / len(self.donations)
+        # self.maxdon = max(self.donations)
+        # self.totaldonations = sum(self.donations)
 
     @property
     def totaldonations(self):
@@ -32,16 +32,26 @@ class Donor:
     @property
     def namelen(self):
         return(len(str(self.fullname)))
+
     @property
     def lastfirst(self):
         return ('{}, {}'.format(self.last_name, self.first_name))
+
+    @property
+    def fullname(self):
+        return(str(self.first_name + ' ' + self.last_name))
+
+    def updatenames(self, name):
+        self.first_name, self.last_name = list(name.split())
 
 
 donorlist = []
 donorlist.append(Donor('Dan Kuchan'))
 donorlist.append(Donor('Abbey Kuchan'))
 donorlist.append(Donor('Blabedy Blah'))
-
+donorlist.append(Donor('Brandon Butsick'))
+donorlist.append(Donor('Megan Kuchan'))
+donorlist.append(Donor('Chris Jaeger'))
 
 def longestname():
     # Finds the longest name and returns its length.
@@ -74,6 +84,7 @@ def thanksUI():
             print("You have made an invalid selection!")
             continue
 
+
 def createthanks(nametarget):
     # Creates a thank you note for the donor that is passed in.
     print()
@@ -84,6 +95,7 @@ def createthanks(nametarget):
     print()
     userfront()
 
+
 def addoner():
     # Adds a donor to the donor database.
     print()
@@ -92,6 +104,7 @@ def addoner():
     donorlist.append(Donor(newdonor))
     print(str(donorlist[-1].fullname) + " has been added to the database.")
     updateUI()
+
 
 def addonationUI():
     # Presents the user with a UI to allow them to select which donor is affected by the donation update.
@@ -131,6 +144,7 @@ def addonation(nametarget):
         donorlist[nametarget].donations.append(donvalue)
         updateUI()
 
+
 def updatedonornameUI():
     # Presents the user with a UI to allow them to select which name they want to update.
     print()
@@ -138,7 +152,7 @@ def updatedonornameUI():
     print("You have chosen to update the name of an existing donor.")
     print("Please select an existing donor.")
 
-    for i in range(0, len(Donor.rosterraw)):
+    for i in range(0, len(donorlist)):
         optionstrng = str(i) + ' : ' + str(donorlist[i].fullname)
         print(optionstrng)
     while True:
@@ -163,6 +177,7 @@ def updatedonorname(userSelection):
     newname = input("Please enter the new name: ")
     donorlist[userSelection].updatenames(newname)
     userfront()
+
 
 def updateUI():
     # Presents the user with a UI to select what data they want to change.
@@ -195,6 +210,7 @@ def updateUI():
             print("You have made an invalid selection!")
             continue
 
+
 def viewDBUI():
     # Draws a spreadsheet to show the contents of the database.
     print("You have chosen to view the database...")
@@ -208,7 +224,6 @@ def viewDBUI():
     print("Returning to Main Menu")
     print()
     userfront()
-
 
 
 def userfront():
