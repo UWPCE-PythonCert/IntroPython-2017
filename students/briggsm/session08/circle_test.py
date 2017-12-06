@@ -3,7 +3,9 @@ Circle class, exercise (testing)
 '''
 
 from math import pi
-from circle import Circle
+from circle import Circle, Sphere
+
+
 
 def test_init():
     Circle(5)
@@ -38,9 +40,10 @@ def test_delete():
 
     assert True
 
-# def test_repr():
-#     c = Circle(10)
-#     assert "Circle(10)" == eval(repr(c))
+def test_repr():
+    c = Circle(10)
+    assert "Circle(10)" == repr(c)
+    assert c == eval(repr(c))
 
 def test_string():
     c = Circle(10)
@@ -48,10 +51,11 @@ def test_string():
     assert str(c) == "Circle with a radius of 10"
 
 
-def test_create__from_diameter():
-    c = Circle()
-    c.create__from_diameter(10)
-    assert c.area == pi * c.radius**2
+def test_create_from_diameter():
+    c = Circle.create_from_diameter(10)
+
+    assert type(c) == Circle
+    assert c.radius == 5
 
 
 def test_add_circles():
@@ -109,3 +113,20 @@ def test_compare_equal_false():
     c2 = Circle(5)
 
     assert (c1 == c2) == False
+
+# Sphere tests:
+
+
+def test_sphere_radius():
+    s = Sphere(5)
+
+    assert s.radius == 5
+    assert s.diameter == 10
+
+
+def test_sphere_from_diameter():
+    s = Sphere.create_from_diameter(10)
+
+    assert type(s) == Sphere
+    assert s.radius == 5
+    assert s.diameter == 10

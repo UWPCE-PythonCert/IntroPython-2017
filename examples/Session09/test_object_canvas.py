@@ -73,5 +73,6 @@ def test_circle():
                       )
         canvas.add_object(c)
         center = (center[0] + 50, center[0] + 50)
+        diameter += 15
     render_to_file(canvas, "circle.png")
 

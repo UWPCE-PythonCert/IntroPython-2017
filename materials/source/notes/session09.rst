@@ -91,6 +91,8 @@ sorting
 
 maybe it's a good idea to add a sort_key method to your classes?
 
+see ``IntroPython-2017/examples/Session09/sort_key.py``
+
 let's try it on Circle....
 
 classmethod
@@ -100,7 +102,9 @@ classmethod
 
 The key point is that classmethods work for subclasses -- like for alternate constructors.
 
-Let's look at that with my Circle solution.
+Let's look at that with my Circle solution:
+
+``IntroPython-2017/solutions/Session08/circle.py``
 
 (and answer any other questions about Circle, while we are at it)
 
@@ -110,6 +114,9 @@ multiple inheritance and super()
 ``super()`` is a mixed bag --it's actually a pretty complex topic, but can be pretty easy to use -- at least in the easy cases.
 
 To get the hang of multiple inheritance, mix-ins, and ``super()``, we'll play around with object canvas:
+
+See: ``IntroPython-2017/examples/Session09/object_canvas.py``
+
 
 Object Oriented Mailroom
 ------------------------
