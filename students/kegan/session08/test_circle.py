@@ -154,3 +154,11 @@ def test_augmented():
     c2 = Circle(4)
     c1 += c2
     assert c1.radius == 7
+
+
+def test_from_diameter():
+    c1 = Circle.from_diameter(10)
+    assert c1.radius == 10 / 2
+    assert c1.diameter == 10
+    c2 = Circle(5)
+    assert c1 == c2

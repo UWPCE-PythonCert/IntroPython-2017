@@ -20,7 +20,7 @@ class Circle:
         """
         if radius <= 0:
             raise ValueError('Radius must be >0')
-        self.__radius = radius
+        self._radius = radius
 
     @property
     def radius(self):
@@ -28,7 +28,7 @@ class Circle:
         Returns:
             int : circle radius
         """
-        return self.__radius
+        return self._radius
 
     @property
     def diameter(self):
@@ -36,7 +36,7 @@ class Circle:
         Returns:
             int : circle diameter
         """
-        return self.__radius * 2
+        return self._radius * 2
 
     @property
     def area(self):
@@ -44,7 +44,7 @@ class Circle:
         Returns:
             float : area of circle
         """
-        return pi * self.__radius ** 2
+        return pi * self._radius ** 2
 
     @radius.setter
     def radius(self, radius):
@@ -54,7 +54,7 @@ class Circle:
         """
         if radius <= 0:
             raise ValueError('Radius must be >0')
-        self.__radius = radius
+        self._radius = radius
 
     @diameter.setter
     def diameter(self, diameter):
@@ -64,35 +64,45 @@ class Circle:
         """
         if diameter <= 0:
             raise ValueError('Diameter must be >0')
-        self.__radius = diameter / 2
+        self._radius = diameter / 2
+
+    @classmethod
+    def from_diameter(cls, diameter):
+        """ Returns new Circle object using given diameter.
+        Args:
+            diameter (int) : diameter of circle
+        Returns:
+            Circle : Circle object with given diameter
+        """
+        return cls(diameter / 2)
 
     def __str__(self):
         """ Returns circle as string.
         Return:
             str : circle as string
         """
-        return 'Circle, r={:.1f}'.format(self.__radius)
+        return 'Circle, r={:.1f}'.format(self._radius)
 
     def __repr__(self):
         """ Returns representation of circle.
         Returns:
             str : representation of circle
         """
-        return 'Circle({:.1f})'.format(self.__radius)
+        return 'Circle({:.1f})'.format(self._radius)
 
     def __int__(self):
         """ Returns this Circle's radius as an integer.
         Returns:
             int : radius of circle
         """
-        return int(self.__radius)
+        return int(self._radius)
 
     def __float__(self):
         """ Returns this Circle's radius as a float.
         Returns:
             float : radius of circle
         """
-        return float(self.__radius)
+        return float(self._radius)
 
     def __add__(self, other):
         """ Returns a new Circle with a radius equal to
