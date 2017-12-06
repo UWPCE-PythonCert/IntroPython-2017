@@ -8,41 +8,34 @@ import os
 
 class Donor:
     # This is an experimental class for donors in mailroom
-    numdonors = 0
-    rosterraw = []
-
     def __init__(self, name):
 
         self.first_name, self.last_name = list(name.split())
         self.donations = [1, 2, 3, 4, 5, 6, 7]
         self.fullname = str(self.first_name + ' ' + self.last_name)
-        self.averagedon = sum(self.donations) / len(self.donations)
-        self.maxdon = max(self.donations)
-        self.totaldonations = sum(self.donations)
-        Donor.numdonors += 1
-        Donor.rosterraw.append(self)
+        #self.averagedon = sum(self.donations) / len(self.donations)
+        #self.maxdon = max(self.donations)
+        #self.totaldonations = sum(self.donations)
 
-    def updatecalcs(self):
-        # Updates the average donation attribute after mods have been made to donations
-        self.averagedon = sum(self.donations) / len(self.donations)
-        self.maxdon = max(self.donations)
+    @property
+    def totaldonations(self):
+        return(sum(self.donations))
 
+    @property
+    def maxdon(self):
+        return(max(self.donations))
+
+    @property
+    def averagedon(self):
+        return(self.totaldonations / len(self.donations))
+
+    @property
+    def namelen(self):
+        return(len(str(self.fullname)))
+    @property
     def lastfirst(self):
-        # creates a last name , first name string
-        lastfirstname = '{}, {}'.format(self.last_name, self.first_name)
-        return lastfirstname
+        return ('{}, {}'.format(self.last_name, self.first_name))
 
-    def appenddonations(self, newdon):
-        ''' Adds a donation to the donations list
-            Updates the average donations
-            Updates the max donation '''
-        self.donations.append(newdon)
-        self.updatecalcs()
-
-
-    def updatenames(self, newname):
-        self.first_name, self.last_name = newname.split()
-        self.fullname = str(self.first_name + ' ' + self.last_name)
 
 donorlist = []
 donorlist.append(Donor('Dan Kuchan'))
@@ -53,9 +46,9 @@ donorlist.append(Donor('Blabedy Blah'))
 def longestname():
     # Finds the longest name and returns its length.
     length = 0
-    for i in range(0,len(donorlist)):
-        if len(donorlist[i].fullname) >= length:
-            length = len(donorlist[i].fullname)
+    for i in range(0, len(donorlist)):
+        if donorlist[i].namelen >= length:
+            length = donorlist[i].namelen
     return length
 
 
@@ -135,7 +128,7 @@ def addonation(nametarget):
         except ValueError:
             print("You have made an invalid selection!")
             continue
-        donorlist[nametarget].appenddonations(donvalue)
+        donorlist[nametarget].donations.append(donvalue)
         updateUI()
 
 def updatedonornameUI():
@@ -206,12 +199,12 @@ def viewDBUI():
     # Draws a spreadsheet to show the contents of the database.
     print("You have chosen to view the database...")
     print("So here it is:")
-    print(donorlist[1].totaldonations)
-    columntitles = "Donor Name" + ' ' * (10 - longestname()) + "|" + "Total Given | Num Gifts | Average Gift"
+    columntitles = "Donor Name" + (' ' * (longestname() + 5 - 10)) + " | " + "Total Given | Num Gifts | Average Gift"
     print(columntitles)
     for i in donorlist:
-        datastring = str(i.fullname) + (" " * 10) + " $ " + str(i.totaldonations) + "      " + str(len(i.donations)) + " $ " + str(i.averagedon)
+        datastring = str(i.fullname) + (" " * (longestname() + 6 - i.namelen)) + " $ " + "{:.2f}".format(i.totaldonations) + "      " + str(len(i.donations)) + " $ " + str(i.averagedon)
         print(datastring)
+    print()
     print("Returning to Main Menu")
     print()
     userfront()
