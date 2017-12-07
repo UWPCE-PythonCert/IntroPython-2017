@@ -5,8 +5,126 @@ import json
 import datetime
 import hashlib
 from pprint import pprint
+import uuid
 
 """ Program to manage donations. """
+
+
+class Donor:
+
+    """ Class to store a donor record """
+
+    def __init__(self, 
+            first_name="", last_name="", middle_name="", suffix="",
+            donations=[]):
+
+        # datetime.datetime.strptime(<iso date>,'%Y-%m-%dZ')
+        # today = datetime.datetime.utcnow().date().isoformat() + "Z"
+
+        # datetime.datetime.strptime(<iso time>,'%Y-%m-%dT%H:%M:%S.%fZ')
+        now = datetime.datetime.utcnow().isoformat() + "Z"
+
+        # id is a hash of the full donor name plus high resolution time
+        #id_seed = current_donor["full_name"] + now
+        #id = hashlib.md5( id_seed.encode() ).hexdigest()
+        id = str(uuid.uuid1())
+
+        self.id = id
+
+        self._first_name = first_name.title()
+        self._last_name = last_name.title()
+        self._middle_name = middle_name.title()
+        self._suffix = suffix.upper()
+        self._donations = donations
+
+        self.created = now
+
+    @property
+    def donations(self):
+        return self._donations
+
+    @donations.setter
+    def donations(self, value):
+        self._donations = value
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @first_name.setter
+    def first_name(self, value):
+        self._first_name = value.title()
+
+    @property
+    def middle_name(self):
+        return self._middle_name
+
+    @middle_name.setter
+    def middle_name(self, value):
+        self._middle_name = value.title()
+
+    @property
+    def last_name(self):
+        return self._last_name
+
+    @last_name.setter
+    def last_name(self, value):
+        self._last_name = value.title()
+
+    @property
+    def suffix(self):
+        if self._suffix.lower() in ["i" "ii", "iii", "iv", "v"]:
+            return self._suffix.upper()
+        else:
+            return self._suffix.title()
+
+    @suffix.setter
+    def suffix(self, value):
+        self._suffix = value.upper()
+
+    @property
+    def full_name(self):
+        return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name, self.suffix]))
+
+    @property
+    def informal_name(self):
+        return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name]))
+
+    def __repr__(self):
+        attributes = ""
+        attributes = ",".join([ 
+            "first_name" + "=" + repr(self.first_name),
+            "middle_name" + "=" + repr(self.middle_name),
+            "last_name" + "=" + repr(self.last_name),
+            "suffix" + "=" + repr(self.suffix),
+            "donations" + "=" + repr(self.donations)])
+        return "Donor( " + attributes + ")"
+
+    def __str__(self):
+        attributes = ""
+        attributes = ", ".join([ 
+            "full_name" + "=" + repr(self.full_name),
+            "informal_name" + "=" + repr(self.informal_name),
+            "first_name" + "=" + repr(self.first_name),
+            "middle_name" + "=" + repr(self.middle_name),
+            "last_name" + "=" + repr(self.last_name),
+            "suffix" + "=" + repr(self.suffix),
+            "donations" + "=" + repr(self.donations),
+            "created" + "=" + repr(self.created),
+            "id" + "=" + repr(self.id)
+            ])
+        return attributes
+
+    # {'eca9120ab7afc3d4170435cc4fab654d': {'created': '2017-12-07T04:25:15.743682Z',
+    #                                   'donations': [{'amount': 100.0,
+    #                                                  'date': '2017-12-07Z'}],
+    #                                   'donor_id': 'eca9120ab7afc3d4170435cc4fab654d',
+    #                                   'first_name': 'Joe',
+    #                                   'full_name': 'Joe Smith',
+    #                                   'informal_name': 'Joe Smith',
+    #                                   'last_name': 'Smith',
+    #                                   'suffix': ''}}
+
 
 def load_donor_file(donor_file="donors.json"):
     """ load donors from file into dict, donors """
