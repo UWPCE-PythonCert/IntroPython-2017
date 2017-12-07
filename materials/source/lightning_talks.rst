@@ -16,20 +16,20 @@ Eowyn C Baughman: SQLAlchemy
 
 :download:`SQLAlchemy.pptx <../../students/eowyn/SQLAlchemy.pptx>`
 
-Po-Sung Chao
-------------
+Po-Sung Chao: rest interface
+----------------------------
 
-Scott B Peterson
-----------------
+Scott B Peterson: Pandas and numpy
+----------------------------------
 
-Amitkumar Chudasma
+Amitkumar Chudasma: how I got into python
 ------------------
 
-Daniel Wojciechowski
---------------------
+Daniel Wojciechowski: OWASP secure dev.
+---------------------------------------
 
-Eric V Adams
-------------
+Eric V Adams: openpyxl
+-----------------------
 
 Tian Chuan Yen
 --------------
@@ -123,14 +123,26 @@ Open source project for web automation.
 Can be driven by Python (and other languages)
 
 
-James Takata
-------------
+James Takata: Why Python
+------------------------
 
-Katherine Marguerite Anderson
------------------------------
+Assorted stats about Python usage, etc....
 
-Matthew D Briggs
-----------------
+Python is popular -- and not platform specific.
+
+Katherine Marguerite Anderson: Where I'm coming from
+----------------------------------------------------
+
+Completely new to Python -- maybe career change from early childhood education.
+
+
+Matthew D Briggs: Idea Capture
+------------------------------
+
+Use Python as Cloud Glue
+
+Python can be useful for a writer.
+
 
 Hiroyuki Takechi
 ----------------
