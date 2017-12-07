@@ -7,12 +7,13 @@ unit tests for py
 
 
 import html_render
-from html_render import Element, Body, Para, HTML
+from html_render import Element, Html, P, Body
 
 
 def test_new_element():
     el_object = Element()
     el_object = Element('stuff and things')
+    assert el_object.content == ['stuff and things']
 
 def test_add_content():
     el_object = Element('content')
@@ -57,10 +58,10 @@ def test_body_tag():
     assert Body.tag == 'body'
 
 def test_para_tag():
-    assert Para.tag == 'p'
+    assert P.tag == 'p'
 
 def test_html_tag():
-    assert HTML.tag == 'html'
+    assert Html.tag == 'html'
 
 def test_render_body():
     some_stuff = 'blueberries and raspberries'
