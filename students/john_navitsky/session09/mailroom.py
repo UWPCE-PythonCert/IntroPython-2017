@@ -39,11 +39,17 @@ class Donor:
     """ Class to store a donor record """
 
     def __init__(self, 
+            id="", created="",
             first_name="", last_name="", middle_name="", suffix="",
             donations=[]):
 
-        now = datetime.datetime.utcnow().isoformat() + "Z"
-        id = str(uuid.uuid1())
+
+
+        if id == "":
+            id = str(uuid.uuid1())
+
+        if created == "":
+            created = datetime.datetime.utcnow().isoformat() + "Z"
 
         # create a uuid for each record
         self._id = id
@@ -54,7 +60,7 @@ class Donor:
         self._suffix = suffix.upper()
         self._donations = donations
 
-        self.created = now
+        self.created = created
 
 
     @property
@@ -185,8 +191,8 @@ class Donor:
 
     def __repr__(self):
         """ return only the (settable) attributes needed to create the record """
-        which_attributes=["first_name","middle_name","last_name","suffix",
-            "donations"]
+        which_attributes=["id", "first_name","middle_name","last_name","suffix",
+            "donations", "created"]
         attributes = self._query_attributes(which_attributes, return_empty=False)
         return "Donor( " + ", ".join(attributes) + " )"
 
