@@ -98,3 +98,8 @@ def test_sphere_str_repr():
     assert repr(s) == 'Sphere(5)'
     t = eval(repr(s))
     assert t.radius == 5
+    
+def test_sphere_volume():
+    s = Sphere(5)
+    assert s.volume == (4/3) * pi * 5**3
+    
