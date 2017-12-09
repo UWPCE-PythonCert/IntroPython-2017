@@ -42,13 +42,12 @@ def test_set_area():
     with pytest.raises(AttributeError):
         c.area = 100
 
-def test_delete_diameter():
+def test_delete_radius():
     c = Circle(10)
     del c.radius
 
 def test_adding_two_circles():
     assert Circle(3) + Circle(9) == Circle(12)
-    assert False
 
 def test_multiply_circles():
     assert Circle(5) * 3 == Circle(15)
@@ -67,8 +66,9 @@ def test_equality():
 def test_sort_circles():
     circles = [Circle(6), Circle(7), Circle(8), Circle(4), Circle(0), Circle(2), Circle(3), Circle(5), Circle(9), Circle(1)]
     after_sorting = [Circle(0), Circle(1), Circle(2), Circle(3), Circle(4), Circle(5), Circle(6), Circle(7), Circle(8), Circle(9)]
+    new_list = sorted(circles)
 
-    assert circles.sort() == after_sorting 
+    assert new_list == after_sorting 
 
 
 

@@ -38,31 +38,31 @@ class Circle:
         new_radius = self.radius*mult
         return Circle(new_radius)
 
-    def __equal__(self, another):
+    def __eq__(self, another):
         if self.radius == another.radius:
             return True
         else:
             return False
 
-    def __gre_equal__(self, another):
+    def __ge__(self, another):
         if self.radius >= another.radius:
             return True
         else:
             return False
 
-    def __less_equal__(self, another):
+    def __le__(self, another):
         if self.radius <= another.radius:
             return True
         else:
             return False
 
-    def __less__(self, another):
+    def __lt__(self, another):
         if self.radius < another.radius:
             return True
         else:
             return False
 
-    def __gre__(self, another):
+    def __gt__(self, another):
         if self.radius > another.radius:
             return True
         else:
