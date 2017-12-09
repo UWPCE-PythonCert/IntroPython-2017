@@ -9,6 +9,24 @@ import uuid
 
 """ Program to manage donations. """
 
+class Donors:
+
+    """ Class that stores donor records """
+
+    def __init__(self, donor={}):
+        self._donors = donor
+
+    @property
+    def add_donor(self):
+        raise AttributeError("You cannot query donors with this attribute.")
+
+    @add_donor.setter
+    def add_donor(self, value):
+        id = value.id
+        self._donors[id] = value
+
+
+
 class Donor:
 
     """ Class to store a donor record """
@@ -142,7 +160,7 @@ class Donor:
         """ return full name minus the suffix """
         return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name]))
 
-    def _query_attributes(self, which_attributes=[]):
+    def _query_attributes(self, which_attributes=[], return_empty=True):
         """ return list of formatted attribute/value entries """
         attributes = []
         for attr in which_attributes:
@@ -150,7 +168,9 @@ class Donor:
             if not attr.startswith("_"):
                 try:
                     str_val=repr(getattr(self,attr))
-                    attributes.append( attr + "=" + str_val)
+                    # don't return empty values if they don't want them
+                    if eval(str_val) or return_empty:
+                        attributes.append( attr + "=" + str_val)
                 except AttributeError:
                     # we know certain attributes are not readable, so skip them
                     pass
@@ -160,7 +180,8 @@ class Donor:
         """ return only the (settable) attributes needed to create the record """
         which_attributes=["first_name","middle_name","last_name","suffix",
             "donations"]
-        return "Donor( " + ", ".join(self._query_attributes(which_attributes)) + " )"
+        attributes = self._query_attributes(which_attributes, return_empty=False)
+        return "Donor( " + ", ".join(attributes) + " )"
 
     def __str__(self):
         """ return all the non-internal attributes """
