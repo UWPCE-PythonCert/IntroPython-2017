@@ -13,18 +13,25 @@ class Donors:
 
     """ Class that stores donor records """
 
-    def __init__(self, donor={}):
-        self._donors = donor
+    def __init__(self, donor=None):
+        self._donors = {}
+        if donor:
+            self.add_donor = donor
+
+    def __repr__(self):
+        return str(vars(self))
+
+    def __str__(self):
+        return str(vars(self))
 
     @property
     def add_donor(self):
-        raise AttributeError("You cannot query donors with this attribute.")
+        """ reading not allowed via add_donation """
+        raise AttributeError("no can do")
 
     @add_donor.setter
-    def add_donor(self, value):
-        id = value.id
-        self._donors[id] = value
-
+    def add_donor(self, donor):
+        self._donors[donor.id] = donor
 
 
 class Donor:
