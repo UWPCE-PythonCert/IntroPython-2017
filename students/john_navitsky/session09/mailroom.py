@@ -9,7 +9,6 @@ import uuid
 
 """ Program to manage donations. """
 
-
 class Donor:
 
     """ Class to store a donor record """
@@ -18,18 +17,11 @@ class Donor:
             first_name="", last_name="", middle_name="", suffix="",
             donations=[]):
 
-        # datetime.datetime.strptime(<iso date>,'%Y-%m-%dZ')
-        # today = datetime.datetime.utcnow().date().isoformat() + "Z"
-
-        # datetime.datetime.strptime(<iso time>,'%Y-%m-%dT%H:%M:%S.%fZ')
         now = datetime.datetime.utcnow().isoformat() + "Z"
-
-        # id is a hash of the full donor name plus high resolution time
-        #id_seed = current_donor["full_name"] + now
-        #id = hashlib.md5( id_seed.encode() ).hexdigest()
         id = str(uuid.uuid1())
 
-        self.id = id
+        # create a uuid for each record
+        self._id = id
 
         self._first_name = first_name.title()
         self._last_name = last_name.title()
@@ -39,92 +31,145 @@ class Donor:
 
         self.created = now
 
+
+    @property
+    def id(self):
+        """ return the donor id """
+        return self._id
+
+    @id.setter
+    def id(self, value):
+        """ donor id cannot be changed once established """
+        raise AttributeError("You cannot change the 'id' after the record has been created.")
+
     @property
     def donations(self):
+        """ print all donations """
         return self._donations
 
     @donations.setter
     def donations(self, value):
+        """ allow bulk setting of donation entries """
         self._donations = value
 
     @property
+    def add_donation(self):
+        """ reading not allowed via add_donation """
+        raise AttributeError("Read donations with the 'donations' attribute, instead.")
+
+    @add_donation.setter
+    def add_donation(self, value):
+        """ add a single donation """
+        today = datetime.datetime.utcnow().date().isoformat() + "Z"
+        try:
+            value = float(value)
+        except ValueError:
+            raise ValueError("Donations must be values.")
+        self._donations.append( { "amount": value, "date": today } )
+
+    @property
+    def number_donations(self):
+        """ return the number of donations """
+        return len(self._donations)
+
+    @property
+    def total_donations(self):
+        """ return a sum of the donations """
+        total_donations = 0
+        for donation in self.donations:
+            total_donations += donation["amount"]
+        return round(total_donations, 2)
+
+    @property
+    def average_donations(self):
+        """ return the average donation amount """
+        try:
+            return round(self.total_donations / self.num_donations, 2)
+        except ZeroDivisionError:
+            return 0
+
+    @property
     def first_name(self):
+        """ return the first name """
         return self._first_name
 
     @first_name.setter
     def first_name(self, value):
+        """ set the first name """
         self._first_name = value.title()
 
     @property
     def middle_name(self):
+        """ return the middle name """
         return self._middle_name
 
     @middle_name.setter
     def middle_name(self, value):
+        """ set the middle name """
         self._middle_name = value.title()
 
     @property
     def last_name(self):
+        """ return the last name """
         return self._last_name
 
     @last_name.setter
     def last_name(self, value):
+        """ set the last name """
         self._last_name = value.title()
 
     @property
     def suffix(self):
-        if self._suffix.lower() in ["i" "ii", "iii", "iv", "v"]:
-            return self._suffix.upper()
-        else:
-            return self._suffix.title()
+        """ return the suffix """
+        return self._suffix
 
     @suffix.setter
     def suffix(self, value):
-        self._suffix = value.upper()
+        """ set the suffix """
+        # special case roman numbers to all caps
+        if value in ["i" "ii", "iii", "iv", "v"]:
+            self._suffix=value.upper()
+        else:
+            self._suffix=value.title()
 
     @property
     def full_name(self):
+        """ return the formal, full name """
         return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name, self.suffix]))
 
     @property
     def informal_name(self):
+        """ return full name minus the suffix """
         return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name]))
 
-    def __repr__(self):
-        attributes = ""
-        attributes = ",".join([ 
-            "first_name" + "=" + repr(self.first_name),
-            "middle_name" + "=" + repr(self.middle_name),
-            "last_name" + "=" + repr(self.last_name),
-            "suffix" + "=" + repr(self.suffix),
-            "donations" + "=" + repr(self.donations)])
-        return "Donor( " + attributes + ")"
-
-    def __str__(self):
-        attributes = ""
-        attributes = ", ".join([ 
-            "full_name" + "=" + repr(self.full_name),
-            "informal_name" + "=" + repr(self.informal_name),
-            "first_name" + "=" + repr(self.first_name),
-            "middle_name" + "=" + repr(self.middle_name),
-            "last_name" + "=" + repr(self.last_name),
-            "suffix" + "=" + repr(self.suffix),
-            "donations" + "=" + repr(self.donations),
-            "created" + "=" + repr(self.created),
-            "id" + "=" + repr(self.id)
-            ])
+    def _query_attributes(self, which_attributes=[]):
+        """ return list of formatted attribute/value entries """
+        attributes = []
+        for attr in which_attributes:
+            # for our purposes, never print internal attributes
+            if not attr.startswith("_"):
+                try:
+                    str_val=repr(getattr(self,attr))
+                    attributes.append( attr + "=" + str_val)
+                except AttributeError:
+                    # we know certain attributes are not readable, so skip them
+                    pass
         return attributes
 
-    # {'eca9120ab7afc3d4170435cc4fab654d': {'created': '2017-12-07T04:25:15.743682Z',
-    #                                   'donations': [{'amount': 100.0,
-    #                                                  'date': '2017-12-07Z'}],
-    #                                   'donor_id': 'eca9120ab7afc3d4170435cc4fab654d',
-    #                                   'first_name': 'Joe',
-    #                                   'full_name': 'Joe Smith',
-    #                                   'informal_name': 'Joe Smith',
-    #                                   'last_name': 'Smith',
-    #                                   'suffix': ''}}
+    def __repr__(self):
+        """ return only the (settable) attributes needed to create the record """
+        which_attributes=["first_name","middle_name","last_name","suffix",
+            "donations"]
+        return "Donor( " + ", ".join(self._query_attributes(which_attributes)) + " )"
 
+    def __str__(self):
+        """ return all the non-internal attributes """
+        which_attributes=[]
+        for attr in dir(self):
+            if not attr.startswith("_"):
+                which_attributes.append(attr)
+        return "DONOR: " + ", ".join(self._query_attributes(which_attributes))
+        
 
 def load_donor_file(donor_file="donors.json"):
     """ load donors from file into dict, donors """
