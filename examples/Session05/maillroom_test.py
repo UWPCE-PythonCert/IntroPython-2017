@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 from os import system
 
-# some extra in here just to test git
-
 
 def read_data_dic(textfile):
     '''
