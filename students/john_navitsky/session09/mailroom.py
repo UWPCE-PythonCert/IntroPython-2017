@@ -17,6 +17,8 @@ class Donors:
     """
 
     def __init__(self, donor=None):
+        # TODO:
+        #   donors should take a donor or LIST of donors
         self._donors = {}
         if donor:
             self.add_donor = donor
@@ -443,6 +445,10 @@ def print_lines(lines=2,dest=sys.stdout):
     for i in range(lines):
         print("",file=dest)
 
+def list_donors(donors,dest=sys.stdout):
+    print_lines(2,dest)
+    repr(donors)
+    print_lines(2,dest)
 
 def print_report(donors,dest=sys.stdout):
     """ Print formatted list of all donors. """
@@ -520,7 +526,7 @@ def get_donation_amount(current_donor):
 
         print_lines()
 
-        print(menu.format(**current_donor))
+        #print(menu.format(**current_donor))
         selection=safe_input("Donation amount or (q)uit: ")
 
         # let them bail if they want
@@ -534,7 +540,6 @@ def get_donation_amount(current_donor):
         except ValueError:
             print_lines()
             print("The value must be numeric.  Please try again or (q)uit.")
-
 
 def print_thank_you(current_donor,hint="wonderful",dest=sys.stdout):
     """ Print a thank you letter. """
@@ -654,6 +659,81 @@ def thank_you_entry(donors):
 
         # thank the donor for the new donation
         print_thank_you(current_donor,hint)
+
+
+
+def data_entry():
+    """ Enter new donation and send thank you. """
+
+    menu =  "\n"
+    menu += "DONATION ENTRY (Donor Name)\n"
+    menu += "---------------------------\n"
+    menu += "\n"
+    menu += "Enter the full name (first last) of the donor\n"
+    menu += "for whom you would like to enter a donation,\n"
+    menu += "(l)ist to see a list of the existing donors, or\n"
+    menu += "(q)uit to return to the previous menu.\n"
+    menu += "\n"
+
+    #stub it out
+    donors=Donors()
+
+    while True:
+
+        print_lines()
+
+        print(menu)
+        selection=safe_input("Donor Name, (l)ist or (q)uit: ")
+
+        # check for a quit directive
+        if selection.lower() in ["q", "quit"]:
+            return
+
+        # check for a list directive
+        if selection.lower() in ["l", "list"]:
+            repr(donors)
+            #list_donors(donors)
+            continue
+
+        # protect against no entry
+        if not selection:
+            continue
+
+        # reject blatantly bad input
+        # if current_donor["first_name"] == "" or current_donor["last_name"] == "":
+        #     print("You must enter both a first and last name.")
+        #     continue
+
+        # parse the string into name components
+        matches=donors.match_donor(selection)
+        print("matches:",matches)
+
+        if len(matches) == 0:
+            # if there are no matches, go ahead and create a donor record
+            current_donor=Donor(full_name=selection)
+            print("0current_donor:",repr(current_donor))
+
+        if len(matches) == 1:
+            # if there is an exact match, let's use that one
+            current_donor=donors.get_donor(matches[0][1])
+            print("1current_donor:",repr(current_donor))
+
+        # prompt for new donation, cancel if None returned
+        new_donation=get_donation_amount(current_donor)
+        if new_donation is None:
+            print_lines()
+            print("Donation cancelled!")
+            return
+
+        # update the donor list with the new donation
+        #hint = update_donor(current_donor, donors, new_donation)
+        current_donor.add_donation=new_donation
+        print("current_donor:",current_donor)
+
+        donors.add_donor=current_donor
+        print("donors:",repr(donors))
+        # thank the donor for the new donation
+        # print_thank_you(current_donor,hint)
 
 
 def thank_all_donors(donors,dest_override=None):
