@@ -101,5 +101,8 @@ def test_sphere_str_repr():
     
 def test_sphere_volume():
     s = Sphere(5)
-    # assert s.volume == (4/3) * pi * 5**3
+    assert s.volume == (4/3) * pi * 5**3
     
+def test_sphere_area():
+    s = Sphere(5)
+    assert s.area == 4 * pi * 5**2

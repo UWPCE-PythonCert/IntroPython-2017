@@ -54,3 +54,11 @@ class Sphere(Circle):
 
     def __str__(self):
         return "Sphere with radius: {}".format(self.radius)
+
+    @property
+    def area(self):
+        return 4 * pi * self.radius**2
+
+    @property
+    def volume(self):
+        return (4/3) * pi * self.radius**3
