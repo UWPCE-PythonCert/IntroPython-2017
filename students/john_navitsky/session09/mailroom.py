@@ -17,7 +17,6 @@ class Donors:
         self._donors = {}
         if donor:
             self.add_donor = donor
-        #self._index = []
 
     def __repr__(self):
         return str(vars(self))
@@ -26,33 +25,55 @@ class Donors:
         return str(vars(self))
 
     def __iter__(self):
+        # 
         return iter(self.full_name_index)
 
     @property
     def add_donor(self):
         """ you can't read a donor via add_donor """
-        raise AttributeError("no can do")
+        raise AttributeError("You can't READ a donor via ADD_donor. Use get_donor instead.")
 
     @add_donor.setter
     def add_donor(self, donor):
-        """ add a donor record """
+        """
+        add a donor to the donors database
+
+        The add_donor method leverages the donor id which allows
+        you to update or add a record using the same method.
+        """
         self._donors[donor.id] = donor
 
     @property
     def number_donors(self):
+        """ return the number of donor records """
         return len(self._donors)
 
-    def get_donor(self, value):
-        return self._donors[value]
+    def get_donor(self, id):
+        """ given a donor id, return the donor object """
+        return self._donors[id]
 
     @property
     def full_name_index(self):
-        """ Provide an index of keys and full names """
+        """ Provide an index of keys, full_name, last_name and first_name """
         index=[]
         for key in self._donors:
-            index.append( (self._donors[key].full_name, key) )
-        return index
+            index.append( (self._donors[key].full_name, key, 
+                self._donors[key].last_name,
+                self._donors[key].first_name ) )
+        return sorted(index)
 
+    def match_donor(self, query_full_name):
+        """ 
+        find all records that match the query string
+
+        return tupple with full_name, id
+
+        """
+        matches=[]
+        for name, id, _, _ in self.full_name_index:
+            if query_full_name.strip().lower() == name.lower():
+                matches.append( (name, id) )
+        return matches
 
 
 class Donor:
@@ -323,8 +344,6 @@ class Donor:
         self.middle_name = middle_name
         self.last_name = last_name
         self.suffix = suffix
-
-
 
     def _query_attributes(self, which_attributes=[], return_empty=True):
         """ return list of formatted attribute/value entries """
