@@ -45,29 +45,124 @@ class Donors:
 
 class Donor:
 
-    """ Class to store a donor record """
+    """
+    Class to store a donor record 
+
+    Args:
+        full_name(str)      format: <first name> [<middle_name>] <last_name> [,<suffix>]
+            or
+        first_name(str)
+        middle_name(str)
+        last_name(str)
+        suffix(str)
+
+        donation(float)     amount of today's donation
+            or
+        donations(list)     list of dicts containing donations
+
+        Not typically specified
+        -----------------------
+        id(str)             string representation of a record UUID
+        created(str)        string representation of an utcnow isoformat timestamp
+                            with "Z" appended
+
+    Usage:
+
+        The class allows flexibility in how a record is set.  It is allowable
+        to create an empty instance of the class and update it piecemeal.  
+
+        It is also allowable to pass in all information needed to create a record
+        using different strategies such as a full_name vs the constituent parts.
+
+        In general, record manipulation is simply the name and donation.  However,
+        it is also allowable to set information that is normally auto-created
+        such as the id, time created and entire donation list.  This allows
+        a record to be created from its repr which may have practical uses in
+        record backup/recreation as needed.
+
+    Example Use Cases:
+
+        # empty donor record
+        In [599]: d=Donor()
+        In [600]: repr(d)
+        Out[600]: "Donor( id='97d744de-de23-11e7-bee5-0800274b0a84', 
+            created='2017-12-11T03:30:11.077937Z' )"
+        In [601]:
+
+        # automatic parsing of full_name
+        In [601]: d=Donor(full_name="sally q smith, iv")
+        In [602]: repr(d)
+        Out[602]: "Donor( id='067f51c4-de24-11e7-bee5-0800274b0a84', first_name='Sally', 
+            middle_name='Q', last_name='Smith', suffix='IV', 
+            created='2017-12-11T03:33:16.728654Z' )"
+        In [603]:
+
+        # name creation based name sub-components
+        In [594]: d=Donor(first_name="joe", last_name="smith", donation=100)
+        In [595]: repr(d)
+        Out[595]: "Donor( id='7724e750-de23-11e7-bee5-0800274b0a84', first_name='Joe', 
+            last_name='Smith', donations=[{'amount': 100.0, 'date': '2017-12-11Z'}], 
+            created='2017-12-11T03:29:16.221954Z' )"
+        In [596]:    
+
+        In [636]: d=Donor(full_name="john adams")
+        In [637]: d.add_donation=1000
+        In [638]: repr(d)
+        Out[638]: "Donor( id='7e93d724-de25-11e7-bee5-0800274b0a84', first_name='John', 
+            last_name='Adams', donations=[{'amount': 1000.0, 'date': '2017-12-11Z'}, 
+            {'amount': 1000.0, 'date': '2017-12-11Z'}], created='2017-12-11T03:43:47.686457Z' )"
+        In [639]:
+
+    """
 
     def __init__(self, 
             id="", created="",
+            full_name="",
             first_name="", last_name="", middle_name="", suffix="",
-            donations=[]):
+            donations=[], donation=None):
 
+        # normally no id is passed in, so we create one
         if id == "":
             id = str(uuid.uuid1())
-
-        if created == "":
-            created = datetime.datetime.utcnow().isoformat() + "Z"
-
         # create a uuid for each record
         self._id = id
 
-        self._first_name = first_name.title()
-        self._last_name = last_name.title()
-        self._middle_name = middle_name.title()
-        self._suffix = suffix.upper()
-        self._donations = donations
-
+        # normally, no timestamp is passed in, so we create one
+        if created == "":
+            created = datetime.datetime.utcnow().isoformat() + "Z"
+        # keep track of record creation
         self.created = created
+
+        # test to see if any of the name components are set
+        sub_name_set = any(sub_name != "" for sub_name in (
+            first_name,
+            middle_name,
+            last_name,
+            suffix))
+     
+        # we don't expect full_name and a subset to be set at the same time
+        if full_name != "" and sub_name_set:
+            raise ValueError("You cannot set 'full_name' and a subset of the name at the same time.")
+
+        # set the name via full_name or via the constituent parts
+        if full_name != "":
+            self.full_name = full_name
+        else:
+            self._first_name = first_name.title()
+            self._last_name = last_name.title()
+            self._middle_name = middle_name.title()
+            self._suffix = suffix.upper()
+
+        if (len(donations) != 0) and (donation != None):
+            raise ValueError("You cannot set 'donations' and 'donation' at the same time.")
+
+        if donation != None:
+            # if a donation is passed in, initialize the donations, then add the donation
+            self._donations = []
+            self.add_donation = donation
+        else:
+            # if they've passed in a pre-formatted donation list, accept it
+            self._donations = donations
 
     @property
     def id(self):
