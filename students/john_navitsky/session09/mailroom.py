@@ -26,12 +26,21 @@ class Donors:
 
     @property
     def add_donor(self):
-        """ reading not allowed via add_donation """
+        """ you can't read a donor via add_donor """
         raise AttributeError("no can do")
 
     @add_donor.setter
     def add_donor(self, donor):
+        """ add a donor record """
         self._donors[donor.id] = donor
+
+    @property
+    def number_donors(self):
+        return len(self._donors)
+
+    @property
+    def get_donor(self, value):
+        return self._donors[value]
 
 
 class Donor:
@@ -42,8 +51,6 @@ class Donor:
             id="", created="",
             first_name="", last_name="", middle_name="", suffix="",
             donations=[]):
-
-
 
         if id == "":
             id = str(uuid.uuid1())
@@ -61,7 +68,6 @@ class Donor:
         self._donations = donations
 
         self.created = created
-
 
     @property
     def id(self):
@@ -164,14 +170,54 @@ class Donor:
             self._suffix=value.title()
 
     @property
+    def informal_name(self):
+        """ return full name minus the suffix """
+        return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name]))
+
+    @property
     def full_name(self):
         """ return the formal, full name """
         return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name, self.suffix]))
 
-    @property
-    def informal_name(self):
-        """ return full name minus the suffix """
-        return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name]))
+    @full_name.setter
+    def full_name(self, full_name):
+
+        """ allow the donor information to be updated via full_name as well """
+
+        # for simplicity's sake, we make the assumption a suffix will follow a comma
+
+        # capture suffix, if present
+        suffix=""
+        if full_name.find(","):
+            try:
+                suffix=full_name.split(",")[1].strip()
+            except:
+                pass
+
+        # name with suffix removed
+        informal_name=full_name.split(",")[0].strip()
+
+        # we assume the last name is one word minus the suffix
+        last_name=informal_name.split()[-1]
+       
+        # build a list with everything to the left of the last name
+        everything_but_last=informal_name.split()[0:-1]
+
+        # pull the first name off
+        first_name=everything_but_last.pop(0)
+
+        try:
+            # pull the middle, if exists
+            middle_name=everything_but_last.pop(0)
+        except IndexError:
+            middle_name=""
+
+        self.first_name = first_name
+        self.middle_name = middle_name
+        self.last_name = last_name
+        self.suffix = suffix
+
+
 
     def _query_attributes(self, which_attributes=[], return_empty=True):
         """ return list of formatted attribute/value entries """
