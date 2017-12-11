@@ -11,7 +11,10 @@ import uuid
 
 class Donors:
 
-    """ Class that stores donor records """
+    """
+    Class that stores donor records
+
+    """
 
     def __init__(self, donor=None):
         self._donors = {}
@@ -19,13 +22,15 @@ class Donors:
             self.add_donor = donor
 
     def __repr__(self):
-        return str(vars(self))
+        repr_out=[]
+        for key in self._donors:
+            repr_out.append( repr(self._donors[key]) )
+        return "Donors( " + ", ".join(repr_out) + " )"
 
     def __str__(self):
-        return str(vars(self))
+        return self.__repr__()
 
     def __iter__(self):
-        # 
         return iter(self.full_name_index)
 
     @property
