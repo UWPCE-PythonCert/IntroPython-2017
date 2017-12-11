@@ -17,12 +17,16 @@ class Donors:
         self._donors = {}
         if donor:
             self.add_donor = donor
+        #self._index = []
 
     def __repr__(self):
         return str(vars(self))
 
     def __str__(self):
         return str(vars(self))
+
+    def __iter__(self):
+        return iter(self.full_name_index)
 
     @property
     def add_donor(self):
@@ -38,9 +42,17 @@ class Donors:
     def number_donors(self):
         return len(self._donors)
 
-    @property
     def get_donor(self, value):
         return self._donors[value]
+
+    @property
+    def full_name_index(self):
+        """ Provide an index of keys and full names """
+        index=[]
+        for key in self._donors:
+            index.append( (self._donors[key].full_name, key) )
+        return index
+
 
 
 class Donor:
