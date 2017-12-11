@@ -159,7 +159,7 @@ class Donor:
             id="", created="",
             full_name="",
             first_name="", last_name="", middle_name="", suffix="",
-            donations=[], donation=None):
+            donations=None, donation=None):
 
         # normally no id is passed in, so we create one
         if id == "":
@@ -193,7 +193,7 @@ class Donor:
             self._middle_name = middle_name.title()
             self._suffix = suffix.upper()
 
-        if (len(donations) != 0) and (donation != None):
+        if (donations != None) and (donation != None):
             raise ValueError("You cannot set 'donations' and 'donation' at the same time.")
 
         if donation != None:
@@ -201,9 +201,11 @@ class Donor:
             self._donations = list()
             self.add_donation(donation)
         else:
-            # if they've passed in a pre-formatted donation list, accept it
-            self._donations = donations
-
+            if donations != None:
+                self._donations = donations
+            else:
+                self._donations = list()
+            
     @property
     def id(self):
         """ return the donor id """
@@ -453,22 +455,16 @@ def list_donors(donors,dest=sys.stdout):
         "Donor Name","Total Given","Num Gifts","Average Gift"),file=dest)
     print("-"*72,file=dest)
 
-    # for name, id, _, _ in donors:
+    for name, id, _, _ in donors:
     
-    #     donor=donors.get_donor(id)
+        donor=donors.get_donor(id)
 
-    #     #                 name     total gvn    #gifts    avg gift
-    #     print("{0:20}  ${1:14,.2f}   {2:9.0f}  ${3:12,.2f}".format(
-    #         donor.full_name,
-    #         donor.total_donations,
-    #         donor.number_donations,
-    #         donor.average_donations), file=dest)
-    #     print("{}".format(donor))
-    #     print(donor.total_donations)
-
-    print_lines(2,dest)
-    print(repr(donors))
-    print_lines(2,dest)
+        #                 name     total gvn    #gifts    avg gift
+        print("{0:20}  ${1:14,.2f}   {2:9.0f}  ${3:12,.2f}".format(
+            donor.full_name,
+            donor.total_donations,
+            donor.number_donations,
+            donor.average_donations), file=dest)
 
 def print_report(donors,dest=sys.stdout):
     """ Print formatted list of all donors. """
