@@ -198,8 +198,8 @@ class Donor:
 
         if donation != None:
             # if a donation is passed in, initialize the donations, then add the donation
-            self._donations = []
-            self.add_donation = donation
+            self._donations = list()
+            self.add_donation(donation)
         else:
             # if they've passed in a pre-formatted donation list, accept it
             self._donations = donations
@@ -224,12 +224,12 @@ class Donor:
         """ allow bulk setting of donation entries """
         self._donations = value
 
-    @property
-    def add_donation(self):
-        """ reading not allowed via add_donation """
-        raise AttributeError("Read donations with the 'donations' attribute, instead.")
+    # @property
+    # def add_donation(self):
+    #     """ reading not allowed via add_donation """
+    #     raise AttributeError("Read donations with the 'donations' attribute, instead.")
 
-    @add_donation.setter
+    #@add_donation.setter
     def add_donation(self, value):
         """ add a single donation """
         today = datetime.datetime.utcnow().date().isoformat() + "Z"
@@ -256,7 +256,7 @@ class Donor:
     def average_donations(self):
         """ return the average donation amount """
         try:
-            return round(self.total_donations / self.num_donations, 2)
+            return round(self.total_donations / self.number_donations, 2)
         except ZeroDivisionError:
             return 0
 
@@ -446,8 +446,28 @@ def print_lines(lines=2,dest=sys.stdout):
         print("",file=dest)
 
 def list_donors(donors,dest=sys.stdout):
+
+    # print report header
+    #      index    name   total gvn #gifts  avg gift
+    print("{0:20} | {1:14} | {2:9} | {3:12}".format(
+        "Donor Name","Total Given","Num Gifts","Average Gift"),file=dest)
+    print("-"*72,file=dest)
+
+    # for name, id, _, _ in donors:
+    
+    #     donor=donors.get_donor(id)
+
+    #     #                 name     total gvn    #gifts    avg gift
+    #     print("{0:20}  ${1:14,.2f}   {2:9.0f}  ${3:12,.2f}".format(
+    #         donor.full_name,
+    #         donor.total_donations,
+    #         donor.number_donations,
+    #         donor.average_donations), file=dest)
+    #     print("{}".format(donor))
+    #     print(donor.total_donations)
+
     print_lines(2,dest)
-    repr(donors)
+    print(repr(donors))
     print_lines(2,dest)
 
 def print_report(donors,dest=sys.stdout):
@@ -676,7 +696,7 @@ def data_entry():
     menu += "\n"
 
     #stub it out
-    donors=Donors()
+    donorsx=Donors()
 
     while True:
 
@@ -691,8 +711,7 @@ def data_entry():
 
         # check for a list directive
         if selection.lower() in ["l", "list"]:
-            repr(donors)
-            #list_donors(donors)
+            list_donors(donorsx)
             continue
 
         # protect against no entry
@@ -705,19 +724,17 @@ def data_entry():
         #     continue
 
         # parse the string into name components
-        matches=donors.match_donor(selection)
-        print("matches:",matches)
-
+        matches=donorsx.match_donor(selection)
+ 
         if len(matches) == 0:
             # if there are no matches, go ahead and create a donor record
             current_donor=Donor(full_name=selection)
-            print("0current_donor:",repr(current_donor))
+            donorsx.add_donor=current_donor 
 
         if len(matches) == 1:
             # if there is an exact match, let's use that one
-            current_donor=donors.get_donor(matches[0][1])
-            print("1current_donor:",repr(current_donor))
-
+            current_donor=donorsx.get_donor(matches[0][1])
+ 
         # prompt for new donation, cancel if None returned
         new_donation=get_donation_amount(current_donor)
         if new_donation is None:
@@ -725,13 +742,13 @@ def data_entry():
             print("Donation cancelled!")
             return
 
+        #print(repr(current_donor))
+
         # update the donor list with the new donation
         #hint = update_donor(current_donor, donors, new_donation)
-        current_donor.add_donation=new_donation
-        print("current_donor:",current_donor)
+        current_donor.add_donation(new_donation)
+ 
 
-        donors.add_donor=current_donor
-        print("donors:",repr(donors))
         # thank the donor for the new donation
         # print_thank_you(current_donor,hint)
 
@@ -773,6 +790,9 @@ def main(donors):
 
         print(menu)
         selection=safe_input("(l)ist, (e)nter, (q)uit: ").lower()
+
+        if selection in ["x"]:
+            data_entry()
 
         if selection in ["l", "list"]:
             print_report(donors)
