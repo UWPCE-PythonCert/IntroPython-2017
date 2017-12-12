@@ -19,7 +19,8 @@ class Element():
         # Pretty-print content and tags to file.
         # For objects, pretty-print all the content and tags
         # they contain to the file. Nest tags with indentation.
-        self.render_open_tag(out_file, current_ind)
+        open_tag = self.render_open_tag(current_ind)
+        out_file.write(open_tag)
         for each in self.content:
             try:
                 each.render(out_file, current_ind + self.extra_indent)
@@ -30,13 +31,15 @@ class Element():
         close_tag = '{}</{}>'.format(current_ind, self.tag)
         out_file.write(close_tag)
 
-    def render_open_tag(self, out_file, current_ind):
+    def render_open_tag(self, current_ind):
         # This code was repeated so I refactored it!
         # Get and write an open tag to out_file
         open_tag = self.get_open_tag()
-        out_file.write('\n')
-        out_file.write(current_ind)
-        out_file.write(open_tag)
+        taglist = ['\n', current_ind, open_tag]
+        return ''.join(taglist)
+        # out_file.write('\n')
+        # out_file.write(current_ind)
+        # out_file.write(open_tag)
 
     def get_open_tag(self):
         # This code was repeated so I refactored it!
@@ -84,7 +87,8 @@ class OneLineTag(Element):
     def render(self, out_file, current_ind=""):
         # Pretty-print content and tags to file on one line.
         # Print the string representation of all objects within content.
-        self.render_open_tag(out_file, current_ind)
+        open_tag = self.render_open_tag(current_ind)
+        out_file.write(open_tag)
         for each in self.content:
             out_file.write(' ' + str(each) + ' ')
         close_tag = '</{}>'.format(self.tag)
@@ -101,7 +105,8 @@ class SelfClosingTag(Element):
 
     def render(self, out_file, current_ind=""):
         # Render just a tag and any attributes, ignore contents
-        self.render_open_tag(out_file, current_ind)
+        open_tag = self.render_open_tag(current_ind)
+        out_file.write(open_tag)
 
     def get_open_tag(self):
         # Override method to  have /> at end of open_tag instead of >

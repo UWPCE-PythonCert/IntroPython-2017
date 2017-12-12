@@ -76,3 +76,12 @@ def test_circle():
         diameter += 15
     render_to_file(canvas, "circle.png")
 
+
+def test_rectangle():
+    canvas = oc.ObjectCanvas()
+    rect = oc.Rectangle((100, 100), 200, 300,
+                        line_color="green",
+                        fill_color="purple")
+    canvas.add_object(rect)
+    render_to_file(canvas, "rect.png")
+
