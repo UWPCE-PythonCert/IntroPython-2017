@@ -23,7 +23,7 @@ class Donors:
         #   donors should take a donor or LIST of donors
         self._donors = {}
         if donor:
-            self.add_donor = donor
+            self.add_donor(donor)
 
     def __repr__(self):
         repr_out=[]
@@ -37,12 +37,6 @@ class Donors:
     def __iter__(self):
         return iter(self.full_name_index)
 
-    @property
-    def add_donor(self):
-        """ you can't read a donor via add_donor """
-        raise AttributeError("You can't READ a donor via ADD_donor. Use get_donor instead.")
-
-    @add_donor.setter
     def add_donor(self, donor):
         """
         add a donor to the donors database
@@ -297,7 +291,7 @@ class Donor:
     def suffix(self, value):
         """ set the suffix """
         # special case roman numbers to all caps
-        if value in ["i" "ii", "iii", "iv", "v"]:
+        if value.lower() in ["i", "ii", "iii", "iv", "v"]:
             self._suffix=value.upper()
         else:
             self._suffix=value.title()
@@ -428,20 +422,16 @@ def save_donor_file(donors,donor_file="donors.p"):
         return False
 
 
-def safe_input(prompt=">",mock=False,mock_in=""):
+def safe_input(prompt=">"):
     """ Generic input routine. """
     # return null if anything goes wrong
-    if not mock:
-        # normal input mode
-        try:
-            selection=input(prompt).strip()
-        except (KeyboardInterrupt, EOFError):
-            # don't exit the program on ctrl-c, ctrl-d
-            selection=""
-        return selection
-    else:
-        # return what the test program told you to
-        return mock_in
+    try:
+        selection=input(prompt).strip()
+    except (KeyboardInterrupt, EOFError):
+        # don't exit the program on ctrl-c, ctrl-d
+        selection=""
+    return selection
+
 
 def clear_screen():
     """ clear the terminal screen """
@@ -584,7 +574,7 @@ def data_entry(donors):
         if len(matches) == 0:
             # if there are no matches, go ahead and create a donor record
             current_donor=Donor(full_name=selection)
-            donors.add_donor=current_donor 
+            donors.add_donor(current_donor)
             hint="new"
 
         if len(matches) == 1:
@@ -672,9 +662,7 @@ def main(donors):
             else:
                 print("Please resolve the issues with the donor file before exiting.")
                 # if you are testing, don't get stuck in the loop
-                if mock:
-                    mock_in="exit"
-                shall_abort = safe_input("Enter 'exit' to quit anyways and abandon changes:",mock)
+                shall_abort = safe_input("Enter 'exit' to quit anyways and abandon changes:")
                 if not 'exit' in shall_abort:
                     # if they don't want to exit, clear the selection so we don't exit
                     selection = None
