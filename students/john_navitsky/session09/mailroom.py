@@ -469,7 +469,7 @@ def list_donors(donors,dest=sys.stdout):
             donor.average_donations), file=dest)
 
 
-def get_donation_amount(current_donor):
+def get_donation_amount(donor):
     """ Get a donation. """
 
     menu =  "\n"
@@ -486,7 +486,6 @@ def get_donation_amount(current_donor):
 
         print_lines()
 
-        #print(menu.format(**current_donor))
         selection=safe_input("Donation amount or (q)uit: ")
 
         # let them bail if they want
@@ -525,6 +524,7 @@ def create_thank_you(donor,hint="wonderful"):
 def print_thank_you(donor,hint="wonderful",dest=sys.stdout):
     """ Print a thank you letter. """
 
+    # TODO switch to write
     letter = create_thank_you(donor,hint)
 
     print_lines(2,dest)
@@ -574,35 +574,35 @@ def data_entry(donors):
             print("You must enter both a first and last name.")
             continue
 
-        # find records that match the input
+        # find any records that match the input
         matches=donors.match_donor(selection)
  
         if len(matches) == 0:
             # if there are no matches, go ahead and create a donor record
-            current_donor=Donor(full_name=selection)
-            donors.add_donor(current_donor)
+            donor=Donor(full_name=selection)
+            donors.add_donor(donor)
             hint="new"
 
         if len(matches) == 1:
             # if there is an exact match, let's use that one
-            current_donor=donors.get_donor(matches[0][1])
+            donor=donors.get_donor(matches[0][1])
             hint="existing"
 
         # TODO: Add confirmation logic and allow them to ignore a current record
         #       and add a new record anyway.
  
         # prompt for new donation, cancel if None returned
-        new_donation=get_donation_amount(current_donor)
+        new_donation=get_donation_amount(donor)
         if new_donation is None:
             print_lines()
             print("Donation cancelled!")
             return
 
-        # update the donor list with the new donation
-        current_donor.add_donation(new_donation)
+        # update the donor with the new donation
+        donor.add_donation(new_donation)
 
         # thank the donor for the new donation
-        print_thank_you(current_donor,hint)
+        print_thank_you(donor,hint)
 
 
 def thank_all_donors(donors,dest_override=None):
