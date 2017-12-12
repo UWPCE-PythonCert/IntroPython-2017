@@ -1,27 +1,35 @@
 #!/usr/bin/env python3
 
 import sys
-import json
 import datetime
-import hashlib
-from pprint import pprint
 import uuid
 import os
 import pickle
+from pprint import pprint
+
 
 """ Program to manage donations. """
+
 
 class Donors:
 
     """
     Class that stores donor records
 
+    Optionally provide a Donor() object or add Donor() object
+    with add_donor().  
+
+    Iterable, and provides an index for searching as well as
+    a match(search) utility function.
+
+    get_donor can be used to return a Donor() object given the
+    donor id.
     """
 
     def __init__(self, donor=None):
-        # TODO:
-        #   donors should take a donor or LIST of donors
         self._donors = {}
+        # TODO:
+        #   donors should take a donor object or multiple donor objects
         if donor:
             self.add_donor(donor)
 
@@ -184,10 +192,10 @@ class Donor:
         if full_name != "":
             self.full_name = full_name
         else:
-            self._first_name = first_name.title()
-            self._last_name = last_name.title()
-            self._middle_name = middle_name.title()
-            self._suffix = suffix.upper()
+            self.first_name = first_name.title()
+            self.last_name = last_name.title()
+            self.middle_name = middle_name.title()
+            self.suffix = suffix.upper()
 
         if (donations != None) and (donation != None):
             raise ValueError("You cannot set 'donations' and 'donation' at the same time.")
@@ -198,6 +206,7 @@ class Donor:
             self.add_donation(donation)
         else:
             if donations != None:
+                # TODO donations need more validation
                 self._donations = donations
             else:
                 self._donations = list()
@@ -364,7 +373,7 @@ class Donor:
                     # don't return empty values if they don't want them
                     if eval(str_val) or return_empty:
                         attributes.append( attr + "=" + str_val)
-                except AttributeError:
+                except (AttributeError, SyntaxError):
                     # we know certain attributes are not readable, so skip them
                     pass
         return attributes
@@ -386,17 +395,11 @@ class Donor:
  
 
 def load_donor_file(donor_file="donors.p"):
-    """ load donors from file into dict, donors """
+    """ load donors from file into Donors object """
     donors = None
     try:
         donors = pickle.load( open( donor_file, "rb" ))
         return donors
-    except (json.decoder.JSONDecodeError) as e:
-        # catch malformed json
-        print("The donors file is corrupt!")
-        print(e)
-        print("Please correct or delete the file.")
-        sys.exit(1)
     except (FileNotFoundError):
         # if the file isn't found, that's ok, give them
         # an empty donor dict and we'll save anything
@@ -409,10 +412,17 @@ def load_donor_file(donor_file="donors.p"):
         print("Insufficent permission to access the donor file!")
         print("Please correct the permissions.")
         sys.exit(1)
-
+    except Exception as e:
+        # when pickle files are corrupt they can present in lots of ways
+        # so if catch something other than what we expect, assume it's
+        # a corrupt pickle file
+        print("The donors file is corrupt!")
+        print(e)
+        print("Please delete or restore the donor file from a backup.")
+        sys.exit(1)
 
 def save_donor_file(donors,donor_file="donors.p"):
-    """ save donors to json file """
+    """ save donors object to pickle file """
     try:
         pickle.dump( donors, open( donor_file, "wb" ))
         return True
@@ -432,10 +442,6 @@ def safe_input(prompt=">"):
         selection=""
     return selection
 
-
-def clear_screen():
-    """ clear the terminal screen """
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 def print_lines(lines=2,dest=sys.stdout):
     """ Print variable number of linefeeds for clarity. """
