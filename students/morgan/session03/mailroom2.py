@@ -5,24 +5,25 @@ infile = 'donors.txt'
 
 donors = {}
 
-with open(infile) as donor_input:
-    '''imports donors from file and creates a dictionary with 'name':[donations]'''
-    donor_input.readline()
-    for line in donor_input:
-        # line = line.strip()
-        name_string = line.split('-')[0].strip()
-        donation_string = line.split('-')[1].strip(' ').strip()
-        donation_list = donation_string.split(',')
-        
-        donation_list = [float(x) for x in donation_list]
+def read_donors():
+	with open(infile) as donor_input:
+	    '''imports donors from file and creates a dictionary with 'name':[donations]'''
+	    donor_input.readline()
+	    for line in donor_input:
+	        # line = line.strip()
+	        name_string = line.split('-')[0].strip()
+	        donation_string = line.split('-')[1].strip(' ').strip()
+	        donation_list = donation_string.split(',')
+	        
+	        donation_list = [float(x) for x in donation_list]
 
-        # print(donation_list[0])
-        
+	        # print(donation_list[0])
+	        
 
-        # print(name_string.strip())
-        # print(donation_list)
-        # donors.setdefault(name_string,[]).append(donation_list)
-        donors[name_string] = donation_list
+	        # print(name_string.strip())
+	        # print(donation_list)
+	        # donors.setdefault(name_string,[]).append(donation_list)
+	        donors[name_string] = donation_list
 
 
 
@@ -119,5 +120,6 @@ def write_letter(name, donation):
 
 
 if __name__ == "__main__": 
+	read_donors()
     print('starting...')
     main_loop()
