@@ -23,7 +23,7 @@ Scott B Peterson: Pandas and numpy
 ----------------------------------
 
 Amitkumar Chudasma: how I got into python
-------------------
+-----------------------------------------
 
 Daniel Wojciechowski: OWASP secure dev.
 ---------------------------------------
