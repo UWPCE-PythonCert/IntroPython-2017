@@ -37,6 +37,9 @@ def dictmaker(processedContent):
     return trigramDict
 
 def constructTrigram(trigraminput,slings):
+
+    ''' Takes and input Dict and creates a trigram output'''
+
     for i in range(0, slings):
         trigramVallist = list(trigraminput)
         trigramKeylist = list(trigraminput.keys())

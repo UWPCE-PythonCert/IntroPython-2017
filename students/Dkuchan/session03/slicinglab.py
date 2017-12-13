@@ -12,8 +12,6 @@ def slicer1(asequence):
 
     """class solution
     return sequence[-1:] +sequence[1:-2] + sequence[0]
-    
-
     """
 
 def slicer2(asequence):
