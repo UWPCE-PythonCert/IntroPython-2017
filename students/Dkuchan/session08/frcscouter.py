@@ -11,11 +11,13 @@ class Competition():
 class Match():
     # this class holds information specific to a certain match
     def __init__(self, mnumber)
+        self.teamnumber
         self.matchnum = mnumber
-        self.redalliance
-        self.bluealliance
-        self.winner
-        self.loser
+        self.alliance
+        self.winloss
+        self.pressure
+        self.gears
+        self.autogear
         self.replaylink
 
 
@@ -74,4 +76,70 @@ def scoutupdate():
 def predictor():
 
 
-def 
+def matchUI():
+
+    ''' To log a match you need to do the following
+        Get Userinput for match number
+        Get Userinput for team number
+        Get Userinput for alliance (this can be a 0 / 1)
+        Get Userinput for field position
+        Ask if the input data is correct let them update any of them directly
+        If data is correct begin scouter
+        say a = +1 kpa auto, s = -1
+        q = +1 gear, w = -1 gear
+        enter goes to teleop
+        evaluate input - if q>1 q==1
+        same keys for incriment
+        add z for climb
+        enter closes logging
+        did your team win Y/N?
+        evaluate input 
+        output results for match
+        ask if this is correct
+        if not allow mod of any specific attribute
+        if so update database and close go back to welcomUI
+        '''
+
+
+    print()
+    print()
+    print("You have chosen to scout a match.")
+    
+
+
+    while True:
+        try:
+            userin = input("Which match are you scouting?")
+            numtest = int(userin)
+        except ValueError:
+            print("You have made an invalid selection.")
+            continue
+        else:
+            match.matchnum = userin
+            break
+    print()
+    print()
+
+    while True:
+        try:
+            userin = input("Which team are you scouting?")
+            numtest = int(userin)
+        except ValueError:
+            print("You have made an invalid selection.")
+            continue
+        else:
+            match.teamnumber = userin
+            break
+
+def setmatchnum():
+    while True:
+        try:
+            userin = input("Which match are you scouting?")
+            numtest = int(userin)
+        except ValueError:
+            print("You must enter a number.")
+            continue
+        else:
+            match.matchnum = userin
+            break
+
