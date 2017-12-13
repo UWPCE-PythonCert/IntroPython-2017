@@ -1,40 +1,51 @@
 # classessheet.py
-""" This is a script to mess with classes. """
-import math
-
-class Person:
-
-# This is an experimental class 
-   
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.donations=[1,2,3,4,5,6,7]
-        self.first_name = None
-        self.last_name = None
-        self.averagedon = None
-        self.maxdon = None
+""" This is a script to mess with classes.
+    The idea is to use this practice to create class "persons" for mail room """
 
 
-def idaverages(dons):
-    total=0
-    for i in dons:
-        total += i
-        average = total/len(dons)
-    return average
+class Donor:
+    # This is an experimental class for donors in mailroom
+    numdonors = 0
+    rosterraw = []
 
-def idmaxdon(dons):
-    maximum = max(dons)
-    return maximum
+    def __init__(self, name):
 
+        self.first_name, self.last_name = list(name.split())
+        self.donations = [1, 2, 3, 4, 5, 6, 7]
+        self.fullname = str(self.first_name + ' ' + self.last_name)
+        self.averagedon = sum(self.donations) / len(self.donations)
+        self.maxdon = max(self.donations)
+        Donor.numdonors += 1
+        Donor.rosterraw.append(id(self))
 
+    def updatecalcs(self):
+        # Updates the average donation attribute after mods have been made to donations
+        self.averagedon = sum(self.donations) / len(self.donations)
+        self.maxdon = max(self.donations)
 
-dan=Person(1, 3)
-print(dan.donations)
-dan.donations.append(3)
-print(dan.donations)
-dan.averagedon = idaverages(dan.donations)
-dan.maxdon=idmaxdon(dan.donations)
-print(dan.maxdon)
-print(dan.averagedon)
-print(len(dan.donations))
+    def lastfirst(self):
+        # creates a last name , first name string
+        lastfirstname = '{}, {}'.format(self.last_name, self.first_name)
+        return lastfirstname
+
+    def appenddonations(self, newdon):
+        ''' Adds a donation to the donations list
+            Updates the average donations
+            Updates the max donation '''
+        self.donations.append(newdon)
+        self.updatecalcs()
+
+donor=[None, None]
+donor[Donor.numdonors] = Donor('Dan Kuchan')
+donor[Donor.numdonors]= Donor('Abbey Kuchan')
+donor[Donor.numdonors]= Donor("Blabedy Blah")
+print(donor[1].lastfirst())
+print(donor[1].donations[::])
+print(donor[1].averagedon)
+donor1.appenddonations(1500)
+print(donor[1].donations[::])
+print(donor[1].averagedon)
+print(donor[1].maxdon)
+print(Donor.numdonors)
+print(Donor.rosterraw)
+
