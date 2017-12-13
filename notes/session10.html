@@ -164,6 +164,133 @@
 </div>
 <div class="section" id="issues-that-came-up-during-the-week">
 <h2>Issues that came up during the week.<a class="headerlink" href="#issues-that-came-up-during-the-week" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="when-to-make-a-method-or-property">
+<h3>When to make a method or property?<a class="headerlink" href="#when-to-make-a-method-or-property" title="Permalink to this headline">¶</a></h3>
+<p>It is a good idea to make a property to access information in your class that requires “inside information”, For example, in a Donor class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">maxdonation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">donations</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This way, client code can get the maximum donation without knowing, or caring how the donations are stored in the class.</p>
+<p>However, there is no need to create a property to “hide” something that is already part of the public API:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">namelength</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>There is no point to this – <code class="docutils literal"><span class="pre">a_donor.name</span></code> is expected to be a string – so if you want to know how long it is, you can simply do:  <code class="docutils literal"><span class="pre">len(a_donor.name)</span></code></p>
+<p>You <em>do</em> want to use properties to “hide” implementation details – but the name attribute being a string is part of the API, not an implementation detail.</p>
+</div>
+<div class="section" id="anything-else-from-oo-mailroom">
+<h3>Anything else from OO mailroom?<a class="headerlink" href="#anything-else-from-oo-mailroom" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="the-next-class">
+<h2>The Next Class<a class="headerlink" href="#the-next-class" title="Permalink to this headline">¶</a></h2>
+<p>Next quarter, we’ll finish up the core of the Python language, then go into depth on some of the more advanced features of the language. Finally, we’ll do a bit with using Python with other tools, such as databases.</p>
+<p>Here’s a Tentative Outline:</p>
+<div class="section" id="functional-programming-2">
+<h3>Functional Programming 2<a class="headerlink" href="#functional-programming-2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Iterators and Iterables</li>
+<li>Itertools</li>
+<li>Functools</li>
+</ul>
+</div>
+<div class="section" id="functional-programming-3">
+<h3>Functional Programming 3<a class="headerlink" href="#functional-programming-3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Closures and Currying</li>
+<li>Generators</li>
+<li>Coroutines</li>
+</ul>
+</div>
+<div class="section" id="advanced-python-language-constructs">
+<h3>Advanced Python Language Constructs<a class="headerlink" href="#advanced-python-language-constructs" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Decorators</li>
+<li>Context Managers</li>
+<li>Meta Programming</li>
+<li>Meta Classes</li>
+</ul>
+</div>
+<div class="section" id="debugging-logging">
+<h3>Debugging &amp; Logging<a class="headerlink" href="#debugging-logging" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Logging module</li>
+<li>Syslog</li>
+<li>pdb/ipdb</li>
+</ul>
+</div>
+<div class="section" id="advanced-testing">
+<h3>Advanced Testing<a class="headerlink" href="#advanced-testing" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Linting</li>
+<li>Coverage</li>
+<li>Fixtures</li>
+<li>Mocking</li>
+</ul>
+</div>
+<div class="section" id="relational-databases">
+<h3>Relational Databases<a class="headerlink" href="#relational-databases" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>SQL</li>
+<li>ORMs
+* Normalization
+* Schema</li>
+<li>Sqlite</li>
+<li>Postgresql</li>
+</ul>
+</div>
+<div class="section" id="nosql-databases">
+<h3>NoSQL Databases<a class="headerlink" href="#nosql-databases" title="Permalink to this headline">¶</a></h3>
+<p>Object/Document, Key/Value and Graph Databases</p>
+<ul class="simple">
+<li>Schema vs “Schemaless”</li>
+<li>Mongo</li>
+<li>Redis</li>
+<li>Neo4j</li>
+</ul>
+</div>
+<div class="section" id="profiling-performance">
+<h3>Profiling &amp; Performance<a class="headerlink" href="#profiling-performance" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Timing</li>
+<li>Profiling</li>
+<li>PyPy</li>
+<li>Cython</li>
+</ul>
+</div>
+<div class="section" id="concurrency-async-programming">
+<h3>Concurrency &amp; Async Programming<a class="headerlink" href="#concurrency-async-programming" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Concurrency</li>
+<li>Threading and Multiprocessing</li>
+<li>Message Queues</li>
+<li>Async</li>
+<li>Celery</li>
+</ul>
+</div>
+</div>
+<div class="section" id="functional-programming">
+<h2>Functional Programming<a class="headerlink" href="#functional-programming" title="Permalink to this headline">¶</a></h2>
+<p>The readings were a little, shall we say, sparse.</p>
+<p>So I’ll go over them now.</p>
+<div class="section" id="lambda">
+<h3>lambda<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="map-filter-reduce">
+<h3>map, filter, reduce<a class="headerlink" href="#map-filter-reduce" title="Permalink to this headline">¶</a></h3>
+<p>Want to try it with mailroom?</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/mailroom-fp.html#exercise-mailroom-fp" title="(in PythonCert v4.0)"><span>Mailroom - Functional</span></a></p>
+</div>
+</div>
+<div class="section" id="end-of-quarter">
+<h2>End of Quarter:<a class="headerlink" href="#end-of-quarter" title="Permalink to this headline">¶</a></h2>
+<p>We will review PRs through Sunday.</p>
+<p>I will hold office hours one last time this Sunday as well.</p>
+<p><strong>Anyone up for Celebratory Beer?</strong></p>
 </div>
 </div>
 

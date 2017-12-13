@@ -1,0 +1,38 @@
+Backing out and accidental change in git.
+
+Here's the sitch:
+
+I accidentally changed a file in the examples dir in my fork of the repo.
+
+Then I committed it, and pushed that commit to gitHub and did a PR.
+
+So how do I back this out?
+
+git reset is the key:
+
+https://stackoverflow.com/questions/215718/reset-or-revert-a-specific-file-to-a-specific-revision-using-git
+
+First step -- find a commit that has the correct version of the file.
+
+The file in question is:
+
+``examples/Session05/maillroom_test.py``
+
+I can use ``git blame`` to  figure out when the file was last touched.
+
+``git blame -L 2,6 examples/Session05/maillroom_test.py``
+
+That means: show me the changes to lines 2--6 of this file. It's called "blame" becasue you can use it to figure out who to blame for a change in a file.
+
+Here's what I got::
+
+    4795ddf4 (Chris Barker 2017-10-31 18:59:31 -0700 2) from os import system
+    4795ddf4 (Chris Barker 2017-10-31 18:59:31 -0700 3)
+    87d27a12 (Chris Barker 2017-12-09 16:18:22 -0800 4) # some extra in here just to test git
+    87d27a12 (Chris Barker 2017-12-09 16:18:22 -0800 5)
+    4795ddf4 (Chris Barker 2017-10-31 18:59:31 -0700 6)
+
+So this shows me that it was changed on 12-09, and before that on 10-31. The 12-09 change
+
+
+git reset --hard  d9a39776abedaf2d  examples/Session05/maillroom_test.py
