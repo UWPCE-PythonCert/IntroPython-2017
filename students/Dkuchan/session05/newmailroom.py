@@ -18,14 +18,20 @@ def identifyDon(nameloc):
     print()
     print()
     while True:
-        donationselect=input("For which donation would you like to thank " + roster[nameloc][0] +"?")
-        donationselect=int(donationselect)
+        try:
+            donationselect=input("For which donation would you like to thank " + roster[nameloc][0] +"? : ")
+            donationselect=int(donationselect)
+        except:
+            print("You have made an invlaid selection.")
+            continue
         if donationselect>=1 and donationselect<=len(roster[nameloc])-1:
             printthanks(nameloc,donationselect)
             break
         else:
             print("You have made an invalid selection.")
             continue
+    print()
+    print()
 
 
 
@@ -47,7 +53,6 @@ def createthankyou():
         selection = input("Please type the name of the donor you would like to thank: ")
         for i in range(0, len(roster)):
             if selection in roster[i]:
-                print("I FOUND THE NAME!")
                 nameloc=i
                 identifyDon(nameloc)
                 break
@@ -65,7 +70,71 @@ def printthanks(name,don):
     print("Sincerely, Dan Kuchan")
     print()
     print()
+    while True:
+        userSelect=input("Woud you like to thank another person? (Y/N): ")
+        if userSelect=='Y':
+            createthankyou()
+            break
+        elif userSelect=='N':
+            userinterface()
+            break
+        else:
+            print("You have made an invalid selection.")
+            continue
+def queryroster(querytarget):
+    for i in range(0,len(roster)):
+        if querytarget in roster[i]:
+            break
+            return i
+        else:
+            return False
+
+def newname():
+    """Checks to see if a name is in the database.  If not it adds it.
+    """
+
+
+
+
+def datamod():
     print()
+    print()
+    print()
+    print("You may either add a new entry to the roster or modify an existing entry.")
+    print("1: Add new entry.")
+    print("2: Modify existing entry.")
+    while True:
+        try:
+            userSelect=input("Please make a selection: ")
+            userSelect=int(userSelect)
+        except:
+            print("You have made an invalid selection.")
+            continue
+        if userSelect==1:
+            print("You have chosen to add a new entry.")
+            while True:
+                userinput=input("Please enter the name you would like to add: ")
+                if queryroster(userinput) != False:
+                    print("This name is already in the database.  Please try again.")
+                    continue
+                else:
+                    roster.append(userinput)
+                    print(userinput + " has been added to the roster.")
+                    break
+"""
+
+        elif userSelect==2:
+            print("You have chosen to modify an existing entry.")
+            for i in range(0, len(roster)):
+            print(roster[i][0])
+            print()
+            while True:
+                userinput=input("Please enter name to be modified.")
+                for i in range(0,len(roster)):
+                    if userinput in roster[i]:
+                       nameloc=i
+                    break
+"""
 
 """
 def adddonation(name, ammount):
@@ -109,13 +178,14 @@ def userinterface():
     print("What would you like to do?")
     print("1:  Create a Thank You message.")
     print("2:  View the database.")
-    print("3:  Quit Program")
+    print("3:  Modify the database")
+    print("4:  Quit Program")
 
     while True:
         try:
             userSelect = input("Please enter the number of your selection: ")
-            userSelect=int(userSelect)  #REMEMBER THIS IT COMES IN AS A CHARACTER
-        except:
+            userSelect = int(userSelect)
+        except ValueError:
             print("You have made an invalid selection!")
             continue
         if userSelect == 1:
@@ -127,6 +197,8 @@ def userinterface():
             exit()
             break
         elif userSelect == 3:
+            datamod()
+        elif userSelect == 4:
             exit()
         else:
             print("You have made an invalid selection!")
