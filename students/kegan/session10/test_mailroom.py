@@ -3,7 +3,9 @@ Kathryn Egan
 """
 import pytest
 import io
+import make_donors
 from MailroomTools import Donor, DonorList
+import mailroom
 
 
 ##### DONOR TESTS #####
@@ -347,3 +349,17 @@ def test_create_report2():
         r1 ==
         'Donor Name          | Total Given | Num Gifts | Average Gift \n' +
         '------------------------------------------------------------')
+
+
+def test_multiply():
+    d1 = Donor('Helga', 5, 10, 15)
+    assert d1.multiply(2, min_donation=5, max_donation=8) == Donor('Helga', 10)
+    assert d1.multiply(3, max_donation=12) == Donor('Helga', 15, 30)
+    assert d1.multiply(1, min_donation=9) == Donor('Helga', 10, 15)
+
+
+def test_challenge():
+    l1 = DonorList(Donor('Chester', 5, 12, 3), Donor('Buster', 6, 6, 4))
+    c1 = l1.challenge(2, min_donation=4, max_donation=6)
+    assert Donor('Chester', 10) in c1
+    assert Donor('Buster', 12, 12, 8) in c1

@@ -13,15 +13,16 @@ from MailroomTools import Donor
 from MailroomTools import DonorList
 
 
-# donors = {
-#     'Benedict Cumberbatch': [200000.0],
-#     'Elon Musk': [10000.0, 150000.0, 100000.0],
-#     'Dad': [20.0, 5.0],
-#     'Donald Trump': [2.81],
-#     'Billy Neighbor': [.54, .01, .25]}
+donors = {
+    'Benedict Cumberbatch': [200000.0],
+    'Elon Musk': [10000.0, 150000.0, 100000.0],
+    'Dad': [20.0, 5.0],
+    'Donald Trump': [2.81],
+    'Billy Neighbor': [.54, .01, .25]}
+DONORS = DonorList.from_dictionary(donors)
 
-with open('donor_file.txt', 'r') as fin:
-    DONORS = DonorList.read_from(fin)
+# with open('donor_file.txt', 'r') as fin:
+#     DONORS = DonorList.read_from(fin)
 
 
 def main():

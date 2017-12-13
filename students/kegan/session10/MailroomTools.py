@@ -200,6 +200,14 @@ class Donor:
         """
         return donation in self.donations
 
+    def multiply(self, factor, min_donation=None, max_donation=None):
+        donations = self.donations
+        if min_donation is not None:
+            donations = filter(lambda d: d >= min_donation, donations)
+        if max_donation is not None:
+            donations = filter(lambda d: d <= max_donation, donations)
+        return Donor(self.name, *map(lambda d: d * factor, donations))
+
 
 @functools.total_ordering
 class DonorList:
@@ -466,3 +474,8 @@ class DonorList:
         """
         n = '999,999+' if n > 9999999 else'{:,}'.format(n)
         return ' ' * (width + 1 - len(n)) + n + ' '
+
+    def challenge(self, factor, min_donation=None, max_donation=None):
+        return DonorList(
+            *map(lambda d: d.multiply(
+                factor, min_donation, max_donation), self))
