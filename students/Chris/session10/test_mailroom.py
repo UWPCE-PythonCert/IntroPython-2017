@@ -161,6 +161,39 @@ def test_save_letters_to_disk():
     assert size > 0
 
 
+def test_challenge():
+    new_db = sample_db.challenge(3)
+
+    assert len(new_db.donors) == len(sample_db.donors)
+
+    nd = next(iter(new_db.donors))
+    sd = list(sample_db.donors)
+    assert nd.donations == [x * 3 for x in sd[0].donations]
+
+
+def test_mult_donor():
+    donor = mailroom.Donor("fred", [3,7,2,4])
+
+    new_donor = mailroom.mult_donor(donor, 2)
+
+    assert new_donor.name == donor.name
+
+    print(new_donor.donations)
+    assert new_donor.donations == [6, 14, 4, 8]
+
+
+def test_mult_donor3():
+    donor = mailroom.Donor("fred", [3,7,2,4])
+
+    new_donor = mailroom.mult_donor(donor, 3)
+
+    assert new_donor.name == donor.name
+
+    print(new_donor.donations)
+    assert new_donor.donations == [9, 21, 6, 12]
+
+
+
 # if __name__ == "__main__":
 #     # this is best run with a test runner, like pytest
 #     # But if not, at least this will run them all.

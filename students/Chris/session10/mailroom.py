@@ -114,6 +114,13 @@ class DonorDB():
         """
         return self.donor_data.values()
 
+    def challenge(self, factor):
+        new_donors = (mult_donor(d, factor) for d in self.donors)
+        #new_donors = map(lambda d: mult_donor(d, factor), donors)
+        new_db = DonorDB(new_donors)
+
+        return new_db
+
     def list_donors(self):
         """
         creates a list of the donors as a string, so they can be printed
@@ -305,9 +312,15 @@ def main():
             print("error: menu selection is invalid!")
 
 
+def mult_donor(donor, factor):
+    new_donations = map(lambda x: x * factor, donor.donations)
+    new_donor = Donor(donor.name, new_donations)
+    return new_donor
+
+
 if __name__ == "__main__":
     # create a DB with the sample data
-    db = DonorDB(get_sample_data())
+    #db = DonorDB(get_sample_data())
 
     # create a DB with the random data
     db = DonorDB()
