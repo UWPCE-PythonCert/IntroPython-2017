@@ -3,9 +3,7 @@ Kathryn Egan
 """
 import pytest
 import io
-import make_donors
 from MailroomTools import Donor, DonorList
-import mailroom
 
 
 ##### DONOR TESTS #####
@@ -26,7 +24,6 @@ def test_donor_init():
 
 
 def test_intake_donations():
-    d = Donor('Bob', 1)
     assert Donor.intake_donations(500) == [500]
     assert Donor.intake_donations(300, 12) == [300, 12]
     assert Donor.intake_donations(4, 400.83, 5.44) == [4, 400.83, 5.44]
@@ -182,6 +179,7 @@ def test_donor_add():
     assert d.donations == [10, 50, 200, 400]
 
 
+
 ##### DONORLIST TESTS #####
 
 
@@ -220,7 +218,7 @@ def test_donor_names():
 def test_donorlist_get():
     l1 = DonorList(d1, d2, d3)
     assert l1['Abigail'] == d1
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         l1['Dirk']
 
 
@@ -232,16 +230,6 @@ def test_donorlist_update():
     assert Donor('Abigail', 50) not in l1
     l1.update(Donor('Steve', 25))
     assert Donor('Steve', 25) in l1
-
-
-# def test_donorlist_remove():
-#     l1 = DonorList(d3, d2, d1)
-#     l1.remove(d3)
-#     assert l1 == [d2, d1]
-#     l1.remove('Abigail')
-#     assert l1 == [d2]
-#     with pytest.raises(ValueError):
-#         l1.remove('Carla')
 
 
 def test_sort_by():
@@ -265,17 +253,6 @@ def test_from_dictionary():
     l1 = DonorList.from_dictionary(donors)
     assert 'Benedict Cumberbatch' in l1
     assert l1['Elon Musk'] == Donor('Elon Musk', 10000.0, 150000.0, 100000.0)
-
-
-# def test_from_file():
-#     infile = io.StringIO()
-#     infile.initial_value = 'Debra,800.00,70.00\nGlenda,9.87\n'
-
-#     with infile as f:
-#         l1 = DonorList.from_csv(f)
-#     print(l1)
-#     assert Donor('Debra', 800.0, 70.0) in l1
-#     assert Donor('Glenda', 9.87) in l1
 
 
 def test_report_dollar():
@@ -351,15 +328,50 @@ def test_create_report2():
         '------------------------------------------------------------')
 
 
-def test_multiply():
+def test_multiply_no_min_max():
     d1 = Donor('Helga', 5, 10, 15)
-    assert d1.multiply(2, min_donation=5, max_donation=8) == Donor('Helga', 10)
-    assert d1.multiply(3, max_donation=12) == Donor('Helga', 15, 30)
-    assert d1.multiply(1, min_donation=9) == Donor('Helga', 10, 15)
+    assert (
+        d1.multiply(2, min_donation=0, max_donation=100000000) ==
+        Donor('Helga', 10, 20, 30))
+    assert (
+        d1.multiply(3, min_donation=0, max_donation=100000000) ==
+        Donor('Helga', 15, 30, 45))
+    assert (
+        d1.multiply(4, min_donation=0, max_donation=100000000) ==
+        Donor('Helga', 20, 40, 60))
 
 
-def test_challenge():
+def test_multiply_min():
+    d1 = Donor('Helga', 5, 10, 15)
+    assert d1.multiply(
+        2, min_donation=6, max_donation=1000) == Donor('Helga', 5, 20, 30)
+
+
+def test_multiply_max():
+    d1 = Donor('Helga', 5, 10, 15)
+    assert d1.multiply(
+        2, min_donation=0, max_donation=12) == Donor('Helga', 10, 20, 15)
+
+
+def test_multiply_min_max():
+    d1 = Donor('Helga', 5, 10, 15)
+    assert d1.multiply(
+        3, min_donation=7, max_donation=12) == Donor('Helga', 5, 30, 15)
+
+
+def test_challenge_donor():
     l1 = DonorList(Donor('Chester', 5, 12, 3), Donor('Buster', 6, 6, 4))
-    c1 = l1.challenge(2, min_donation=4, max_donation=6)
-    assert Donor('Chester', 10) in c1
-    assert Donor('Buster', 12, 12, 8) in c1
+    assert (
+        l1.challenge_donor('Chester', 2, min_donation=4, max_donation=6) ==
+        Donor('Chester', 10, 12, 3))
+    assert (
+        l1.challenge_donor('Buster', 2, min_donation=6, max_donation=6) ==
+        Donor('Buster', 12, 12, 4))
+
+
+def test_challenge_all():
+    l1 = DonorList(Donor('Chester', 5, 12, 3), Donor('Buster', 6, 6, 4))
+    l2 = l1.challenge_all(2, min_donation=10)
+    assert Donor('Chester', 5, 24, 3) in l2
+    assert Donor('Buster', 6, 6, 4) in l2
+

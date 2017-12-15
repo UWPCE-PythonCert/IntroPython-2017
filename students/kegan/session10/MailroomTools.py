@@ -201,12 +201,15 @@ class Donor:
         return donation in self.donations
 
     def multiply(self, factor, min_donation=None, max_donation=None):
-        donations = self.donations
-        if min_donation is not None:
-            donations = filter(lambda d: d >= min_donation, donations)
-        if max_donation is not None:
-            donations = filter(lambda d: d <= max_donation, donations)
-        return Donor(self.name, *map(lambda d: d * factor, donations))
+        donations = map(lambda d: self.apply_factor(
+            d, factor, min_donation, max_donation), self.donations)
+        return Donor(self.name, *donations)
+
+    @staticmethod
+    def apply_factor(d, factor, min_donation, max_donation):
+        within_min = True if min_donation is None else d >= min_donation
+        within_max = True if max_donation is None else d <= max_donation
+        return d * factor if within_min and within_max else d
 
 
 @functools.total_ordering
@@ -317,10 +320,11 @@ class DonorList:
         Returns:
             Donor : donor with name matching given name
         """
+        name = Donor.clean_name(name)
         for donor in self.donors:
             if donor.name == name:
                 return donor
-        raise ValueError('{} not found'.format(name))
+        raise KeyError('{} not found'.format(name))
 
     def update(self, donor):
         """ Updates list with given donor. If donor
@@ -475,7 +479,11 @@ class DonorList:
         n = '999,999+' if n > 9999999 else'{:,}'.format(n)
         return ' ' * (width + 1 - len(n)) + n + ' '
 
-    def challenge(self, factor, min_donation=None, max_donation=None):
-        return DonorList(
-            *map(lambda d: d.multiply(
-                factor, min_donation, max_donation), self))
+    def challenge_all(self, factor, min_donation=None, max_donation=None):
+        donors = map(lambda d: d.multiply(
+            factor, min_donation, max_donation), self.donors)
+        return DonorList(*donors)
+
+    def challenge_donor(
+            self, name, factor, min_donation=None, max_donation=None):
+        return self[name].multiply(factor, min_donation, max_donation)

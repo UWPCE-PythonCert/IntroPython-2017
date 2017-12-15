@@ -30,21 +30,29 @@ def main():
     options = {
         'Send a Thank You': print_thank_you,
         'Create a Report': print_report,
+        'Project Donations': project_donations,
         'Write Thank Yous': write_thank_yous,
         'Donors to File': donors_to_file,
         'Quit': exit_program}
+    print_menu(options)
     while True:
-        print('\nPlease choose from the following options:')
-        prompt = '\n'.join([
-            '{} {}'.format(str(i + 1), option)
-            for i, option in enumerate(options)]) + '\n>'
-        raw = safe_input(prompt)
+        answer = safe_input('>')
         try:
-            answer = list(options)[int(raw) - 1]
+            answer = list(options)[int(answer) - 1]
         except (IndexError, ValueError):
-            print('{} is not valid input'.format(raw))
+            if answer.strip().upper() == 'MENU':
+                print_menu(options)
+            else:
+                invalid(answer)
         else:
             options[answer]()
+
+
+def print_menu(options):
+    print('\t-------- MENU --------')
+    print('\n'.join([
+        '\t|{} {}'.format(str(i + 1), option)
+        for i, option in enumerate(options)]))
 
 
 def safe_input(prompt):
@@ -76,56 +84,58 @@ def exit_program():
 def print_thank_you():
     """ Prompts user for donor name and amount and prints thank
     you note to the console. Donation amount must be numerical."""
-    name = get_donor()
-    donation = get_donation()
+    name = get_name()
+    donation = get_number('Enter donation:')
     donor = Donor(name, donation)
     DONORS.update(donor)
     print()
-    try:
-        print(donor.thank())
-    except ValueError:
-        print(
-            'Cannot write thank you for ' +
-            '{0} because {0} has not given a donation'.format(donor.name))
+    print(donor.thank())
+    print()
 
 
-def get_donor():
+def get_name():
     """ Prompts user for and returns donor name.
     Returns:
         str : donor name
     """
+    print('Enter donor name or LIST to see current list of donors:')
     while True:
-        donor = safe_input(
-            'Who donated? (Enter LIST to see current list of donors)\n>')
-        if not donor.strip():
-            print('"{}" is not a valid name.'.format(donor))
-            print('Please try again.')
-            continue
-        elif donor.strip().upper() == 'LIST':
+        name = safe_input('>')
+        if not name.strip():
+            invalid(name)
+        elif name.strip().upper() == 'LIST':
             print()
             print('Current donors:')
             print('\n'.join([str(d.name) for d in sorted(DONORS.donors)]))
             print()
         else:
             break
-    return donor
+    return name
 
 
-def get_donation():
+def get_number(prompt):
     """ Prompts user for and returns donation amount.
     Returns:
         float : amount donated
     """
+    print(prompt)
     while True:
-        donation = safe_input('How much was donated?\n>')
+        number = safe_input('>').strip()
+        number = number.strip('$')
         try:
-            donation = float(donation.strip('$'))
-            if donation > 0:
-                return donation
+            number = float(number)
         except ValueError:
             pass
-        print('{} is not a valid amount.'.format(donation))
-        print('Please try again.')
+        else:
+            if number > 0:
+                return number
+        invalid(number, 'Amount must be > 0')
+
+
+def invalid(value, clarification=None):
+    print('INVALID ENTRY: "{}"'.format(value))
+    if clarification:
+        print(clarification)
 
 
 def print_report():
@@ -150,6 +160,46 @@ def write_thank_yous():
             f.write(thank_you)
     print('Thank yous written to\n{}'.format(
         os.path.join(os.getcwd(), directory)))
+
+
+def get_min_max(version):
+    while True:
+        ans = safe_input('Apply to {}? Y/N\n>'.format(version))
+        if ans.strip().upper() == 'Y':
+            return get_number('Apply to values {}: '.format(
+                'over' if version == 'minimum' else 'under'))
+        return
+
+
+def project_donations():
+    while True:
+        name = get_name()
+        try:
+            donor = DONORS[name]
+        except KeyError:
+            invalid(name, 'Name not found.')
+        else:
+            break
+    factor = get_number('Enter factor:')
+    minimum = get_min_max('minimum')
+    maximum = get_min_max('maximum')
+    projected = donor.multiply(factor, minimum, maximum)
+    substrings = {
+        'name': donor.name,
+        'curr_total': '${:,.2f}'.format(donor.total),
+        'proj_total': '${:,.2f}'.format(projected.total),
+        'diff': '${:,.2f}'.format(projected.total - donor.total),
+        'factor': '{}x'.format(factor),
+        'min': ' >= ${:,.2f}'.format(minimum) if minimum else '',
+        'max': ' <= ${:,.2f}'.format(maximum) if maximum else '',
+        'and': ' and' if minimum is not None and maximum is not None else ''}
+    report = \
+        'PROJECTION:' +\
+        '\nDonor name: {name}' +\
+        '\nCurrent total: {curr_total}' +\
+        '\nProjected total ({factor} donations{min}{and}{max}): {proj_total}' +\
+        '\nDifference: +{diff}'
+    print(report.format(**substrings))
 
 
 def donors_to_file():
