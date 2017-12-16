@@ -122,11 +122,7 @@ class Transactions():
         new_transactions = copy.deepcopy(self)
         for i in new_transactions.all_donors:
             i.filter_donations(min_donation, max_donation)
-        # Dislike looping twice, but how to retain intermediate total?
-        total_premult = new_transactions.total_donations
-        for i in new_transactions.all_donors:
-            i.mult_donations(factor)
-        return new_transactions.total_donations - total_premult
+        return (factor - 1) * new_transactions.total_donations
 
 
 
@@ -213,12 +209,11 @@ class Mailroom():
             else:
                 amount = self.transactions.challenge(factor, min_donation, max_donation)
                 #  This code is broken somehow:
-                #print(dedent('''Projected contribution needed to match
-                #             donations between ${0:.2f} - ${1:.2f}
-                #             by a multiplier of {3} is total of: ${4:.2f}
-                #             '''.format(min_donation, max_donation,
-                #                        factor, amount))
-                print("Amount needed: $" + str(amount))
+                print(dedent('''Projected contribution needed to match
+                            donations between ${0:.2f} - ${1:.2f}
+                            by a multiplier of {2} is total of: ${3:.2f}
+                            '''.format(min_donation, max_donation,
+                                       factor, amount)))
                 return
 
     def collect_challenge_input(self):
