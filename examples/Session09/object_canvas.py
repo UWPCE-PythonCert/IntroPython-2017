@@ -96,7 +96,7 @@ class DrawObject:
         super().__init__(*args, **kwargs)
 
 
-class LineObject:
+class LineObject():
     """
     mixin for classes with a line
     """
@@ -121,6 +121,7 @@ class FillObject:
                  fill_color=None,
                  **kwargs
                  ):
+        super().__init__(**kwargs)
         print("in FillObject __init__", kwargs)
         self.fill_color = fill_color
 
@@ -166,6 +167,18 @@ class Circle(DrawObject, LineObject, FillObject):
             bounds = ((c[0] - r, c[1] - r), (c[0] + r, c[1] + r))
             drawer.ellipse(bounds, fill=None, outline=self.line_color)
 
+
+class Rectangle(DrawObject, FillObject, LineObject):
+    def __init__(self, corner, height, width, **kwargs):
+        self.corner = corner
+        self.height = height
+        self.width = width
+        super().__init__(**kwargs)
+
+    def draw(self, drawer):
+        bounds = [self.corner, (self.corner[0] + self.width,
+                                self.corner[1] + self.height)]
+        drawer.rectangle(bounds, fill=self.fill_color, outline=self.line_color)
 
 
 
