@@ -174,6 +174,16 @@ def input_sc(textfile):
     while bool:
         print(welcome)
         selection = input('Please type a number between 1 & 4:\n')
+<<<<<<< HEAD
+        try:            
+            selection = int(selection)
+            bool = prog_dic.get(selection, None)(textfile)
+        except (TypeError, ValueError):
+            print("uh uh uhuh!!!".upper())
+
+
+
+=======
         try:
             selection = int(selection)
         except ValueError:
@@ -185,6 +195,7 @@ def input_sc(textfile):
                 print("You typed a bad value!!".upper())
         finally:
             print("Going around again")
+>>>>>>> 0326a0e6965ee18e2d5a8662a3a9ce6809da6410
 
 if __name__ == '__main__':
     '''
