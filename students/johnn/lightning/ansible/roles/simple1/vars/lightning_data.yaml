@@ -1,0 +1,4 @@
+ntp_servers:
+  - timeserver1
+  - timeserver2
+
