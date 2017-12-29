@@ -1,0 +1,10 @@
+---
+
+- name: fact, meet text
+  set_fact:
+    myos: "{{ 'phat'.upper() }}"
+
+- name: print what we've learned
+  debug:
+    msg: "The text is {{ myos }}."
+

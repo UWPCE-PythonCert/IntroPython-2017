@@ -1,0 +1,16 @@
+---
+
+- name: import ntp data
+  include_vars:
+    file: lightning_data.yaml
+   
+- name: update /tmp/ntp.conf
+  lineinfile:
+    path: /tmp/ntp.conf
+    regexp: "^server {{item}}"
+    line: "server {{item}}"
+    create: yes
+    backup: yes
+  with_items:
+    - "{{ntp_servers}}"
+
