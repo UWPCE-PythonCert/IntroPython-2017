@@ -109,6 +109,7 @@ def test_generate_report_data():
     t.add_donor(name2, amt3)
     result = [('Marge Simpson', 1500.0, 2, 750.0),
               ('Ada Lovelace', 345.0, 1, 345.0)]
+    print(t.generate_report_data)
     assert t.generate_report_data() == result
 
 
