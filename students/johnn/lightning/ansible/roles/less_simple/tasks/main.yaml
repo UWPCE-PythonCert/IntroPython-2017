@@ -1,0 +1,36 @@
+---
+
+- name: import network data
+  include_vars:
+    file: lightning_data.yaml
+
+- name: hardcode my hostname for illustration
+  set_fact:
+    my_hostname="hostr1"
+#    my_hostname="hostb1"
+   
+- name: extract my host data
+  set_fact:
+    my_hostdata="{{ lightning | json_query( query ) | first }}"
+  vars:
+    query: "hosts[?name=='{{my_hostname}}']"
+
+- name: extract my networks
+  set_fact:
+    my_network="{{ my_hostdata | json_query( query ) | first }}"
+  vars:
+    query: "interfaces[*].network"
+
+- name: extract my dns servers
+  set_fact:
+    my_dns_servers="{{ lightning | json_query( query ) | first }}"
+  vars:
+    query: "networks[?name=='{{my_network}}'].dns_servers"
+
+- name: set network appropriate dns servers (/tmp/resolv.conf)
+  lineinfile:
+    path: /tmp/resolv.conf
+    regexp: "^nameserver "
+    line: "nameserver {{ my_dns_servers | join(' ')  }}"
+    create: yes
+    backup: yes

@@ -1,0 +1,10 @@
+---
+
+- name: figure out os minor version
+  set_fact:
+    myos: "{{ ansible_distribution_version.split('.')[1] }}"
+
+- name: print out os minor version
+  debug:
+    msg: "The OS version is {{ myos }}."
+
