@@ -144,8 +144,8 @@ Use Python as Cloud Glue
 Python can be useful for a writer.
 
 
-Hiroyuki Takechi
-----------------
+Hiroyuki Takechi: Statistical tools -- SAS and R
+------------------------------------------------
 
 Jacob Olsby
 -----------
