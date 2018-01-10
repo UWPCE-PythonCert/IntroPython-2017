@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python Overview &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Python Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/scripts/python_overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p id="script-python-overview">NOTE: now managed in Google Docs.</p>
+<div class="section" id="python-overview">
+<h1>Python Overview<a class="headerlink" href="#python-overview" title="Permalink to this headline">¶</a></h1>
+<p>An overview of the Python language and ecosystem</p>
+<p>What is Python?</p>
+<p>Python is a programming language, I’m sure you all know that – but there are a lot of different programming languages, all suited to different tasks.</p>
+<p>So what makes Python special?</p>
+<p>Python is:</p>
+<ul class="simple">
+<li>Dynamically typed</li>
+<li>Object oriented</li>
+<li>Byte-compiled</li>
+<li>Interpreted</li>
+</ul>
+<p>But what does all that mean?</p>
+<p>I’ll go over each of these technical terms to give you an idea:</p>
+<p>First, to reference other programming languages:</p>
+<p>Python is not much like:</p>
+<p>C, C++, C#, and Java.</p>
+<p>It is more like:</p>
+<blockquote>
+<div>Ruby, Lisp, Perl, and Javascript</div></blockquote>
+<p>What do these all have in common? The biggest thing is:</p>
+<p>“Dynamic Typing”</p>
+<p>This means variables are not declared to have a particualr type.</p>
+<p>And that means:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Programs are shorter</li>
+<li>Programs are more flexible</li>
+</ul>
+</div></blockquote>
+<p>And Programs with less code have fewer bugs</p>
+<p>I also mentioned that Python is Interpreted</p>
+<p>This means that there is no separate compile or linking build steps.</p>
+<p>And THAT means that the programming process is simpler and faster.</p>
+<p>So other than not having to declare types, what really IS a Dynamic language?</p>
+<p>Dynamic typing means that type checking and dispatch happen at run-time</p>
+<p>For example, for a really simple line of code like:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>The interpreter, when the code is running, goes through a process somethign like this:</p>
+<ul class="simple">
+<li>What type of thing is <code class="docutils literal"><span class="pre">a</span></code>?</li>
+<li>What type of thing is <code class="docutils literal"><span class="pre">b</span></code>?</li>
+<li>What does it mean to add them?</li>
+</ul>
+<p>Then it actually perform the addition, and assign the new value to x.</p>
+<p>Importantly, both the type and value of a and b can change at any time before this line of code is run.</p>
+<p>However, Python’s dynamic typing does not mean it is “weakly typed”. In fact,
+values in Python are Strongly typed.</p>
+<p>At any given moment, a particular python value will have one and only one type. And that type can be checked at run time.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="gp">In [2]: </span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">int</span>
+
+<span class="gp">In [3]: </span><span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;5&#39;</span>
+
+<span class="gp">In [4]: </span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">str</span>
+</pre></div>
+</div>
+<p>So you can see that even though b, in this case, holds text that happens to hold the digit five – python knows that it is text (the string type), and not a number.</p>
+<p>So EVERY value in Python has a type</p>
+<p>And the type of the value thing determines what it can do.</p>
+<p>Watch what happens when I try to add a and b above:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-5-f96fb8f649b6&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>TypeError: unsupported operand type(s) for +: ‘int’ and ‘str’</p>
+<p>We get a type error – it’s an error because adding a number to a string is meaningless.  While a human could infer that I meant that string with teh digit 5 in it to be Interpreted as a number, and thus give me 10, Python will not change types for you.</p>
+<p>In fact, the Python language has a Philosophy of Sorts, known as the “zen of Python”, and one of its tenets is:</p>
+<p>“In the face of ambiguity, refuse the temptation to guess.”“</p>
+<p>That is exactly what is going on here.</p>
+<p>Despite this approach, Python’s typing system is not rigid.</p>
+<p>Python users, or “Pythonistas” as they are sometimes called, sometimes refer to Python’s typing system  as “Duck Typing”.</p>
+<p>This is taken from the aphorism:</p>
+<p>“If it looks like a duck, swims like a duck, and quacks like a duck, then it probably IS a duck”</p>
+<p>Or, in programming terms:</p>
+<p>If an object behaves as expected at run-time, it’s the right type.</p>
+<p>Or, in the above example: if an object knows how to add itself to  number, then Python will add it to the number.</p>
+<p>If this is a bit confusing, trust that it will all make more sense to you as you work with the code.</p>
+<p>But what it does mean is that for the most part, Python code behaves pretty much as you expect it will.</p>
+<p>One more point I’d like to bring up in this introduction:</p>
+<p>Python Comes in multiple versions.</p>
+<p>There is Python 2.</p>
+<p>It is the “Classic” Python, having evolved, without breaking much from the original</p>
+<p>And then there is Python 3 – sometimes known as “py3k”</p>
+<p>Python 3 is an Updated version.</p>
+<p>It improved the language, and removed many of the “warts” Python 2 had grown over the years.</p>
+<p>But is is NOT backward compatible, it was allowed to break code. That is, code that runs under Python 2 will not run unchanged under Python 3.</p>
+<p>However, it still very much the same language.  Most of what you learn about Python will be applicable to either version.</p>
+<p>This program uses Python 3 – not Python 2</p>
+<p>It is the latest and greatest version, and while a lot of production code is still using version 2, Adoption of Python 3 is growing fast</p>
+<p>If you find yourself needing to work with Python 2 and 3, there are ways to write compatible code:</p>
+<p>Here is the “official” site about it:</p>
+<p><a class="reference external" href="https://wiki.python.org/moin/PortingPythonToPy3k">https://wiki.python.org/moin/PortingPythonToPy3k</a></p>
+<p>And here are some other notes:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Py2vsPy3.html">https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Py2vsPy3.html</a></p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

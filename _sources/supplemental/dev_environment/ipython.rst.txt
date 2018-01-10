@@ -16,4 +16,3 @@ iPython is an enhanced interpreter that makes interactive experimentation at the
 * **The iPython Documentation**
     (http://ipython.readthedocs.io/en/stable/)
     Use this to learn more about iPython's amazing capabilities.
-

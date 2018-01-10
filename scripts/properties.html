@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Properties &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Properties</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/scripts/properties.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="properties">
+<span id="script-properties"></span><h1>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h1>
+<p>With Rick Riehle</p>
+<p>Requires a feed to my laptop.</p>
+<p>Status:  Filmed w Ryan on 2017-12-12</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Python has a unique way to manage access to object attributes.</p>
+<p>&lt;Outline the talk&gt;</p>
+<p>We are going to start with standard attributes, nothing fancy, simply define an attribute in your class and use it.  Then we’re going to see some of the limitations of that.  Then we’ll look at setters and getters and how they might be done in Python.  We will see limitations there too.  Finally we’ll look at Properties.  Once we get to Properties we’ll see that in a sense we will have come full circle back to where we started, because accessing properties is just like accessing simple attributes, yet we get the benefits of setters and getters.</p>
+<p>&lt;Describe the game&gt;</p>
+<p>I have in mind a simple game.</p>
+<dl class="docutils">
+<dt>Fighter guy</dt>
+<dd><ol class="first last arabic simple">
+<li>SimpleFighterGuy</li>
+<li>GetterSetterFighterGuy</li>
+<li>PropertyFighterGuy</li>
+</ol>
+</dd>
+<dt>Health attribute represented as a PERCENTAGE.</dt>
+<dd><ol class="first last arabic simple">
+<li>An army of fighter guys!</li>
+</ol>
+</dd>
+</dl>
+<p>I want to be able to interact with the attributes of my fighter guys in as straightforward a manner as possible.</p>
+<p>To make this possible we are going to evolve our FighterGuy class from simple attributes through setters and getters to properties.</p>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<p>First, simple attributes.</p>
+<p>Code!</p>
+<div class="section" id="private-attributes-python-style">
+<h3>Private attributes, Python style<a class="headerlink" href="#private-attributes-python-style" title="Permalink to this headline">¶</a></h3>
+<p>Python does not have any concept of public or private.  There is a convention to put a single underscore in front of attribute names, and that is a convention, a sort of coded message, from the maintainer of the class to the user or consumer of the class to leave it alone.  The maintainer of the class in effect is saying, “Use this directly at your own risk, I need this for me, it’s not for you and I am making no guarantees of how it will behave in the future or even if it will exist in the future.”</p>
+<p>Code!</p>
+</div>
+</div>
+<div class="section" id="setters-and-getters">
+<h2>Setters and Getters<a class="headerlink" href="#setters-and-getters" title="Permalink to this headline">¶</a></h2>
+<p>Many languages have Setters and Getters, Java, C#, C++, Ruby, JavaScript.  Many programmers when they come to Python from these languages continue to create them and use them without taking them all the way to Python Properties.  It’s a marker of someone coming in from one of these other languages and it’s a sort of advanced rookie mistake.  “Oh your class has a setter and a getter… great… where are the properties?”</p>
+<p>Code!</p>
+</div>
+<div class="section" id="id1">
+<h2>Properties<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Enter properties.  I’m going to make one simple change to this class to turn our attributes and our setter and getter into Properties and then let’s see how they work.</p>
+<p>Code!</p>
+<div class="section" id="the-property-decorator">
+<h3>The Property Decorator<a class="headerlink" href="#the-property-decorator" title="Permalink to this headline">¶</a></h3>
+<p>If you’re already familiar with Python Decorators, great.  If not we will eventually get to them.  For now just follow along and know that the decorator style of doing this is exactly the same as calling the property function.  The decorator is “syntactic sugar.”</p>
+<p>Code!</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>Notice how we’ve come full circle.  The way we access our attributes now that they have been turned into properties is exactly how we would have accessed them before when they were simple attributes – in other words the external API, the way we access them, has not changed – and yet we have complete control over their permissible values just as we would with setters and getters.  I can’t stress this enough.  All the simplicity of standard attribute access, all the control of setters and getters, none of the awkwardness of setters and getters.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -83,7 +83,7 @@ pip
 
 ``pip`` is the Python package installer.
 
-Many python packages are also available directly from your distro -- but you'll get the latest and greatest if you use ``pip`` to install it instead.
+Many Python packages are also available directly from your distro -- but you'll get the latest and greatest if you use ``pip`` to install it instead.
 
 To get pip, the first option is to use your system package manager, something like:
 
@@ -100,7 +100,7 @@ To use pip to install a package, you invoke it with this command::
 
   python -m pip install the_name_of_the_package
 
-Where ``python`` is the command you use to invoke the python you want to use (could be ``python3``)
+Where ``python`` is the command you use to invoke the Python you want to use (could be ``python3``)
 
 **NOTE:** You will frequently see advice to use pip like so::
 
@@ -110,7 +110,7 @@ Which often works, but also can invoke the *wrong* version of pip. The above com
 
   $ python -m pip install something_or_other
 
-calls python, and tells it to run the ``pip`` module. It is exactly the same as calling pip directly, except that you are assured that you are getting the version of pip connected the version of python that you are running.
+calls Python, and tells it to run the ``pip`` module. It is exactly the same as calling pip directly, except that you are assured that you are getting the version of pip connected the version of python that you are running.
 
 iPython
 --------
@@ -146,7 +146,7 @@ Fedora and Red Hat Related Distros (CentOS)
 
 .. warning::
 
-	CentOS is probably the most popular distro of these related flavors. However, getting Python3 on it can be a pain. You have been warned
+	CentOS is probably the most popular distro of these related flavors. However, getting Python3 on it can be a pain. You have been warned!
 
 
 Python
@@ -172,7 +172,7 @@ Let's install python3 using the package manager. Step one install "Software Coll
 
    $ sudo yum -y install scl-utils
 
-Then go to the `software collections listing <https://www.softwarecollections.org/en/scls/>`_ and click on the python collection version you want to install.
+Then go to the `software collections listing <https://www.softwarecollections.org/en/scls/>`_ and click on the Python collection version you want to install.
 
 Probably this one:
 
@@ -216,7 +216,7 @@ pip
 
 ``pip`` is the Python package installer.
 
-Many python packages are also available directly from your distro -- but you'll get the latest and greatest if you use ``pip`` to install it instead.
+Many Python packages are also available directly from your distro -- but you'll get the latest and greatest if you use ``pip`` to install it instead.
 
 In CentOS, if you used the above technique to install Python3, then it comes with pip. Try:
 
@@ -232,7 +232,7 @@ To use pip to install a package, you invoke it with this command::
 
   python -m pip install the_name_of_the_package
 
-Where ``python`` is the command you use to invoke the python you want to use (could be `python3`)
+Where ``python`` is the command you use to invoke the Python you want to use (could be `python3`)
 
 **NOTE:** You will frequently see advice to use pip like so::
 
@@ -242,7 +242,7 @@ Which often works, but also can invoke the *wrong* version of pip. The above com
 
   $ python -m pip install something_or_other
 
-calls python, and tells it to run the ``pip`` module. It is exactly the same as calling pip directly, except that you are assured that you are getting the version of pip connected the version of python that you are running.
+calls Python, and tells it to run the ``pip`` module. It is exactly the same as calling pip directly, except that you are assured that you are getting the version of pip connected the version of python that you are running.
 
 iPython
 --------
@@ -276,4 +276,3 @@ Fedora Wiki
 =============
 
 https://fedoraproject.org/wiki/Packaging:Python
-

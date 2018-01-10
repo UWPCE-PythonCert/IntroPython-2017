@@ -41,7 +41,7 @@ To print more than one value on a line, you can pass multiple names into the pri
 
   print('+', '-')
 
-If you don't want a newline after something is printed, you tell python what you want the print to end with like so:
+If you don't want a newline after something is printed, you tell Python what you want the print to end with like so:
 
 .. code-block:: python
 
@@ -73,7 +73,10 @@ You can put two strings together with the plus operator:
   In [20]: "this" + "that"
   Out[20]: 'thisthat
 
-Particularly useful if they have been assigned names:
+
+This is called concatenation.
+
+Concatenation is particularly useful if the strings have been assigned names:
 
 .. code-block:: ipython
 
@@ -81,10 +84,10 @@ Particularly useful if they have been assigned names:
 
   In [22]: minus = '-'
 
-  In [23]: plus+minus+plus
+  In [23]: plus + minus + plus
   Out[23]: '+-+'
 
-Note that you can string any number of operations together in an expression.
+Note that you can link any number of operations together in an expression.
 
 Multiplication of strings
 -------------------------
@@ -116,7 +119,7 @@ Now you've got what you need to print that grid...
 Part 2
 =======
 
-Making it more general
+Making it more general.
 
 Make it a function
 ------------------
@@ -168,7 +171,7 @@ Even more general...
 A function with two parameters
 ------------------------------
 
-Write a function that draws a similar grid with a specified number of rows and columns, and each cell a given size.
+Write a function that draws a similar grid with a specified number of rows and columns, and with each cell a given size.
 
 For example,  ``print_grid2(3,4)`` results in::
 

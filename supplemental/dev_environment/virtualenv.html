@@ -1,59 +1,204 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Working with Virtualenv &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Working with Virtualenv &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Resources for Specific Python Topics" href="../../references/index.html" />
-    <link rel="prev" title="git Overview" href="git_overview.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Setting Up A Development Environment For Python" href="index.html"/>
+        <link rel="next" title="Resources for Specific Python Topics" href="../../references/index.html"/>
+        <link rel="prev" title="git Overview" href="git_overview.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Supplemental Materials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../HowToRunAPythonFile.html">How to run a python file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installing/index.html">Installing Python and core tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Setting Up A Development Environment For Python</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#minimal-setup">Minimal Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#your-development-environment">Your Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#the-command-line-cli">The Command Line (cli)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#the-python-interpreter">The Python Interpreter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#the-editor">The Editor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#version-control-system">Version Control System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#am-i-ready-to-go">Am I ready to go?</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#specific-documentation">Specific Documentation</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sublime_as_ide.html">Turning Sublime Text Into a Lightweight Python IDE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="atom_as_ide.html">Turning Atom Into a Lightweight Python IDE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_line.html">Command line basics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="shell.html">Shell Customizations for Python Development</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ipython.html">iPython Interpreter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="windows_bash.html">Using Windows Bash for Python Development</a></li>
+<li class="toctree-l4"><a class="reference internal" href="git_overview.html">git Overview</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Working with Virtualenv</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Supplemental Materials</a> &raquo;</li>
+        
+          <li><a href="index.html">Setting Up A Development Environment For Python</a> &raquo;</li>
+        
+      <li>Working with Virtualenv</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/supplemental/dev_environment/virtualenv.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="working-with-virtualenv">
 <span id="virtualenv-section"></span><h1>Working with Virtualenv<a class="headerlink" href="#working-with-virtualenv" title="Permalink to this headline">¶</a></h1>
-<p class="medium">“For every non-standard package installed in a system Python, the gods kill a
-kitten”</p>
-<ul class="medium simple">
+<p>“For every non-standard package installed in a system Python, the gods kill a kitten”</p>
+<blockquote>
+<div><ul class="simple">
 <li>me</li>
 </ul>
+</div></blockquote>
 <div class="section" id="reasons-why">
 <h2>Reasons Why<a class="headerlink" href="#reasons-why" title="Permalink to this headline">¶</a></h2>
-<ul class="left simple">
+<ul class="simple">
 <li>As a working developer you will need to install packages that aren’t in the
 Python standard Library</li>
 <li>As a working developer you often need to install <em>different</em> versions of the
@@ -65,8 +210,7 @@ cause long-term nightmares</li>
 </ul>
 <div class="section" id="installing-virtualenv">
 <h3>Installing Virtualenv<a class="headerlink" href="#installing-virtualenv" title="Permalink to this headline">¶</a></h3>
-<p>The best way is to install directly in your system Python (one exception to the
-rule).</p>
+<p>The best way is to install directly in your system Python (one exception to the rule).</p>
 <p>To do so you will have to have <a class="reference external" href="http://www.pip-installer.org">pip</a> installed.</p>
 <p>Try the following command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ which pip
@@ -76,7 +220,7 @@ rule).</p>
 <p>If the <code class="docutils literal"><span class="pre">which</span></code> command returns no value for you, then <code class="docutils literal"><span class="pre">pip</span></code> is not
 installed in your system. To fix this, follow <a class="reference external" href="http://www.pip-installer.org/en/latest/installing.html">the instructions here</a>.</p>
 <p>Once you have <code class="docutils literal"><span class="pre">pip</span></code> installed in your system, you can use it to install
-<a class="reference external" href="http://www.virtualenv.org/">virtualenv</a>. Because you are installing it into your system python, you will
+<a class="reference external" href="http://www.virtualenv.org/">virtualenv</a>. Because you are installing it into your system Python, you will
 most likely need <code class="docutils literal"><span class="pre">superuser</span></code> privileges to do so:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo pip install virtualenv
 Downloading/unpacking virtualenv
@@ -88,7 +232,7 @@ Cleaning up...
 </div>
 <p>Great.  Once that’s done, you should find that you have a <code class="docutils literal"><span class="pre">virtualenv</span></code>
 command available to you from your shell:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ virtualenv --help
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ virtualenv --help
 Usage: virtualenv [OPTIONS] DEST_DIR
 
 Options:
@@ -100,27 +244,27 @@ Options:
 </div>
 <div class="section" id="using-virtualenv">
 <h2>Using Virtualenv<a class="headerlink" href="#using-virtualenv" title="Permalink to this headline">¶</a></h2>
-<p class="left">Creating a new virtualenv is very very simple:</p>
-<div class="left highlight-bash"><div class="highlight"><pre><span></span>$ virtualenv <span class="o">[</span>options<span class="o">]</span> &lt;ENV&gt;
+<p>Creating a new virtualenv is very very simple:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ virtualenv <span class="o">[</span>options<span class="o">]</span> &lt;ENV&gt;
 </pre></div>
 </div>
-<p class="left"><code class="docutils literal"><span class="pre">&lt;ENV&gt;</span></code> is just the name of the environment you want to create. It’s
+<p><code class="docutils literal"><span class="pre">&lt;ENV&gt;</span></code> is just the name of the environment you want to create. It’s
 arbitrary. Let’s make one for demonstration purposes:</p>
-<div class="left highlight-bash"><div class="highlight"><pre><span></span>$ virtualenv demoenv
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ virtualenv demoenv
 New python executable in demoenv/bin/python
 Installing setuptools, pip...done.
 </pre></div>
 </div>
 <div class="section" id="what-happened">
 <h3>What Happened?<a class="headerlink" href="#what-happened" title="Permalink to this headline">¶</a></h3>
-<p>When you ran that command, a couple of things took place:</p>
+<p>When you ran that command, a few things took place:</p>
 <ul class="simple">
 <li>A new directory with your requested name was created</li>
 <li>A new Python executable was created in &lt;ENV&gt;/bin (&lt;ENV&gt;/Scripts on Windows)</li>
 <li>The new Python was cloned from your system Python (where virtualenv was
 installed)</li>
 <li>The new Python was isolated from any libraries installed in the old Python</li>
-<li>Setuptools was installed so you have <code class="docutils literal"><span class="pre">easy_install</span></code> for this new python</li>
+<li>Setuptools was installed so you have <code class="docutils literal"><span class="pre">easy_install</span></code> for this new Python</li>
 <li>Pip was installed so you have <code class="docutils literal"><span class="pre">pip</span></code> for this new python</li>
 </ul>
 </div>
@@ -180,15 +324,15 @@ Cleaning up...
 </div>
 <p>And now, when we fire up our Python interpreter, the docutils package is
 available to us:</p>
-<div class="highlight-pycon"><div class="highlight"><pre><span></span><span class="go">(demoenv)$ python</span>
-<span class="go">Python 2.7.5 (default, Aug 25 2013, 00:04:04)</span>
-<span class="go">[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin</span>
-<span class="go">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">docutils</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">docutils</span><span class="o">.</span><span class="n">__path__</span>
-<span class="go">[&#39;/Users/cewing/demoenv/lib/python2.7/site-packages/docutils&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="o">^</span><span class="n">d</span>
-<span class="go">(demoenv)$</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">(</span>demoenv<span class="o">)</span>$ python
+Python <span class="m">2</span>.7.5 <span class="o">(</span>default, Aug <span class="m">25</span> <span class="m">2013</span>, <span class="m">00</span>:04:04<span class="o">)</span>
+<span class="o">[</span>GCC <span class="m">4</span>.2.1 Compatible Apple LLVM <span class="m">5</span>.0 <span class="o">(</span>clang-500.0.68<span class="o">)]</span> on darwin
+Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for</span> more information.
+&gt;&gt;&gt; import docutils
+&gt;&gt;&gt; docutils.__path__
+<span class="o">[</span><span class="s1">&#39;/Users/cewing/demoenv/lib/python2.7/site-packages/docutils&#39;</span><span class="o">]</span>
+&gt;&gt;&gt; ^d
+<span class="o">(</span>demoenv<span class="o">)</span>$
 </pre></div>
 </div>
 <p>There’s one other interesting side-effect of installing software with
@@ -229,8 +373,10 @@ virtualenv created when you started out. Let’s do that with our <code class="d
 </div>
 <p>And that’s it.  The entire environment and all the packages you installed into
 it are now gone. There’s no traces left to pollute your world.</p>
+</div>
+</div>
 <div class="section" id="virtualenvwrapper">
-<h4>VirtualenvWrapper<a class="headerlink" href="#virtualenvwrapper" title="Permalink to this headline">¶</a></h4>
+<h2>VirtualenvWrapper<a class="headerlink" href="#virtualenvwrapper" title="Permalink to this headline">¶</a></h2>
 <p>So you have this great tool that allows you to build isolated environments in
 which you can install Python software. Several questions arise when considering
 this.</p>
@@ -249,8 +395,6 @@ wherever.</p>
 you. It would be better if you could manage your virtual environments easily
 and intuitively.</p>
 <p>With <a class="reference external" href="http://virtualenvwrapper.readthedocs.org">virtualenvwrapper</a> you can.</p>
-</div>
-</div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>Let’s start by installing the package in our system Python, alongside
@@ -371,8 +515,10 @@ directory.</li>
 </ul>
 <p>And now, you can begin working on your <code class="docutils literal"><span class="pre">foo</span></code> project, secure that you will be
 installing packages into the right environment.</p>
+</div>
+</div>
 <div class="section" id="a-few-last-words">
-<h4>A Few Last Words<a class="headerlink" href="#a-few-last-words" title="Permalink to this headline">¶</a></h4>
+<h2>A Few Last Words<a class="headerlink" href="#a-few-last-words" title="Permalink to this headline">¶</a></h2>
 <p>This quick introduction is <strong>by no means</strong> an exhaustive manual for either of
 the packages we’ve talked about. There is a great deal more that they can do.
 In particular, <code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> is highly customizable, with support for
@@ -381,89 +527,78 @@ custom scripts to be hooked into every stage of the <code class="docutils litera
 yourself to find out more.</p>
 </div>
 </div>
-</div>
-</div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../references/index.html" class="btn btn-neutral float-right" title="Resources for Specific Python Topics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="git_overview.html" class="btn btn-neutral" title="git Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Working with Virtualenv</a><ul>
-<li><a class="reference internal" href="#reasons-why">Reasons Why</a><ul>
-<li><a class="reference internal" href="#installing-virtualenv">Installing Virtualenv</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#using-virtualenv">Using Virtualenv</a><ul>
-<li><a class="reference internal" href="#what-happened">What Happened?</a></li>
-<li><a class="reference internal" href="#activation">Activation</a></li>
-<li><a class="reference internal" href="#installing-packages">Installing Packages</a></li>
-<li><a class="reference internal" href="#deactivation">Deactivation</a></li>
-<li><a class="reference internal" href="#cleaning-up">Cleaning Up</a><ul>
-<li><a class="reference internal" href="#virtualenvwrapper">VirtualenvWrapper</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#using-mkvirtualenv">Using <code class="docutils literal"><span class="pre">mkvirtualenv</span></code></a></li>
-<li><a class="reference internal" href="#using-workon">Using <code class="docutils literal"><span class="pre">workon</span></code></a></li>
-<li><a class="reference internal" href="#using-mkproject">Using <code class="docutils literal"><span class="pre">mkproject</span></code></a><ul>
-<li><a class="reference internal" href="#a-few-last-words">A Few Last Words</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Setting Up A Development Environment For Python</a><ul>
-      <li>Previous: <a href="git_overview.html" title="previous chapter">git Overview</a></li>
-      <li>Next: <a href="../../references/index.html" title="next chapter">Resources for Specific Python Topics</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/supplemental/dev_environment/virtualenv.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../../_sources/supplemental/dev_environment/virtualenv.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

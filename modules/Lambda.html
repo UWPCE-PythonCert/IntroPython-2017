@@ -1,72 +1,315 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Anonymous Functions: Lambda &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Lambda &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Map Filter and Reduce" href="MapFilterReduce.html" />
-    <link rel="prev" title="Iterators and Generators" href="IteratorsAndGenerators.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Modules" href="index.html"/>
+        <link rel="next" title="Map Filter and Reduce" href="MapFilterReduce.html"/>
+        <link rel="prev" title="Object Oriented vs Functional Programming" href="OO_vs_functional.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="lambda">
-<h1>Lambda<a class="headerlink" href="#lambda" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [171]: </span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
-<span class="gp">In [172]: </span><span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="gh">Out[172]: </span><span class="go">5</span>
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Class_introduction.html">Introductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonIntroduction.html">IPython Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Py2vsPy3.html">Python 2 verses Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EnvironmentOverview.html">Introduction to the Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Git.html">Intro to Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GitWorkflow.html">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicPython.html">Basic Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html">More on Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Recursion.html">Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NamingThings.html">Style and Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Booleans.html">Boolean Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Modules.html">Code Structure, Modules, and Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sequences.html">Python Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Iteration.html">Iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Strings.html">Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictsAndSets.html">Dictionaries and Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Files.html">File Reading and Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Exceptions.html">Exception Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Comprehensions.html">Comprehensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html">Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AdvancedArgumentPassing.html">Advanced Argument Passing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictionaryAsSwitch.html">Using a Dictionary to <code class="docutils literal"><span class="pre">switch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MoreOnMutability.html">A bit more on mutability (and copies)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ObjectOrientationOverview.html">Object Orientation Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PythonClasses.html">Python Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SubclassingAndInheritance.html">Subclassing and Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Properties.html">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StaticAndClassMethods.html">Static and Class Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultipleInheritance.html">Multiple Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialMethodsAndProtocols.html">Special Methods &amp; Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OO_vs_functional.html">Object Oriented vs Functional Programming</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Anonymous Functions: Lambda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-lambda">Using <code class="docutils literal"><span class="pre">lambda</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#structure">Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#what-s-the-point">What’s the point?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#functions-as-first-class-objects">Functions as first class objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lambda-and-keyword-arguments">lambda and keyword arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Modules</a> &raquo;</li>
+        
+      <li>Anonymous Functions: Lambda</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/Lambda.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="anonymous-functions-lambda">
+<span id="anonymous-functions"></span><h1>Anonymous Functions: Lambda<a class="headerlink" href="#anonymous-functions-lambda" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">lambda</span></code> keyword is a way to create a function on the fly, without giving it a name. Hence the term “anonymous” – it has no name.</p>
+<div class="section" id="using-lambda">
+<h2>Using <code class="docutils literal"><span class="pre">lambda</span></code><a class="headerlink" href="#using-lambda" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="structure">
+<h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h3>
+<p>“lambda” is a keyword – it can not be used as a variable name, etc. A lambda expression looks like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="o">&lt;</span><span class="n">parameters</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">expression</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>Content of function can only be an expression – not a statement</p>
-<p>Anyone remember what the difference is?</p>
-<p>Called “Anonymous”: it doesn’t get a name.</p>
-<p>It’s a python object, it can be stored in a list or other container</p>
+<p>It is an expression – which means it evaluates to a value – which means that it can be assigned to a variable, put in a container (such as a list or dict) etc.</p>
+<p>The parameters are just like function parameters – but without the parentheses. And they exist in the local scope of the lambda, and can thus be used in the expression.</p>
+<p>The expression can be any expression using global variables or the parameters – but not a statement – anyone remember what the difference is?</p>
+<p>An expression is something that evaluates to a value, and can be assigned to a variable etc. but things like <code class="docutils literal"><span class="pre">for</span></code> and <code class="docutils literal"><span class="pre">while</span></code> loops and <code class="docutils literal"><span class="pre">if...else</span></code> structures are NOT expressions, and thus can’t be put in a lambda.</p>
+<p>In short, lambda is only for very simple functions with no real flow control.</p>
+</div>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="gp">In [2]: </span><span class="n">f</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">7</span>
+</pre></div>
+</div>
+<p>This creates a function that takes two positional parameters, <code class="docutils literal"><span class="pre">x</span></code> and <code class="docutils literal"><span class="pre">y</span></code>, and returns their sum.</p>
+<p>This is ALMOST the same as:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">   ...: </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="gp">In [4]: </span><span class="n">f2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">7</span>
+</pre></div>
+</div>
+<p>So what is the difference? Well, <code class="docutils literal"><span class="pre">lambda</span></code> creates an “anonymous” function – it doesn’t have a name:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">f</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="gh">Out[10]: </span><span class="go">&#39;&lt;lambda&gt;&#39;</span>
+</pre></div>
+</div>
+<p>All lambda functions are called &lt;lambda&gt;. But:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="n">f2</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="gh">Out[11]: </span><span class="go">&#39;f2&#39;</span>
+</pre></div>
+</div>
+<p>Regular “def” defined functions know their name.</p>
+<p>So <code class="docutils literal"><span class="pre">lambda</span></code> creates a function, but it doesn’t have a name, and it can only have a single expression in it – no flow control.</p>
+</div>
+<div class="section" id="what-s-the-point">
+<h3>What’s the point?<a class="headerlink" href="#what-s-the-point" title="Permalink to this headline">¶</a></h3>
+<p>There is nothing you can do with lambda that you can’t do with regular <code class="docutils literal"><span class="pre">def</span></code> functions. But there are times when you just need a simple quick function that you don’t need to keep around or refer to again – so it’s a handy syntax for these situations.</p>
+<p>A sorting key function is a great example:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [55]: </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Chris&quot;</span><span class="p">,</span><span class="s2">&quot;Barker&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Fred&quot;</span><span class="p">,</span> <span class="s2">&quot;Jones&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Zola&quot;</span><span class="p">,</span> <span class="s2">&quot;Adams&quot;</span><span class="p">)]</span>
+
+<span class="gp">In [56]: </span><span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+<span class="gp">In [57]: </span><span class="n">lst</span>
+<span class="gh">Out[57]: </span><span class="go">[(&#39;Chris&#39;, &#39;Barker&#39;), (&#39;Fred&#39;, &#39;Jones&#39;), (&#39;Zola&#39;, &#39;Adams&#39;)]</span>
+</pre></div>
+</div>
+<p>Tuples are sorted, be default, by their first element. But what if you wanted to sort by the second (index 1) element – last name in this case:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="k">def</span> <span class="nf">sort_key</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+<span class="go">    ...:     return item[1]</span>
+<span class="go">    ...:</span>
+
+<span class="gp">In [14]: </span><span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">sort_key</span><span class="p">)</span>
+
+<span class="gp">In [15]: </span><span class="n">lst</span>
+<span class="gh">Out[15]: </span><span class="go">[(&#39;Zola&#39;, &#39;Adams&#39;), (&#39;Chris&#39;, &#39;Barker&#39;), (&#39;Fred&#39;, &#39;Jones&#39;)]</span>
+</pre></div>
+</div>
+<p>straightforward enough. But kind a lot of extra code, eh? and now there is this function: “sort_key” hanging around. You could delete it: <code class="docutils literal"><span class="pre">del</span> <span class="pre">sort_key</span></code>, but that would be even more code.</p>
+<p>But with a lambda, you simply define it inline:</p>
+<blockquote>
+<div><p>In [16]: lst = [(“Chris”,”Barker”), (“Fred”, “Jones”), (“Zola”, “Adams”)]</p>
+<p>In [17]: lst.sort(key=lambda x: x[1])</p>
+<p>In [18]: lst
+Out[18]: [(‘Zola’, ‘Adams’), (‘Chris’, ‘Barker’), (‘Fred’, ‘Jones’)]</p>
+</div></blockquote>
+<p>Nice and compact and clear, with no extra names hanging around.</p>
+<p>You’ll find them useful with things like <code class="docutils literal"><span class="pre">map</span></code>, <code class="docutils literal"><span class="pre">filter</span></code>, and <code class="docutils literal"><span class="pre">reduce</span></code>. as well.</p>
+</div>
+</div>
+<div class="section" id="functions-as-first-class-objects">
+<h2>Functions as first class objects<a class="headerlink" href="#functions-as-first-class-objects" title="Permalink to this headline">¶</a></h2>
+<p>lambda functions are python objects; they can be stored in a list or other container:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">]</span>
 <span class="gp">In [8]: </span><span class="nb">type</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="gh">Out[8]: </span><span class="go">function</span>
 </pre></div>
 </div>
-<p>And you can call it:</p>
+<p>And you can call it by indexing the container:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 <span class="gh">Out[9]: </span><span class="go">7</span>
 </pre></div>
 </div>
-<div class="section" id="functions-as-first-class-objects">
-<h2>Functions as first class objects<a class="headerlink" href="#functions-as-first-class-objects" title="Permalink to this headline">¶</a></h2>
 <p>You can do that with “regular” functions too:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
 <span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
@@ -78,100 +321,109 @@
 <span class="gh">Out[15]: </span><span class="go">7</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="a-bit-more-about-lambda">
-<h2>A bit more about lambda<a class="headerlink" href="#a-bit-more-about-lambda" title="Permalink to this headline">¶</a></h2>
-<p>It is very useful for specifying sorting as well:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [55]: </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Chris&quot;</span><span class="p">,</span><span class="s2">&quot;Barker&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Fred&quot;</span><span class="p">,</span> <span class="s2">&quot;Jones&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Zola&quot;</span><span class="p">,</span> <span class="s2">&quot;Adams&quot;</span><span class="p">)]</span>
-
-<span class="gp">In [56]: </span><span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-
-<span class="gp">In [57]: </span><span class="n">lst</span>
-<span class="gh">Out[57]: </span><span class="go">[(&#39;Chris&#39;, &#39;Barker&#39;), (&#39;Fred&#39;, &#39;Jones&#39;), (&#39;Zola&#39;, &#39;Adams&#39;)]</span>
-
-<span class="gp">In [58]: </span><span class="n">lst</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-
-<span class="gp">In [59]: </span><span class="n">lst</span>
-<span class="gh">Out[59]: </span><span class="go">[(&#39;Zola&#39;, &#39;Adams&#39;), (&#39;Chris&#39;, &#39;Barker&#39;), (&#39;Fred&#39;, &#39;Jones&#39;)]</span>
+<p>If the goal is to have that little function in the list, and you don’t need to give it a name and/or reference it anywhere else, then lambda is a cleaner way to do it.</p>
+<div class="section" id="lambda-and-keyword-arguments">
+<h3>lambda and keyword arguments<a class="headerlink" href="#lambda-and-keyword-arguments" title="Permalink to this headline">¶</a></h3>
+<p>lambda functions can take keyword arguments as well:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [20]: </span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)(</span><span class="n">x</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gh">Out[20]: </span><span class="go">8</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="lambda-in-keyword-arguments">
-<h2>lambda in keyword arguments<a class="headerlink" href="#lambda-in-keyword-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Remember that default arguments get evaluated when the function is defined. This is the case with lambda as well.  This can get you in trouble if you use a mutable in a function definition. But it also can be a handy way to “bake in” a value into a function to be used later:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [186]: </span><span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="gp">In [187]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
 <span class="go">    l.append(lambda x, e=i: x**e)</span>
-<span class="gp">   .....:</span>
-<span class="gp">In [189]: </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
-<span class="go">    print(f(3))</span>
-<span class="go">1</span>
-<span class="go">3</span>
-<span class="go">9</span>
 </pre></div>
 </div>
-<p>Note when the keyword argument is evaluated: this turns out to be very handy!</p>
+<p>This creates a list, in this case with three items. Each of those items is a function. Note that the lambda is called each time through the loop, so each one has that default parameter defined separately – and each time the default is set to the current value of <code class="docutils literal"><span class="pre">i</span></code> in the loop. So we get three functions, all the same except for the default value of <code class="docutils literal"><span class="pre">e</span></code> – that is, each function will raise the input value to a different power.</p>
+<p>We can loop through that list, and call each function in turn with the same input value:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">func_list</span><span class="p">:</span>
+<span class="go">    ...:     print(f(2))</span>
+<span class="go">    ...:</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">4</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+<p>and presto! 2 raised to the zeroth, then first, the second, … power.</p>
+<p>This may seem pretty obscure, but it’s a handy way to auto-generate custom functions on the fly – like for GUI callbacks, for instance:</p>
+<p><a class="reference external" href="https://wiki.wxpython.org/Passing%20Arguments%20to%20Callbacks">https://wiki.wxpython.org/Passing%20Arguments%20to%20Callbacks</a></p>
+</div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="MapFilterReduce.html" class="btn btn-neutral float-right" title="Map Filter and Reduce" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="OO_vs_functional.html" class="btn btn-neutral" title="Object Oriented vs Functional Programming" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Lambda</a><ul>
-<li><a class="reference internal" href="#functions-as-first-class-objects">Functions as first class objects</a></li>
-<li><a class="reference internal" href="#a-bit-more-about-lambda">A bit more about lambda</a></li>
-<li><a class="reference internal" href="#lambda-in-keyword-arguments">lambda in keyword arguments</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="IteratorsAndGenerators.html" title="previous chapter">Iterators and Generators</a></li>
-      <li>Next: <a href="MapFilterReduce.html" title="next chapter">Map Filter and Reduce</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/Lambda.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/modules/Lambda.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

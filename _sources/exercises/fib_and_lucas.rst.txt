@@ -35,7 +35,7 @@ Step 1
 
 * Ensure that your function has a well-formed ``docstring``
 
-Note that the fibinacci series is naturally recusive -- the value is
+Note that the fibinacci series is naturally recursive -- the value is
 defined by previous values:
 
 fib(n) = fib(n-2) + fib(n-1)
@@ -75,10 +75,10 @@ parameters will produce other series.
 
 **Note:** While you *could* check the input arguments, and then call one
 of the functions you wrote, the idea of this exercise is to make a general
-function, rather than one specialized. So you should re-impliment the code
+function, rather than one specialized. So you should reimplement the code
 in this function.
 
-In fact, you could go back and re-impliment your fibonacci and lucas
+In fact, you could go back and reimplement your fibonacci and lucas
 functions to call this one with particular arguments.
 
 Ensure that your function has a well-formed ``docstring``

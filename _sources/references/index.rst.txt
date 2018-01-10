@@ -12,7 +12,10 @@ Very often search for a very specific question or topic will very quickly get yo
     :maxdepth: 1
 
     learning
+    git_hints
     packaging
     language_topics
     scipy
+    guis
+
 

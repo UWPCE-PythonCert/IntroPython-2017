@@ -1,53 +1,220 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>More on Functions &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>More on Functions &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Documentation" href="Documentation.html" />
-    <link rel="prev" title="Git Workflow" href="GitWorkflow.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Modules" href="index.html"/>
+        <link rel="next" title="Recursion" href="Recursion.html"/>
+        <link rel="prev" title="Basic Python" href="BasicPython.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Class_introduction.html">Introductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonIntroduction.html">IPython Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Py2vsPy3.html">Python 2 verses Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EnvironmentOverview.html">Introduction to the Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Git.html">Intro to Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GitWorkflow.html">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicPython.html">Basic Python</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">More on Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#variable-scope">Variable scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-vs-global">Local vs. Global</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-gotcha">Global Gotcha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recursion">Recursion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recursion-can-be-useful">Recursion can be Useful</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Recursion.html">Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NamingThings.html">Style and Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Booleans.html">Boolean Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Modules.html">Code Structure, Modules, and Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sequences.html">Python Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Iteration.html">Iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Strings.html">Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictsAndSets.html">Dictionaries and Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Files.html">File Reading and Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Exceptions.html">Exception Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Comprehensions.html">Comprehensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html">Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AdvancedArgumentPassing.html">Advanced Argument Passing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictionaryAsSwitch.html">Using a Dictionary to <code class="docutils literal"><span class="pre">switch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MoreOnMutability.html">A bit more on mutability (and copies)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ObjectOrientationOverview.html">Object Orientation Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PythonClasses.html">Python Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SubclassingAndInheritance.html">Subclassing and Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Properties.html">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StaticAndClassMethods.html">Static and Class Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultipleInheritance.html">Multiple Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialMethodsAndProtocols.html">Special Methods &amp; Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OO_vs_functional.html">Object Oriented vs Functional Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lambda.html">Anonymous Functions: Lambda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Modules</a> &raquo;</li>
+        
+      <li>More on Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/Functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="more-on-functions">
 <span id="id1"></span><h1>More on Functions<a class="headerlink" href="#more-on-functions" title="Permalink to this headline">¶</a></h1>
-<p>From various tutorials, etc, you should have the basics of writing functions down.</p>
-<p>In particular, you know that functions can contain a chunk of code that can be wirtten once, and used multiple times from other parts of the code.</p>
+<p>From the materials you have covered up to this point you should have mastered the basics of writing functions.</p>
+<p>In particular, you know that functions can contain a chunk of code that can be written once, and used multiple times from other parts of the code.</p>
 <p>You know that you can pass values into the function, and that it can return values to the “calling” code.</p>
 <p>Now we will dig a bit deeper down into the specifics of functions in Python:</p>
 <div class="section" id="variable-scope">
@@ -58,14 +225,14 @@
     <span class="k">return</span> <span class="n">z</span>
 </pre></div>
 </div>
-<p><cite>x</cite>, <cite>y</cite>, <cite>z</cite> are <em>local</em> names.</p>
-<p><cite>x</cite> and <cite>y</cite> because there are function <em>parameters</em></p>
-<p><cite>z</cite> because it was “bound” inside the function.</p>
+<p><code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code>, <code class="docutils literal"><span class="pre">z</span></code> are <em>local</em> names.</p>
+<p><code class="docutils literal"><span class="pre">x</span></code> and <code class="docutils literal"><span class="pre">y</span></code> because there are function <em>parameters</em></p>
+<p><code class="docutils literal"><span class="pre">z</span></code> because it was “bound” inside the function.</p>
 </div>
 <div class="section" id="local-vs-global">
 <h2>Local vs. Global<a class="headerlink" href="#local-vs-global" title="Permalink to this headline">¶</a></h2>
 <p>Names bound in Python have a <em>scope</em></p>
-<p>That <em>scope</em> determines where a symbol is visible, or what value it has in a
+<p>That <em>scope</em> determines where a symbol is visible, and what value it has in a
 given block.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [14]: </span><span class="n">x</span> <span class="o">=</span> <span class="mi">32</span>
 <span class="gp">In [15]: </span><span class="n">y</span> <span class="o">=</span> <span class="mi">33</span>
@@ -77,8 +244,8 @@ given block.</p>
 <span class="go">32 3 4</span>
 </pre></div>
 </div>
-<p>x is global, y and z local to the function</p>
-<p>But, did the value of y and z change in the <em>global</em> scope?</p>
+<p><code class="docutils literal"><span class="pre">x</span></code> is global, while <code class="docutils literal"><span class="pre">y</span></code> and <code class="docutils literal"><span class="pre">z</span></code> are local to the function.</p>
+<p>But, did the value of <code class="docutils literal"><span class="pre">y</span></code> and <code class="docutils literal"><span class="pre">z</span></code> change in the <em>global</em> scope?</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="n">y</span>
 <span class="gh">Out[19]: </span><span class="go">33</span>
 
@@ -88,9 +255,9 @@ given block.</p>
 </div>
 <p>No – they did not. The “y” and “z” names <em>inside</em> the function are completely separate from the “y” and “z” outside the function.</p>
 <p>The ones outside the function are “global” names.</p>
-<p><strong>NOTE:</strong> “global” in python means global to the module (generally a single file), not global to an entire program. Which is really good, as you have little way of knowing what names are being used in packages you are using, but are not writing yourself!</p>
-<p>In general, you should use global bindings mostly for constants.</p>
-<p>The python convention is to designate global constants by typing the
+<p><strong>NOTE:</strong> “global” in Python means global to the module (generally a single file), not global to an entire program. Which is really good, as you have little way of knowing what names are being used in packages you are using, but are not writing yourself!</p>
+<p>In general, you should use global names mostly for constants.</p>
+<p>The Python convention is to designate global constants by typing the
 names we bind to them in ALL_CAPS:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">]</span>
 <span class="n">CONFIGURATION_KEY</span> <span class="o">=</span> <span class="s1">&#39;some secret value&#39;</span>
@@ -131,7 +298,11 @@ names we bind to them in ALL_CAPS:</p>
 </pre></div>
 </div>
 <p>Because you are binding the symbol <code class="docutils literal"><span class="pre">x</span></code> locally, it becomes a local and masks
-the global value already bound.</p>
+the global value already bound. So in the line that caused the error:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>Python knows that x is a local name, as it is assigned on the next line.  But on this line,  x has not yet been given a value – hence the error.</p>
 </div>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
@@ -142,14 +313,14 @@ the global value already bound.</p>
 </div>
 <p>These types of parameters are called <em>positional</em></p>
 <p>When you call a function, you <strong>must</strong> provide arguments for all <em>positional</em>
-parameters <em>in the order they are listed</em></p>
+parameters <em>in the order they are listed</em>.</p>
 <p>You can provide <em>default values</em> for parameters in a function definition:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
 <span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="gp">   ....:</span>
 </pre></div>
 </div>
-<p>When parameters are given with default values, they become <em>optional</em></p>
+<p>When parameters are given with default values, they become <em>optional</em>.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">fun</span><span class="p">()</span>
 <span class="go">1 2 3</span>
 </pre></div>
@@ -181,8 +352,8 @@ provide any <em>positional</em> arguments:</p>
 <div class="section" id="recursion">
 <h2>Recursion<a class="headerlink" href="#recursion" title="Permalink to this headline">¶</a></h2>
 <p>You’ve seen functions that call other functions.</p>
-<p>If a function calls <em>itself</em>, we call that <strong>recursion</strong></p>
-<p>Like with other functions, a call within a call establishes a <em>call stack</em></p>
+<p>If a function calls <em>itself</em>, we call that <strong>recursion</strong>.</p>
+<p>Like with other functions, a call within a call establishes a <em>call stack</em>.</p>
 <p>With recursion, if you are not careful, this stack can get <em>very</em> deep.</p>
 <p>Python has a maximum limit to how much it can recurse. This is intended to
 save your machine from running out of RAM.</p>
@@ -195,7 +366,7 @@ save your machine from running out of RAM.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>5! == 5 * 4 * 3 * 2 * 1
 </pre></div>
 </div>
-<p>We can use a recursive function nicely to model this mathematical function</p>
+<p>We can use a recursive function nicely to model this mathematical function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;compute the factorial of the input value, n&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -206,77 +377,84 @@ save your machine from running out of RAM.</p>
 </div>
 <p>This is a typical structure for a recursive function:</p>
 <ol class="upperalpha simple">
-<li>It starts with a check to see if there if the recursive process is “done” – can it simply return a simple value.</li>
-<li>If not, then it does a computation using the same function of another value.</li>
+<li>It starts with a check to see if the recursive process is “done” – can it simply return a simple value.</li>
+<li>If not, then it does a computation using the same function with another value.</li>
 </ol>
-<p>It is critical at that that first step be there, or the function will never terminate.</p>
-<blockquote>
-<div>[demo]</div></blockquote>
+<p>It is critical at that the first check is there, or the function will never terminate.</p>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Recursion.html" class="btn btn-neutral float-right" title="Recursion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BasicPython.html" class="btn btn-neutral" title="Basic Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">More on Functions</a><ul>
-<li><a class="reference internal" href="#variable-scope">Variable scope</a></li>
-<li><a class="reference internal" href="#local-vs-global">Local vs. Global</a></li>
-<li><a class="reference internal" href="#global-gotcha">Global Gotcha</a></li>
-<li><a class="reference internal" href="#parameters">Parameters</a></li>
-<li><a class="reference internal" href="#recursion">Recursion</a></li>
-<li><a class="reference internal" href="#recursion-can-be-useful">Recursion can be Useful</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="GitWorkflow.html" title="previous chapter">Git Workflow</a></li>
-      <li>Next: <a href="Documentation.html" title="next chapter">Documentation</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/Functions.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/modules/Functions.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

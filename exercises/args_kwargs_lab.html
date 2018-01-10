@@ -1,59 +1,217 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Args and Kwargs LAB &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Args and Kwargs &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Circle Class Excercise" href="circle_class.html" />
-    <link rel="prev" title="Python Pushups" href="python_pushups.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Exercises" href="index.html"/>
+        <link rel="next" title="Circle Class Exercise" href="circle_class.html"/>
+        <link rel="prev" title="Python Pushups" href="python_pushups.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="args-and-kwargs">
-<span id="exercise-args-kwargs-lab"></span><h1>Args and Kwargs<a class="headerlink" href="#args-and-kwargs" title="Permalink to this headline">¶</a></h1>
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Exercises</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="submitting_to_gitHub.html">Submitting your work to gitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_pushups.html">Python Pushups</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Args and Kwargs LAB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goal">Goal:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#procedure">Procedure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="circle_class.html">Circle Class Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dict_lab.html">Dictionary and Set Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions_lab.html">Exceptions Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="except_exercise.html">Exceptions Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comprehensions_lab.html">Comprehensions Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fib_and_lucas.html">Fibonacci Series Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_lab.html">File Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fizz_buzz.html">Fizz Buzz Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_printer.html">Grid Printer Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html_renderer.html">HTML Renderer Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kata_fourteen.html">Kata Fourteen: Tom Swift Under Milk Wood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lambda_magic.html">lambda and keyword Magic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list_lab.html">List Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom.html">Mailroom: A complete program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit_testing.html">Introduction To Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="roman.html">Roman/Arabic Numeral Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rot13.html">ROT13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sparse_array.html">Sparse Array Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string_formatting.html">String Formatting Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trapezoid.html">Trapezoidal Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom-oo.html">Mailroom - Object Oriented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom-fp.html">Mailroom - Functional</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Exercises</a> &raquo;</li>
+        
+      <li>Args and Kwargs LAB</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/exercises/args_kwargs_lab.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="args-and-kwargs-lab">
+<span id="exercise-args-kwargs-lab"></span><h1>Args and Kwargs LAB<a class="headerlink" href="#args-and-kwargs-lab" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="goal">
 <h2>Goal:<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
 <p>Develop an understanding of using advanced argument passing and parameter definitons.</p>
 <p>If this is all confusing – you may want to review this:</p>
 <p><a class="reference external" href="http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html">http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html</a></p>
+<p>Note:</p>
+<p>This is not all that clearly specified – the goal is for you to
+experiment with various ways to define and call functions, so you
+can understand what’s possible, and what happens with each call.
+It is also entirely silly, since the function does not do anything
+at all, but it will teach you about using parameters effectively.</p>
 </div>
 <div class="section" id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
+<p>We are going to do this as test driven development. So your first task for
+each assignment below is to write a test that will ensure your code does what
+we are telling you it should do.</p>
 <p><strong>Keyword arguments:</strong></p>
 <ul class="simple">
 <li>Write a function that has four optional parameters (with defaults):<ul>
@@ -63,8 +221,9 @@
 <li><cite>visited_color</cite></li>
 </ul>
 </li>
-<li>Have it print the colors (use strings for the colors)</li>
-<li>Call it with a couple different parameters set<ul>
+<li>Have it return the colors (use strings for the colors)</li>
+<li>Call it with a couple different parameters set
+IOW, write tests that verify that all of the following work as advertised:<ul>
 <li>using just positional arguments:<ul>
 <li><code class="docutils literal"><span class="pre">func('red',</span> <span class="pre">'blue',</span> <span class="pre">'yellow',</span> <span class="pre">'chartreuse')</span></code></li>
 </ul>
@@ -88,11 +247,11 @@
 </ul>
 <p><strong>Generic parameters:</strong></p>
 <ul class="simple">
-<li>Write a the same function with the parameters as:</li>
+<li>Write a new function with the parameters as:</li>
 </ul>
-<p><code class="docutils literal"><span class="pre">*args</span></code> and <code class="docutils literal"><span class="pre">**kwags</span></code></p>
+<p><code class="docutils literal"><span class="pre">*args</span></code> and <code class="docutils literal"><span class="pre">**kwargs</span></code></p>
 <ul class="simple">
-<li>Have it print the colors (use strings for the colors)</li>
+<li>Have it return the colors (use strings for the colors)</li>
 <li>Call it with the same various combinations of arguments used above.</li>
 <li>Also have it print <cite>args</cite> and <cite>kwargs</cite> directly, so you can be sure you understand what’s going on.</li>
 <li>Note that in general, you can’t know what will get passed into <code class="docutils literal"><span class="pre">**kwargs</span></code> So maybe adapt your function to be able to do something reasonable with any keywords.</li>
@@ -101,63 +260,76 @@
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="circle_class.html" class="btn btn-neutral float-right" title="Circle Class Exercise" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="python_pushups.html" class="btn btn-neutral" title="Python Pushups" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Args and Kwargs</a><ul>
-<li><a class="reference internal" href="#goal">Goal:</a></li>
-<li><a class="reference internal" href="#procedure">Procedure</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="python_pushups.html" title="previous chapter">Python Pushups</a></li>
-      <li>Next: <a href="circle_class.html" title="next chapter">Circle Class Excercise</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/exercises/args_kwargs_lab.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/exercises/args_kwargs_lab.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

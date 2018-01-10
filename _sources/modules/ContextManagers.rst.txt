@@ -1,28 +1,27 @@
+.. _context_managers:
+
+################
 Context Managers
-=================
+################
 
 **Repetition in code stinks (DRY!)**
 
-.. rst-class:: left build
-.. container::
+A large source of repetition in code deals with the handling of external
+resources.
 
+As an example, how many times do you think you might type the following
+code:
 
-    A large source of repetition in code deals with the handling of external
-    resources.
+.. code-block:: python
 
-    As an example, how many times do you think you might type the following
-    code:
+    file_handle = open('filename.txt', 'r')
+    file_content = file_handle.read()
+    file_handle.close()
+    # do some stuff with the contents
 
-    .. code-block:: python
+What happens if you forget to call ``.close()``?
 
-        file_handle = open('filename.txt', 'r')
-        file_content = file_handle.read()
-        file_handle.close()
-        # do some stuff with the contents
-
-    What happens if you forget to call ``.close()``?
-
-    What happens if reading the file raises an exception?
+What happens if reading the file raises an exception?
 
 
 Resource Handling
@@ -45,12 +44,10 @@ You can write more robust code for handling your resources:
 But what exceptions do you want to catch?  And do you really want to have to
 remember to type all that **every** time you open a resource?
 
-.. nextslide:: It Gets Better
 
 Starting in version 2.5, Python provides a structure for reducing the
 repetition needed to handle resources like this.
 
-.. rst-class:: centered
 
 **Context Managers**
 
@@ -78,10 +75,8 @@ when the code block ends.
 
 .. _pep343: http://legacy.python.org/dev/peps/pep-0343/
 
-.. nextslide:: A Growing Trend
 
-At this point in Python history, many functions you might expect to behave this
-way do:
+At this point in Python history, many functions you might expect to behave this way do:
 
 * ``open`` and works as a context manager.
 * networks connections via ``socket`` do as well.
@@ -91,6 +86,7 @@ way do:
 
 * But what if you are working with a library that doesn't support this
   (``urllib``)?
+
 
 Close It Automatically
 ----------------------
@@ -157,10 +153,9 @@ Consider this code:
             print('__exit__({}, {}, {})'.format(exc_type, exc_val, exc_tb))
             return self.handle_error
 
-``Examples/Session10/context_managers.py``
+:download:` <../examples/context_managers/context_manger.py>`
 
-
-.. nextslide::
+.. ``Examples/Session10/context_managers.py``
 
 This class doesn't do much of anything, but playing with it can help
 clarify the order in which things happen:
@@ -175,12 +170,10 @@ clarify the order in which things happen:
     This is in the context
     __exit__(<type 'exceptions.RuntimeError'>, this is the error message, <traceback object at 0x1049cca28>)
 
-.. rst-class:: build
 .. container::
 
     Because the exit method returns True, the raised error is 'handled'.
 
-.. nextslide::
 
 What if we try with ``False``?
 
@@ -226,7 +219,6 @@ Consider this code:
         finally:
             print("__exit__ cleanup goes here")
 
-.. nextslide::
 
 The code is similar to the class defined previously.
 
@@ -244,7 +236,6 @@ And using it has similar results.  We can handle errors:
     errors handled here
     __exit__ cleanup goes here
 
-.. nextslide::
 
 Or, we can allow them to propagate:
 
@@ -267,3 +258,21 @@ Or, we can allow them to propagate:
           4
     RuntimeError: error raised
 
+You can even use context managers with ``yield``:
+
+.. code-block:: python
+
+    @pytest.fixture
+    def example_fixture(request):
+        # setup code here
+        with open("a_test_filename") as test_file:
+            yield test_file  # provide the fixture value
+
+And that's it!
+
+When the fixture is first invoked, it will yield the test_file.
+It will then save the state, with the file open until ``next()``
+is called again - time for the teardown.
+
+But there is no more code after the yield -- so it falls out of the
+context manager, and the file is closed.

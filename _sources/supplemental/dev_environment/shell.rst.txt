@@ -104,8 +104,8 @@ two or optionally three arguments:
 * The optional third argumment will be used as a format string for the output
   of the command itself. If there is no output, it will not appear at all.
 
-Combining these three elements can be very expressive. For example, A standard
-OS X command prompt can be expressed like so: ``\h:\W \u\\\$ ``. If you use this
+Combining these three elements can be very expressive. For example, a standard
+OS X command prompt can be expressed like so: ``\h:\W \u\\\$``. If you use this
 expression as the second argument, leave the first empty and provide a simple format
 ending in a newline for the ``__git_ps1`` output, you get some nice results.
 
@@ -154,7 +154,7 @@ this nice feature of virtualenv is lost.
 .. _virtualenv: http://virtualenv.org
 
 Luckily, there is a way out. Bash shell scripting offers `parameter expansion`_
-and a trick of the that syntax can help. Normally, a shell parameter is
+and a trick of that syntax can help. Normally, a shell parameter is
 referenced like so:
 
 .. code-block:: bash

@@ -10,7 +10,7 @@ Getting The Tools
 Python
 -------
 
-There are a number of python distributions available -- many designed for easier support of scientific programming:
+There are a number of Python distributions available -- many designed for easier support of scientific programming:
 
 - Anaconda
 - Enthought Canopy
@@ -32,7 +32,7 @@ Terminal
 
 If you are confident in your use of the "DOS Box" or "powershell", command lines, feel free to use one of those. However, your life may be easier if you install "Git Bash", as then you can follow unix-style terminal instructions exactly, and do not have to translate. Also, your instructors are more experienced with Bash.
 
-From now on, if you hear the terms "bash", "shell" or "terminal", or "commandline" know that this is the application that is being referred to. WE will use those tems interchangably to mean ANY command line.
+From now on, if you hear the terms "bash", "shell" or "terminal", or "commandline" know that this is the application that is being referred to. We will use those tems interchangably to mean ANY command line.
 
 When you install Git Bash, you are installing git (and a git gui) as well, thus killing two birds with one stone!
 
@@ -40,7 +40,7 @@ https://git-for-windows.github.io/
 
 You can use this git with the DOS box or Powershell as well.
 
-This is also a good bet for running Python also -- If you use the Git Bash shell, you can use the same commands as Linux and OS-X users. Regardless of which shell you choose, you will need to add Python to your environment. It is possible that this was done during the installation of python. If you type 'which python' into your terminal, and get back the answer '/c/python34/python', then you are good to go, otherwise, follow the instructions here:
+This is also a good bet for running Python -- If you use the Git Bash shell, you can use the same commands as Linux and OS-X users. Regardless of which shell you choose, you will need to add Python to your environment. It is possible that this was done during the installation of Python. If you type 'which python' into your terminal, and get back the answer '/c/python34/python', then you are good to go, otherwise, follow the instructions here:
 
 http://www.computerhope.com/issues/ch000549.htm
 
@@ -83,7 +83,7 @@ which integrates git with the file manager. Feel free to use this if you already
 pip
 ---
 
-``pip`` is the Python package installer. It is updated faster than python itself, so once you have python you want to get the latest version of pip working::
+``pip`` is the Python package installer. It is updated faster than Python itself, so once you have Python you want to get the latest version of pip working::
 
   $ python -m ensurepip --upgrade
 
@@ -98,7 +98,7 @@ To use pip to install a package, you invoke it with this command::
 
   python -m pip install the_name_of_the_package
 
-Where ``python`` is the command you use to invoke the python you want to use (could be ``python3``)
+Where ``python`` is the command you use to invoke the Python you want to use (could be ``python3``)
 
 **NOTE:** You will frequently see advice to use pip like so::
 
@@ -108,7 +108,7 @@ Which often works, but also can invoke the *wrong* version of pip. The above com
 
   $ python -m pip install something_or_other
 
-calls python, and tells it to run the ``pip`` module. It is exactly the same as calling pip directly, except that you are assured that you are getting the version of pip connected the version of python that you are running.
+calls Python, and tells it to run the ``pip`` module. It is exactly the same as calling pip directly, except that you are assured that you are getting the version of pip connected the version of Python that you are running.
 
 
 iPython
@@ -128,7 +128,7 @@ You should now be able to run ``iPython`` from the git bash shell::
     IPython 6.1.0 -- An enhanced Interactive Python. Type '?' for help.
     (or from the DOS box or PowerShell prompt)
 
-We will use this as our default python interpreter.
+We will use this as our default Python interpreter.
 
 
 Testing it out
@@ -182,5 +182,3 @@ For git:
 
   MacBook-Pro:PythonCertDevel Chris$ git --version
   git version 2.11.0 (Apple Git-81)
-
-

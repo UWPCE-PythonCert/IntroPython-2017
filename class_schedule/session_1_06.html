@@ -1,64 +1,209 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Session 6: Testing and Advanced Argument Passing &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Intro to Python Session 6 &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Intro to Python Session 7" href="session_1_07.html" />
-    <link rel="prev" title="Intro to Python Session 5" href="session_1_05.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="intro-to-python-session-6">
-<span id="session-1-06"></span><h1>Intro to Python Session 6<a class="headerlink" href="#intro-to-python-session-6" title="Permalink to this headline">¶</a></h1>
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Session 6: Testing and Advanced Argument Passing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/class_schedule/session_1_06.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="session-6-testing-and-advanced-argument-passing">
+<span id="session-1-06"></span><h1>Session 6: Testing and Advanced Argument Passing<a class="headerlink" href="#session-6-testing-and-advanced-argument-passing" title="Permalink to this headline">¶</a></h1>
+<p>Unit Testing and Advanced Argument Passing</p>
 <div class="section" id="pre-class-prep">
 <h2>Pre-class prep<a class="headerlink" href="#pre-class-prep" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reading">
+<h3>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="unit-testing">
+<h4>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference internal" href="../modules/Testing.html#unit-testing"><span class="std std-ref">Unit Testing</span></a></li>
+</ul>
+<p><strong>NOTE:</strong> you will find that most introductions to unit testing with Python use the built in <code class="docutils literal"><span class="pre">unittest</span></code> module. However, it is a bit heavyweight, and requires some knowledge of OOP – classes, etc. So we’ll be using pytest in this class: <a class="reference external" href="http://doc.pytest.org/en/latest/">http://doc.pytest.org/en/latest/</a>. But the principles of testing are the same.</p>
+<ul class="simple">
+<li>Dive into Python: chapter 9:
+<a class="reference external" href="http://www.diveintopython3.net/unit-testing.html">http://www.diveintopython3.net/unit-testing.html</a></li>
+<li>Ned Batchelder’s intro to testing presentation:<ul>
+<li><a class="reference external" href="http://nedbatchelder.com/text/test0.html">http://nedbatchelder.com/text/test0.html</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="arguments-and-parameters">
+<h3>Arguments and Parameters<a class="headerlink" href="#arguments-and-parameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../modules/AdvancedArgumentPassing.html#advanced-argument-passing"><span class="std std-ref">Advanced Argument Passing</span></a></li>
+<li>arguments and parameters:<ul>
+<li><a class="reference external" href="http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html">http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html</a></li>
+<li><a class="reference external" href="https://pythontips.com/2013/08/04/args-and-kwargs-in-python-explained/">https://pythontips.com/2013/08/04/args-and-kwargs-in-python-explained/</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="in-class-activities">
 <h2>In-class Activities<a class="headerlink" href="#in-class-activities" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="post-class-activities">
-<h2>Post-class Activities<a class="headerlink" href="#post-class-activities" title="Permalink to this headline">¶</a></h2>
-<p>Finish the exercises</p>
-<p>Look at the next session for reading, etc:</p>
-<p><a class="reference internal" href="session_1_07.html#session-1-07"><span class="std std-ref">Intro to Python Session 7</span></a></p>
-<blockquote>
-<div><p>Write a complete set of unit tests for your mailroom program.</p>
+<p><a class="reference internal" href="../modules/MoreOnMutability.html#a-bit-on-mutability"><span class="std std-ref">A bit more on mutability (and copies)</span></a></p>
+<div class="section" id="exercises">
+<h3>Exercises:<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="../exercises/unit_testing.html#exercise-unit-testing"><span class="std std-ref">Introduction To Unit Testing</span></a></li>
+<li><a class="reference internal" href="../exercises/args_kwargs_lab.html#exercise-args-kwargs-lab"><span class="std std-ref">Args and Kwargs LAB</span></a></li>
+</ul>
+<div class="section" id="testing-mailroom">
+<h4>Testing mailroom:<a class="headerlink" href="#testing-mailroom" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../exercises/mailroom.html#exercise-mailroom-testing"><span class="std std-ref">Part 4: Adding Unit Tests</span></a></p>
+<p>Write a complete set of unit tests for your mailroom program.</p>
 <blockquote>
 <div><ul class="simple">
 <li>You will likely find that it is really hard to test without refactoring.</li>
@@ -66,90 +211,81 @@
 <li>If code is hard to test – it probably should be refactored.</li>
 </ul>
 </div></blockquote>
-</div></blockquote>
-<div class="section" id="material-to-review-for-next-week">
-<h3>Material to review for next week<a class="headerlink" href="#material-to-review-for-next-week" title="Permalink to this headline">¶</a></h3>
-<p>Next week, we’ll get started on Object Oriented Methods. It’s a good idea to read up on it first – so we can dive right in:</p>
-<blockquote>
-<div><ul class="simple">
-<li>Dive into Python3: 7.2 – 7.3
-<a class="reference external" href="http://www.diveintopython3.net/iterators.html#defining-classes">http://www.diveintopython3.net/iterators.html#defining-classes</a></li>
-<li>Think Python: 15 – 18
-<a class="reference external" href="http://www.greenteapress.com/thinkpython/html/thinkpython016.html">http://www.greenteapress.com/thinkpython/html/thinkpython016.html</a></li>
-<li>LPTHW: 40 – 44
-<a class="reference external" href="http://learnpythonthehardway.org/book/ex40.html">http://learnpythonthehardway.org/book/ex40.html</a></li>
-</ul>
-</div></blockquote>
-<p>[note that in py3 you don’t need to inherit from object]</p>
-<p>Talk by Raymond Hettinger:</p>
-<p>Video of talk: <a class="reference external" href="https://youtu.be/HTLu2DFOdTg">https://youtu.be/HTLu2DFOdTg</a></p>
-<p>Slides: <a class="reference external" href="https://speakerdeck.com/pyconslides/pythons-class-development-toolkit-by-raymond-hettinger">https://speakerdeck.com/pyconslides/pythons-class-development-toolkit-by-raymond-hettinger</a></p>
 </div>
+</div>
+</div>
+<div class="section" id="post-class-activities">
+<h2>Post-class Activities<a class="headerlink" href="#post-class-activities" title="Permalink to this headline">¶</a></h2>
+<p>Finish the exercises</p>
+<p>Look at the next session for reading, etc:</p>
+<p><a class="reference internal" href="session_1_07.html#session-1-07"><span class="std std-ref">Session 7: Object Oriented Programing</span></a></p>
+<p>NOTE: there is not a lot of new stuff this week, but this will give all of you a chance to catch up if you don’t have mailroom and trigrams fully working yet.</p>
+<p>And do spend time with the readings (and supplemental readings) – we are going to dive right in to OO programming next week.</p>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Intro to Python Session 6</a><ul>
-<li><a class="reference internal" href="#pre-class-prep">Pre-class prep</a></li>
-<li><a class="reference internal" href="#in-class-activities">In-class Activities</a></li>
-<li><a class="reference internal" href="#post-class-activities">Post-class Activities</a><ul>
-<li><a class="reference internal" href="#material-to-review-for-next-week">Material to review for next week</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="session_1_05.html" title="previous chapter">Intro to Python Session 5</a></li>
-      <li>Next: <a href="session_1_07.html" title="next chapter">Intro to Python Session 7</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/class_schedule/session_1_06.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/class_schedule/session_1_06.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

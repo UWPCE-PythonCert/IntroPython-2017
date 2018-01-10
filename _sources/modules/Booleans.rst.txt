@@ -4,6 +4,19 @@
 Boolean Expressions
 ###################
 
+"Boolean" logic is the logic of binary values -- things that can be ony one of two values. Usually, the two values are considered to be true or false.
+
+In programming languages, "booleans" are often a data type -- one that captures this notion of true and false.
+
+Python has a boolean type as well: the singletons ``True`` and ``False``.
+
+Booleans are used in ``if`` statements, as well as the boolean operators, ``and`` and ``or``.
+
+But Python is not limited to using the actual boolean type in logic expressions -- in the spirit of dynamic languages, virtually any type can have values that are considered True or False.
+
+Some like to refer to this concept by the moniker given by Stephan Colbert: "Truthiness"
+
+
 Truthiness
 ----------
 
@@ -11,16 +24,26 @@ What is true or false in Python?
 
 * The Booleans: ``True``  and ``False``
 
-* "Something or Nothing"
+* "Something or Nothing"; that is the presence or absence of a value.
 
 *  http://mail.python.org/pipermail/python-dev/2002-April/022107.html
 
 
-Determining Truthiness:
+Determining Truthiness: If you want to know if a value is "truthy", you can use the bool constructor to make a boolean out of it:
 
 .. code-block:: python
 
     bool(something)
+
+This is similar to making an integer out of another value, such a float or a string:
+
+.. code-block:: ipython
+
+    In [1]: int(4.5)
+    Out[1]: 4
+
+    In [2]: int("345")
+    Out[2]: 345
 
 
 What is False?
@@ -32,17 +55,26 @@ What is False?
 
 * **Nothing:**
 
-    - Zero of any numeric type: ``0, 0.0, 0j``.
+    - The zero value of any numeric type: ``0, 0.0, 0j``.
+
     - Any empty sequence, for example, ``"", (), []``.
+
     - Any empty mapping, for example, ``{}`` .
-    - Instances of user-defined classes, if the class defines a ``__nonzero__()`` or ``__len__()`` method, when that method returns the integer zero or bool value ``False``.
+
+    - Instances of user-defined classes:
+
+        *  for which ``__bool__()`` returns False
+
+        *  for which ``__len__()`` returns 0
 
 * http://docs.python.org/library/stdtypes.html
+
+(Don't worry about that last one -- what that means is that user-defined types can control their truthiness behavior).
 
 What is True?
 -------------
 
-Everything Else
+Everything else.
 
 
 Pythonic Booleans
@@ -65,13 +97,16 @@ Which means that this is redundant, and not Pythonic:
 
 Instead, use what Python gives you:
 
+.. code-block:: python
+
     if xx:
         do_something()
+
 
 ``and``, ``or`` and ``not``
 ---------------------------
 
-Python has three boolean keywords, ``and``, ``or`` and ``not``.
+Python has three boolean operators: ``and``, ``or`` and ``not``.
 
 ``and`` and ``or`` are binary expressions, and evaluate from left to right.
 
@@ -91,10 +126,9 @@ operand if none are True:
     In [36]: 0 or 456
     Out[36]: 456
 
-.. nextslide::
 
-On the other hand, ``not`` is a unary expression and inverts the boolean value
-of its operand:
+On the other hand, ``not`` is a unary expression (takes one operand) and inverts the boolean value
+of this operand:
 
 .. code-block:: ipython
 
@@ -107,7 +141,38 @@ of its operand:
 Shortcutting
 ------------
 
-Because of the return value of these keywords, you can write concise
+If you think about it, what ``and`` and ``or`` are doing is as little work as possible. They will only evaluate as much as they need to to get the answer.
+
+Think about ``and``: it is testing if *both* the operands are True. If the first one is False, there is no need to bother checking the second.
+
+Alternatively, ``or`` is trying to see if only one of the operands is True. So if the first one is True, it can stop, and does not need to evaluate the second.
+
+Also key is that if an operation is "shortcut" -- the second part of the expression will not be evaluated -- so it could be an invalid expression that will never raise an error:
+
+.. code-block:: ipython
+
+    In [3]: 34 or (10/0)
+    Out[3]: 34
+
+Since the expression was known to be true after the first value was checked (a number that is nonzero), the second was never evaluated.
+
+.. code-block:: ipython
+
+    In [4]: 34 and (10 / 0)
+    ---------------------------------------------------------------------------
+    ZeroDivisionError                         Traceback (most recent call last)
+    <ipython-input-4-cef0e50bb96d> in <module>()
+    ----> 1 34 and (10 / 0)
+
+    ZeroDivisionError: division by zero
+
+In this case, the second expression needs to be evaluated -- so it DID raise an error.
+
+This can be exploited to provide compact logic -- but it can also hide bugs!
+
+
+
+Because of the return value of the boolean operators, you can write concise
 statements:
 
 ::
@@ -136,7 +201,7 @@ Chaining
 The first value that defines the result is returned
 
 
-    (demo)
+    (take a moment to experiment...)
 
 
 Conditional Expressions
@@ -155,13 +220,15 @@ In other languages, this can be compressed with a "ternary operator"::
 
     result = a > b ? x : y;
 
-(this is the syntax from the C family)
+(this is the syntax from the C family of languages)
 
-In python, the same is accomplished with the ternary expression:
+In Python, the same is accomplished with the conditional expression:
 
 .. code-block:: python
 
     y = 5 if x > 2 else 3
+
+It's pretty self explanatory
 
 PEP 308:
 (http://www.python.org/dev/peps/pep-0308/)
@@ -201,7 +268,7 @@ And here's an even better one:
 bools are integers?
 -------------------
 
-In python, the boolean types are subclasses of integer:
+In Python, the boolean types are subclasses of integer:
 
 .. code-block:: ipython
 
@@ -218,7 +285,14 @@ And you can even do math with them (though it's a bit odd to do so):
     In [6]: 3 + True
     Out[6]: 4
 
-(demo)
+This is left over from history -- in early versions of Python, there were no boolean types -- folks used integers, with zero as false. And this is true of other languages as well, like classic C. To keep backward compatibility and allow some nifty tricks to still work, bools are subclassed from integers.
+
+It's good to know this if you read others' code, but I do NOT recommend you use this feature!
+
+Try it out:
+-----------
+
+Now that you know a bit more about Python boolean operations, it's a good time to visit some coding bat exercises and see if you can make your solutions cleaner and more compact.
 
 
 

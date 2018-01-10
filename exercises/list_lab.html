@@ -1,55 +1,211 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>List Lab &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>List Lab &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Mailroom" href="mailroom.html" />
-    <link rel="prev" title="lambda and keyword Magic" href="lambda_magic.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Exercises" href="index.html"/>
+        <link rel="next" title="Mailroom: A complete program" href="mailroom.html"/>
+        <link rel="prev" title="lambda and keyword Magic" href="lambda_magic.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Exercises</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="submitting_to_gitHub.html">Submitting your work to gitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_pushups.html">Python Pushups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="args_kwargs_lab.html">Args and Kwargs LAB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="circle_class.html">Circle Class Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dict_lab.html">Dictionary and Set Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions_lab.html">Exceptions Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="except_exercise.html">Exceptions Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comprehensions_lab.html">Comprehensions Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fib_and_lucas.html">Fibonacci Series Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_lab.html">File Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fizz_buzz.html">Fizz Buzz Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_printer.html">Grid Printer Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html_renderer.html">HTML Renderer Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kata_fourteen.html">Kata Fourteen: Tom Swift Under Milk Wood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lambda_magic.html">lambda and keyword Magic</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">List Lab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#learning-about-lists">Learning about lists</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#goal">Goal:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hint">hint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#procedure">Procedure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#series-1">Series 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#series-2">Series 2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#series-3">Series 3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#series-4">Series 4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom.html">Mailroom: A complete program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unit_testing.html">Introduction To Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="roman.html">Roman/Arabic Numeral Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rot13.html">ROT13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sparse_array.html">Sparse Array Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string_formatting.html">String Formatting Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trapezoid.html">Trapezoidal Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom-oo.html">Mailroom - Object Oriented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom-fp.html">Mailroom - Functional</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Exercises</a> &raquo;</li>
+        
+      <li>List Lab</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/exercises/list_lab.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="list-lab">
 <span id="exercise-list-lab"></span><h1>List Lab<a class="headerlink" href="#list-lab" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-about-lists">
 <h2>Learning about lists<a class="headerlink" href="#learning-about-lists" title="Permalink to this headline">¶</a></h2>
-<p>After:</p>
-<p><a class="reference external" href="http://www.upriss.org.uk/python/session5.html">http://www.upriss.org.uk/python/session5.html</a></p>
+<p>Inspired by: <a class="reference external" href="http://www.upriss.org.uk/python/session5.html">http://www.upriss.org.uk/python/session5.html</a></p>
 <div class="section" id="goal">
 <h3>Goal:<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
 <p>Learn the basic ins and outs of Python lists.</p>
@@ -64,59 +220,78 @@
 </div>
 <div class="section" id="procedure">
 <h3>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h3>
-<p>In your student dir in the IntroPython2015 repo, create a <code class="docutils literal"><span class="pre">session03</span></code> dir and put in a new <code class="docutils literal"><span class="pre">list_lab.py</span></code> file.</p>
-<p>The file should be an executable python script. That is to say that one
+<p>In your student dir in the class repo, create a <code class="docutils literal"><span class="pre">session03</span></code> dir and put in a new <code class="docutils literal"><span class="pre">list_lab.py</span></code> file.</p>
+<p>The file should be an executable Python script. That is to say that one
 should be able to run the script directly like so:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./list_lab.py
 </pre></div>
 </div>
-<p>(At least on OS-X and Linux)</p>
+<p>(At least on OS-X and Linux).</p>
 <p>– you do that with this command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ chmod +x list_lab.py
 </pre></div>
 </div>
-<p>(The +x means make this executable)</p>
+<p>(The +x means make this executable).</p>
 <p>The file will also need this on the first line:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 </pre></div>
 </div>
 <p>This is known as the “she-bang” line – it tells the shell how to execute that file – in this case, with <code class="docutils literal"><span class="pre">python3</span></code></p>
-<p>NOTE: on Windows, there is a python launcher which, if everything is configured correctly look at that line to know you want python3 if there is more than one python on your system.</p>
+<p>NOTE: on Windows, there is a python launcher which, if everything is configured correctly will look at that line to know you want python3 if there is more than one python on your system.</p>
+<p>If this doesn’t work on Windows, just run the file some other way:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">python</span> <span class="pre">list_lab.py</span></code></li>
+<li>with <code class="docutils literal"><span class="pre">run</span></code> in ipython</li>
+<li>from your IDE or editor is you are using one</li>
+</ul>
+</div></blockquote>
 <p>Add the file to your clone of the repository and commit changes frequently
 while working on the following tasks. When you are done, push your changes to
 GitHub and issue a pull request.</p>
-<p>(if you are struggling with git – just write the code for now)</p>
+<p>(if you are still struggling with git – just write the code for now).</p>
 <p>When the script is run, it should accomplish the following four series of
 actions:</p>
+</div>
+<div class="section" id="series-1">
+<h3>Series 1<a class="headerlink" href="#series-1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Create a list that contains “Apples”, “Pears”, “Oranges” and “Peaches”.</li>
-<li>Display the list.</li>
+<li>Display the list (plain old <code class="docutils literal"><span class="pre">print()</span></code> is fine…).</li>
 <li>Ask the user for another fruit and add it to the end of the list.</li>
 <li>Display the list.</li>
 <li>Ask the user for a number and display the number back to the user and the
-fruit corresponding to that number (on a 1-is-first basis).</li>
+fruit corresponding to that number (on a 1-is-first basis). Remember that Python uses zero-based indexing, so you will need to correct.</li>
 <li>Add another fruit to the beginning of the list using “+” and display the
 list.</li>
-<li>Add another fruit to the beginning of the list using insert() and display the list.</li>
+<li>Add another fruit to the beginning of the list using <code class="docutils literal"><span class="pre">insert()</span></code> and display the list.</li>
 <li>Display all the fruits that begin with “P”, using a for loop.</li>
 </ul>
+</div>
+<div class="section" id="series-2">
+<h3>Series 2<a class="headerlink" href="#series-2" title="Permalink to this headline">¶</a></h3>
 <p>Using the list created in series 1 above:</p>
 <ul class="simple">
 <li>Display the list.</li>
 <li>Remove the last fruit from the list.</li>
 <li>Display the list.</li>
-<li>Ask the user for a fruit to delete and find it and delete it.</li>
+<li>Ask the user for a fruit to delete, find it and delete it.</li>
 <li>(Bonus: Multiply the list times two. Keep asking until a match is found. Once found, delete all occurrences.)</li>
 </ul>
+</div>
+<div class="section" id="series-3">
+<h3>Series 3<a class="headerlink" href="#series-3" title="Permalink to this headline">¶</a></h3>
 <p>Again, using the list from series 1:</p>
 <ul class="simple">
-<li>Ask the user for input displaying a line like “Do you like apples?”</li>
-<li>for each fruit in the list (making the fruit all lowercase).</li>
+<li>Ask the user for input displaying a line like “Do you like apples?” for each fruit in the list (making the fruit all lowercase).</li>
 <li>For each “no”, delete that fruit from the list.</li>
 <li>For any answer that is not “yes” or “no”, prompt the user to answer with one
-of those two values (a while loop is good here):</li>
+of those two values (a while loop is good here)</li>
 <li>Display the list.</li>
 </ul>
+</div>
+<div class="section" id="series-4">
+<h3>Series 4<a class="headerlink" href="#series-4" title="Permalink to this headline">¶</a></h3>
 <p>Once more, using the list from series 1:</p>
 <ul class="simple">
 <li>Make a copy of the list and reverse the letters in each fruit in the copy.</li>
@@ -128,67 +303,76 @@ copy.</li>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mailroom.html" class="btn btn-neutral float-right" title="Mailroom: A complete program" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lambda_magic.html" class="btn btn-neutral" title="lambda and keyword Magic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">List Lab</a><ul>
-<li><a class="reference internal" href="#learning-about-lists">Learning about lists</a><ul>
-<li><a class="reference internal" href="#goal">Goal:</a></li>
-<li><a class="reference internal" href="#hint">hint</a></li>
-<li><a class="reference internal" href="#procedure">Procedure</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="lambda_magic.html" title="previous chapter">lambda and keyword Magic</a></li>
-      <li>Next: <a href="mailroom.html" title="next chapter">Mailroom</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/exercises/list_lab.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/exercises/list_lab.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

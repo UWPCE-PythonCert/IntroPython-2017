@@ -1,55 +1,235 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Special Methods &amp; Protocols &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Special Methods &amp; Protocols &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Static and Class Methods" href="StaticAndClassMethods.html" />
-    <link rel="prev" title="Recursion" href="Recursion.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Modules" href="index.html"/>
+        <link rel="next" title="Object Oriented vs Functional Programming" href="OO_vs_functional.html"/>
+        <link rel="prev" title="Multiple Inheritance" href="MultipleInheritance.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Class_introduction.html">Introductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonIntroduction.html">IPython Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Py2vsPy3.html">Python 2 verses Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EnvironmentOverview.html">Introduction to the Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Git.html">Intro to Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GitWorkflow.html">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicPython.html">Basic Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html">More on Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Recursion.html">Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NamingThings.html">Style and Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Booleans.html">Boolean Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Modules.html">Code Structure, Modules, and Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sequences.html">Python Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Iteration.html">Iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Strings.html">Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictsAndSets.html">Dictionaries and Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Files.html">File Reading and Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Exceptions.html">Exception Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Comprehensions.html">Comprehensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html">Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AdvancedArgumentPassing.html">Advanced Argument Passing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictionaryAsSwitch.html">Using a Dictionary to <code class="docutils literal"><span class="pre">switch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MoreOnMutability.html">A bit more on mutability (and copies)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ObjectOrientationOverview.html">Object Orientation Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PythonClasses.html">Python Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SubclassingAndInheritance.html">Subclassing and Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Properties.html">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StaticAndClassMethods.html">Static and Class Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultipleInheritance.html">Multiple Inheritance</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Special Methods &amp; Protocols</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-s-in-a-name">What’s in a Name?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generally-useful-special-methods">Generally Useful Special Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protocols">Protocols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-numerics-protocol">The Numerics Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operator-overloading">Operator Overloading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparing">Comparing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#total-ordering">Total Ordering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sorting">Sorting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sort-key-methods">Sort key methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#an-example">An Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#emulating-standard-types">Emulating Standard types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#the-container-protocol">The Container Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexing-and-slicing">Indexing and Slicing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#callable-classes">Callable classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#callables">“Callables”</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-callable-objects">Custom callable objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#callable-example">Callable example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protocols-in-summary">Protocols in Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="OO_vs_functional.html">Object Oriented vs Functional Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lambda.html">Anonymous Functions: Lambda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Modules</a> &raquo;</li>
+        
+      <li>Special Methods &amp; Protocols</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/SpecialMethodsAndProtocols.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="special-methods-protocols">
-<h1>Special Methods &amp; Protocols<a class="headerlink" href="#special-methods-protocols" title="Permalink to this headline">¶</a></h1>
-<div class="left docutils container">
-<p>Special methods (also called <em>magic</em> methods) are the secret sauce to Python’s Duck typing.</p>
-<p>Defining the appropriate special methods in your classes is how you make your class act like standard classes.</p>
-</div>
+<span id="special-methods"></span><h1>Special Methods &amp; Protocols<a class="headerlink" href="#special-methods-protocols" title="Permalink to this headline">¶</a></h1>
+<p>Special methods (also called <em>magic</em> methods) are the secret sauce to Python’s duck typing.</p>
+<p>Defining the appropriate special methods in your classes is how you make your class act like the standard classes.</p>
 <div class="section" id="what-s-in-a-name">
 <h2>What’s in a Name?<a class="headerlink" href="#what-s-in-a-name" title="Permalink to this headline">¶</a></h2>
 <p>We’ve seen at least one special method so far:</p>
@@ -57,7 +237,7 @@
 </pre></div>
 </div>
 <p>It’s all in the double underscores…</p>
-<p>Pronounced “dunder” (or “under-under”)</p>
+<p>Pronounced “dunder”</p>
 <p>try: <code class="docutils literal"><span class="pre">dir(2)</span></code>  or <code class="docutils literal"><span class="pre">dir(list)</span></code></p>
 </div>
 <div class="section" id="generally-useful-special-methods">
@@ -69,17 +249,17 @@
 the <em>informal</em> string representation of an object.</dd>
 <dt><code class="docutils literal"><span class="pre">object.__repr__</span></code>:</dt>
 <dd><p class="first">Called by the repr() built-in function to compute the <em>official</em> string representation of an object.</p>
-<p class="last">(ideally: <code class="docutils literal"><span class="pre">eval(</span> <span class="pre">repr(something)</span> <span class="pre">)</span> <span class="pre">==</span> <span class="pre">something</span></code>)</p>
+<p>Ideally: <code class="docutils literal"><span class="pre">eval(</span> <span class="pre">repr(something)</span> <span class="pre">)</span> <span class="pre">==</span> <span class="pre">something</span></code></p>
+<p>This means that the “repr” is what you type to create the object. In practice, this is impractical for complex objects… but it is still a more “formal” form.</p>
+<p class="last">Note that is you don’t define a <code class="docutils literal"><span class="pre">__str__</span></code> method, than the __repr__ will be used. And the base class (<code class="docutils literal"><span class="pre">object</span></code>) has a __repr__ defined, so every class automatically gets one – but it’s ugly :-)</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="protocols">
 <h2>Protocols<a class="headerlink" href="#protocols" title="Permalink to this headline">¶</a></h2>
-<div class="build docutils container">
 <p>The set of special methods needed to emulate a particular type of Python object is called a <em>protocol</em>.</p>
 <p>Your classes can “become” like Python built-in classes by implementing the methods in a given protocol.</p>
-<p>Remember, these are more <em>guidelines</em> than laws.  Implement what you need.</p>
-</div>
+<p>Remember, these are more <em>guidelines</em> than laws.  Implement only what you need.</p>
 </div>
 <div class="section" id="the-numerics-protocol">
 <h2>The Numerics Protocol<a class="headerlink" href="#the-numerics-protocol" title="Permalink to this headline">¶</a></h2>
@@ -87,6 +267,8 @@ the <em>informal</em> string representation of an object.</dd>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
 <span class="nb">object</span><span class="o">.</span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
 <span class="nb">object</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="n">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
 <span class="nb">object</span><span class="o">.</span><span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
 <span class="nb">object</span><span class="o">.</span><span class="fm">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
 <span class="nb">object</span><span class="o">.</span><span class="fm">__divmod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
@@ -98,22 +280,121 @@ the <em>informal</em> string representation of an object.</dd>
 <span class="nb">object</span><span class="o">.</span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>(or the fraction you actually need).</p>
 </div>
-<div class="section" id="the-container-protocol">
-<h2>The Container Protocol<a class="headerlink" href="#the-container-protocol" title="Permalink to this headline">¶</a></h2>
-<p>Want to make a container type? Here’s what you need:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="o">.</span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__getslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__setslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span>
-<span class="nb">object</span><span class="o">.</span><span class="fm">__delslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+<div class="section" id="operator-overloading">
+<h2>Operator Overloading<a class="headerlink" href="#operator-overloading" title="Permalink to this headline">¶</a></h2>
+<p>Most of the previous examples map to “operators”: <code class="docutils literal"><span class="pre">+,</span> <span class="pre">-</span> <span class="pre">,</span> <span class="pre">*,</span> <span class="pre">//,</span> <span class="pre">/,</span> <span class="pre">%</span></code> etc. This is often known as “operator overloading”, as you are redefining what the operators mean for that specific type.</p>
+<p>Note that you can define these operators to do ANYTHING you want – but it is a really good idea to only define them to mean something that makes sense in the usual way.</p>
+<p>One interesting exception to this rule is the <code class="docutils literal"><span class="pre">pathlib.Path</span></code> class, that has defined <code class="docutils literal"><span class="pre">__truediv__</span></code> to mean path concatenation:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="gp">In [20]: </span><span class="n">p1</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+
+<span class="gp">In [21]: </span><span class="n">p1</span>
+<span class="gh">Out[21]: </span><span class="go">PosixPath(&#39;/Users/Chris/PythonStuff/UWPCE/PythonCertDevel&#39;)</span>
+
+<span class="gp">In [22]: </span><span class="n">p1</span> <span class="o">/</span> <span class="s2">&quot;a_filename&quot;</span>
+<span class="gh">Out[22]: </span><span class="go">PosixPath(&#39;/Users/Chris/PythonStuff/UWPCE/PythonCertDevel/a_filename&#39;)</span>
 </pre></div>
 </div>
+<p>While this is not division in any sense, the slash <em>is</em> used as a path separator – so this does make intuitive sense. At least to me – I think it’s pretty cool.</p>
+</div>
+<div class="section" id="comparing">
+<h2>Comparing<a class="headerlink" href="#comparing" title="Permalink to this headline">¶</a></h2>
+<p>If you want you objects to be comparable:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">&gt;</span> <span class="n">B</span>
+<span class="n">A</span> <span class="o">&lt;</span> <span class="n">B</span>
+<span class="n">A</span> <span class="o">&gt;=</span> <span class="n">B</span>
+</pre></div>
+</div>
+<p>etc…</p>
+<p>There is a full set of magic methods you can use to override the “comparison operators”</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="fm">__lt__</span> <span class="p">:</span> <span class="o">&lt;</span>  <span class="p">(</span><span class="n">less</span> <span class="n">than</span><span class="p">)</span>
+<span class="fm">__le__</span> <span class="p">:</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">less</span> <span class="n">than</span> <span class="ow">or</span> <span class="n">equal</span><span class="p">)</span>
+<span class="fm">__eq__</span> <span class="p">:</span> <span class="o">==</span> <span class="p">(</span><span class="n">equal</span><span class="p">)</span>
+<span class="fm">__ge__</span> <span class="p">:</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">greater</span> <span class="n">than</span> <span class="ow">or</span> <span class="n">equal</span><span class="p">)</span>
+<span class="fm">__gt__</span> <span class="p">:</span>  <span class="o">&gt;</span> <span class="p">(</span><span class="n">greater</span> <span class="n">than</span><span class="p">)</span>
+<span class="fm">__ne__</span> <span class="p">:</span> <span class="o">!=</span> <span class="p">(</span><span class="ow">not</span> <span class="n">equal</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These are known as the “rich comparison” operators, as they allow fuller featured comparisons. In particular, they are used by numpy to provide “element-wise” comparison – that is, comparing two arrays yields an array of results, rather than a single result:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="gp">In [27]: </span><span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+
+<span class="gp">In [28]: </span><span class="n">arr2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+
+<span class="gp">In [29]: </span><span class="n">arr1</span> <span class="o">&gt;</span> <span class="n">arr2</span>
+<span class="gh">Out[29]: </span><span class="go">array([False,  True, False,  True,  True,  True, False], dtype=bool)</span>
+
+<span class="gp">In [30]: </span><span class="n">arr1</span> <span class="o">==</span> <span class="n">arr2</span>
+<span class="gh">Out[30]: </span><span class="go">array([False, False, False, False, False, False,  True], dtype=bool)</span>
+</pre></div>
+</div>
+<p>This is just one example – the point is that for your particular class, you can define these comparisons however you want.</p>
+</div>
+<div class="section" id="total-ordering">
+<h2>Total Ordering<a class="headerlink" href="#total-ordering" title="Permalink to this headline">¶</a></h2>
+<p>You may notice that those operators are kind of redundant – if <code class="docutils literal"><span class="pre">A</span> <span class="pre">&gt;</span> <span class="pre">B</span> <span class="pre">is</span> <span class="pre">True</span></code> then we know that <code class="docutils literal"><span class="pre">A</span> <span class="pre">&lt;</span> <span class="pre">B</span> <span class="pre">is</span> <span class="pre">False</span></code> and <code class="docutils literal"><span class="pre">A</span> <span class="pre">&lt;=</span> <span class="pre">B</span> <span class="pre">is</span> <span class="pre">False</span></code>.</p>
+<p>In fact, there is a mathematical / computer science concept know as “Total Order”: (<a class="reference external" href="https://en.wikipedia.org/wiki/Total_order">https://en.wikipedia.org/wiki/Total_order</a>), which strictly defines “well behaved” objects in this regard.</p>
+<p>There may be some special cases, where these rules may not apply for your classes (though I can’t think of any :-) ), but for the most part, you want your classes, if they support comparisons at all, to be well behaved, or “total ordered”.</p>
+<p>Because this is the common case, Python comes with a nifty utility that implements total ordering for you:</p>
+<p><a class="reference external" href="https://docs.python.org/3.6/library/functools.html#functools.total_ordering">https://docs.python.org/3.6/library/functools.html#functools.total_ordering</a></p>
+<p>It can be found in the functools module, and allows you to specify __eq__ and only one of: <code class="docutils literal"><span class="pre">__lt__()</span></code>, <code class="docutils literal"><span class="pre">__le__()</span></code>, <code class="docutils literal"><span class="pre">__gt__()</span></code>, or <code class="docutils literal"><span class="pre">__ge__()</span></code>.  It will then fill in the others for you.</p>
+<p>Note: if you define only one, it should be <code class="docutils literal"><span class="pre">__lt__</span></code>, because this is the one used for sorting (see below for more about that).</p>
+<p>Here is the truncated example from the docs:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@total_ordering</span>
+<span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lastname</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstname</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">==</span>
+                <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">lastname</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">other</span><span class="o">.</span><span class="n">firstname</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lastname</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstname</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">&lt;</span>
+                <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">lastname</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">other</span><span class="o">.</span><span class="n">firstname</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>Note that this makes it a lot easier than implementing all six comparison operators. However, if you read the doc, it lets you know that <code class="docutils literal"><span class="pre">total_ordering</span></code> has poor performance – it is doing extra method call re-direction when the operators are used. If performance matters to your use case (and it probably doesn’t), you need to write all six comparison dunders.</p>
+</div>
+<div class="section" id="sorting">
+<h2>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h2>
+<p>Python has a handful of sorting methods built in:</p>
+<p><code class="docutils literal"><span class="pre">list.sort()</span></code> – for sorting a list in place.
+<code class="docutils literal"><span class="pre">sorted(iterable)</span></code> – for creating a sorted copy of an iterable (sequence).</p>
+<p>And a couple of more obscure ones.</p>
+<p>In order for your custom objects to be sortable, they need the <code class="docutils literal"><span class="pre">__lt__</span></code> (less than) magic method defined – that’s about it.</p>
+<p>So if you are using the <code class="docutils literal"><span class="pre">total_ordering</span></code> decorator, it’s best to define <code class="docutils literal"><span class="pre">__eq__</span></code> and <code class="docutils literal"><span class="pre">__lt__</span></code> – that way sorting will be able to use a “native” method for sorting, and maybe get better performance.</p>
+</div>
+<div class="section" id="sort-key-methods">
+<h2>Sort key methods<a class="headerlink" href="#sort-key-methods" title="Permalink to this headline">¶</a></h2>
+<p>By default, the sorting methods use <code class="docutils literal"><span class="pre">__lt__</span></code> for comparison, and that algorithm calls <code class="docutils literal"><span class="pre">__lt__</span></code> O(n log(n)) times. But if you pass a “key” function in to the sort call:</p>
+<p><code class="docutils literal"><span class="pre">a_list.sort(key=key_fun)</span></code></p>
+<p>then the key_fun is only called n times, and if the key returns a simple type, like an integer or float, then the sorting will be faster.</p>
+<p>So it often helps to provide a sort_key() method on your class, so it can be passed in to the sort methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Simple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    simple class to demonstrate a simple sorting key method</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">sort_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+</pre></div>
+</div>
+<p>And to use it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">list_of_Simple_objects</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">Simple</span><span class="o">.</span><span class="n">sort_key</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See: <a class="reference download internal" href="../_downloads/sort_key.py" download=""><code class="xref download docutils literal"><span class="pre">sort_key.py</span></code></a> for a complete example with timing. Here is an example of running it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Timing</span> <span class="k">for</span> <span class="mi">10000</span> <span class="n">items</span>
+<span class="n">regular</span> <span class="n">sort</span> <span class="n">took</span><span class="p">:</span> <span class="mf">0.04288</span><span class="n">s</span>
+<span class="n">key</span> <span class="n">sort</span> <span class="n">took</span><span class="p">:</span> <span class="mf">0.004779</span><span class="n">s</span>
+<span class="n">performance</span> <span class="n">improvement</span> <span class="n">factor</span><span class="p">:</span> <span class="mf">8.9726</span>
+</pre></div>
+</div>
+<p>So almost 9 times faster for a 10,000 item list. Pretty good, eh?</p>
 </div>
 <div class="section" id="an-example">
 <h2>An Example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
@@ -127,21 +408,43 @@ implement <code class="docutils literal"><span class="pre">__add__</span></code>
     <span class="k">return</span> <span class="n">vector</span><span class="p">([</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">)])</span>
 </pre></div>
 </div>
-<p class="centered">[a more complete example may be seen <a class="reference download internal" href="../_downloads/vector.py" download=""><code class="xref download docutils literal"><span class="pre">here</span></code></a>]</p>
-</div>
-<div class="section" id="protocols-in-summary">
-<h2>Protocols in Summary<a class="headerlink" href="#protocols-in-summary" title="Permalink to this headline">¶</a></h2>
-<p>Use special methods when you want your class to act like a “standard” class in some way.</p>
-<p>Look up the special methods you need and define them.</p>
-<p>There’s more to read about the details of implementing these methods:</p>
-<ul class="simple">
-<li><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#special-method-names">https://docs.python.org/3.5/reference/datamodel.html#special-method-names</a></li>
-</ul>
-</div>
-</div>
+<p>[a slightly more complete example may be seen here <a class="reference download internal" href="../_downloads/vector.py" download=""><code class="xref download docutils literal"><span class="pre">vector.py</span></code></a>]</p>
 <div class="section" id="emulating-standard-types">
-<h1>Emulating Standard types<a class="headerlink" href="#emulating-standard-types" title="Permalink to this headline">¶</a></h1>
-<p class="medium">Making your classes behave like the built-ins</p>
+<h3>Emulating Standard types<a class="headerlink" href="#emulating-standard-types" title="Permalink to this headline">¶</a></h3>
+<p>Making your classes behave like the built-ins.</p>
+</div>
+</div>
+<div class="section" id="the-container-protocol">
+<h2>The Container Protocol<a class="headerlink" href="#the-container-protocol" title="Permalink to this headline">¶</a></h2>
+<p>Want to make a container type? Here’s what you need:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="o">.</span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="nb">object</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+<span class="nb">object</span><span class="o">.</span><span class="fm">__index__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">__len__</span></code> is called when len(object) is called.</p>
+<p><code class="docutils literal"><span class="pre">__reversed__</span></code> is called when reversed(object) is called.</p>
+<p><code class="docutils literal"><span class="pre">__contains__</span></code> is called with <code class="docutils literal"><span class="pre">in</span></code> is used: <code class="docutils literal"><span class="pre">something</span> <span class="pre">in</span> <span class="pre">object</span></code></p>
+<p><code class="docutils literal"><span class="pre">__iter__</span></code> is used for iteration – called when in a for loop.</p>
+<p><code class="docutils literal"><span class="pre">__index__</span></code> is used to convert the object into an integer for indexing. So you don’t define this in a container type but rather define it for a type so it can be used as an index.  If you have a class that could reasonably be interpreted as an index, you should define this. It should return an integer.  This was added to support multiple integer types for numpy.</p>
+</div>
+<div class="section" id="indexing-and-slicing">
+<h2>Indexing and Slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">__getitem__</span></code> and <code class="docutils literal"><span class="pre">set__item__</span></code> are used when indexing:</p>
+<p><code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">object[i]</span></code> calls <code class="docutils literal"><span class="pre">__getitem__</span></code>, and <code class="docutils literal"><span class="pre">object[i]</span> <span class="pre">=</span> <span class="pre">something</span></code> calls <code class="docutils literal"><span class="pre">__setitem__</span></code>.</p>
+<p>But indexing is pretty complex in python. There is simple indexing: <code class="docutils literal"><span class="pre">object[i]</span></code>, but there is also slicing: <code class="docutils literal"><span class="pre">object[i:j:skip]</span></code></p>
+<p>When you implement <code class="docutils literal"><span class="pre">__getitem__(self,</span> <span class="pre">index)</span></code>, <code class="docutils literal"><span class="pre">index</span></code> will simply be the index if it’s a simple index, but if it’s slicing, it will be a <code class="docutils literal"><span class="pre">slice</span></code> object. Python also supports multiple slices:</p>
+<p><code class="docutils literal"><span class="pre">object[a:b,c:d]</span></code></p>
+<p>These are used in numpy to support multi-dimensional arrays, for instance.</p>
+<p>In this case, a tuple of slice objects is passed in.</p>
+<p>See: <a class="reference download internal" href="../_downloads/index_slicing.py" download=""><code class="xref download docutils literal"><span class="pre">index_slicing.py</span></code></a></p>
+</div>
 <div class="section" id="callable-classes">
 <h2>Callable classes<a class="headerlink" href="#callable-classes" title="Permalink to this headline">¶</a></h2>
 <p>We’ve been using functions a lot:</p>
@@ -170,12 +473,12 @@ implement <code class="docutils literal"><span class="pre">__add__</span></code>
 </div>
 <div class="section" id="callables">
 <h2>“Callables”<a class="headerlink" href="#callables" title="Permalink to this headline">¶</a></h2>
-<p>Various places in python expect a “callable” – something that you can
+<p>Various places in Python expect a “callable” – something that you can
 call like a function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">a_result</span> <span class="o">=</span> <span class="n">something</span><span class="p">(</span><span class="n">some_arguments</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>“something” in this case is often a function, but can be anything else
+<p>“Something” in this case is often a function, but can be anything else
 that is “callable”.</p>
 <p>What have we been introduced to recently that is “callable”, but not a
 function object?</p>
@@ -201,131 +504,112 @@ code “calls” an instance of your class:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="writing-your-own-sequence-type">
-<h2>Writing your own sequence type<a class="headerlink" href="#writing-your-own-sequence-type" title="Permalink to this headline">¶</a></h2>
-<p>Python has a handful of nifty sequence types built in:</p>
-<blockquote>
-<div><ul class="simple">
-<li>lists</li>
-<li>tuples</li>
-<li>strings</li>
-<li>…</li>
+<div class="section" id="callable-example">
+<h2>Callable example<a class="headerlink" href="#callable-example" title="Permalink to this headline">¶</a></h2>
+<p>An example of writing a callable class:</p>
+<p>Write a class for a quadratic equation.</p>
+<ul class="simple">
+<li>The initializer for that class should take the parameters: <code class="docutils literal"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c</span></code></li>
+<li>It should store those parameters as attributes.</li>
+<li>The resulting instance should evaluate the function when called, and return the result:</li>
 </ul>
-</div></blockquote>
-<p>But what if you need a sequence that isn’t built in?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_quad</span> <span class="o">=</span> <span class="n">Quadratic</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">my_quad</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="a-sparse-array">
-<h2>A Sparse array<a class="headerlink" href="#a-sparse-array" title="Permalink to this headline">¶</a></h2>
-<p>Example: Sparse Array</p>
-<p>Sometimes we have data sets that are “sparse” – i.e. most of the values are zero.</p>
-<p>So you may not want to store a huge bunch of zeros.</p>
-<p>But you do want the array to look like a regular old sequence.</p>
-<p>So how do you do that?</p>
+<p>Here’s one way to do that:
+<a class="reference download internal" href="../_downloads/quadratic.py" download=""><code class="xref download docutils literal"><span class="pre">quadratic.py</span></code></a></p>
 </div>
-<div class="section" id="the-sequence-protocol">
-<h2>The Sequence protocol<a class="headerlink" href="#the-sequence-protocol" title="Permalink to this headline">¶</a></h2>
-<p>You can make your class look like a regular python sequence by defining
-the set of special methods you need:</p>
-<p><a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#emulating-container-types">https://docs.python.org/3/reference/datamodel.html#emulating-container-types</a></p>
-<p>The key ones are:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="45%" />
-<col width="55%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">__len__</span></code></td>
-<td>for <code class="docutils literal"><span class="pre">len(sequence)</span></code></td>
-</tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">__getitem__</span></code></td>
-<td>for  <code class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">seq[i]</span></code></td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">__setitem__</span></code></td>
-<td>for <code class="docutils literal"><span class="pre">seq[i]</span> <span class="pre">=</span> <span class="pre">x</span></code></td>
-</tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">__delitem__</span></code></td>
-<td>for <code class="docutils literal"><span class="pre">del</span> <span class="pre">seq[i]</span></code></td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">__contains__</span></code></td>
-<td>for <code class="docutils literal"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">seq</span></code></td>
-</tr>
-</tbody>
-</table>
+<div class="section" id="protocols-in-summary">
+<h2>Protocols in Summary<a class="headerlink" href="#protocols-in-summary" title="Permalink to this headline">¶</a></h2>
+<p>Use special methods when you want your class to act like a “standard” type or class in some way.</p>
+<p>Look up the special methods you need and define them (and only the ones you need).</p>
+<p>There’s more to read about the details of implementing these methods:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.python.org/3.6/reference/datamodel.html#special-method-names">https://docs.python.org/3.6/reference/datamodel.html#special-method-names</a></li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>Here is a good reference for magic methods:</p>
+<p><a class="reference external" href="http://minhhh.github.io/posts/a-guide-to-pythons-magic-methods">http://minhhh.github.io/posts/a-guide-to-pythons-magic-methods</a></p>
+<p>And with a bit more explanation:</p>
+<p><a class="reference external" href="https://www.python-course.eu/python3_magic_methods.php">https://www.python-course.eu/python3_magic_methods.php</a></p>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="OO_vs_functional.html" class="btn btn-neutral float-right" title="Object Oriented vs Functional Programming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="MultipleInheritance.html" class="btn btn-neutral" title="Multiple Inheritance" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Special Methods &amp; Protocols</a><ul>
-<li><a class="reference internal" href="#what-s-in-a-name">What’s in a Name?</a></li>
-<li><a class="reference internal" href="#generally-useful-special-methods">Generally Useful Special Methods</a></li>
-<li><a class="reference internal" href="#protocols">Protocols</a></li>
-<li><a class="reference internal" href="#the-numerics-protocol">The Numerics Protocol</a></li>
-<li><a class="reference internal" href="#the-container-protocol">The Container Protocol</a></li>
-<li><a class="reference internal" href="#an-example">An Example</a></li>
-<li><a class="reference internal" href="#protocols-in-summary">Protocols in Summary</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#emulating-standard-types">Emulating Standard types</a><ul>
-<li><a class="reference internal" href="#callable-classes">Callable classes</a></li>
-<li><a class="reference internal" href="#callables">“Callables”</a></li>
-<li><a class="reference internal" href="#custom-callable-objects">Custom callable objects</a></li>
-<li><a class="reference internal" href="#writing-your-own-sequence-type">Writing your own sequence type</a></li>
-<li><a class="reference internal" href="#a-sparse-array">A Sparse array</a></li>
-<li><a class="reference internal" href="#the-sequence-protocol">The Sequence protocol</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="Recursion.html" title="previous chapter">Recursion</a></li>
-      <li>Next: <a href="StaticAndClassMethods.html" title="next chapter">Static and Class Methods</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/SpecialMethodsAndProtocols.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/modules/SpecialMethodsAndProtocols.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

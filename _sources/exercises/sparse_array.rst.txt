@@ -7,7 +7,6 @@ Sparse Array Exercise
 Sparse Array
 ============
 
-.. rst-class:: medium
 
     Goal:
 
@@ -26,16 +25,16 @@ But you want it to look like a regular array in user code.
 
 In the real world, these are usually 2 dimensional arrays. But to keep it a bit simpler, we'll make a 1 dimensional sparse array in this class.
 
-(feel free to make it 2d for an extra challenge!)
+(feel free to make it 2d for an extra challenge!).
 
 A Sparse array class
 --------------------
 
-A spare array class should present to the user the same interface as a regular list.
+A sparse array class should present to the user the same interface as a regular list.
 
 Some ideas of how to do that:
 
-* Internally, it can store the values in a dict, with the index as the keys. So that only the indexes with non-zero values will be stored.
+* Internally, it can store the values in a dict, with the index as the keys, so that only the indexes with non-zero values will be stored.
 
 * It should take a sequence of values as an initializer:
 
@@ -51,7 +50,6 @@ Some ideas of how to do that:
 
   This will give its "virtual" length --  with the zeros
 
-.. nextslide::
 
 * It should support getting and setting particular elements via indexing:
 
@@ -69,9 +67,8 @@ Some ideas of how to do that:
 
 * It should raise an ``IndexError`` if you try to access an index beyond the end.
 
-* it should have an append() method
+* it should have an append() method.
 
-.. nextslide::
 
 * Can you make it support slicing?
 

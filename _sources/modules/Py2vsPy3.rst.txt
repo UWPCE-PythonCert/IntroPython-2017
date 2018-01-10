@@ -16,7 +16,7 @@ But a couple that you'll need to know right off the bat:
 print()
 -------
 
-In python2, ``print`` is a "statement", rather than a function. That means it didn't require parentheses around what you want printed:
+In Python2, ``print`` is a "statement", rather than a function. That means it didn't require parentheses around what you want printed:
 
 .. code-block:: python
 
@@ -51,7 +51,7 @@ In python 3, the division operator is "smart" when you divide integers:
   In [17]: 1 / 2
   Out[17]: 0.5
 
-However in python2, integer division, will give you an integer result:
+However in Python2, integer division, will give you an integer result:
 
 .. code-block:: ipython
 
@@ -65,7 +65,7 @@ In both versions, you can get "integer division" if you want it with a double sl
   In [1]: 1//2
   Out[1]: 0
 
-And in python2, you can get the behavior of py3 with "true division":
+And in Python2, you can get the behavior of Python3 with "true division":
 
 .. code-block:: ipython
 
@@ -74,14 +74,14 @@ And in python2, you can get the behavior of py3 with "true division":
   In [3]: 1/2
   Out[3]: 0.5
 
-For the most part, you just need to be a bit careful with the rare cases where py2 code counts on integer division.
+For the most part, you just need to be a bit careful with the rare cases where Python2 code counts on integer division.
 
-Other py2/py3 differences
--------------------------
+Other Python2 / Python3 differences
+-----------------------------------
 
-The most drastic difference (improvement!) is better Unicode support, and better bytes/Unicode separation.
+The most drastic difference (improvement!) is better Unicode support, and better bytes / Unicode separation.
 
-Most of the other differences are essentially implementation details, like getting iterators instead of sequences -- we'll talk about that more when it comes up in class.
+Most of the other differences are essentially implementation details, like getting iterators instead of sequences -- we'll talk about that more when it comes up in a later lesson.
 
 There are also a few syntax differences with more advanced topics: Exceptions, ``super()``, etc.
 

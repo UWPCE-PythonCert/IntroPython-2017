@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Functional Programming - Summary &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Functional Programming - Summary</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/scripts/fp-summary.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>Moved to google docs</p>
+<div class="section" id="functional-programming-summary">
+<span id="fp-summary"></span><h1>Functional Programming - Summary<a class="headerlink" href="#functional-programming-summary" title="Permalink to this headline">¶</a></h1>
+<p>With Rick Riehle</p>
+<p>Alright we’ve covered most if not all of Python’s support for Functional Programming, at least as of the language’s state circa the time I wrote up this material.</p>
+<div class="section" id="use-cases-problem-domains">
+<h2>Use Cases &amp; Problem Domains<a class="headerlink" href="#use-cases-problem-domains" title="Permalink to this headline">¶</a></h2>
+<p>During the last many lessons, you may have likely been thinking how, where and why to embrace Functional Programming techniques. We’re often down among the weeds when we’re programming, so now is a good time to step back and take a look at the lay of the land. For what sorts of programming domains should you start to think functionally rather than remain object oriented?</p>
+<blockquote>
+<div>Have any new vistas opened along the path of these last lessons? Where would you like to spend more time?</div></blockquote>
+</div>
+<div class="section" id="your-travels-have-only-begun">
+<h2>Your travels have only begun<a class="headerlink" href="#your-travels-have-only-begun" title="Permalink to this headline">¶</a></h2>
+<p>I originally wrote this summary with a topic “Object Oriented Programming vs Functional Programming,” but when I’m working in Python I don’t really think of it that way. Python doesn’t force me to choose between, so I choose both. When I step back from this specific language however, I do begin to see the differences between the paradigms. To continue the culture metaphor, during day-to-day work, when I’m engrossed in problems I’m trying to solve, software I’m trying to build, I don’t dwell on the cultural debates between the two paradigms, because Python allows me to choose from either and indeed to mix and match as I see fit. Yet when I back away from the day to day, or take a trip to a solidly Functional programming language, I am presented with strong cultural influences on how to solve problems. I am reminded why the alternative paradigms exist in the first place. I am reminded that they encourage me to think about and solve problems differently. Indeed in many cases, more effectively. I remember that to get the most from the alternative, that I need to approach them with a degree of discipline that Python does not enforce, and so it’s up to me.</p>
+<p>So I am going to suggest that your travels as a professional programmer should not stop here. You should not be satisfied to always stay at home, comfortable in your Python city with its Python neighborhoods, and never sample the exquisite cultures of far-away, strongly Functional languages like Clojure or Haskell. Those cultures have much to teach you and they will make you a better Python programmer.</p>
+<p>I hope you get out there and sample from all of the amazing ways of thinking those cultures offer.</p>
+<p>Enjoy the trip.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

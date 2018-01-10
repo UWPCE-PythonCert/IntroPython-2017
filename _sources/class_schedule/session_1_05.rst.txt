@@ -1,14 +1,42 @@
 .. _session_1_05:
 
-#########################
-Intro to Python Session 5
-#########################
+########################################
+Session 5: Exceptions and Comprehensions
+########################################
+
+Exceptions and Comprehensions
 
 Pre-class prep
 ==============
 
+Read:
+
+:ref:`style_and_naming`
+
+:ref:`modules_and_namespaces`
+
+:ref:`documentation`
+
+:ref:`exceptions`
+
+:ref:`comprehensions`
+
+
 In-class Activities
 ===================
+
+Review of last class's labs
+
+Exercises:
+----------
+
+1. :ref:`exercise_comprehensions`
+
+2. :ref:`exercise_exceptions`
+
+3. Optional: :ref:`exercise_exceptions_lab`
+
+4. Update mailroom with Exceptions: :ref:`exercise_mailroom_exceptions`
 
 
 Post-class Activities
@@ -16,42 +44,15 @@ Post-class Activities
 
 Finish the exercises
 
-Look at the next session for reading, etc:
+* If you've done all that -- check out the collections module, there is a LOT of nifty stuff in there!
 
-:ref:`session_1_05`
+  - https://docs.python.org/3/library/collections.html
 
-
-* Finish the LABs from today
-  - Exceptions lab
-
-* Catch up from last week.
-
-  - Add Exception handling to mailroom
-  - And list (and dict, and set) comprehensions...
-
-* If you've done all that -- check out the collections module:
-
-  - https://docs.python.org/3.5/library/collections.html
   - here's a good overview: https://pymotw.com/3/collections/
 
-Material to review before next week
------------------------------------
+Look at the next session for reading, etc:
 
-**Unit Testing:**
+:ref:`session_1_06`
 
-* Dive into Python: chapter 9:
-  http://www.diveintopython3.net/unit-testing.html
 
-NOTE: you will find that most introductions to unit testing with Python use the builtin ``unitest`` module. However, it is a bit heavyweight, and requires some knowledge of OOP -- classes, etc. So we'll be using pytest in this class: http://doc.pytest.org/en/latest/. But the principles of testing are the same.
 
-* Ned Batchelder's intro to testing presentation:
-
-  - http://nedbatchelder.com/text/test0.html
-
-** Advanced Argument Passing
-
-* arguments and parameters:
-
-  - http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html
-
-  - https://pythontips.com/2013/08/04/args-and-kwargs-in-python-explained/

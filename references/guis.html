@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Graphical User Interfaces &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Resources for Specific Python Topics" href="index.html"/>
+        <link rel="prev" title="The SciPy Stack" href="scipy.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Resources for Specific Python Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="learning.html">Useful Python Learning Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_hints.html">Handy hints for using git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">Packages and Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#distributing">Distributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="language_topics.html">Python Language Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scipy.html">The SciPy Stack</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Graphical User Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#browser-based">Browser based</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#desktop-gui">Desktop GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hybrid">Hybrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#desktop-gui-options-in-python">Desktop GUI options in Python</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-decide">How to decide?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Resources for Specific Python Topics</a> &raquo;</li>
+        
+      <li>Graphical User Interfaces</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/references/guis.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="graphical-user-interfaces">
+<h1>Graphical User Interfaces<a class="headerlink" href="#graphical-user-interfaces" title="Permalink to this headline">¶</a></h1>
+<p>It’s likely that if you want other users to use your code that aren’t system administrators and the like, that you’ll want a graphical way for users to interact with your code – a <em>Graphical User Interface</em>, or GUI.</p>
+<p>There are now two distinct categories of GUIs:</p>
+<div class="section" id="browser-based">
+<h2>Browser based<a class="headerlink" href="#browser-based" title="Permalink to this headline">¶</a></h2>
+<p>This of for “web apps” that usually run on a server and have multiple users – but you can use the same techniques, running the server locally and letting your user use the browser as a front end.</p>
+<dl class="docutils">
+<dt>Advantages:</dt>
+<dd><ul class="first last simple">
+<li>There is a LOT of effort going into nifty GUI stuff with Javascript in the browser, so you can leverage all that.</li>
+<li>It opens the door to a server version – if you may go that way.</li>
+<li>Particularly good if you need a server and local version - same code!</li>
+</ul>
+</dd>
+</dl>
+<p>Disadvantages:
+- you need to write the front-end in html/Javascript – big deal if you don’t know those already.
+- you need to write client-server communication code – this can be a substantial effort, depending on complexity</p>
+</div>
+<div class="section" id="desktop-gui">
+<h2>Desktop GUI<a class="headerlink" href="#desktop-gui" title="Permalink to this headline">¶</a></h2>
+<p>Use a GUI toolkit that’s a python library. This gives you a traditional desktop app - GUI and rest of the code all in one.</p>
+<p>Advantages:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">Can have a regular old look and feel</p>
+</li>
+<li><p class="first">Can have better performance – no need to move data back and forth between the GUI and the app</p>
+</li>
+<li><p class="first">can be easier to write:</p>
+<blockquote>
+<div><ul class="simple">
+<li>all Python</li>
+<li>no client-server communication code – you can just access the variables.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Disadvantages:</p>
+<blockquote>
+<div><ul class="simple">
+<li>none of the advantages of a browser based solution :-)</li>
+</ul>
+</div></blockquote>
+<p>For a full-fledged app, make that choice.</p>
+</div>
+<div class="section" id="hybrid">
+<h2>Hybrid<a class="headerlink" href="#hybrid" title="Permalink to this headline">¶</a></h2>
+<p>Then there is a somewhat quick and dirty method:</p>
+<p>Jupyter Notebook and Jupyter widgets.</p>
+<p><a class="reference external" href="http://jupyter.org/">http://jupyter.org/</a>
+<a class="reference external" href="http://jupyter.org/widgets.html">http://jupyter.org/widgets.html</a></p>
+<p>This is a browser-based solution, but where someone else has already written all the html/javascript for you.</p>
+<p>A Jupyter notebook is an in browser way to mix code, documentation, and output all in one page. And with the Jupyter Widgets, you can also add graphical user input. It exposes the code to your users, which is good or bad, depending on what you want :-)</p>
+</div>
+<div class="section" id="desktop-gui-options-in-python">
+<h2>Desktop GUI options in Python<a class="headerlink" href="#desktop-gui-options-in-python" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>PyGTK:</dt>
+<dd>native on Unix/Linux, semi-native-ish on Windows, horribly non-native on the Mac (If you can even get it to work)</dd>
+<dt>PyQT / PySide:</dt>
+<dd>wrapper around the QT framework – almost native on all three platforms – maybe licensing issues</dd>
+<dt>TkInter:</dt>
+<dd>Comes with the standard library – kind of klunky and not very native anywhere.</dd>
+<dt>wxPython:</dt>
+<dd>Native on all three major platforms</dd>
+<dt>PyGame:</dt>
+<dd>Layer on top of OpenGL for games – not well maintained these days :-(</dd>
+<dt>Native GUIs:</dt>
+<dd>Cocoa (PyObjC), PythonWin – good if you really only care about one platform, though PYthonWin is pretty low level and klunky.</dd>
+<dt>Kivy:</dt>
+<dd>for touchscreen (mobile) platforms – not at all native, but a good option for touchscreen games.</dd>
+<dt>BeeWare Toga:</dt>
+<dd>New kid on the block, seeking to be one solution for desktop and GUI – wasn’t pretty incomplete last I looked, which was a while ago.</dd>
+</dl>
+<div class="section" id="how-to-decide">
+<h3>How to decide?<a class="headerlink" href="#how-to-decide" title="Permalink to this headline">¶</a></h3>
+<p>With all these choices – hard to decide.</p>
+<p>The quickest / easiest way to get something working: tkInter – if a Jupyter notebook is not right for your use case.</p>
+<p>The most complete robust for Desktop GUIs: wxPYthon or PyQT if the licensing works for you (GPL, I think) PyQT is supposed to be pretty nice. I personally use wxPython (mostly for historical reasons), so a good option also.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="scipy.html" class="btn btn-neutral" title="The SciPy Stack" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

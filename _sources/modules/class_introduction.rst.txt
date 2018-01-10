@@ -11,7 +11,6 @@ In which you are introduced to this class, your instructors, your environment an
     :align: center
     :width: 38%
 
-.. rst-class:: credit
 
 `xkcd.com/353`_
 
@@ -25,7 +24,6 @@ Who are we?
 Who are you?
 ------------
 
-.. rst-class:: center medium
 
   Tell us a tiny bit about yourself:
 
@@ -38,7 +36,6 @@ Who are you?
 Introduction to This Class
 ==========================
 
-.. rst-class:: center large
 
   Introduction to Python
 

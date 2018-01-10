@@ -12,7 +12,7 @@ Minimal Setup
 Although it is OK to use different tools, there are some requirements to successfully do the work the program requires:
 
 #. cPython version 3.6.*
-#. A way to edit python files (Programmers Text Editor)
+#. A way to edit Python files (Programmers Text Editor)
 #. A way to run your code -- command line, IDE, etc.
 #. A way to use the "git" source code version control system
 
@@ -21,9 +21,9 @@ You can be successful in the program as long as you have the above. If you don't
 Platforms
 ---------
 
-Python is a very platform independent system, it can run on all major operating systems, including even micro controllers. It is most commonly used in production on Windows, Linux or OS-X systems.
+Python is a very platform independent system, it can run on all major operating systems, including micro controllers even. It is most commonly used in production on Windows, Linux or OS-X systems.
 
-For this program, we feel it is best for users to work in an environment in which they are comfortable, and which they will ultimately need to do production work.
+For this program, we feel it is best for students to work in an environment in which they are comfortable, and which they will ultimately use to do production work.
 
 We have included instructions for Windows, Linux and OS-X systems -- any of these are fine.
 
@@ -40,7 +40,7 @@ There are a number of different Python interpreters (or run-time environments) a
 - Iron Python
 - MicroPython
 
-These each have their own special uses for interaction with the Java VM or CLR, or running on micro controllers. But most production Python is run with the cPython interpreter, and most people mean cPython when they say "Python".
+These each have their own special uses. For example, for interaction with the Java VM or Microsoft CLR, or running on micro controllers. But most production Python is run with the cPython interpreter, and most people mean cPython when they say "Python".
 
 For this program, you will need cPython version 3.6, installed and running so that when you type "python" at your command line, it starts up.
 
@@ -58,15 +58,15 @@ There are three basic elements to your environment when working with Python:
 * The Editor
 * The source code version control system
 
-Some folks use an Integrated Development Environment (IDE), which combines some or all of these functions. For this class, we don't recommend using an IDE, because while it can makes some things easier, it also hides complication that is good to understand.
+Some folks use an Integrated Development Environment (IDE), which combines some or all of these functions. For this class, we don't recommend using an IDE, because while it can make some things easier, it can also hide things that will be good for you to understand.
 
 Minimal Requirements
 --------------------
 
 In order to be productive in this program, you need to be able to do the following:
 
-* Manipulate files and write and save python code in files.
-    You really, really want a "real" programmer's editor for this.
+* Manipulate files and write and save Python code in files.
+  You really, really want a "real" programmer's editor for this.
 
 * Run your code with Python 3.6
 
@@ -85,7 +85,7 @@ Then come back and follow the rest of this review.
 The Command Line (cli)
 ======================
 
-Having some facility on the command line is important
+Having some familiarity with the command line is important
 
 Familiarity with basic use of the command line is a prerequisite for the program, so we won't cover this much in class. If you are not comfortable with the command line, please bone up on your own.
 
@@ -93,7 +93,7 @@ We have some resources here: :ref:`command_line_basics`
 
 We suggest running through the **cli** tutorial at "learn code the hard way":
 
-https://learnpythonthehardway.org/python3/appendixa.html
+`Command Line Crash Course <https://learnpythonthehardway.org/book/appendixa.html>`_
 
 Or, for Linux and OS-X users:
 
@@ -103,7 +103,7 @@ Or, for Linux and OS-X users:
 Windows:
 --------
 
-Most of the demos in class, etc, will be done using the "bash" command line shell on OS-X. This is identical to the bash shell on Linux.
+Most of the demos in lessons will be done using the "bash" command line shell on OS-X. This is identical to the bash shell on Linux.
 
 Windows provides the "DOS" command line, which is OK, but pretty old and limited, or "Power Shell" -- a more modern, powerful, flexible command shell.
 
@@ -122,7 +122,7 @@ Applications => Utilities => Terminal.app
 
 Drag and Drop it into the dock for easy access.
 
-The Terminal app can be interfaced with the finder, making it easy to open it up with the working dir set to the current folder in the finder:
+The Terminal app can be interfaced with the Finder, making it easy to open it up with the working dir set to the current folder in the finder:
 
 See: `launch an OS-X terminal in a folder <https://lifehacker.com/launch-an-os-x-terminal-window-from-a-specific-folder-1466745514>`_
 
@@ -180,7 +180,7 @@ Or hit `ctrl+D` on Linux and OS-X or `ctrl+Z` On Windows.
 Tools in the Interpreter
 ------------------------
 
-When you are in an interpreter, there are a number of tools available to
+When you are in the interpreter, there are a number of tools available to
 you.
 
 There is a help system:
@@ -237,6 +237,8 @@ But for anything "real", you'll want to save the work you are doing in a more pe
 
 This is where an Editor fits in.
 
+.. _editor_for_python:
+
 Text Editors Only
 -----------------
 
@@ -246,7 +248,7 @@ MS Word is **not** a text editor.
 
 Nor is *TextEdit* on a Mac.
 
-``Notepad`` on Windows is a text editor -- but a crappy one.
+``Notepad`` on Windows is a text editor -- but a poor one.
 
 You need a real "programmers text editor"
 
@@ -289,7 +291,7 @@ Why No IDE?
 
 An IDE does not give you much that you can't get with a good editor plus a good interpreter.
 
-An IDE often weighs a great deal
+An IDE often weighs a great deal.
 
 Setting up IDEs to work with different projects can be challenging and time-consuming.
 
@@ -321,9 +323,9 @@ This is such a critical software development practice the we use it in the progr
 git
 ---
 
-git (https://en.wikipedia.org/wiki/Git) is an open-source Version Control System that has become an industry standard -- very widely used in both commercial and open-source development.
+git (https://en.wikipedia.org/wiki/Git) is an open-source version control system that has become an industry standard -- very widely used in both commercial and open-source development.
 
-We will be using git and the Web Service gitHub for collaboration in this program.
+We will be using git and the web service gitHub for collaboration in this program.
 
 Make sure you are set up to use git on your machine. If you have using a command line client, you should be able to type::
 
@@ -336,7 +338,7 @@ and get something like this as a response::
 Am I ready to go?
 =================
 
-To see if you have python ready to start class, try the following:
+To see if you have Python ready to start class, try the following:
 
 Create and run a Python "program":
 ----------------------------------

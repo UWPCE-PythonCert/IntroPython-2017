@@ -8,11 +8,9 @@ Playing with Comprehensions
 ============================
 
 
-.. rst-class:: large left
 
     Goal:
 
-.. rst-class:: medium left
 
     Getting Familiar with list, set and dict comprehensions
 
@@ -206,7 +204,6 @@ First a slightly bigger, more interesting (or at least bigger..) dict:
                   "salad": "greek",
                   "pasta": "lasagna"}
 
-.. nextslide:: Working with this dict:
 
 1. Print the dict by passing it to a string format method, so that you
 get something like:
@@ -225,7 +222,6 @@ keys but with the number of 'a's in each value. You can do this either
 by editing the dict in place, or making a new one. If you edit in place,
 make a copy first!
 
-.. nextslide::
 
 5. Create sets s2, s3 and s4 that contain numbers from zero through twenty,
 divisible 2, 3 and 4.

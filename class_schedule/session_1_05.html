@@ -1,164 +1,263 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Session 5: Exceptions and Comprehensions &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Intro to Python Session 5 &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Intro to Python Session 6" href="session_1_06.html" />
-    <link rel="prev" title="Intro to Python Session 4" href="session_1_04.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="intro-to-python-session-5">
-<span id="session-1-05"></span><h1>Intro to Python Session 5<a class="headerlink" href="#intro-to-python-session-5" title="Permalink to this headline">¶</a></h1>
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Session 5: Exceptions and Comprehensions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/class_schedule/session_1_05.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="session-5-exceptions-and-comprehensions">
+<span id="session-1-05"></span><h1>Session 5: Exceptions and Comprehensions<a class="headerlink" href="#session-5-exceptions-and-comprehensions" title="Permalink to this headline">¶</a></h1>
+<p>Exceptions and Comprehensions</p>
 <div class="section" id="pre-class-prep">
 <h2>Pre-class prep<a class="headerlink" href="#pre-class-prep" title="Permalink to this headline">¶</a></h2>
+<p>Read:</p>
+<p><a class="reference internal" href="../modules/NamingThings.html#style-and-naming"><span class="std std-ref">Style and Naming</span></a></p>
+<p><a class="reference internal" href="../modules/Modules.html#modules-and-namespaces"><span class="std std-ref">Code Structure, Modules, and Namespaces</span></a></p>
+<p><a class="reference internal" href="../modules/Documentation.html#documentation"><span class="std std-ref">Documentation</span></a></p>
+<p><a class="reference internal" href="../modules/Exceptions.html#exceptions"><span class="std std-ref">Exception Handling</span></a></p>
+<p><a class="reference internal" href="../modules/Comprehensions.html#comprehensions"><span class="std std-ref">Comprehensions</span></a></p>
 </div>
 <div class="section" id="in-class-activities">
 <h2>In-class Activities<a class="headerlink" href="#in-class-activities" title="Permalink to this headline">¶</a></h2>
+<p>Review of last class’s labs</p>
+<div class="section" id="exercises">
+<h3>Exercises:<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><a class="reference internal" href="../exercises/comprehensions_lab.html#exercise-comprehensions"><span class="std std-ref">Comprehensions Lab</span></a></li>
+<li><a class="reference internal" href="../exercises/except_exercise.html#exercise-exceptions"><span class="std std-ref">Exceptions Exercise</span></a></li>
+<li>Optional: <a class="reference internal" href="../exercises/exceptions_lab.html#exercise-exceptions-lab"><span class="std std-ref">Exceptions Lab</span></a></li>
+<li>Update mailroom with Exceptions: <a class="reference internal" href="../exercises/mailroom.html#exercise-mailroom-exceptions"><span class="std std-ref">Part 3: Adding Exceptions and Comprehensions</span></a></li>
+</ol>
+</div>
 </div>
 <div class="section" id="post-class-activities">
 <h2>Post-class Activities<a class="headerlink" href="#post-class-activities" title="Permalink to this headline">¶</a></h2>
 <p>Finish the exercises</p>
-<p>Look at the next session for reading, etc:</p>
-<p><a class="reference internal" href="#session-1-05"><span class="std std-ref">Intro to Python Session 5</span></a></p>
 <ul class="simple">
-<li>Finish the LABs from today
-- Exceptions lab</li>
-<li>Catch up from last week.<ul>
-<li>Add Exception handling to mailroom</li>
-<li>And list (and dict, and set) comprehensions…</li>
-</ul>
-</li>
-<li>If you’ve done all that – check out the collections module:<ul>
-<li><a class="reference external" href="https://docs.python.org/3.5/library/collections.html">https://docs.python.org/3.5/library/collections.html</a></li>
+<li>If you’ve done all that – check out the collections module, there is a LOT of nifty stuff in there!<ul>
+<li><a class="reference external" href="https://docs.python.org/3/library/collections.html">https://docs.python.org/3/library/collections.html</a></li>
 <li>here’s a good overview: <a class="reference external" href="https://pymotw.com/3/collections/">https://pymotw.com/3/collections/</a></li>
 </ul>
 </li>
 </ul>
-<div class="section" id="material-to-review-before-next-week">
-<h3>Material to review before next week<a class="headerlink" href="#material-to-review-before-next-week" title="Permalink to this headline">¶</a></h3>
-<p><strong>Unit Testing:</strong></p>
-<ul class="simple">
-<li>Dive into Python: chapter 9:
-<a class="reference external" href="http://www.diveintopython3.net/unit-testing.html">http://www.diveintopython3.net/unit-testing.html</a></li>
-</ul>
-<p>NOTE: you will find that most introductions to unit testing with Python use the builtin <code class="docutils literal"><span class="pre">unitest</span></code> module. However, it is a bit heavyweight, and requires some knowledge of OOP – classes, etc. So we’ll be using pytest in this class: <a class="reference external" href="http://doc.pytest.org/en/latest/">http://doc.pytest.org/en/latest/</a>. But the principles of testing are the same.</p>
-<ul class="simple">
-<li>Ned Batchelder’s intro to testing presentation:<ul>
-<li><a class="reference external" href="http://nedbatchelder.com/text/test0.html">http://nedbatchelder.com/text/test0.html</a></li>
-</ul>
-</li>
-</ul>
-<p>** Advanced Argument Passing</p>
-<ul class="simple">
-<li>arguments and parameters:<ul>
-<li><a class="reference external" href="http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html">http://stupidpythonideas.blogspot.com/2013/08/arguments-and-parameters.html</a></li>
-<li><a class="reference external" href="https://pythontips.com/2013/08/04/args-and-kwargs-in-python-explained/">https://pythontips.com/2013/08/04/args-and-kwargs-in-python-explained/</a></li>
-</ul>
-</li>
-</ul>
-</div>
+<p>Look at the next session for reading, etc:</p>
+<p><a class="reference internal" href="session_1_06.html#session-1-06"><span class="std std-ref">Session 6: Testing and Advanced Argument Passing</span></a></p>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Intro to Python Session 5</a><ul>
-<li><a class="reference internal" href="#pre-class-prep">Pre-class prep</a></li>
-<li><a class="reference internal" href="#in-class-activities">In-class Activities</a></li>
-<li><a class="reference internal" href="#post-class-activities">Post-class Activities</a><ul>
-<li><a class="reference internal" href="#material-to-review-before-next-week">Material to review before next week</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="session_1_04.html" title="previous chapter">Intro to Python Session 4</a></li>
-      <li>Next: <a href="session_1_06.html" title="next chapter">Intro to Python Session 6</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/class_schedule/session_1_05.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/class_schedule/session_1_05.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

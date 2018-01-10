@@ -1,58 +1,222 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python Language Topics &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Python Language Topics &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The SciPy Stack" href="scipy.html" />
-    <link rel="prev" title="Packages and Packaging" href="packaging.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Resources for Specific Python Topics" href="index.html"/>
+        <link rel="next" title="The SciPy Stack" href="scipy.html"/>
+        <link rel="prev" title="Packages and Packaging" href="packaging.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Resources for Specific Python Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="learning.html">Useful Python Learning Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_hints.html">Handy hints for using git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">Packages and Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#distributing">Distributing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python Language Topics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-python-glossary">The Python Glossary:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sequences-and-slicing">Sequences and Slicing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-text">Working with text</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#string-formatting">String Formatting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#arguments-and-parameters">Arguments and Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-style">Python Style:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comprehensions">Comprehensions:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#object-oriented-programming-classes">Object Oriented Programming: classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#magic-methods">Magic Methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#super"><code class="docutils literal"><span class="pre">super()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#concurrency">Concurrency</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#threading">Threading</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asynchronous-programming">Asynchronous Programming</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asyncio-for-the-working-python-developer">Asyncio for the working Python developer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#assorted-from-david-beazley">Assorted from David Beazley</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#corners-of-python">Corners of Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metaprogramming">Metaprogramming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-scripting">Command Line Scripting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#docopt"><code class="docutils literal"><span class="pre">docopt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#click"><code class="docutils literal"><span class="pre">click</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scipy.html">The SciPy Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guis.html">Graphical User Interfaces</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Resources for Specific Python Topics</a> &raquo;</li>
+        
+      <li>Python Language Topics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/references/language_topics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="python-language-topics">
 <span id="language-topics"></span><h1>Python Language Topics<a class="headerlink" href="#python-language-topics" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="the-python-glossary">
 <h2>The Python Glossary:<a class="headerlink" href="#the-python-glossary" title="Permalink to this headline">¶</a></h2>
-<p>If you find yourself confused about an terms in this document or elsewhere, the python glossary is a good place to start:</p>
+<p>If you find yourself confused about any of terms in this document or elsewhere, the python glossary is a good place to start:</p>
 <p><a class="reference external" href="https://docs.python.org/3/glossary.html#term-parameter">https://docs.python.org/3/glossary.html#term-parameter</a></p>
 </div>
 <div class="section" id="sequences-and-slicing">
 <h2>Sequences and Slicing<a class="headerlink" href="#sequences-and-slicing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="working-with-text">
+<h2>Working with text<a class="headerlink" href="#working-with-text" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="string-formatting">
+<h3>String Formatting<a class="headerlink" href="#string-formatting" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-use-string-formatters-in-python-3">https://www.digitalocean.com/community/tutorials/how-to-use-string-formatters-in-python-3</a></p>
+</div>
 </div>
 <div class="section" id="arguments-and-parameters">
 <h2>Arguments and Parameters<a class="headerlink" href="#arguments-and-parameters" title="Permalink to this headline">¶</a></h2>
@@ -72,6 +236,13 @@
 </div>
 <div class="section" id="object-oriented-programming-classes">
 <h2>Object Oriented Programming: classes<a class="headerlink" href="#object-oriented-programming-classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="magic-methods">
+<h3>Magic Methods<a class="headerlink" href="#magic-methods" title="Permalink to this headline">¶</a></h3>
+<p>A good reference:</p>
+<p><a class="reference external" href="http://minhhh.github.io/posts/a-guide-to-pythons-magic-methods">http://minhhh.github.io/posts/a-guide-to-pythons-magic-methods</a></p>
+<p>And with a bit more explanation:</p>
+<p><a class="reference external" href="https://www.python-course.eu/python3_magic_methods.php">https://www.python-course.eu/python3_magic_methods.php</a></p>
+</div>
 <div class="section" id="super">
 <h3><code class="docutils literal"><span class="pre">super()</span></code><a class="headerlink" href="#super" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">super</span></code> is a pretty confusing topic! Here are some good resources:</p>
@@ -87,13 +258,13 @@
 <h2>Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this headline">¶</a></h2>
 <p>Concurrency is a pretty big topic, but here are few good ones:</p>
 <p>General introduction to the concept with examples of both threads and processes:</p>
-<p><a href="#id1"><span class="problematic" id="id2">`Intro to Threads and Processes in Python&lt;https://medium.com/&#64;bfortuner/python-multithreading-vs-multiprocessing-73072ce5600b&gt;`_</span></a>.</p>
+<p><a class="reference external" href="https://medium.com/&#64;bfortuner/python-multithreading-vs-multiprocessing-73072ce5600b">Intro to Threads and Processes in Python</a>.</p>
 <div class="section" id="threading">
 <h3>Threading<a class="headerlink" href="#threading" title="Permalink to this headline">¶</a></h3>
 <p>Threading and GUI programming:</p>
 <p><a class="reference external" href="https://www.blog.pythonlibrary.org/2013/06/27/wxpython-how-to-communicate-with-your-gui-via-sockets/">https://www.blog.pythonlibrary.org/2013/06/27/wxpython-how-to-communicate-with-your-gui-via-sockets/</a></p>
-<p>Understanding the GLobal Interpeter Lock:
-<a href="#id3"><span class="problematic" id="id4">`&quot;Groc the GIL:&quot;&lt;https://opensource.com/article/17/4/grok-gil&gt;`_</span></a></p>
+<p>Understanding the GLobal Interpreter Lock:</p>
+<p><a class="reference external" href="https://opensource.com/article/17/4/grok-gil">Groc the GIL:</a></p>
 </div>
 <div class="section" id="asynchronous-programming">
 <h3>Asynchronous Programming<a class="headerlink" href="#asynchronous-programming" title="Permalink to this headline">¶</a></h3>
@@ -103,6 +274,8 @@
 <p><a class="reference external" href="https://hackernoon.com/asynchronous-python-45df84b82434#.kpwejkin2">https://hackernoon.com/asynchronous-python-45df84b82434#.kpwejkin2</a></p>
 <p>Async Through the Looking Glass – Adventures in Python Land</p>
 <p><a class="reference external" href="https://hackernoon.com/async-through-the-looking-glass-d69a0a88b661#.sd3xk0ru0">https://hackernoon.com/async-through-the-looking-glass-d69a0a88b661#.sd3xk0ru0</a></p>
+<p>How the heck does <code class="docutils literal"><span class="pre">asyc-await</span></code> Work in Python?</p>
+<p><a class="reference external" href="https://snarky.ca/how-the-heck-does-async-await-work-in-python-3-5/">https://snarky.ca/how-the-heck-does-async-await-work-in-python-3-5/</a></p>
 </div>
 <div class="section" id="asyncio-for-the-working-python-developer">
 <h3>Asyncio for the working Python developer<a class="headerlink" href="#asyncio-for-the-working-python-developer" title="Permalink to this headline">¶</a></h3>
@@ -118,93 +291,111 @@
 <p><a class="reference external" href="http://pyvideo.org/pycon-us-2015/python-concurrency-from-the-ground-up-live.html">http://pyvideo.org/pycon-us-2015/python-concurrency-from-the-ground-up-live.html</a></p>
 </div>
 <div class="section" id="logging">
-<h3>logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
-<p><a href="#id5"><span class="problematic" id="id6">`A guide to logging in Python&lt;https://opensource.com/article/17/9/python-logging&gt;`_</span></a></p>
+<h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://opensource.com/article/17/9/python-logging">A guide to logging in Python</a></p>
 </div>
 </div>
 <div class="section" id="corners-of-python">
 <h2>Corners of Python<a class="headerlink" href="#corners-of-python" title="Permalink to this headline">¶</a></h2>
 <p>This is a nice collection of little bits of Python that may be surprising:</p>
-<p><a href="#id7"><span class="problematic" id="id8">`WTF Python?&lt;https://github.com/satwikkansal/wtfpython&gt;`_</span></a></p>
+<p><a class="reference external" href="https://github.com/satwikkansal/wtfpython">WTF Python?</a></p>
+</div>
+<div class="section" id="metaprogramming">
+<h2>Metaprogramming<a class="headerlink" href="#metaprogramming" title="Permalink to this headline">¶</a></h2>
+<p>Metaprogramming is writing programs that write programs… it is a large topic, starting with fairly simple things like the use of <code class="docutils literal"><span class="pre">getattr</span></code> or <code class="docutils literal"><span class="pre">setattr</span></code>, through decorators, and all the way up to metaclasses.</p>
+<p>This lecture by David Beazley is a great overview:</p>
+<p><a class="reference external" href="https://youtu.be/sPiWg5jSoZI">https://youtu.be/sPiWg5jSoZI</a></p>
+</div>
+<div class="section" id="command-line-scripting">
+<h2>Command Line Scripting<a class="headerlink" href="#command-line-scripting" title="Permalink to this headline">¶</a></h2>
+<p>Python is a great tool for making command line programs. As soon as a command line program gets a bit beyond the basics, you need to provide an interface that allows users to set options, etc.</p>
+<p>The built-in <code class="docutils literal"><span class="pre">argparse</span></code> module does a lot for you, and is a while lot better than writing a bunch of custom code, but there are a couple of third party packages that make it even easier – these are well worth checking out:</p>
+<div class="section" id="docopt">
+<h3><code class="docutils literal"><span class="pre">docopt</span></code><a class="headerlink" href="#docopt" title="Permalink to this headline">¶</a></h3>
+<p>“Create <em>beautiful</em> command-line interfaces with Python”</p>
+<p><code class="docutils literal"><span class="pre">docopt</span></code> lets you write the docs for your interface, and it automatically builds the code to implement it – very cool.</p>
+<p><a class="reference external" href="http://docopt.org/">http://docopt.org/</a></p>
+</div>
+<div class="section" id="click">
+<h3><code class="docutils literal"><span class="pre">click</span></code><a class="headerlink" href="#click" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary. It’s the “Command Line Interface Creation Kit”. It’s highly configurable but comes with sensible defaults out of the box.</div></blockquote>
+<p><a class="reference external" href="http://click.pocoo.org/">http://click.pocoo.org/</a></p>
+</div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="scipy.html" class="btn btn-neutral float-right" title="The SciPy Stack" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="packaging.html" class="btn btn-neutral" title="Packages and Packaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Python Language Topics</a><ul>
-<li><a class="reference internal" href="#the-python-glossary">The Python Glossary:</a></li>
-<li><a class="reference internal" href="#sequences-and-slicing">Sequences and Slicing</a></li>
-<li><a class="reference internal" href="#arguments-and-parameters">Arguments and Parameters</a></li>
-<li><a class="reference internal" href="#python-style">Python Style:</a></li>
-<li><a class="reference internal" href="#comprehensions">Comprehensions:</a></li>
-<li><a class="reference internal" href="#object-oriented-programming-classes">Object Oriented Programming: classes</a><ul>
-<li><a class="reference internal" href="#super"><code class="docutils literal"><span class="pre">super()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#concurrency">Concurrency</a><ul>
-<li><a class="reference internal" href="#threading">Threading</a></li>
-<li><a class="reference internal" href="#asynchronous-programming">Asynchronous Programming</a></li>
-<li><a class="reference internal" href="#asyncio-for-the-working-python-developer">Asyncio for the working Python developer</a></li>
-<li><a class="reference internal" href="#assorted-from-david-beazley">Assorted from David Beazley</a></li>
-<li><a class="reference internal" href="#logging">logging</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#corners-of-python">Corners of Python</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Resources for Specific Python Topics</a><ul>
-      <li>Previous: <a href="packaging.html" title="previous chapter">Packages and Packaging</a></li>
-      <li>Next: <a href="scipy.html" title="next chapter">The SciPy Stack</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/references/language_topics.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/references/language_topics.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

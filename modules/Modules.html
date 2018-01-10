@@ -1,55 +1,235 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Code Structure, Modules, and Namespaces &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Code Structure, Modules, and Namespaces &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Python Sequences" href="../scripts/Sequences.html" />
-    <link rel="prev" title="Boolean Expressions" href="Booleans.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Modules" href="index.html"/>
+        <link rel="next" title="Python Sequences" href="Sequences.html"/>
+        <link rel="prev" title="Boolean Expressions" href="Booleans.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Class_introduction.html">Introductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonIntroduction.html">IPython Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Py2vsPy3.html">Python 2 verses Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EnvironmentOverview.html">Introduction to the Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Git.html">Intro to Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GitWorkflow.html">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicPython.html">Basic Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html">More on Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Recursion.html">Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NamingThings.html">Style and Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Booleans.html">Boolean Expressions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Code Structure, Modules, and Namespaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#code-structure">Code Structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#one-liners">One-liners</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spaces-vs-tabs">Spaces vs. Tabs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spaces-elsewhere">Spaces Elsewhere</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules-and-packages">Modules and Packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules">Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#packages">Packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#importing-modules">Importing modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#my-rules-of-thumb">My rules of thumb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#import">import * ?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#importing-from-packages">Importing from packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1"><code class="docutils literal"><span class="pre">import</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#re-import">Re-import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#import-interactions">Import Interactions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Sequences.html">Python Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Iteration.html">Iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Strings.html">Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictsAndSets.html">Dictionaries and Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Files.html">File Reading and Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Exceptions.html">Exception Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Comprehensions.html">Comprehensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html">Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AdvancedArgumentPassing.html">Advanced Argument Passing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictionaryAsSwitch.html">Using a Dictionary to <code class="docutils literal"><span class="pre">switch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MoreOnMutability.html">A bit more on mutability (and copies)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ObjectOrientationOverview.html">Object Orientation Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PythonClasses.html">Python Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SubclassingAndInheritance.html">Subclassing and Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Properties.html">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StaticAndClassMethods.html">Static and Class Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultipleInheritance.html">Multiple Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialMethodsAndProtocols.html">Special Methods &amp; Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OO_vs_functional.html">Object Oriented vs Functional Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lambda.html">Anonymous Functions: Lambda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Modules</a> &raquo;</li>
+        
+      <li>Code Structure, Modules, and Namespaces</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/Modules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="code-structure-modules-and-namespaces">
 <span id="modules-and-namespaces"></span><h1>Code Structure, Modules, and Namespaces<a class="headerlink" href="#code-structure-modules-and-namespaces" title="Permalink to this headline">¶</a></h1>
 <p><strong>How to get what you want when you want it.</strong></p>
 <div class="section" id="code-structure">
 <h2>Code Structure<a class="headerlink" href="#code-structure" title="Permalink to this headline">¶</a></h2>
-<p>In Python, the structure of your code is determined by whitespace.</p>
+<p>In Python, the structure of your code is determined by whitespace. This is nicely clear, and you’ve probably already figured it out, but we’ll formally spell it out here:</p>
 <p>How you <em>indent</em> your code determines how it is structured</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">block</span> <span class="n">statement</span><span class="p">:</span>
     <span class="n">some</span> <span class="n">code</span> <span class="n">body</span>
@@ -57,6 +237,9 @@
     <span class="n">another</span> <span class="n">block</span> <span class="n">statement</span><span class="p">:</span>
         <span class="n">code</span> <span class="n">body</span> <span class="ow">in</span>
         <span class="n">that</span> <span class="n">block</span>
+    <span class="n">end</span> <span class="n">of</span> <span class="s2">&quot;another&quot;</span> <span class="n">block</span> <span class="n">statement</span>
+    <span class="n">still</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="n">block</span>
+<span class="n">outside</span> <span class="n">of</span> <span class="n">the</span> <span class="n">block</span> <span class="n">statement</span>
 </pre></div>
 </div>
 <p>The colon that terminates a block statement is also important…</p>
@@ -69,6 +252,7 @@
 </pre></div>
 </div>
 <p>But this should only be done if it makes your code <strong>more</strong> readable.</p>
+<p>So you need both the colon and the indentation to start a new a block.  But the end of the indented section is the only indication of the end of the block.</p>
 </div>
 <div class="section" id="spaces-vs-tabs">
 <h3>Spaces vs. Tabs<a class="headerlink" href="#spaces-vs-tabs" title="Permalink to this headline">¶</a></h3>
@@ -80,8 +264,10 @@
 <li>A mix of tabs and spaces:</li>
 </ul>
 <p>If you want anyone to take you seriously as a Python developer:</p>
-<p class="centered"><strong>Always use four spaces – really!</strong></p>
+<p><strong>Always use four spaces – really!</strong></p>
 <p><a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/">(PEP 8)</a></p>
+<p>Also note: if you DO you tabs (and really, don’t do that!) python interprets them as the equivalent of <em>eight</em> spaces.  Text editors can display tabs as any number of spaces, and most modern editors default to four – so this can be <em>very</em> confusing! so again:</p>
+<p><strong>never mix tabs and spaces in python code</strong></p>
 </div>
 <div class="section" id="spaces-elsewhere">
 <h3>Spaces Elsewhere<a class="headerlink" href="#spaces-elsewhere" title="Permalink to this headline">¶</a></h3>
@@ -91,7 +277,11 @@
 </pre></div>
 </div>
 <p>These will give the exact same results.</p>
-<p>But you should strive for proper style.  Read PEP 8 and install a linter in your editor.</p>
+<p>But you should strive for proper style. Isn’t this easier to read?</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">12</span> <span class="o">/</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><em>Read PEP 8 and install a linter in your editor.</em></p>
 </div>
 </div>
 <div class="section" id="modules-and-packages">
@@ -105,49 +295,108 @@
 <li>attribute of an object</li>
 <li>method of an object</li>
 </ul>
+<p>The only way to know is to know what type of object the name refers to.  But in all cases, it is looking up a name in the namespace of the object.</p>
 <div class="section" id="modules">
 <h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
 <p>A module is simply a namespace.</p>
 <p>It might be a single file, or it could be a collection of files that define a shared API.</p>
 <p>But in the common and simplest case, a single file is a single module.</p>
 <p>So you can think of the files you write that end in <code class="docutils literal"><span class="pre">.py</span></code> as modules.</p>
+<p>When a module is imported, the code in that file is run, and any names defined in that file are now defined in the module namespace.</p>
 </div>
 <div class="section" id="packages">
 <h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
 <p>A package is a module with other modules in it.</p>
 <p>On a filesystem, this is represented as a directory that contains one or more“.py“ files, one of which <strong>must</strong> be called <code class="docutils literal"><span class="pre">__init__.py</span></code>.</p>
-<p>When you have a package, you can import the package, or any of the modules inside it.</p>
+<p>When you have a package, you can import only the package, or any of the modules inside it. When a package is imported, the code in the <code class="docutils literal"><span class="pre">__init__.py</span></code> file is run.</p>
 </div>
 <div class="section" id="importing-modules">
-<h3>importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline">¶</a></h3>
+<h3>Importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline">¶</a></h3>
 <p>There are a few ways to import modules:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">modulename</span>
-<span class="kn">from</span> <span class="nn">modulename</span> <span class="kn">import</span> <span class="n">this</span><span class="p">,</span> <span class="n">that</span>
-<span class="kn">import</span> <span class="nn">modulename</span> <span class="kn">as</span> <span class="nn">a_new_name</span>
-<span class="kn">from</span> <span class="nn">modulename</span> <span class="kn">import</span> <span class="n">this</span> <span class="k">as</span> <span class="n">that</span>
+</pre></div>
+</div>
+<p>This adds the name of the module to the global namespace, and lets you access the names defined in that module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">modulename</span><span class="o">.</span><span class="n">a_name_in_the_module</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modulename</span> <span class="kn">import</span> <span class="n">this</span><span class="p">,</span> <span class="n">that</span>
+</pre></div>
+</div>
+<p>This brings only the names specified (<code class="docutils literal"><span class="pre">this</span></code>, <code class="docutils literal"><span class="pre">that</span></code>) into the global namespace. All the code in the module is run, but the module’s name is not available. But the imported names are directly available.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">modulename</span> <span class="kn">as</span> <span class="nn">a_new_name</span>
+</pre></div>
+</div>
+<p>This imports the module, and gives it a new name in the global namespace.  This is done to avoid a name conflict, or to give the module a shorter name. For example, the numpy module is usually imported as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p>Because numpy has a LOT of names, some of which may conflict, and users want to be able to reference them without a too much typing.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modulename</span> <span class="kn">import</span> <span class="n">this</span> <span class="k">as</span> <span class="n">that</span>
+</pre></div>
+</div>
+<p>This imports only one name from a module, while also giving it a new name in the global namespace.</p>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>You can play with some of this with the standard library:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">math</span>
 
-<span class="p">(</span><span class="n">demo</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">0.9320390859672263</span>
+
+<span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span>
+
+<span class="gp">In [4]: </span><span class="n">cos</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">0.3623577544766736</span>
+
+<span class="gp">In [5]: </span><span class="kn">import</span> <span class="nn">math</span> <span class="kn">as</span> <span class="nn">m</span>
+
+<span class="gp">In [6]: </span><span class="n">m</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gh">Out[6]: </span><span class="go">0.8414709848078965</span>
+
+<span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span> <span class="k">as</span> <span class="n">cosine</span>
+
+<span class="gp">In [8]: </span><span class="n">cosine</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="gh">Out[8]: </span><span class="go">0.3623577544766736</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="importing-from-packages">
-<h3>Importing from packages<a class="headerlink" href="#importing-from-packages" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">packagename.modulename</span>
-<span class="kn">from</span> <span class="nn">packagename.modulename</span> <span class="kn">import</span> <span class="n">this</span><span class="p">,</span> <span class="n">that</span>
-<span class="kn">from</span> <span class="nn">package</span> <span class="kn">import</span> <span class="n">modulename</span>
-
-<span class="p">(</span><span class="n">demo</span><span class="p">)</span>
+<div class="section" id="my-rules-of-thumb">
+<h3>My rules of thumb<a class="headerlink" href="#my-rules-of-thumb" title="Permalink to this headline">¶</a></h3>
+<p>If you only need a few names from a module, import only those:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span>
 </pre></div>
 </div>
-<p>Here’s a nice reference:</p>
-<p><a class="reference external" href="http://effbot.org/zone/import-confusion.htm">http://effbot.org/zone/import-confusion.htm</a></p>
+<p>If you need a lot of names from that module, just import the module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or import it with a nice short name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="kn">as</span> <span class="nn">m</span>
+<span class="n">m</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="import">
 <h3>import * ?<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
+<p><strong>Warning:</strong></p>
+<p>You can also import all the names in a module with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modulename</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p class="centered large"><strong>Don’t do this!</strong></p>
+<p>But this leads to name conflicts, and a cluttered namespace. It is NOT recommended practice.</p>
+</div>
+<div class="section" id="importing-from-packages">
+<h3>Importing from packages<a class="headerlink" href="#importing-from-packages" title="Permalink to this headline">¶</a></h3>
+<p>Packages can contain modules, which can be nested – ideally not very deeply.</p>
+<p>In that case, you can simply add more “dots” and follow the same rules as above.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>Here’s a nice reference for more detail:</p>
+<p><a class="reference external" href="http://effbot.org/zone/import-confusion.htm">http://effbot.org/zone/import-confusion.htm</a></p>
 </div>
 <div class="section" id="id1">
 <h3><code class="docutils literal"><span class="pre">import</span></code><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
@@ -158,166 +407,94 @@
 </div>
 <div class="section" id="re-import">
 <h3>Re-import<a class="headerlink" href="#re-import" title="Permalink to this headline">¶</a></h3>
-<p>The code in a module is NOT re-run when imported again</p>
-<p>It must be explicitly reloaded to be re-run</p>
+<p>The code in a module is NOT re-run when imported again. This makes it efficient to import the same module multiple places in a program. But it means that if you change the code in a module after importing it, that change will not be reflected when it is imported again.</p>
+<p>I you DO want ca change to be reflected, you can explicitly reload a module:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
 <span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">modulename</span><span class="p">)</span>
-
-<span class="p">(</span><span class="n">demo</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="running-a-module">
-<h3>Running a Module<a class="headerlink" href="#running-a-module" title="Permalink to this headline">¶</a></h3>
-<p>In addition to importing modules, you can run them.</p>
-<p>There are a few ways to do this:</p>
-<ul class="build simple">
-<li><code class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">hello.py</span></code>   – must be in current working directory</li>
-<li><code class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hello</span></code>   – any module on PYTHONPATH anywhere on the system</li>
-<li><code class="docutils literal"><span class="pre">$</span> <span class="pre">./hello.py</span></code>        – put <code class="docutils literal"><span class="pre">#!/usr/env/python</span></code>  at top of module (Unix)</li>
-<li><code class="docutils literal"><span class="pre">In</span> <span class="pre">[149]:</span> <span class="pre">run</span> <span class="pre">hello.py</span></code>     – at the IPython prompt – running a module brings its names into the interactive namespace</li>
-</ul>
-<p>Like importing, running a module executes all statements at the module level.</p>
-<p>But there’s an important difference.</p>
-<p>When you <em>import</em> a module, the value of the symbol <code class="docutils literal"><span class="pre">__name__</span></code> in the module is the same as the filename.</p>
-<p>When you <em>run</em> a module, the value of the symbol <code class="docutils literal"><span class="pre">__name__</span></code> is <code class="docutils literal"><span class="pre">__main__</span></code>.</p>
-<p>This allows you to create blocks of code that are executed <em>only when you run a module</em></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="c1"># Do something interesting here</span>
-    <span class="c1"># It will only happen when the module is run</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="main-blocks">
-<h3>“main” blocks<a class="headerlink" href="#main-blocks" title="Permalink to this headline">¶</a></h3>
-<p>This is useful in a number of cases.</p>
-<p>You can put code here that lets your module be a utility <em>script</em></p>
-<p>You can put code here that demonstrates the functions contained in your module</p>
-<p>You can put code here that proves that your module works.</p>
-<p>[demo]</p>
+<p>This is rarely needed (why it’s a bit buried in the <code class="docutils literal"><span class="pre">importlib</span></code> module), but is good to keep in mind when you are interactively working on code under development.</p>
 </div>
 <div class="section" id="import-interactions">
 <h3>Import Interactions<a class="headerlink" href="#import-interactions" title="Permalink to this headline">¶</a></h3>
-<p>Let’s experiment with importing different ways:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="kn">import</span> <span class="nn">math</span>
-
-<span class="gp">In [4]: </span><span class="n">math</span><span class="o">.&lt;</span><span class="n">TAB</span><span class="o">&gt;</span>
-<span class="go">math.acos       math.degrees    math.fsum       math.pi</span>
-<span class="go">math.acosh      math.e          math.gamma      math.pow</span>
-<span class="go">math.asin       math.erf        math.hypot      math.radians</span>
-<span class="go">math.asinh      math.erfc       math.isinf      math.sin</span>
-<span class="go">math.atan       math.exp        math.isnan      math.sinh</span>
-<span class="go">math.atan2      math.expm1      math.ldexp      math.sqrt</span>
-<span class="go">math.atanh      math.fabs       math.lgamma     math.tan</span>
-<span class="go">math.ceil       math.factorial  math.log        math.tanh</span>
-<span class="go">math.copysign   math.floor      math.log10      math.trunc</span>
-<span class="go">math.cos        math.fmod       math.log1p</span>
-<span class="go">math.cosh       math.frexp      math.modf</span>
-</pre></div>
-</div>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="gh">Out[6]: </span><span class="go">2.0</span>
-<span class="gp">In [7]: </span><span class="kn">import</span> <span class="nn">math</span> <span class="kn">as</span> <span class="nn">m</span>
-<span class="gp">In [8]: </span><span class="n">m</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="gh">Out[8]: </span><span class="go">2.0</span>
-<span class="gp">In [9]: </span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
-<span class="gp">In [10]: </span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="gh">Out[10]: </span><span class="go">2.0</span>
-</pre></div>
-</div>
-<p>Experiment with importing different ways:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="k">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>You wouldn’t want to import * those!</p>
-<p>And while we are looking at the <code class="docutils literal"><span class="pre">sys.path</span></code> module:</p>
-<p>Check out:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/foo/bar/baz.txt&#39;</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;/foo/bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz.txt&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>Another key point to keep in mind is that all code files in a given python program are sharing the same modules. So if you change a value in a module, that value’s change will be reflected in other parts of the code that have imported that same module.</p>
+<p>This can create dangerous side effects and hard to find bugs if you change anything in an imported module, but it can also be used as a handy way to store truly global state, like application preferences, for instance.</p>
+<p>A rule of thumb for managing global state is to have only <em>one</em> part of your code change the values, and everywhere else considers them read-only.</p>
 </div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Sequences.html" class="btn btn-neutral float-right" title="Python Sequences" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Booleans.html" class="btn btn-neutral" title="Boolean Expressions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Code Structure, Modules, and Namespaces</a><ul>
-<li><a class="reference internal" href="#code-structure">Code Structure</a><ul>
-<li><a class="reference internal" href="#one-liners">One-liners</a></li>
-<li><a class="reference internal" href="#spaces-vs-tabs">Spaces vs. Tabs</a></li>
-<li><a class="reference internal" href="#spaces-elsewhere">Spaces Elsewhere</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#modules-and-packages">Modules and Packages</a><ul>
-<li><a class="reference internal" href="#modules">Modules</a></li>
-<li><a class="reference internal" href="#packages">Packages</a></li>
-<li><a class="reference internal" href="#importing-modules">importing modules</a></li>
-<li><a class="reference internal" href="#importing-from-packages">Importing from packages</a></li>
-<li><a class="reference internal" href="#import">import * ?</a></li>
-<li><a class="reference internal" href="#id1"><code class="docutils literal"><span class="pre">import</span></code></a></li>
-<li><a class="reference internal" href="#re-import">Re-import</a></li>
-<li><a class="reference internal" href="#running-a-module">Running a Module</a></li>
-<li><a class="reference internal" href="#main-blocks">“main” blocks</a></li>
-<li><a class="reference internal" href="#import-interactions">Import Interactions</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="Booleans.html" title="previous chapter">Boolean Expressions</a></li>
-      <li>Next: <a href="../scripts/Sequences.html" title="next chapter">Python Sequences</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/Modules.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/modules/Modules.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

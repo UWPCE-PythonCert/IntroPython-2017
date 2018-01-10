@@ -26,8 +26,7 @@ Task 1: Explore Errors
 
 (hint -- the interpreter will quit when it hits a Exception -- so you can comment out all but the one you are testing at the moment)
 
-  * Use the Python standard library reference on `Built In Exceptions <https://docs.python.org/3/library/exceptions.html>`_ as a
-    reference
+  * Use the Python standard library reference on `Built In Exceptions <https://docs.python.org/3/library/exceptions.html>`_ as a reference
 
 
 Task 2: Puzzles
@@ -39,4 +38,3 @@ exercises at "Coding Bat": http://codingbat.com/python
 There are 8 sets of puzzles. Do as many as you can, but try to get to at least
 the "Warmups".
 
-We will go over these in class.

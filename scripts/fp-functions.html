@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Functional Programming - Functions &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Functional Programming - Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/scripts/fp-functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="functional-programming-functions">
+<span id="fp-functions"></span><h1>Functional Programming - Functions<a class="headerlink" href="#functional-programming-functions" title="Permalink to this headline">¶</a></h1>
+<p>With Rick Riehle</p>
+<p>Status:  Filmed with Ryan on 2017-12-12</p>
+<p>[Required: some fancy weatherman style overlay for the math notation?]</p>
+<p>We have been working with functions since the early lessons of the curriculum. Let’s step back for a moment to frame them in the context of Functional Programming.</p>
+<p>Remember from the mathematical definition that functions take arguments and return a single, deterministic output, and for a given set of arguments the same value is always returned.</p>
+<p>Functions in Python start here, and indeed when programming according to the Functional Programming paradigm they tend to stay here and not go much beyond. Let’s think about that.</p>
+<p>[title: Multiple return values?]</p>
+<p>Python allows us to do a lot with functions. We can return two or more values from a function for instance. This doesn’t necessarily violate the stated definition, but multiple return values, even if they are returned in a tuple which as you know is immutable, might muddy the water and bring into question the deterministic aspect of the definition where each input or sets of inputs maps to exactly one output. Okay, set that in back of your mind for now.</p>
+<p>[title: Functions versus Methods]</p>
+<p>[Read]</p>
+<p>Recall that when a “function” is defined within a class we no longer call it a function, but instead refer to it as a method. This is not an accident. The return values from methods can and indeed are typically based on data, or state information, that the class, or really, the object at this point, is carrying. That being the case we have clearly violated the textbook definition of a function. In other words, a method is explicitly not a function, even though they have the same structure and do the same sorts of things. The difference is that a method, which again is embedded in an object or class, is likely going to factor in the rest of the object’s current state information when returning values, and thus we no longer have the property of a clean single input or set of inputs mapping to a single output.</p>
+<p>[Show: Function vs Method example]</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This is a function, because it is not a member of a class. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">999</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">my_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is not a function,</span>
+<span class="sd">        because it is a member of a class,</span>
+<span class="sd">        and thus will likely use the class&#39;s internal state in its calculations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span>
+</pre></div>
+</div>
+<p>[title: Scope]</p>
+<p>[Show: Function Scope example]</p>
+<p>Keep in mind also that Python has scoping rules that allow functions to see outside of their definitions. Let’s say that a function adds i to one of its arguments before returning a value, and that i is not defined locally within the function. In that case something beyond the function could modify the value of i between calls and thus the function would return a different result. In other words your function doesn’t always return the same output for a given set of inputs. This is a violation of the one-output-per-set-of-inputs mathematical definition.</p>
+<p>[title: Functional Programming in Python is a Discipline]</p>
+<p>In functional programming we avoid these sorts of situations. In Python, if we are to develop in a functional style, we need to be cognizant of our goals, we need to adopt the practices and habits of the culture, because Python does not force these habits upon us. It is up to us to adopt them.</p>
+<p>[title: Functions as First Class Language Constructs]</p>
+<p>What does it mean that this or that is a first-class language construct?</p>
+<p>Well, in Python what do we have that are first class language constructs?</p>
+<p>Strings. You can create them and name them or leave them unnamed. You can save them in compound, higher-order data structures such as lists and sets. You can pass them around between functions.</p>
+<p>Lists, Tuples, Dictionaries, Sets. These are all first class language constructs.</p>
+<p>Likewise in Python you can define functions. You can name them with def or leave them unnamed with lambda. You can save them in lists or tuples. You can pass them around to other functions. They can become members of objects as methods when you define them inside of classes… notwithstanding the definitional caveats we’ve already discussed.</p>
+<p>Recognize that most of what we’re going to discuss in the rest of the material on functional programming would not be possible if functions were not first-class language constructs. When we’re using map, filter and reduce we’re passing functions to them. When we’re working with comprehensions we’ll be passing functions around. Closures and Decorators rely on the ability to pass functions to other functions. It’s all based on the fact that Python supports functions as first class language constructs.</p>
+<p>[title: Composition]</p>
+<p>Composition is one of those shared ideas between the two programming paradigms we’re discussing, yet it refers to completely different things depending on the paradigm we’re discussing.</p>
+<p>[title: Object Oriented Composition]</p>
+<p>In some object oriented languages, Python included, you can compose classes to get features of multiple classes in one class. This is called Class or Object Composition. Indeed there’s a design pattern that says to prefer composition over inheritance.</p>
+<p>[title: Functional Composition]</p>
+<p>We are talking about an entirely different, though perfectly familiar type of composition when thinking from the functional perspective. Remember again from high-school math, functional composition.</p>
+<p>[show the following simple formulas]</p>
+<blockquote>
+<div><p>y = f(x)</p>
+<p>z = g(y)</p>
+</div></blockquote>
+<p>We don’t really need the y here. Instead we can compose the two functions together to get the result we’re looking for….</p>
+<p>[show the additional formula along with the previous two]</p>
+<blockquote>
+<div>z = g(f(x))</div></blockquote>
+<p>Cleaner, easier to read, fewer moving parts.</p>
+<p>[show this Wikipedia page: <a class="reference external" href="https://en.wikipedia.org/wiki/Arity">https://en.wikipedia.org/wiki/Arity</a>]</p>
+<p>For this to work the Arity of the functions needs to be consistent. Arity refers to the number and type of arguments to a function. In terms of math this is a science. In terms of programming I think of it as artful simplicity. It will become important when we get to closures and decorators</p>
+<p>[show this Wikipedia page: <a class="reference external" href="https://en.wikipedia.org/wiki/Currying">https://en.wikipedia.org/wiki/Currying</a>]</p>
+<p>For this to work really well the arity of the functions involved best be reduced to one – one argument, all of the same type.  This is called function currying or simply currying.  We’ll get to it.  Consider it a sneak preview for now.</p>
+<p>[title: Okay, enough! We get it!]</p>
+<p>Alright. I suppose I’ve hammered on this well enough at this point: functions are important when programming in accordance with a functional programming style. And not just functions in all of Python’s flamboyant, flexible glory, but in the restrictive, technical, mathematical sense of a function. Keep it in mind as you’re working through the material.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -7,7 +7,6 @@ lambda and keyword Magic
 Goals
 =====
 
-.. rst-class:: left
 
     * A bit of lambda
     * functions as objects
@@ -54,7 +53,6 @@ Example calling code
     ### If you loop through them all, and call them, each one adds one more
     to the input, 5... i.e. the nth function in the list adds n to the input.
 
-.. nextslide::
 
 See the test code in Examples/Session09
 

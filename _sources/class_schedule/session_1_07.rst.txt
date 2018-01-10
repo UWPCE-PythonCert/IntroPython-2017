@@ -1,27 +1,41 @@
 .. _session_1_07:
 
-#########################
-Intro to Python Session 7
-#########################
+#####################################
+Session 7: Object Oriented Programing
+#####################################
+
+Object Oriented Programing: classes, instance and class attributes, subclassing and inheritance.
 
 Pre-class prep
 ==============
 
-In-class Activities
-===================
+**Read:**
+
+* :ref:`object_orientation_overview`
+
+* :ref:`python_classes`
+
+* :ref:`subclassing_inheritance`
 
 
-Post-class Activities
-=====================
+Supplemental reading
+--------------------
 
-Finish the exercises
+* Dive into Python3: 7.2 -- 7.3
+   http://www.diveintopython3.net/iterators.html#defining-classes
 
-Look at the next session for reading, etc:
+* Think Python: 15 -- 18
+   http://www.greenteapress.com/thinkpython/html/thinkpython016.html
 
-:ref:`session_1_08`
+Some Videos to watch:
+---------------------
 
-The Art of Subclassing
-----------------------
+Python Class Toolkit by *Raymond Hettinger*
+
+https://youtu.be/HTLu2DFOdTg
+
+https://speakerdeck.com/pyconslides/pythons-class-development-toolkit-by-raymond-hettinger
+
 
 The Art of Subclassing by *Raymond Hettinger*
 
@@ -35,34 +49,42 @@ The most salient points from that video are as follows:
 
 * **Bear in mind that the subclass is in charge**
 
-Stop Writing Classes
---------------------
 
-Stop Writing Classes by *Jack Diederich*
+Note that the previous talk and this one were back to back at PyCon -- but despite their contradictory titles -- they have similar messages.
+
+
+Stop Writing Classes
+....................
+
+by *Jack Diederich*
 
 http://pyvideo.org/video/880/stop-writing-classes
 
 "If your class has only two methods -- and one of them is ``__init__``
 -- you don't need a class"
 
-Python Class Toolkit
---------------------
 
-Python Class Toolkit by *Raymond Hettinger*
+In-class Activities
+===================
 
-https://youtu.be/HTLu2DFOdTg
+review mailman with testing
 
-https://speakerdeck.com/pyconslides/pythons-class-development-toolkit-by-raymond-hettinger
+Exercises:
+----------
 
-Multiple Inheritance and the Diamond Problem
---------------------------------------------
+OO and classes are a big confusing topic when you are new to it.
 
-https://en.wikipedia.org/wiki/Multiple_inheritance
+So we're going to learn hands-on by doing this exercise:
 
-https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem
+:ref:`exercise_html_renderer`
 
-Method Resolution Order
 
-https://www.python.org/download/releases/2.3/mro/
+Post-class Activities
+=====================
 
-http://python-history.blogspot.com/2010/06/method-resolution-order.html
+Finish the HTML render Exercise through step 3.
+
+Look at the next session for reading, etc:
+
+:ref:`session_1_08`
+

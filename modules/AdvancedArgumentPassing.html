@@ -1,51 +1,224 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Advanced Argument Passing &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Advanced Argument Passing &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Closures and function Currying" href="Closures.html" />
-    <link rel="prev" title="Strings" href="Strings.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Modules" href="index.html"/>
+        <link rel="next" title="Using a Dictionary to switch" href="DictionaryAsSwitch.html"/>
+        <link rel="prev" title="Unit Testing" href="Testing.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Class_introduction.html">Introductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonIntroduction.html">IPython Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Py2vsPy3.html">Python 2 verses Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EnvironmentOverview.html">Introduction to the Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Git.html">Intro to Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GitWorkflow.html">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicPython.html">Basic Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html">More on Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Recursion.html">Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NamingThings.html">Style and Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Booleans.html">Boolean Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Modules.html">Code Structure, Modules, and Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sequences.html">Python Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Iteration.html">Iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Strings.html">Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DictsAndSets.html">Dictionaries and Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Files.html">File Reading and Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Exceptions.html">Exception Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Comprehensions.html">Comprehensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html">Unit Testing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Advanced Argument Passing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#keyword-arguments">Keyword arguments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-common-idiom">A Common Idiom:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#can-set-defaults-to-variables">Can set defaults to variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-arguments-in-variables">Function arguments in variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-parameters-in-variables">Function parameters in variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#passing-a-dict-to-str-format">Passing a dict to str.format()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#keyword-only-arguments">Keyword Only Arguments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-about-args">What about <code class="docutils literal"><span class="pre">*args</span></code>?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DictionaryAsSwitch.html">Using a Dictionary to <code class="docutils literal"><span class="pre">switch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="MoreOnMutability.html">A bit more on mutability (and copies)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ObjectOrientationOverview.html">Object Orientation Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PythonClasses.html">Python Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SubclassingAndInheritance.html">Subclassing and Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Properties.html">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StaticAndClassMethods.html">Static and Class Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MultipleInheritance.html">Multiple Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialMethodsAndProtocols.html">Special Methods &amp; Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OO_vs_functional.html">Object Oriented vs Functional Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lambda.html">Anonymous Functions: Lambda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Modules</a> &raquo;</li>
+        
+      <li>Advanced Argument Passing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/AdvancedArgumentPassing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="advanced-argument-passing">
-<h1>Advanced Argument Passing<a class="headerlink" href="#advanced-argument-passing" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Advanced Argument Passing<a class="headerlink" href="#advanced-argument-passing" title="Permalink to this headline">¶</a></h1>
 <p>This is a very, very nifty Python feature – it really lets you write dynamic programs.</p>
 <div class="section" id="keyword-arguments">
 <h2>Keyword arguments<a class="headerlink" href="#keyword-arguments" title="Permalink to this headline">¶</a></h2>
@@ -61,14 +234,11 @@
 <span class="go">0 2 3</span>
 </pre></div>
 </div>
-<p>A Common Idiom:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">do_something_different</span>
-    <span class="n">go_on_here</span>
-</pre></div>
+<div class="section" id="a-common-idiom">
+<h3>A Common Idiom:<a class="headerlink" href="#a-common-idiom" title="Permalink to this headline">¶</a></h3>
 </div>
-<p>Can set defaults to variables</p>
+<div class="section" id="can-set-defaults-to-variables">
+<h3>Can set defaults to variables<a class="headerlink" href="#can-set-defaults-to-variables" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [156]: </span><span class="n">y</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="gp">In [157]: </span><span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y</span><span class="p">):</span>
 <span class="go">    print(&quot;x is:&quot;, x)</span>
@@ -92,7 +262,7 @@
 <p>This is a <strong>very</strong> important point.</p>
 </div>
 <div class="section" id="function-arguments-in-variables">
-<h2>Function arguments in variables<a class="headerlink" href="#function-arguments-in-variables" title="Permalink to this headline">¶</a></h2>
+<h3>Function arguments in variables<a class="headerlink" href="#function-arguments-in-variables" title="Permalink to this headline">¶</a></h3>
 <p>When a function is called, its arguments are really just:</p>
 <ul class="simple">
 <li>a tuple (positional arguments)</li>
@@ -110,7 +280,7 @@
 </div>
 </div>
 <div class="section" id="function-parameters-in-variables">
-<h2>Function parameters in variables<a class="headerlink" href="#function-parameters-in-variables" title="Permalink to this headline">¶</a></h2>
+<h3>Function parameters in variables<a class="headerlink" href="#function-parameters-in-variables" title="Permalink to this headline">¶</a></h3>
 <p>You can also pull the parameters out in the function as a tuple and a dict:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="go">def f(*args, **kwargs):</span>
 <span class="go">    print(&quot;the positional arguments are:&quot;, args)</span>
@@ -124,7 +294,7 @@
 <p>This can be very powerful…</p>
 </div>
 <div class="section" id="passing-a-dict-to-str-format">
-<h2>Passing a dict to str.format()<a class="headerlink" href="#passing-a-dict-to-str-format" title="Permalink to this headline">¶</a></h2>
+<h3>Passing a dict to str.format()<a class="headerlink" href="#passing-a-dict-to-str-format" title="Permalink to this headline">¶</a></h3>
 <p>Now that you know that keyword args are really a dict,
 you know how this nifty trick works:</p>
 <p>The string <code class="docutils literal"><span class="pre">format()</span></code> method takes keyword arguments:</p>
@@ -159,78 +329,161 @@ you know how this nifty trick works:</p>
       <span class="s2">&quot;and {pasta} pasta.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">food_prefs</span><span class="p">))</span>
 </pre></div>
 </div>
+<p>Note that this is particularity useful when the same value is used in multiple places in the format string.</p>
 </div>
-<div class="section" id="lab">
-<h2>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h2>
-<p>Time to play with all this to get a feel for it.</p>
-<p><a class="reference internal" href="../exercises/args_kwargs_lab.html#exercise-args-kwargs-lab"><span class="std std-ref">Args and Kwargs</span></a></p>
-<p>This is not all that clearly specified.  The goal is for you to
-experiment with various ways to define and call functions so that
-you understand what is possible and what happens with each call.</p>
+</div>
+<div class="section" id="keyword-only-arguments">
+<span id="id2"></span><h2>Keyword Only Arguments<a class="headerlink" href="#keyword-only-arguments" title="Permalink to this headline">¶</a></h2>
+<p>The usual function signature looks something like:</p>
+<p>In this case, we have two positional parameters and two keyword parameters.</p>
+<p>But all four can be passed as either positional or keyword arguments:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">1 2 3 4</span>
+
+<span class="gp">In [22]: </span><span class="n">fun</span><span class="p">(</span><span class="n">pos1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">key1</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">key2</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">1 2 3 4</span>
+</pre></div>
+</div>
+<p>or out of order:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">fun</span><span class="p">(</span><span class="n">key1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pos2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pos1</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">key2</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">3 2 1 4</span>
+</pre></div>
+</div>
+<p>And the positional arguments are all required:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">fun</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-24-5ef8442810a5&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">fun</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: fun() missing 1 required positional argument: &#39;pos2&#39;
+</pre></div>
+</div>
+<p><strong>But:</strong>  Notice that you can either have a required argument with no keyword, or an optional argument with a keyword (and a default). And keyworkd arguments can also be passes as positional arguments.</p>
+<p>This was considered less than ideal – with some APIs, you want to require a keyword be used – and you may have a required argument that you want users to pass as a keyword (rather than positional) argument.</p>
+<p>In Python 3 – “keyword only” arguments were added:</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-3102/">https://www.python.org/dev/peps/pep-3102/</a></p>
+<p>So you can do:</p>
+<p>Now the user can only provide a value for key1 as a keyword argument. If they pass a third positional argument, it’ll be an error:</p>
+<p>So Python will not just move that third argument along for you. You need to use the keyword:</p>
+<p>But you can still let it be the default:</p>
+<p>However, with keyword only arguments you can make it required by providing no default:</p>
+<p>So you HAVE to provide it, and you HAVE to provide it as a keyword argument.</p>
+<div class="section" id="what-about-args">
+<h3>What about <code class="docutils literal"><span class="pre">*args</span></code>?<a class="headerlink" href="#what-about-args" title="Permalink to this headline">¶</a></h3>
+<p>Asside from allowing keyword-only paramters with or without defaults, a key addition is that you can now have variable numbers of positional arguments, without them getting confused with the keyword arguments:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fun</span> <span class="p">(</span><span class="n">pos1</span><span class="p">,</span> <span class="n">pos2</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">key1</span><span class="o">=</span><span class="s1">&#39;this&#39;</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pos1</span><span class="p">,</span> <span class="n">pos2</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">key1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [36]: </span><span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">1 2 () this</span>
+
+<span class="gp">In [37]: </span><span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">1 2 (3,) this</span>
+</pre></div>
+</div>
+<p>Notice how the third argument did NOT get assigned to key1?</p>
+<p>And you can pass any number in:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [39]: </span><span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span> <span class="n">key1</span><span class="o">=</span><span class="s1">&#39;that&#39;</span><span class="p">)</span>
+<span class="go">1 2 (3, 4, 5, 6, 7) that</span>
+</pre></div>
+</div>
+<p>This is actually the primary motivation for the PEP –it makes a cleaner separation of positional an keyword arguments.</p>
+<p>So for ALL the features in one function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fun</span> <span class="p">(</span><span class="n">pos1</span><span class="p">,</span> <span class="n">pos2</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">key1</span><span class="o">=</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pos1</span><span class="p">,</span> <span class="n">pos2</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">key1</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [42]: </span><span class="n">fun</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">this</span><span class="o">=</span><span class="s1">&#39;that&#39;</span><span class="p">,</span> <span class="n">fred</span><span class="o">=</span><span class="s1">&#39;bob&#39;</span><span class="p">)</span>
+<span class="go">1 2 (3, 4) this {&#39;this&#39;: &#39;that&#39;, &#39;fred&#39;: &#39;bob&#39;}</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [44]: </span><span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="gp">In [45]: </span><span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;this&#39;</span><span class="p">:</span><span class="s1">&#39;that&#39;</span><span class="p">,</span> <span class="s1">&#39;fred&#39;</span><span class="p">:</span><span class="s1">&#39;bob&#39;</span><span class="p">}</span>
+
+<span class="gp">In [46]: </span><span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="go">1 2 (3, 4) this {&#39;this&#39;: &#39;that&#39;, &#39;fred&#39;: &#39;bob&#39;}</span>
+</pre></div>
+</div>
+<p>Lots of Flexibility!!</p>
+</div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DictionaryAsSwitch.html" class="btn btn-neutral float-right" title="Using a Dictionary to switch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Testing.html" class="btn btn-neutral" title="Unit Testing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Advanced Argument Passing</a><ul>
-<li><a class="reference internal" href="#keyword-arguments">Keyword arguments</a></li>
-<li><a class="reference internal" href="#function-arguments-in-variables">Function arguments in variables</a></li>
-<li><a class="reference internal" href="#function-parameters-in-variables">Function parameters in variables</a></li>
-<li><a class="reference internal" href="#passing-a-dict-to-str-format">Passing a dict to str.format()</a></li>
-<li><a class="reference internal" href="#lab">LAB</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="Strings.html" title="previous chapter">Strings</a></li>
-      <li>Next: <a href="Closures.html" title="next chapter">Closures and function Currying</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/AdvancedArgumentPassing.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/modules/AdvancedArgumentPassing.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

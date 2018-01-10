@@ -1,8 +1,8 @@
 .. _session_1_02:
 
-#########################
-Intro to Python Session 2
-#########################
+#####################################
+Session 2: Basic Python and Functions
+#####################################
 
 **Basic Python and Functions**
 
@@ -78,6 +78,7 @@ https://try.github.io/
 In-class Activities
 ===================
 
+
 Review :ref:`python_pushups`
 
 Exercises:
@@ -92,6 +93,7 @@ Exercises:
 
 Post-class Activities
 =====================
+
 
 Finish the Exercises
 

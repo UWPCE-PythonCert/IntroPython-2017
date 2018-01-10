@@ -1,20 +1,17 @@
 .. _exercise_trapezoidal_rule:
 
-*****************
+################
 Trapezoidal Rule
-*****************
+################
 
 Passing functions around
 =========================
 
 
-.. rst-class:: medium left
+Goal:
 
-    Goal:
 
-.. rst-class:: left
-
-    Making use of functions as objects -- functions that act on functions.
+Making use of functions as objects -- functions that act on functions.
 
 
 Trapezoidal rule
@@ -80,7 +77,6 @@ Your function definition should look like:
       """
       pass
 
-.. nextslide::
 
 In the function, you want to compute the following equation:
 
@@ -98,7 +94,6 @@ So you will need to:
 
  - multiply by the half of the difference between a and b divided by the number of steps.
 
-.. nextslide::
 
 Note that the first and last values are not doubled, so it may be more efficient to rearrange it like this:
 
@@ -110,7 +105,6 @@ Can you use comprehensions for this?
 
 NOTE: ``range()`` only works for integers -- how can you deal with that?
 
-.. nextslide::
 
 Once you have that, it should work for any function that can be evaluated between a and b.
 
@@ -125,7 +119,6 @@ A few examples of analytical solutions you can use for tests:
 
 A simple horizontal line -- see above.
 
-.. nextslide::
 
 A sloped straight line:
 
@@ -185,7 +178,6 @@ You could write a specialized version of this function for each A, B, and C:
 
 But then you need to write a new function for any value of these parameters you might need.
 
-.. nextslide::
 
 Instead, you can pass in A, B and C each time:
 
@@ -224,7 +216,6 @@ or
     coef = {'A':1, 'B':3, 'C': 2}
     trapz(quadratic, 2, 20, **coef)
 
-.. nextslide::
 
 **NOTE:** Make sure this will work with ANY function, with **ANY** additional positional or keyword arguments -- not just this particular function.
 
@@ -232,7 +223,6 @@ This is pretty conceptually challenging -- but it's very little code!
 
 If you are totally lost -- look at the lecture notes from previous classes -- how can you both accept and pass arbitrary arguments to/from a function?
 
-.. nextslide::
 
 You want your trapz function to take ANY function that can take ANY arbitrary extra arguments -- not just the quadratic function, and not just ``A,B, and C``. So good to test with another example.
 

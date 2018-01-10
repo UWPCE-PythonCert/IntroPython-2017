@@ -1,5 +1,10 @@
+.. _closures:
+
+
+##############################
 Closures and function Currying
-==============================
+##############################
+
 
 Defining specialized functions on the fly.
 
@@ -21,7 +26,6 @@ but I even have trouble following that.
 
 So let's go straight to an example:
 
-.. nextslide::
 
 .. code-block:: python
 
@@ -40,7 +44,6 @@ Then defined a function, ``incr`` that adds one to the value in the list, and re
 
 [ Quiz: why is it: ``count = [start_at]``, rather than just ``count=start_at`` ]
 
-.. nextslide::
 
 So what type of object do you get when you call ``counter()``?
 
@@ -65,7 +68,6 @@ Being a function, we can, of course, call it:
 
 Each time is it called, it increments the value by one.
 
-.. nextslide::
 
 But what happens if we call ``counter()`` multiple times?
 

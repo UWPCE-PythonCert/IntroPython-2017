@@ -16,9 +16,9 @@ http://www.digitalcitizen.life/command-prompt-how-use-basic-commands
 
 http://www.bleepingcomputer.com/tutorials/windows-command-prompt-introduction/
 
-Zed Shaw's tutorial in "Learn Code the Hard way" is excellent, but apparently no longer available for free. However there is one as an appendix to Learn Python the Hard way:
+Zed Shaw's tutorial in "Learn Code the Hard way" is excellent, but apparently is no longer available for free. However there is a tutorial in an appendix to Learn Python the Hard way:
 
-https://learnpythonthehardway.org/book/appendixa.html
+`Command Line Crash Course <https://learnpythonthehardway.org/book/appendixa.html>`_
 
 
 Linux and OS-X

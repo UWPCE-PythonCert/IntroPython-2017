@@ -9,13 +9,13 @@ The Classic Fizz Buzz Problem
 
 Fizz Buzz is a classic simple problem in computer science.
 
-Often used as an exercise in interviews for programmers.
+It is often used as an exercise in interviews for programmers.
 
 Apparently a LOT of people applying for jobs as professional developers can't do this in an interview:
 
 (http://c2.com/cgi/wiki?FizzBuzzTest)
 
-Now that We've psyched you out -- it's really pretty straightforward.
+Now that we've psyched you out -- it's really pretty straightforward.
 
 Goal:
 -----

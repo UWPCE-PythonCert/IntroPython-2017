@@ -7,9 +7,9 @@ Documentation
 It's often helpful to leave information in your code about what you were
 thinking when you wrote it.
 
-This can help reduce the number of `WTFs per minute <http://www.osnews.com/story/19266/WTFs_m>`_ in reading it later.
+This can help reduce the number of `WTFs per minute <http://www.osnews.com/story/19266/WTFs_m>`_ when reading it later.
 
-There are two approaches to this in python:
+There are two approaches to this in Python:
 
 * Comments
 * Docstrings
@@ -49,6 +49,8 @@ Comments about comments
  * Use them when you need to.
 
  * Make them useful.
+
+ * Do not use them merely to restate what the code is / should be doing. Make the code self explanatory!
 
 This is not useful:
 
@@ -98,7 +100,7 @@ A function docstring should:
 
 * Be enclosed with triple-quotes.
 
-  * This allows for easy expansion if required at a later date
+  * This allows for easy expansion if required at a later date.
   * Always close on the same line if the docstring is only one line.
 
 For more information see `PEP 257: Docstring Conventions <http://legacy.python.org/dev/peps/pep-0257/>`_.

@@ -1,60 +1,172 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Session 3: Booleans, Sequences, Iteration, and Strings &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Intro to Python Session 3 &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Intro to Python Session 4" href="session_1_04.html" />
-    <link rel="prev" title="Intro to Python Session 2" href="session_1_02.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="intro-to-python-session-3">
-<span id="session-1-03"></span><h1>Intro to Python Session 3<a class="headerlink" href="#intro-to-python-session-3" title="Permalink to this headline">¶</a></h1>
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Session 3: Booleans, Sequences, Iteration, and Strings</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/class_schedule/session_1_03.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="session-3-booleans-sequences-iteration-and-strings">
+<span id="session-1-03"></span><h1>Session 3: Booleans, Sequences, Iteration, and Strings<a class="headerlink" href="#session-3-booleans-sequences-iteration-and-strings" title="Permalink to this headline">¶</a></h1>
 <p><strong>Booleans, Sequences, Iteration, and Strings</strong></p>
 <div class="section" id="pre-class-prep">
 <h2>Pre-class prep<a class="headerlink" href="#pre-class-prep" title="Permalink to this headline">¶</a></h2>
 <p>Read: <a class="reference internal" href="../modules/Booleans.html#booleans"><span class="std std-ref">Boolean Expressions</span></a></p>
-<p>Read: <a class="reference internal" href="../scripts/Sequences.html#sequences"><span class="std std-ref">Python Sequences</span></a></p>
+<p>Read: <a class="reference internal" href="../modules/Sequences.html#sequences"><span class="std std-ref">Python Sequences</span></a></p>
 <p>Read: <a class="reference internal" href="../modules/Iteration.html#iteration"><span class="std std-ref">Iteration</span></a></p>
 <p>Read: <a class="reference internal" href="../modules/Strings.html#strings"><span class="std std-ref">Strings</span></a></p>
-<div class="section" id="supplimental-reading">
-<h3>Supplimental Reading:<a class="headerlink" href="#supplimental-reading" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="supplemental-reading">
+<h3>Supplemental Reading:<a class="headerlink" href="#supplemental-reading" title="Permalink to this headline">¶</a></h3>
 <p>Think Python, chapters 7 – 10 (11, 12)</p>
 <p>(<a class="reference external" href="http://greenteapress.com/thinkpython/html/thinkpython008.html">http://greenteapress.com/thinkpython/html/thinkpython008.html</a>)</p>
 <p>Dive Into Python: chapters 3, 4</p>
@@ -69,137 +181,98 @@
 </div>
 <div class="section" id="variable-scope">
 <h3>Variable Scope<a class="headerlink" href="#variable-scope" title="Permalink to this headline">¶</a></h3>
-<p>Experiment with <code class="docutils literal"><span class="pre">locals</span></code> by adding this statement one of the functions we wrote last week:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
+<p>Experiment with <code class="docutils literal"><span class="pre">locals</span></code> by adding this statement one of the functions we wrote last week (or any other function you wrote):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="nb">locals</span><span class="p">())</span>
 </pre></div>
 </div>
-<blockquote>
-<div>print(locals())</div></blockquote>
 </div>
-<div class="section" id="sequences">
-<h3>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="sequences-exercises">
+<h3>Sequences Exercises<a class="headerlink" href="#sequences-exercises" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../exercises/slicing.html#exercise-slicing"><span class="std std-ref">Slicing Lab</span></a></p>
 <p><a class="reference internal" href="../exercises/list_lab.html#exercise-list-lab"><span class="std std-ref">List Lab</span></a></p>
 </div>
-<div class="section" id="strings">
-<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="../exercises/string_formatting.html#exercise-string-formatting"><span class="std std-ref">String Formatting Lab</span></a></p>
-<p><a class="reference internal" href="../exercises/rot13.html#exercise-rot13"><span class="std std-ref">ROT13</span></a></p>
+<div class="section" id="string-exercises">
+<h3>String Exercises<a class="headerlink" href="#string-exercises" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="../exercises/string_formatting.html#exercise-string-formatting"><span class="std std-ref">String Formatting Exercise</span></a></p>
+<p>(optional) <a class="reference internal" href="../exercises/rot13.html#exercise-rot13"><span class="std std-ref">ROT13</span></a></p>
 </div>
-<div class="section" id="mailroom">
-<h3>Mailroom<a class="headerlink" href="#mailroom" title="Permalink to this headline">¶</a></h3>
-<p>You’ve got the basics of the languge down –enough to write the first full “program”:</p>
-<p><a class="reference internal" href="../exercises/mailroom.html#exercise-mailroom"><span class="std std-ref">Mailroom</span></a></p>
+<div class="section" id="mailroom-exercises">
+<h3>Mailroom Exercises<a class="headerlink" href="#mailroom-exercises" title="Permalink to this headline">¶</a></h3>
+<p>You’ve now got the basics of the language down – enough to write the first full “program”:</p>
+<p><a class="reference internal" href="../exercises/mailroom.html#exercise-mailroom"><span class="std std-ref">Mailroom: A complete program</span></a></p>
 </div>
 </div>
 <div class="section" id="post-class-activites">
 <h2>Post-class Activites<a class="headerlink" href="#post-class-activites" title="Permalink to this headline">¶</a></h2>
 <p>Finish the mailroom project.</p>
+<p>And the other exercises</p>
 <p>Look at the next session for reading, etc:</p>
-<p><a class="reference internal" href="session_1_04.html#session-1-04"><span class="std std-ref">Intro to Python Session 4</span></a></p>
-</div>
-<div class="section" id="session-3">
-<h2>Session 3<a class="headerlink" href="#session-3" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="task-1">
-<h3>Task 1<a class="headerlink" href="#task-1" title="Permalink to this headline">¶</a></h3>
-<p>Finish the List Lab from class</p>
-<p>Finish the string formatting lab</p>
-</div>
-<div class="section" id="task-2">
-<h3>Task 2<a class="headerlink" href="#task-2" title="Permalink to this headline">¶</a></h3>
-<p class="mlarge">ROT13</p>
-<p><a class="reference internal" href="../exercises/rot13.html#exercise-rot13"><span class="std std-ref">ROT13</span></a></p>
-</div>
-<div class="section" id="task-3">
-<h3>Task 3<a class="headerlink" href="#task-3" title="Permalink to this headline">¶</a></h3>
-<p class="mlarge">Mail Room</p>
-<p><a class="reference internal" href="../exercises/mailroom.html#exercise-mailroom"><span class="std std-ref">Mailroom</span></a></p>
-</div>
-<div class="section" id="reading">
-<h3>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h3>
-<p>Think Python: Chapters 11, 13, 14</p>
-<p>Learn Python the Hard way: 15-17, 39</p>
-<p>Dive Into Python3: Sections 2.6, 2.7, 11</p>
-</div>
+<p><a class="reference internal" href="session_1_04.html#session-1-04"><span class="std std-ref">Session 4: Dictionaries, Sets, and File Handling</span></a></p>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Intro to Python Session 3</a><ul>
-<li><a class="reference internal" href="#pre-class-prep">Pre-class prep</a><ul>
-<li><a class="reference internal" href="#supplimental-reading">Supplimental Reading:</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#in-class-activities">In-class Activities</a><ul>
-<li><a class="reference internal" href="#working-with-booleans-conditional-expressions-etc">Working with Booleans, Conditional Expressions, etc</a></li>
-<li><a class="reference internal" href="#variable-scope">Variable Scope</a></li>
-<li><a class="reference internal" href="#sequences">Sequences</a></li>
-<li><a class="reference internal" href="#strings">Strings</a></li>
-<li><a class="reference internal" href="#mailroom">Mailroom</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#post-class-activites">Post-class Activites</a></li>
-<li><a class="reference internal" href="#session-3">Session 3</a><ul>
-<li><a class="reference internal" href="#task-1">Task 1</a></li>
-<li><a class="reference internal" href="#task-2">Task 2</a></li>
-<li><a class="reference internal" href="#task-3">Task 3</a></li>
-<li><a class="reference internal" href="#reading">Reading</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="session_1_02.html" title="previous chapter">Intro to Python Session 2</a></li>
-      <li>Next: <a href="session_1_04.html" title="next chapter">Intro to Python Session 4</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/class_schedule/session_1_03.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/class_schedule/session_1_03.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

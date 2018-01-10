@@ -31,7 +31,7 @@ https://danlimerick.wordpress.com/2011/06/12/git-for-windows-tip-setting-an-edit
 Nano
 ----
 
-This was a nice way to go -- but unfortunately, there no longer seems to be a Windows binary available for nano
+This was a nice way to go -- but unfortunately, there no longer seems to be a Windows binary available for nano.
 
 For all Windows installations, download the WinNT/9x binary from here:
 

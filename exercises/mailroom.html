@@ -1,70 +1,240 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mailroom: A complete program &mdash; PythonCert 4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
     
-    <title>Mailroom &#8212; PythonCert 4.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Mailroom Object Oriented" href="mailroom-oo.html" />
-    <link rel="prev" title="List Lab" href="list_lab.html" />
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
+        <link rel="up" title="Exercises" href="index.html"/>
+        <link rel="next" title="Introduction To Unit Testing" href="unit_testing.html"/>
+        <link rel="prev" title="List Lab" href="list_lab.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> PythonCert
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="mailroom">
-<span id="exercise-mailroom"></span><h1>Mailroom<a class="headerlink" href="#mailroom" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="a-complete-program">
-<h2>A complete program<a class="headerlink" href="#a-complete-program" title="Permalink to this headline">¶</a></h2>
-<p>Using basic data types and logic for a full program</p>
+            
+              <div class="version">
+                4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Exercises</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="submitting_to_gitHub.html">Submitting your work to gitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_pushups.html">Python Pushups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="args_kwargs_lab.html">Args and Kwargs LAB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="circle_class.html">Circle Class Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dict_lab.html">Dictionary and Set Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions_lab.html">Exceptions Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="except_exercise.html">Exceptions Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comprehensions_lab.html">Comprehensions Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fib_and_lucas.html">Fibonacci Series Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_lab.html">File Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fizz_buzz.html">Fizz Buzz Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_printer.html">Grid Printer Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html_renderer.html">HTML Renderer Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kata_fourteen.html">Kata Fourteen: Tom Swift Under Milk Wood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lambda_magic.html">lambda and keyword Magic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list_lab.html">List Lab</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Mailroom: A complete program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#part-1">Part 1</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#goal">Goal:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-program">The program</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sending-a-thank-you">Sending a Thank You</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-report">Creating a Report</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#guidelines">Guidelines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submission">Submission</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#part-2-adding-dicts-and-files">Part 2: Adding dicts and Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#use-dicts-where-appropriate">use dicts where appropriate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update-mailroom-with-file-writing">Update mailroom with file writing.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#part-3-adding-exceptions-and-comprehensions">Part 3: Adding Exceptions and Comprehensions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comprehensions">Comprehensions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#part-4-adding-unit-tests">Part 4: Adding Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="unit_testing.html">Introduction To Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="roman.html">Roman/Arabic Numeral Converter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rot13.html">ROT13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slicing.html">Slicing Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sparse_array.html">Sparse Array Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string_formatting.html">String Formatting Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trapezoid.html">Trapezoidal Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom-oo.html">Mailroom - Object Oriented</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailroom-fp.html">Mailroom - Functional</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PythonCert</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Exercises</a> &raquo;</li>
+        
+      <li>Mailroom: A complete program</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/exercises/mailroom.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mailroom-a-complete-program">
+<span id="exercise-mailroom"></span><h1>Mailroom: A complete program<a class="headerlink" href="#mailroom-a-complete-program" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="part-1">
+<h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">¶</a></h2>
+<p>Using Python’s basic data types and logic for a full program.</p>
 <div class="section" id="goal">
 <h3>Goal:<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
 <p>You work in the mail room at a local charity. Part of your job is to write
 incredibly boring, repetitive emails thanking your donors for their generous
-gifts. You are tired of doing this over an over again, so you’ve decided to
-let Python help you out of a jam.</p>
+gifts. You are tired of doing this over and over again, so you’ve decided to
+let Python help you out of a jam and do your work for you.</p>
 </div>
 <div class="section" id="the-program">
 <h3>The program<a class="headerlink" href="#the-program" title="Permalink to this headline">¶</a></h3>
 <p>Write a small command-line script called <code class="docutils literal"><span class="pre">mailroom.py</span></code>. This script should be executable. The script should accomplish the following goals:</p>
-<ul class="simple">
-<li>It should have a data structure that holds a list of your donors and a
+<ul>
+<li><p class="first">It should have a data structure that holds a list of your donors and a
 history of the amounts they have donated. This structure should be populated
-at first with at least five donors, with between 1 and 3 donations each</li>
-<li>The script should prompt the user (you) to choose from a menu of 3 actions:
-‘Send a Thank You’ or ‘Create a Report’ or ‘quit’)</li>
+at first with at least five donors, with between 1 and 3 donations each.</p>
+<p>You can store that data structure in the global namespace.</p>
+</li>
+<li><p class="first">The script should prompt the user (you) to choose from a menu of 3 actions:
+“Send a Thank You”, “Create a Report” or “quit”)</p>
+</li>
 </ul>
 </div>
 <div class="section" id="sending-a-thank-you">
@@ -84,12 +254,12 @@ original prompt.</li>
 </ul>
 </li>
 </ul>
-<p><strong>It is fine to forget new donors once the script quits running.</strong></p>
+<p>It is fine (for now) to forget new donors once the script quits running.</p>
 </div>
 <div class="section" id="creating-a-report">
 <h3>Creating a Report<a class="headerlink" href="#creating-a-report" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>If the user (you) selected ‘Create a Report’ print a list of your donors,
+<li>If the user (you) selected “Create a Report”, print a list of your donors,
 sorted by total historical donation amount.<ul>
 <li>Include Donor Name, total donated, number of donations and average donation amount as values in each row. You do not need to print out all their donations, just the summary info.</li>
 <li>Using string formatting, format the output rows as nicely as possible.  The end result should be tabular (values in each column should align with those above and below)</li>
@@ -98,7 +268,7 @@ sorted by total historical donation amount.<ul>
 </li>
 <li>At any point, the user should be able to quit their current task and return
 to the original prompt.</li>
-<li>From the original prompt, the user should be able to quit the script cleanly</li>
+<li>From the original prompt, the user should be able to quit the script cleanly.</li>
 </ul>
 <p>Your report should look something like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>Donor Name                | Total Given | Num Gifts | Average Gift
@@ -130,10 +300,13 @@ directory, and add it to your clone early. Make frequent commits with
 good, clear messages about what you are doing and why.</p>
 <p>When you are done, push your changes and make a pull request.</p>
 </div>
-<div class="section" id="adding-dicts">
-<span id="exercise-mailroom-plus"></span><h3>Adding dicts…<a class="headerlink" href="#adding-dicts" title="Permalink to this headline">¶</a></h3>
-<p>For the next week</p>
-<p>You should have been able to do all that with the basic data types:</p>
+</div>
+<div class="section" id="part-2-adding-dicts-and-files">
+<span id="exercise-mailroom-plus"></span><h2>Part 2: Adding dicts and Files<a class="headerlink" href="#part-2-adding-dicts-and-files" title="Permalink to this headline">¶</a></h2>
+<p><strong>Wait to do this till after you’ve learned about dictionaries in a later lesson!</strong></p>
+<div class="section" id="use-dicts-where-appropriate">
+<h3>use dicts where appropriate<a class="headerlink" href="#use-dicts-where-appropriate" title="Permalink to this headline">¶</a></h3>
+<p>You should have been able to do all of the above with the basic data types:</p>
 <p>numbers, strings, lists and tuples.</p>
 <p>But once you’ve learned about dictionaries, you may be able to re-write it a bit more simply and efficiently.</p>
 <blockquote>
@@ -143,9 +316,9 @@ good, clear messages about what you are doing and why.</p>
 <blockquote>
 <div><ul class="simple">
 <li>Use dicts where appropriate</li>
-<li>Write a full set of letters to everyone to individual files on disk</li>
-<li>See if you can use a dict to switch between the users selections</li>
-<li>Try to use a dict and the .format() method to do the letter as one
+<li>See if you can use a dict to switch between the users selections.
+see <a class="reference internal" href="../modules/DictionaryAsSwitch.html#dict-as-switch"><span class="std std-ref">Using a Dictionary to switch</span></a> for what this means.</li>
+<li>Try to use a dict and the <code class="docutils literal"><span class="pre">.format()</span></code> method to do the letter as one
 big template – rather than building up a big string in parts.</li>
 </ul>
 </div></blockquote>
@@ -159,94 +332,141 @@ big template – rather than building up a big string in parts.</li>
 <span class="gh">Out[5]: </span><span class="go">&#39;My name is Chris Barker&#39;</span>
 </pre></div>
 </div>
-<p>Don’t worry too much about the “**” – we’ll get into the details later, but for now, it means, more or less – pass this whole dict in as a bunch of keyword arguments.</p>
+<p>Don’t worry too much about the “**” – we’ll get into the details later, but for now it means, more or less, pass this whole dict in as a bunch of keyword arguments.</p>
 </div>
-<div class="section" id="adding-exceptions">
-<span id="exercise-mailroom-exeptions"></span><h3>Adding Exceptions<a class="headerlink" href="#adding-exceptions" title="Permalink to this headline">¶</a></h3>
-<p><strong>After Session05:</strong></p>
-<ul class="simple">
-<li>Exceptions:</li>
-</ul>
-<p>Now that you’ve learned about Exception handling, you can update your code to handle errors better – like when a user inputs bad data.</p>
-<ul class="simple">
-<li>Comprehensions:</li>
-</ul>
+<div class="section" id="update-mailroom-with-file-writing">
+<h3>Update mailroom with file writing.<a class="headerlink" href="#update-mailroom-with-file-writing" title="Permalink to this headline">¶</a></h3>
+<p>Write a full set of letters to everyone to individual files on disk.</p>
+<p>In the first version of mailroom, you generated a letter to someone who had just made a new donation, and printed it to the screen.</p>
+<p>In this version, add a function (and a menu item to invoke it), that goes through all the donors in your donor data structure, generates a thank you letter, and writes it to disk as a text file.</p>
+<p>Your main menu may look something like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Choose</span> <span class="n">an</span> <span class="n">action</span><span class="p">:</span>
+
+<span class="mi">1</span> <span class="o">-</span> <span class="n">Send</span> <span class="n">a</span> <span class="n">Thank</span> <span class="n">You</span>
+<span class="mi">2</span> <span class="o">-</span> <span class="n">Create</span> <span class="n">a</span> <span class="n">Report</span>
+<span class="mi">3</span> <span class="o">-</span> <span class="n">Send</span> <span class="n">letters</span> <span class="n">to</span> <span class="n">everyone</span>
+<span class="mi">4</span> <span class="o">-</span> <span class="n">Quit</span>
+</pre></div>
+</div>
+<p>The letters should each get a unique file name – derived from the donor’s name, and maybe a date.</p>
+<p>After running the “send letters to everyone” option, you should get a bunch of new files in the working dir – one for each donor.</p>
+<p>After choosing (3) above, I get these files in the dir I ran it from:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Jeff_Bezos</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">Mark_Zuckerberg</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">Paul_Allen</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">William_Gates_III</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>(If you want to get really fancy, ask the user for a directory name to write to!)</p>
+<p>An example looks like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Dear Jeff Bezos,
+
+        Thank you for your very kind donation of $877.33.
+
+        It will be put to very good use.
+
+                       Sincerely,
+                          -The Team
+</pre></div>
+</div>
+<p>Feel free to enhance it with some more information about past generosity, etc….</p>
+<p>The idea is to require you to structure your code so that you can write the same letter to the screen or to disk (and thus anywhere else) and also exercise a bit of file writing.</p>
+</div>
+</div>
+<div class="section" id="part-3-adding-exceptions-and-comprehensions">
+<span id="exercise-mailroom-exceptions"></span><h2>Part 3: Adding Exceptions and Comprehensions<a class="headerlink" href="#part-3-adding-exceptions-and-comprehensions" title="Permalink to this headline">¶</a></h2>
+<p><strong>After the lesson where you learn about Exceptions</strong>.</p>
+<div class="section" id="exceptions">
+<h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
+<p>Now that you’ve learned about exception handling, you can update your code to handle errors better – like when a user inputs bad data.</p>
+</div>
+<div class="section" id="comprehensions">
+<h3>Comprehensions<a class="headerlink" href="#comprehensions" title="Permalink to this headline">¶</a></h3>
 <p>Can you use comprehensions to clean up your code a bit?</p>
-<ul class="simple">
-<li>Tests</li>
-</ul>
-<p>Add some tests..</p>
 </div>
+</div>
+<div class="section" id="part-4-adding-unit-tests">
+<span id="exercise-mailroom-testing"></span><h2>Part 4: Adding Unit Tests<a class="headerlink" href="#part-4-adding-unit-tests" title="Permalink to this headline">¶</a></h2>
+<p><strong>After the lesson when you learn about Unit Testing</strong></p>
+<p>Add a full suite of unit tests.</p>
+<p>“Full suite” means all the code is tested. In practice, it’s very hard to test the user interaction, but you can test everything else. Make sure that there is as little untested code in the user interaction portion of the program as possible – hardly any logic.</p>
+<p>This is a big step – you may find that your code is hard to test. If that’s the case, it’s a good sign that you <em>should</em> refactor your code.</p>
+<p>I like to say: “If it’s hard to test, it’s not well structured”</p>
+<p>Put in the tests <strong>before</strong> you make the other changes below - that’s much of the point of tests – you can know that you haven’t broken anything when you refactor!</p>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="unit_testing.html" class="btn btn-neutral float-right" title="Introduction To Unit Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="list_lab.html" class="btn btn-neutral" title="List Lab" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, University of Washington, Christopher Barker, Brian Dorsey, Cris Ewing, Christy Heaton, Jon Jacky, Maria McKinley, Rick Riehle, Joseph Schilz. Creative Commons Attribution-ShareAlike 3.0 license.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Mailroom</a><ul>
-<li><a class="reference internal" href="#a-complete-program">A complete program</a><ul>
-<li><a class="reference internal" href="#goal">Goal:</a></li>
-<li><a class="reference internal" href="#the-program">The program</a></li>
-<li><a class="reference internal" href="#sending-a-thank-you">Sending a Thank You</a></li>
-<li><a class="reference internal" href="#creating-a-report">Creating a Report</a></li>
-<li><a class="reference internal" href="#guidelines">Guidelines</a></li>
-<li><a class="reference internal" href="#submission">Submission</a></li>
-<li><a class="reference internal" href="#adding-dicts">Adding dicts…</a></li>
-<li><a class="reference internal" href="#adding-exceptions">Adding Exceptions</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="list_lab.html" title="previous chapter">List Lab</a></li>
-      <li>Next: <a href="mailroom-oo.html" title="next chapter">Mailroom Object Oriented</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/exercises/mailroom.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Christopher Barker, Cris Ewing, Christy Heaton, Maria McKinley, Rick Riehle, Joseph Schilz.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/exercises/mailroom.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

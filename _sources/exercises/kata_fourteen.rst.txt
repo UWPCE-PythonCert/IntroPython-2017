@@ -44,7 +44,6 @@ came up with:
     shooting upward again and just before the raid wouldn’t have been
     instrumental in capturing the scoundrels right out of jail."
 
-.. nextslide::
 
 Stylistically, it’s Victor Appleton meets Dylan Thomas. Technically,
 it’s all done with trigrams.
@@ -64,7 +63,6 @@ You might generate::
     "may I"  => ["wish"]
     "I may"  => ["I"]
 
-.. nextslide::
 
 This says that the words "I wish" are twice followed by the word
 "I", the words "wish I" are followed once by
@@ -86,7 +84,6 @@ is constrained to another "I".::
 
    I may I wish I
 
-.. nextslide::
 
 Now we look up "wish I", and find we have a choice. Let’s
 choose "may"::
@@ -102,7 +99,6 @@ get::
 At this point we stop, as no sequence starts "I might."
 
 
-.. nextslide::
 
 Given a short input text, the algorithm isn’t too interesting. Feed
 it a book, however, and you give it more options, so the resulting output
@@ -116,10 +112,9 @@ books (Tom Swift and His Airship is `here <http://sailor.gutenberg.org/etext02/0
 Be warned that these files have DOS line endings (carriage return followed by
 newline).
 
-.. nextslide::
 
 
-There is a copy of sherlock holmes right here:
+There is a copy of Sherlock Holmes right here:
 
 :download:`sherlock.txt  <./sherlock.txt>`.
 
