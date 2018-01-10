@@ -74,7 +74,6 @@ Let's take a look:
 
 https://github.com/UWPCE-PythonCert/IntroPython-2017/blob/master/students/eowyn/session06/mailroom/mailroom.py
 
---------------
 
 
 

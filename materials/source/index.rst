@@ -114,7 +114,7 @@ Week 1: Jan 9 -- Iterators and Generators, Packaging
 
 :ref:`packaging`
 
-Homework: make an proper package of mailroom (the oo version).
+Homework: make an proper package of mailroom: :ref:`exercise_mailroom_package`
 
 Week 2: Jan 16
 ..............
@@ -193,7 +193,7 @@ Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
 * Redis
 * Neo4j
 
-Week 9: Mar 13 -- Profiling & Performance
+Week 9: Mar 6 -- Profiling & Performance
 .........................................
 
 * Timing
@@ -201,7 +201,7 @@ Week 9: Mar 13 -- Profiling & Performance
 * PyPy
 * Cython
 
-Week 10: Mar 20 -- Concurrency & Async Programming
+Week 10: Mar 13 -- Concurrency & Async Programming
 ..................................................
 
 * Concurrency
