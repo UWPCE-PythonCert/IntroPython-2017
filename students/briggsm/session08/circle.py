@@ -22,12 +22,15 @@ class Circle:
 
     def __repr__(self):
         return "Circle({})".format(self.radius)
+        return "Circle({})".format(repr(self.radius))
 
     def __str__(self):
         return "Circle with a radius of {}".format(self.radius)
 
-    def create__from_diameter(self, dia):
-        self.radius = dia/2 * pi
+    @classmethod
+    def create_from_diameter(cls, dia):
+        print(cls)
+        return cls(dia / 2)
 
     def __add__(self, other):
         return Circle(self.radius + other.radius)
@@ -43,3 +46,6 @@ class Circle:
 
     def __eq__ (self, other):
         return self.radius == other.radius
+
+class Sphere(Circle):
+    pass
