@@ -93,6 +93,125 @@ Week 10: December 12
 
 :ref:`notes_session10`
 
+############################
+Advanced Python: Winter 2017
+############################
+
+Overview
+========
+
+In the second quarter, we will dig a bit more into the more advanced features of Python, and then get into a bit of the ecosystem -- working with databases, debugging and logging, etc.
+
+Fluent Python
+.............
+
+`Fluent Python <http://shop.oreilly.com/product/0636920032519.do>`_, by Luciano Ramalho, is an excellent book about the more advanced features of Python. We highly recommend you get it, and we will be referencing it throughout the class.
+
+Week 1: Jan 9 -- Iterators and Generators, Packaging
+....................................................
+
+:ref:`iterators_generators`
+
+:ref:`packaging`
+
+Homework: make an proper package of mailroom: :ref:`exercise_mailroom_package`
+
+Week 2: Jan 16
+..............
+
+:ref:`decorators`
+
+:ref:`context_managers`
+
+Week 3: Jan 23
+..............
+
+* Closures and Currying
+
+* Itertools
+
+* Functools
+
+.. * Multimethods
+
+Week 4: Jan 30
+..............
+
+Metaprogramming
+
+* Metprogramming tools
+
+* Class Decorators
+
+* Metaclasses
+
+Week 5: Feb 6 -- Debugging and Logging
+......................................
+
+* Logging module
+
+* Syslog
+
+* Debugging techniques
+
+* pdb/ipdb
+
+* PyCharm's debugger
+
+Week 6: Feb 13 -- Advanced Testing
+..................................
+
+* ``unittest``
+
+* Linting
+
+* Coverage
+
+* Fixtures
+
+* Mocking
+
+* Hypothesis Testing
+
+Week 7: Feb 20 -- Relational Databases
+......................................
+
+* SQL
+* ORMs
+* Normalization
+* Schema
+* Sqlite
+* Postgresql
+
+Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
+................................................................
+
+* Persistence and Serialization: pickle, json, csv, ...
+* Schema vs “Schemaless”
+* No-Sql
+* Mongo
+* Redis
+* Neo4j
+
+Week 9: Mar 6 -- Profiling & Performance
+.........................................
+
+* Timing
+* Profiling
+* PyPy
+* Cython
+
+Week 10: Mar 13 -- Concurrency & Async Programming
+..................................................
+
+* Concurrency
+* Threading and Multiprocessing
+* Message Queues
+* Coroutines
+* Async
+* Celery
+
+
 Lightning Talks
 ===============
 
