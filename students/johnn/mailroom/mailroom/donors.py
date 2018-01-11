@@ -3,10 +3,7 @@
 import sys
 import datetime
 import uuid
-import os
 import pickle
-from pprint import pprint
-
 
 """ Program to manage donations. """
 
@@ -430,3 +427,4 @@ def save_donor_file(donors,donor_file="donors.p"):
         print("Sorry, couldn't write the donor file!")
         print(e)
         return False
+

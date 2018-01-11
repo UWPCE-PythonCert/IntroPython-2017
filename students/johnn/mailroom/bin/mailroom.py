@@ -1,3 +1,5 @@
+from mailroom.donors import *
+from mailroom.ui import *
 
 # call the main input loop
 if __name__ == "__main__":

@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 
 import sys
-import datetime
-import uuid
-import os
-import pickle
 from pprint import pprint
+from . import donors
 
 
 def safe_input(prompt=">"):
