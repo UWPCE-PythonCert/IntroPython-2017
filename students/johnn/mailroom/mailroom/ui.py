@@ -2,8 +2,7 @@
 
 import sys
 from pprint import pprint
-from . import donors
-
+from mailroom.donors import Donors, Donor, save_donor_file
 
 def safe_input(prompt=">"):
     """ Generic input routine. """
