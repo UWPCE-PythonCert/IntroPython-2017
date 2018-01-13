@@ -1,0 +1,5 @@
+
+group_data:
+  - [ "testgroup1", 2000 ]
+  - [ "testgroup2", 2010 ]
+  - [ "testgroup3", 3000 ]

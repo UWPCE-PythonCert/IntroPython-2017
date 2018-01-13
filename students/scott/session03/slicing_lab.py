@@ -7,19 +7,31 @@
 def exchange_first_last(seq):
     return seq[-1:] + seq[1:-1] + seq[:1]
 
+
 '''with every other item removed'''
+
+
 def rem(seq):
     return seq[::2]
 
+
 '''with the first and last 4 items removed, and every other item in between'''
+
+
 def rem_diff(seq):
     return seq[4:-4:2]
 
+
 '''with the elements reversed (just with slicing)'''
+
+
 def reversed(seq):
     return seq[::-1]
 
-'''with the middle third, then last third, then the first third in the new order'''
+
+'''with the middle third, last third, the first third in the new order'''
+
+
 def thirds(seq):
     i = len(seq) // 3
     return seq[i:-1] + seq[-1:] + seq[:i]

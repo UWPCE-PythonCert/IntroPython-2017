@@ -1,0 +1,44 @@
+---
+lightning:
+
+  hosts:
+  - name: hostb1
+    interfaces:
+    - name: eth0
+      ip: 192.168.1.17
+      network: blue
+  - name: hostb2
+    interfaces:
+    - name: eth0
+      ip: 192.168.1.18
+      network: blue
+  - name: hostr1
+    interfaces:
+    - name: eth0
+      ip: 10.10.1.100
+      network: red
+  - name: hosty1
+    interfaces:
+    - name: eth0
+      ip: 10.10.1.101
+      network: red
+    - name: eth1
+      ip: 192.168.1.101
+      network: blue
+
+  networks:
+  - name: red
+    network: 10.10.0.0
+    netmask: 255.255.0.0
+    gateway: 10.10.1.1
+    dns_servers:
+    - name-r1
+    - name-r2
+  - name: blue
+    network: 192.168.1.0
+    netmask: 255.255.0.0
+    gateway: 192.168.1.1
+    dns_servers:
+    - name-b1
+    - name-b2
+

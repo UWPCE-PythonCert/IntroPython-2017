@@ -3,9 +3,8 @@ Circle class, exercise (testing)
 '''
 
 from math import pi
+
 from circle import Circle, Sphere
-
-
 
 def test_init():
     Circle(5)
@@ -113,9 +112,7 @@ def test_compare_equal_false():
     c2 = Circle(5)
 
     assert (c1 == c2) == False
-
 # Sphere tests:
-
 
 def test_sphere_radius():
     s = Sphere(5)

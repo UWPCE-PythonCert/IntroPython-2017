@@ -1,0 +1,15 @@
+---
+
+# ansible -m setup localhost | less
+
+- name: figure out os version
+  set_fact:
+    myos: "{{ ansible_distribution_version }}"
+
+- name: print out os version
+  debug:
+    msg: "The OS version is {{ myos }}."
+
+# http://docs.ansible.com/ansible/latest/playbooks_variables.html
+# - jinja2 filters
+
