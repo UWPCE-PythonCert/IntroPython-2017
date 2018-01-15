@@ -119,46 +119,24 @@ Homework: make an proper package of mailroom: :ref:`exercise_mailroom_package`
 Week 2: Jan 16
 ..............
 
+* Code Reviews
+
+* Closures and Currying
+
 :ref:`decorators`
 
-:ref:`context_managers`
 
 Week 3: Jan 23
 ..............
 
-* Closures and Currying
+:ref:`context_managers`
 
 * Itertools
 
 * Functools
 
-.. * Multimethods
 
-Week 4: Jan 30
-..............
-
-Metaprogramming
-
-* Metprogramming tools
-
-* Class Decorators
-
-* Metaclasses
-
-Week 5: Feb 6 -- Debugging and Logging
-......................................
-
-* Logging module
-
-* Syslog
-
-* Debugging techniques
-
-* pdb/ipdb
-
-* PyCharm's debugger
-
-Week 6: Feb 13 -- Advanced Testing
+Week 4: Jan 30 -- Advanced Testing
 ..................................
 
 * ``unittest``
@@ -172,6 +150,27 @@ Week 6: Feb 13 -- Advanced Testing
 * Mocking
 
 * Hypothesis Testing
+
+
+Week 5: Feb 6 -- Debugging and Logging
+......................................
+
+* Logging module
+
+* Syslog
+
+* Debugging techniques
+
+* pdb/ipdb
+
+Week 6: Feb 13 -- Metaprogramming
+.................................
+
+* Metprogramming tools
+
+* Class Decorators
+
+* Metaclasses
 
 Week 7: Feb 20 -- Relational Databases
 ......................................
@@ -193,16 +192,8 @@ Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
 * Redis
 * Neo4j
 
-Week 9: Mar 6 -- Profiling & Performance
-.........................................
-
-* Timing
-* Profiling
-* PyPy
-* Cython
-
-Week 10: Mar 13 -- Concurrency & Async Programming
-..................................................
+Week 9: Mar 6 -- Concurrency & Async Programming
+................................................
 
 * Concurrency
 * Threading and Multiprocessing
@@ -210,6 +201,14 @@ Week 10: Mar 13 -- Concurrency & Async Programming
 * Coroutines
 * Async
 * Celery
+
+Week 10: Mar 13 -- Profiling & Performance
+..........................................
+
+* Timing
+* Profiling
+* PyPy
+* Cython
 
 
 Lightning Talks
