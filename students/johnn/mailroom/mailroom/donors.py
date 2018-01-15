@@ -4,6 +4,7 @@ import sys
 import datetime
 import uuid
 import pickle
+import os
 
 """ Program to manage donations. """
 
@@ -391,9 +392,11 @@ class Donor:
         return "Donor Record ( " + ", ".join(self._query_attributes(which_attributes)) + " )"
  
 
-def load_donor_file(donor_file="donors.p"):
+def load_donor_file(donor_file=None):
     """ load donors from file into Donors object """
     donors = None
+    if not donor_file:
+        donor_file = os.path.join(os.path.expanduser('~'),'.donors.p')
     try:
         donors = pickle.load( open( donor_file, "rb" ))
         return donors
@@ -418,8 +421,10 @@ def load_donor_file(donor_file="donors.p"):
         print("Please delete or restore the donor file from a backup.")
         sys.exit(1)
 
-def save_donor_file(donors,donor_file="donors.p"):
+def save_donor_file(donors,donor_file=None):
     """ save donors object to pickle file """
+    if not donor_file:
+        donor_file = os.path.join(os.path.expanduser('~'),'.donors.p')
     try:
         pickle.dump( donors, open( donor_file, "wb" ))
         return True
