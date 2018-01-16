@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Closures and function Currying &mdash; PythonCert 4.0 documentation</title>
+  <title>Closures and Function Currying &mdash; PythonCert 4.0 documentation</title>
   
 
   
@@ -131,10 +131,14 @@
 <li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Closures and function Currying</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Closures and Function Currying</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#functions-within-functions">Functions within Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Closures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#functools-partial"><code class="docutils literal"><span class="pre">functools.partial</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#real-world-example">Real world Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-a-curried-function">Using a Curried Function</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
@@ -189,7 +193,7 @@
         
           <li><a href="index.html">Modules</a> &raquo;</li>
         
-      <li>Closures and function Currying</li>
+      <li>Closures and Function Currying</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -209,18 +213,18 @@
            <div itemprop="articleBody">
             
   <div class="section" id="closures-and-function-currying">
-<span id="closures"></span><h1>Closures and function Currying<a class="headerlink" href="#closures-and-function-currying" title="Permalink to this headline">¶</a></h1>
+<span id="closures"></span><h1>Closures and Function Currying<a class="headerlink" href="#closures-and-function-currying" title="Permalink to this headline">¶</a></h1>
 <p>Defining specialized functions on the fly.</p>
 <div class="section" id="functions-within-functions">
 <h2>Functions within Functions<a class="headerlink" href="#functions-within-functions" title="Permalink to this headline">¶</a></h2>
 <p>TODO: Preface this topic with basic scope rules, specifically that you can define functions within functions.  – rriehle</p>
+<p>and add nonlocal!</p>
 </div>
 <div class="section" id="id1">
 <h2>Closures<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>“Closures” and “Currying” are cool CS terms for what is really just defining functions on the fly.</p>
-<p>you can find a “proper” definition here:</p>
+<p>“Closures” and “Currying” are cool CS terms for what is really just defining functions on the fly. You can find a “proper” definition here:</p>
 <p><a class="reference external" href="http://en.wikipedia.org/wiki/Closure_(computer_programming">http://en.wikipedia.org/wiki/Closure_(computer_programming</a>)</p>
-<p>but I even have trouble following that.</p>
+<p>But I even have trouble following that.</p>
 <p>So let’s go straight to an example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">start_at</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_at</span><span class="p">]</span>
@@ -264,7 +268,7 @@
 </pre></div>
 </div>
 <p>So each time <code class="docutils literal"><span class="pre">counter()</span></code> is called, a new function is created. And that function has its own copy of the <code class="docutils literal"><span class="pre">count</span></code> object. This is what makes in a “closure” – it carries with it the scope in which is was created.</p>
-<p>the returned <code class="docutils literal"><span class="pre">incr</span></code> function is a “curried” function – a function with some parameters pre-specified.</p>
+<p>The returned <code class="docutils literal"><span class="pre">incr</span></code> function is a “curried” function – a function with some parameters pre-specified.</p>
 </div>
 <div class="section" id="functools-partial">
 <h2><code class="docutils literal"><span class="pre">functools.partial</span></code><a class="headerlink" href="#functools-partial" title="Permalink to this headline">¶</a></h2>
@@ -288,6 +292,75 @@
 <p>We can use <code class="docutils literal"><span class="pre">functools.partial</span></code> to <em>partially</em> evaluate the function, giving us a specialized version:</p>
 <p>square = partial(power, exponent=2)
 cube = partial(power, exponent=3)</p>
+</div>
+<div class="section" id="real-world-example">
+<h2>Real world Example<a class="headerlink" href="#real-world-example" title="Permalink to this headline">¶</a></h2>
+<p>I was writing some code to compute the concentration of a contaminant in a river, as it was reduced exponential decay, defined by a half-life:</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Half-life">https://en.wikipedia.org/wiki/Half-life</a></p>
+<p>So I wanted a function that would compute how much the concentration would reduces as a function of time – that is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">scale_factor</span>
+</pre></div>
+</div>
+<p>The trick is, that how much the concentration would be reduced depends on teh half life. And for a given material, and given flow conditions in teh river, that half life is pre-determined as:</p>
+<p>scale = 0.5 ** (time / (half_life))</p>
+<p>So to compute the scale, I could pass that half-life in each time I called the function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">half_life</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="p">(</span><span class="n">half_life</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>But this is a bit klunky – I need to keep passing that half_life around, even though it isn’t changing. And there are places, like <code class="docutils literal"><span class="pre">map</span></code> that require a function that takes only one argument!</p>
+<p>What if I could create a function, on the fly, that had a particular half-life “baked in”?</p>
+<p><em>Enter Currying</em> – Currying is a technique where you reduce the number of parameters that function takes, creating a specialized function with one or more of the original parameters set to a particular value. Here is that technique, applied to the half-life decay problem:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scale_fun</span><span class="p">(</span><span class="n">half_life</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">half_life</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="n">half_life</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">half_life</span>
+</pre></div>
+</div>
+<p><strong>NOTE:</strong> This is simple enough to use a lambda for a bit more compact code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scale_fun</span><span class="p">(</span><span class="n">half_life</span><span class="p">):</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">time</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="p">(</span><span class="n">time</span> <span class="o">/</span> <span class="n">half_life</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="using-a-curried-function">
+<h3>Using a Curried Function<a class="headerlink" href="#using-a-curried-function" title="Permalink to this headline">¶</a></h3>
+<p>Create a scale function with a half-life or one hour:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">scale</span> <span class="o">=</span> <span class="n">get_scale_fun</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="gp">In [9]: </span><span class="p">[</span><span class="n">scale</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]</span>
+<span class="gh">Out[9]: </span><span class="go">[1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]</span>
+</pre></div>
+</div>
+<p>The value is reduced by half every hour.</p>
+<p>Now create one with a half life of 2 hours:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">scale</span> <span class="o">=</span> <span class="n">get_scale_fun</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="gp">In [11]: </span><span class="p">[</span><span class="n">scale</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]</span>
+<span class="gh">Out[11]:</span>
+<span class="go">[1.0,</span>
+<span class="go"> 0.7071067811865476,</span>
+<span class="go"> 0.5,</span>
+<span class="go"> 0.3535533905932738,</span>
+<span class="go"> 0.25,</span>
+<span class="go"> 0.1767766952966369,</span>
+<span class="go"> 0.125]</span>
+</pre></div>
+</div>
+<p>And the value is reduced by half every two hours…</p>
+<p>And it can be used with <code class="docutils literal"><span class="pre">map</span></code>, too:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)))</span>
+<span class="gh">Out[13]:</span>
+<span class="go">[1.0,</span>
+<span class="go"> 0.7071067811865476,</span>
+<span class="go"> 0.5,</span>
+<span class="go"> 0.3535533905932738,</span>
+<span class="go"> 0.25,</span>
+<span class="go"> 0.1767766952966369,</span>
+<span class="go"> 0.125]</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

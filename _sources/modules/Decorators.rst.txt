@@ -148,8 +148,52 @@ that weird `@` symbol:
     def add(a, b):
         return a + b
 
+
 The declarative form (called a decorator expression) is far more common,
 but both have the identical result, and can be used interchangeably.
+
+.. code-block:: python
+
+
+    In [1]: def my_decorator(func):
+       ...:      def inner():
+       ...:          print('running inner')
+       ...:      return inner
+       ...:
+
+
+    In [2]: def other_func():
+       ...:     print('running other_func')
+
+    In [3]: other_func()
+    running other_func
+
+    In [4]: other_func = my_decorator(other_func)
+
+    In [5]: other_func()
+    In [5]: running inner
+
+    In [6]: other_func
+    Out[6]: <function __main__.my_decorator.<locals>.inner>
+
+Which is the same as:
+
+.. code-block:: python
+
+
+    In [7]: @my_decorator
+       ...: def other_func():
+       ...:      print('running other_func')
+       ...:
+
+    In [8]: other_func()
+    running inner
+
+    In [9]: other_func
+    Out[9]: <function __main__.my_decorator.<locals>.inner>
+
+
+Decorators have the power to replace the decorated function with a different one!
 
 
 Callables
@@ -167,6 +211,7 @@ So in fact the definition should be updated as follows:
 
 A decorator is a callable that takes a callable as an argument and
 returns a callable as a return value.
+
 
 An Example
 ----------
@@ -263,6 +308,47 @@ decorator:
     Out[73]: 99999990000000
 
 
+Parameterized Decorators
+------------------------
+
+The purpose of the outer function in the decorator is to receive the function to be decorated, adding
+anything to scope that should be there before the decorated function is called.
+
+The inner function runs the function being decorated, so its inputs are the same as the function being
+decorated.
+
+How do we add more input parameters to our decorator? Like this example from Django:
+
+.. code-block:: python
+
+   @register.filter(name='cut')
+   def cut(value, arg):
+       return value.replace(arg, '')
+
+
+Add yet another function in scope:
+
+.. code-block:: python
+
+    def decorator(arg1, arg2):
+        def real_decorator(function):
+            def wrapper(*args, **kwargs):
+                print("Congratulations. You decorated a function that does something with %s and %s" % (arg1, arg\
+2))
+                function(*args, **kwargs)
+            return wrapper
+        return real_decorator
+
+
+    @decorator("arg1", "arg2")
+    def print_args(*args):
+        for arg in args:
+            print(arg)
+
+
+Last example from: http://scottlobdell.me/2015/04/decorators-arguments-python/
+
+
 Examples from the Standard Library
 ----------------------------------
 
@@ -277,7 +363,6 @@ callables, without the nifty decorator expression:
 
 .. code-block:: python
 
-    # the way we saw last week:
     class C(object):
         @staticmethod
         def add(a, b):
@@ -321,7 +406,7 @@ Remember the property() built in?
 
 Perhaps most commonly, you'll see the ``property()`` builtin used this way.
 
-Two weeks ago we saw this code:
+Previously, we saw this code:
 
 .. code-block:: python
 
@@ -381,3 +466,50 @@ object. So you could actually do this:
         x = x.deleter(_del_x)
 
 But that's getting really ugly!
+
+Import Time Vs. Run Time
+------------------------
+
+Decorators are run at import time:
+
+Examples/decorators/play_with_imports.py
+
+
+Let's make a decorator that finds the best price for a shirt.
+
+Examples/decorators/shirt_price.py
+
+What if my decorated function uses unknown inputs?
+--------------------------------------------------
+
+
+.. code-block:: python
+
+
+   def p_decorate(func):
+       def func_wrapper(*args, **kwargs):
+           return "<p>{0}</p>".format(func(*args, **kwargs))
+       return func_wrapper
+
+
+   @p_decorate
+   def get_fullname(first_name, last_name):
+       return first_name + last_name
+
+Functools Library
+-----------------
+
+Single dispatch:
+ - create many functions that do the same sort of thing, but based on type
+ - decorator determines type, and decides which function is run
+
+https://docs.python.org/3/library/functools.html#functools.singledispatch
+
+Memoize decorator we created earlier is in Functools:
+
+https://docs.python.org/3/library/functools.html#functools.lru_cache
+
+
+Ideas for what to cover from "Fluent Python" by Luciano Ramalho, which I highly recommend.
+
+Another great overview: https://dbader.org/blog/python-decorators

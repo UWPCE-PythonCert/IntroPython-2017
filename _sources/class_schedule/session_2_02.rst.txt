@@ -1,16 +1,34 @@
-#########################################
-Advanced Programming in Python: Session 2
-#########################################
+###############################################
+Session 2: Closures and Currying and Decorators
+###############################################
 
-Pre-class prep
-==============
+* Closures
+
+* Currying
+
+* Decorators
+
+Reading
+=======
+
+:ref:`code_review`
+
+:ref:`closures`
+
+:ref:`decorators`
 
 
-In-class Activities
-===================
-
-
-Post-class Activites
+Supplemental Reading
 ====================
 
-Finish the Exercises
+Closures & Currying
+...................
+
+http://www.programiz.com/python-programming/closure
+
+https://www.clear.rice.edu/comp130/12spring/curry/
+
+Decorators
+..........
+
+*Fluent Python* -- Chapter 7: Function Decorators and Closures

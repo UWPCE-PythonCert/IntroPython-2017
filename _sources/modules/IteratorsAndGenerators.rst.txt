@@ -272,8 +272,6 @@ A simple version of ``range()``
             else:
                 raise StopIteration
 
-:download:`iterator_1.py <../examples/iterators_generators/iterator_1.py>`
-
 
 What does ``for`` do?
 ----------------------
@@ -353,10 +351,10 @@ http://treyhunner.com/2016/12/python-iterator-protocol-how-for-loops-work/
 LAB
 ----
 
-In the ``Examples/iterators`` dir, you will find: ``iterator_1.py``
 
-* Extend (``iterator_1.py`` ) to be more like ``range()`` -- add three input parameters: ``iterator_2(start, stop, step\
-=1)``
+:download:`iterator_1.py <../examples/iterators_generators/iterator_1.py>`
+
+* Extend (``iterator_1.py`` ) to be more like ``range()`` -- add three input parameters: ``iterator_2(start, stop, step=1)``
 
 * What happens if you break from a loop and try to pick it up again:
 
@@ -570,7 +568,7 @@ Write a few generators:
 
 Test code in:
 
-``Examples/iterators/test_generator.py``
+:download:`test_generator.py <../examples/iterators_generators/test_generator.py>`
 
 Descriptions:
 

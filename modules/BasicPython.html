@@ -171,7 +171,7 @@
 <li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
 </ul>
 </li>
@@ -518,16 +518,19 @@ location in memory.</li>
 <span class="gh">Out[15]: </span><span class="go">5  # b is not.</span>
 </pre></div>
 </div>
-<p>Example with an immutable type:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span>
+<p>Example with a mutable type:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1"># a is a mutable list</span>
+
+<span class="gp">In [17]: </span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span>  <span class="c1"># b is now another name for the same list</span>
+
+<span class="gp">In [18]: </span><span class="n">a</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span> <span class="c1"># in-place add more to a</span>
+
+<span class="gp">In [19]: </span><span class="n">b</span>
+<span class="gh">Out[19]: </span><span class="go">[1, 2, 3, 4, 5, 6]</span>
+
+<span class="gp">In [20]: </span><span class="c1"># b is changed --it&#39;s the SAME list.</span>
 </pre></div>
 </div>
-<p>In [16]: a = [1, 2, 3] # a is a mutable list</p>
-<p>In [17]: b = a  # b is now another name for the same list</p>
-<p>In [18]: a += [4, 5, 6] # in-place add more to a</p>
-<p>In [19]: b
-Out[19]: [1, 2, 3, 4, 5, 6]</p>
-<p>In [20]: # b is changed –it’s the SAME list.</p>
 </div>
 <div class="section" id="multiple-assignment">
 <h2>Multiple Assignment<a class="headerlink" href="#multiple-assignment" title="Permalink to this headline">¶</a></h2>
@@ -850,7 +853,7 @@ type of object than you expect)</li>
 or in multiple parts of the program.</p>
 <p>Functions allow you to take code that would otherwise be duplicated potentially many times, and put it in once place. Then all you do is call that code to use it.</p>
 <p>This is often referred to as “DRY” – “Don’t Repeat Yourself”.</p>
-<p>It also helps to keep the code clean and maintainable, as there is only one place to make a change. This in trun helps reduce defects.</p>
+<p>It also helps to keep the code clean and maintainable, as there is only one place to make a change. This in turn helps reduce defects.</p>
 <p>Functions can take and return information.</p>
 <p>The minimal function has at least one statement.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">a_name</span><span class="p">():</span>

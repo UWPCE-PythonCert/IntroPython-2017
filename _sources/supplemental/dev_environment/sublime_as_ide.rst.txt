@@ -63,7 +63,7 @@ On the Mac, you can find it under:
 The preferences file is simply a JSON text file you edit like any other text file.
 
 Create your own set of preferences by opening the user preferences file.
-This will create an empty file,. You can then copy the settings you want
+This will create an empty file. You can then copy the settings you want
 to override from the default set into your personal settings.
 
 Here's a reasonable set of preliminary settings (theme, color scheme and font
@@ -72,7 +72,7 @@ are quite personal, find ones that suit you.):
 .. code-block:: javascript
 
     {
-        "color_scheme": "Packages/User/Cobalt.tmTheme",
+        "color_scheme": "Packages/Color Scheme - Default/Cobalt.tmTheme",
         "theme": "Soda Light 3.sublime-theme",
         // A font face that helps distinguish between 0 (the number) and 'O' (the letter)
         // among other problem characters. You also want a "fixed width font"

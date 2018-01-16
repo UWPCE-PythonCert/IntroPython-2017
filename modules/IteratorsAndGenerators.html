@@ -145,12 +145,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#yield">yield</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#generator-comprehensions">generator comprehensions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#other-uses-for-yield">Other uses for <code class="docutils literal"><span class="pre">yield</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">LAB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">LAB</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
 </ul>
 </li>
@@ -423,7 +423,6 @@ raises the <code class="docutils literal"><span class="pre">StopIteration</span>
             <span class="k">raise</span> <span class="ne">StopIteration</span>
 </pre></div>
 </div>
-<p><a class="reference download internal" href="../_downloads/iterator_1.py" download=""><code class="xref download docutils literal"><span class="pre">iterator_1.py</span></code></a></p>
 </div>
 <div class="section" id="what-does-for-do">
 <h2>What does <code class="docutils literal"><span class="pre">for</span></code> do?<a class="headerlink" href="#what-does-for-do" title="Permalink to this headline">¶</a></h2>
@@ -487,12 +486,9 @@ method that returns an iterator and/or has a <code class="docutils literal"><spa
 </div>
 <div class="section" id="lab">
 <h2>LAB<a class="headerlink" href="#lab" title="Permalink to this headline">¶</a></h2>
-<p>In the <code class="docutils literal"><span class="pre">Examples/iterators</span></code> dir, you will find: <code class="docutils literal"><span class="pre">iterator_1.py</span></code></p>
+<p><a class="reference download internal" href="../_downloads/iterator_1.py" download=""><code class="xref download docutils literal"><span class="pre">iterator_1.py</span></code></a></p>
 <ul class="simple">
-<li>Extend (<code class="docutils literal"><span class="pre">iterator_1.py</span></code> ) to be more like <code class="docutils literal"><span class="pre">range()</span></code> – add three input parameters: <a href="#id1"><span class="problematic" id="id2">``</span></a>iterator_2(start, stop, step</li>
-</ul>
-<p>=1)“</p>
-<ul class="simple">
+<li>Extend (<code class="docutils literal"><span class="pre">iterator_1.py</span></code> ) to be more like <code class="docutils literal"><span class="pre">range()</span></code> – add three input parameters: <code class="docutils literal"><span class="pre">iterator_2(start,</span> <span class="pre">stop,</span> <span class="pre">step=1)</span></code></li>
 <li>What happens if you break from a loop and try to pick it up again:</li>
 </ul>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">it</span> <span class="o">=</span> <span class="n">IterateMe_2</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -650,8 +646,8 @@ so the value can be used after the yield to do the teardown.</p>
 </div>
 <p>Not horrible, but not as clean and simple.</p>
 </div>
-<div class="section" id="id3">
-<h2>LAB<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>LAB<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Write a few generators:</p>
 <ul class="simple">
 <li>Sum of integers</li>
@@ -660,7 +656,7 @@ so the value can be used after the yield to do the teardown.</p>
 <li>Prime numbers</li>
 </ul>
 <p>Test code in:</p>
-<p><code class="docutils literal"><span class="pre">Examples/iterators/test_generator.py</span></code></p>
+<p><a class="reference download internal" href="../_downloads/test_generator.py" download=""><code class="xref download docutils literal"><span class="pre">test_generator.py</span></code></a></p>
 <p>Descriptions:</p>
 <dl class="docutils">
 <dt>Sum of the integers:</dt>

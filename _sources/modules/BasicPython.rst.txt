@@ -342,20 +342,20 @@ Example with an immutable type:
     In [15]: b
     Out[15]: 5  # b is not.
 
-Example with an immutable type:
+Example with a mutable type:
 
 .. code-block:: ipython
 
-In [16]: a = [1, 2, 3] # a is a mutable list
+    In [16]: a = [1, 2, 3] # a is a mutable list
 
-In [17]: b = a  # b is now another name for the same list
+    In [17]: b = a  # b is now another name for the same list
 
-In [18]: a += [4, 5, 6] # in-place add more to a
+    In [18]: a += [4, 5, 6] # in-place add more to a
 
-In [19]: b
-Out[19]: [1, 2, 3, 4, 5, 6]
+    In [19]: b
+    Out[19]: [1, 2, 3, 4, 5, 6]
 
-In [20]: # b is changed --it's the SAME list.
+    In [20]: # b is changed --it's the SAME list.
 
 
 Multiple Assignment
@@ -765,7 +765,7 @@ Functions allow you to take code that would otherwise be duplicated potentially 
 
 This is often referred to as "DRY" -- "Don't Repeat Yourself".
 
-It also helps to keep the code clean and maintainable, as there is only one place to make a change. This in trun helps reduce defects.
+It also helps to keep the code clean and maintainable, as there is only one place to make a change. This in turn helps reduce defects.
 
 Functions can take and return information.
 

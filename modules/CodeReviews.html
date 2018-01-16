@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Session 1: Iterators and Generators, Packaging &mdash; PythonCert 4.0 documentation</title>
+  <title>Code Reviews &mdash; PythonCert 4.0 documentation</title>
   
 
   
@@ -89,7 +89,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../supplemental/index.html">Supplemental Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references/index.html">Resources for Specific Python Topics</a></li>
@@ -137,13 +137,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Session 1: Iterators and Generators, Packaging</li>
+      <li>Code Reviews</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/class_schedule/session_2_01.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/modules/CodeReviews.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -156,58 +156,97 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="session-1-iterators-and-generators-packaging">
-<h1>Session 1: Iterators and Generators, Packaging<a class="headerlink" href="#session-1-iterators-and-generators-packaging" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="code-reviews">
+<span id="code-review"></span><h1>Code Reviews<a class="headerlink" href="#code-reviews" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="why-code-review">
+<h2>Why code review<a class="headerlink" href="#why-code-review" title="Permalink to this headline">¶</a></h2>
+<p>As professional developers, we need to always be learning and improving.</p>
+<p>Code review is one of the best tools for this.</p>
+<p>Code review is like having a personal tutor.</p>
+<p>Code review helps more people to become familiar with the code.</p>
+<p>Code review squishes bugs.</p>
+<div class="section" id="getting-code-ready-for-review">
+<h3>Getting code ready for review<a class="headerlink" href="#getting-code-ready-for-review" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Iterators and iterables</li>
-<li>The iteration protocol</li>
-<li>Iterable classes</li>
-<li>Generators</li>
-<li>Packages and packaging</li>
+<li>Write tests - if there are tests, much easier to make changes on the fly during review</li>
+<li>First draft is messy, refactor before code review</li>
+<li>To get the most out of it, correct all that you can before review</li>
+<li>Expect advice and corrections, and learn from them!</li>
+<li>For this class, messy is okay. :-)</li>
 </ul>
-<div class="section" id="reading">
-<h2>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../modules/IteratorsAndGenerators.html#iterators-generators"><span class="std std-ref">Iterators and Generators</span></a></p>
-<p><a class="reference internal" href="../modules/Packaging.html#packaging"><span class="std std-ref">Packages and Packaging</span></a></p>
 </div>
-<div class="section" id="supplemental-readings">
-<h2>Supplemental Readings<a class="headerlink" href="#supplemental-readings" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="iterators-and-generators">
-<h3>Iterators and Generators<a class="headerlink" href="#iterators-and-generators" title="Permalink to this headline">¶</a></h3>
-<p><em>Fluent Python:</em> Chapter 14: Iterables, Iterators, and Generators</p>
+<div class="section" id="size-of-code">
+<h3>Size of code<a class="headerlink" href="#size-of-code" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Code to review should be between 200 and 400 lines of code</li>
+<li>Code can, and often will, be part of a bigger project</li>
+<li><dl class="first docutils">
+<dt>Code should be modular, so can examine one smallish piece during review:</dt>
+<dd><ul class="first last">
+<li>and be able to explain how it fits in the bigger project</li>
+<li>and be able to explain what the smallish piece is doing in a few sentences</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
-<div class="section" id="packages-and-packaging">
-<h3>Packages and Packaging<a class="headerlink" href="#packages-and-packaging" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://packaging.python.org/">https://packaging.python.org/</a></p>
-<p><a class="reference external" href="http://pythonchb.github.io/PythonTopics/where_to_put_your_code.html">http://pythonchb.github.io/PythonTopics/where_to_put_your_code.html</a></p>
+<div class="section" id="when-why-to-review-code">
+<h3>When/Why to review code<a class="headerlink" href="#when-why-to-review-code" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Think your code is ready for production</li>
+<li>Have code working, but seems there is probably a better way</li>
+<li>Totally Stuck</li>
+<li>Having difficulty making it modular, can help you break large chunks into smaller chunks</li>
+</ul>
 </div>
-<div class="section" id="functools">
-<h3>Functools<a class="headerlink" href="#functools" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://pymotw.com/2/functools/">https://pymotw.com/2/functools/</a></p>
-<p><a class="reference external" href="http://www.pydanny.com/python-partials-are-fun.html">http://www.pydanny.com/python-partials-are-fun.html</a></p>
+<div class="section" id="what-to-look-for">
+<h3>What to look for<a class="headerlink" href="#what-to-look-for" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>readability</li>
+<li>‘pythonic’</li>
+<li>tests</li>
+<li>short functions/methods</li>
+<li>anything not clear</li>
+<li>logic issues</li>
+</ul>
 </div>
-<div class="section" id="closures-currying">
-<h3>Closures &amp; Currying<a class="headerlink" href="#closures-currying" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://www.programiz.com/python-programming/closure">http://www.programiz.com/python-programming/closure</a></p>
-<p><a class="reference external" href="https://www.clear.rice.edu/comp130/12spring/curry/">https://www.clear.rice.edu/comp130/12spring/curry/</a></p>
+<div class="section" id="types-of-code-review">
+<h3>Types of code review<a class="headerlink" href="#types-of-code-review" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>in person</li>
+<li>in-line comments</li>
+<li>using tools <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_tools_for_code_review">https://en.wikipedia.org/wiki/List_of_tools_for_code_review</a></li>
+</ul>
 </div>
-<div class="section" id="multi-methods-in-python">
-<h3>Multi-methods in Python<a class="headerlink" href="#multi-methods-in-python" title="Permalink to this headline">¶</a></h3>
-<p>NOTE: this is using decorators – have we talked about that yet??? Maybe save it for another time…</p>
-<p>GvR on Multi-methods</p>
-<p><a class="reference external" href="http://www.artima.com/weblogs/viewpost.jsp?thread=101605">http://www.artima.com/weblogs/viewpost.jsp?thread=101605</a></p>
+<div class="section" id="when-refactoring-or-doing-code-reviews-in-person">
+<h3>When refactoring or doing code reviews in person<a class="headerlink" href="#when-refactoring-or-doing-code-reviews-in-person" title="Permalink to this headline">¶</a></h3>
+<p>Write a comment explaining what the code is doing and/or questions about the code</p>
+<p>Then, if time permits you can jointly:</p>
+<ul class="simple">
+<li>work on making the code clearer</li>
+<li>run tests after changes</li>
+<li>goal to make it clear enough to get rid of the comment(s) that were added</li>
+</ul>
+<p>Or do this yourself afterwards, as you would for written code reviews</p>
 </div>
+<div class="section" id="how-this-will-work-in-class">
+<h3>How this will work in class<a class="headerlink" href="#how-this-will-work-in-class" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Code can be pretty rough, no judging. :)</li>
+<li>Person having code reviewed will send out link to code (a couple of days out, preferably)</li>
+<li><dl class="first docutils">
+<dt>At the beginning of the code review, reviewee will:</dt>
+<dd><ul class="first last">
+<li>give a quick overview of the bigger picture</li>
+<li>give a quick overview of the specific code we will look at</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>We will go over code together. Everyone is encouraged to make comments and ask questions.</li>
+</ul>
 </div>
-<div class="section" id="in-class-activities">
-<h2>In-class Activities<a class="headerlink" href="#in-class-activities" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="exercises">
-<h3>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="../exercises/lambda_magic.html#exercise-lambda-magic"><span class="std std-ref">lambda and keyword Magic</span></a></p>
-</div>
-</div>
-<div class="section" id="post-class-activites">
-<h2>Post-class Activites<a class="headerlink" href="#post-class-activites" title="Permalink to this headline">¶</a></h2>
-<p>Finish the Exercises</p>
 </div>
 </div>
 

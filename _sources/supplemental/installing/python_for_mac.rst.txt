@@ -38,7 +38,7 @@ latest version, and you really don't want to mess with the system
 installation. So we recommend installing an independent installation from
 ``python.org``:
 
-Download the latest realease of Python (currently 3.6.3) installer from Python.org:
+Download the latest realease of Python (currently 3.6.4) installer from Python.org:
 
 https://www.python.org/downloads/
 

@@ -1,16 +1,40 @@
-#########################################
-Advanced Programming in Python: Session 3
-#########################################
+####################################################
+Session 2: Context Managers, Itertools and functools
+####################################################
 
-Pre-class prep
-==============
+Reading
+=======
+
+:ref:`context_managers`
+
+Supplemental Readings
+=====================
+
+Context Managers
+................
+
+Itertools
+.........
+
+https://pymotw.com/3/itertools/
+
+Functools
+.........
+
+https://pymotw.com/2/functools/
+
+http://www.pydanny.com/python-partials-are-fun.html
 
 
-In-class Activities
-===================
+Multi-methods in Python
+.......................
+
+GvR on Multi-methods
+
+http://www.artima.com/weblogs/viewpost.jsp?thread=101605
 
 
-Post-class Activites
-====================
+Exercises
+=========
 
-Finish the Exercises
+:ref:`exercise_lambda_magic`

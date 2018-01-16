@@ -1,26 +1,40 @@
-#########################################
-Advanced Programming in Python: Session 1
-#########################################
-
-lambda
-
-closures
+##############################################
+Session 1: Iterators and Generators, Packaging
+##############################################
 
 
-Pre-class prep
-==============
+* Iterators and iterables
 
-:ref:`anonymous_functions`
+* The iteration protocol
 
-:ref:`closures`
+* Iterable classes
 
+* Generators
+
+* Packages and packaging
+
+Reading
+=======
+
+:ref:`iterators_generators`
+
+:ref:`packaging`
 
 Supplemental Readings
 =====================
 
-http://www.blog.pythonlibrary.org/2015/10/28/python-101-lambda-basics/
+Iterators and Generators
+........................
 
-https://pythonconquerstheuniverse.wordpress.com/2011/08/29/lambda_tutorial/
+*Fluent Python:* Chapter 14: Iterables, Iterators, and Generators
+
+Packages and Packaging
+......................
+
+https://packaging.python.org/
+
+http://pythonchb.github.io/PythonTopics/where_to_put_your_code.html
+
 
 Functools
 .........
@@ -51,8 +65,9 @@ http://www.artima.com/weblogs/viewpost.jsp?thread=101605
 In-class Activities
 ===================
 
+
 Exercises
----------
+.........
 
 :ref:`exercise_lambda_magic`
 

@@ -30,4 +30,6 @@ Exercises
     trapezoid.rst
     mailroom-oo.rst
     mailroom-fp.rst
+    mailroom-pkg.rst
+
 

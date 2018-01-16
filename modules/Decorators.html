@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
         <link rel="up" title="Modules" href="index.html"/>
-        <link rel="next" title="Closures and function Currying" href="Closures.html"/>
+        <link rel="next" title="Closures and Function Currying" href="Closures.html"/>
         <link rel="prev" title="Context Managers" href="ContextManagers.html"/> 
 
   
@@ -137,11 +137,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#callables">Callables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">An Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nested-decorators">Nested Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameterized-decorators">Parameterized Decorators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples-from-the-standard-library">Examples from the Standard Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#property">property()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-time-vs-run-time">Import Time Vs. Run Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-if-my-decorated-function-uses-unknown-inputs">What if my decorated function uses unknown inputs?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functools-library">Functools Library</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
 </ul>
 </li>
@@ -325,6 +329,42 @@ that weird <cite>&#64;</cite> symbol:</p>
 </div>
 <p>The declarative form (called a decorator expression) is far more common,
 but both have the identical result, and can be used interchangeably.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">my_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>      <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>          <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running inner&#39;</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>      <span class="k">return</span> <span class="n">inner</span>
+   <span class="o">...</span><span class="p">:</span>
+
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
+<span class="n">running</span> <span class="n">other_func</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">other_func</span> <span class="o">=</span> <span class="n">my_decorator</span><span class="p">(</span><span class="n">other_func</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">running</span> <span class="n">inner</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">other_func</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">__main__</span><span class="o">.</span><span class="n">my_decorator</span><span class="o">.&lt;</span><span class="nb">locals</span><span class="o">&gt;.</span><span class="n">inner</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Which is the same as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nd">@my_decorator</span>
+   <span class="o">...</span><span class="p">:</span> <span class="k">def</span> <span class="nf">other_func</span><span class="p">():</span>
+   <span class="o">...</span><span class="p">:</span>      <span class="k">print</span><span class="p">(</span><span class="s1">&#39;running other_func&#39;</span><span class="p">)</span>
+   <span class="o">...</span><span class="p">:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">other_func</span><span class="p">()</span>
+<span class="n">running</span> <span class="n">inner</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">other_func</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">__main__</span><span class="o">.</span><span class="n">my_decorator</span><span class="o">.&lt;</span><span class="nb">locals</span><span class="o">&gt;.</span><span class="n">inner</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Decorators have the power to replace the decorated function with a different one!</p>
 </div>
 <div class="section" id="callables">
 <h2>Callables<a class="headerlink" href="#callables" title="Permalink to this headline">¶</a></h2>
@@ -416,6 +456,47 @@ decorator:</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="parameterized-decorators">
+<h2>Parameterized Decorators<a class="headerlink" href="#parameterized-decorators" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of the outer function in the decorator is to receive the function to be decorated, adding
+anything to scope that should be there before the decorated function is called.</p>
+<p>The inner function runs the function being decorated, so its inputs are the same as the function being
+decorated.</p>
+<p>How do we add more input parameters to our decorator? Like this example from Django:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@register.filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;cut&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cut</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add yet another function in scope:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">real_decorator</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Congratulations. You decorated a function that does something with </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg</span>\
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>2))</dt>
+<dd><blockquote class="first">
+<div><blockquote>
+<div><blockquote>
+<div>function(<a href="#id3"><span class="problematic" id="id4">*</span></a>args, <a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs)</div></blockquote>
+<p>return wrapper</p>
+</div></blockquote>
+<p>return real_decorator</p>
+</div></blockquote>
+<p>&#64;decorator(“arg1”, “arg2”)
+def print_args(<a href="#id7"><span class="problematic" id="id8">*</span></a>args):</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>for arg in args:</dt>
+<dd>print(arg)</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+<p>Last example from: <a class="reference external" href="http://scottlobdell.me/2015/04/decorators-arguments-python/">http://scottlobdell.me/2015/04/decorators-arguments-python/</a></p>
+</div>
 <div class="section" id="examples-from-the-standard-library">
 <h2>Examples from the Standard Library<a class="headerlink" href="#examples-from-the-standard-library" title="Permalink to this headline">¶</a></h2>
 <p>It’s going to be a lot more common for you to use pre-defined decorators than
@@ -423,8 +504,7 @@ for you to be writing your own.</p>
 <p>We’ve seen a few already:</p>
 <p>For example, <code class="docutils literal"><span class="pre">&#64;staticmethod</span></code> and <code class="docutils literal"><span class="pre">&#64;classmethod</span></code> can also be used as simple
 callables, without the nifty decorator expression:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the way we saw last week:</span>
-<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
@@ -458,7 +538,7 @@ rebinds it.</p>
 <h2>property()<a class="headerlink" href="#property" title="Permalink to this headline">¶</a></h2>
 <p>Remember the property() built in?</p>
 <p>Perhaps most commonly, you’ll see the <code class="docutils literal"><span class="pre">property()</span></code> builtin used this way.</p>
-<p>Two weeks ago we saw this code:</p>
+<p>Previously, we saw this code:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="bp">None</span>
@@ -507,6 +587,43 @@ object. So you could actually do this:</p>
 </div>
 <p>But that’s getting really ugly!</p>
 </div>
+<div class="section" id="import-time-vs-run-time">
+<h2>Import Time Vs. Run Time<a class="headerlink" href="#import-time-vs-run-time" title="Permalink to this headline">¶</a></h2>
+<p>Decorators are run at import time:</p>
+<p>Examples/decorators/play_with_imports.py</p>
+<p>Let’s make a decorator that finds the best price for a shirt.</p>
+<p>Examples/decorators/shirt_price.py</p>
+</div>
+<div class="section" id="what-if-my-decorated-function-uses-unknown-inputs">
+<h2>What if my decorated function uses unknown inputs?<a class="headerlink" href="#what-if-my-decorated-function-uses-unknown-inputs" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">p_decorate</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;p&gt;{0}&lt;/p&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">func_wrapper</span>
+
+
+<span class="nd">@p_decorate</span>
+<span class="k">def</span> <span class="nf">get_fullname</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">first_name</span> <span class="o">+</span> <span class="n">last_name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functools-library">
+<h2>Functools Library<a class="headerlink" href="#functools-library" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Single dispatch:</dt>
+<dd><ul class="first last simple">
+<li>create many functions that do the same sort of thing, but based on type</li>
+<li>decorator determines type, and decides which function is run</li>
+</ul>
+</dd>
+</dl>
+<p><a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.singledispatch">https://docs.python.org/3/library/functools.html#functools.singledispatch</a></p>
+<p>Memoize decorator we created earlier is in Functools:</p>
+<p><a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.lru_cache">https://docs.python.org/3/library/functools.html#functools.lru_cache</a></p>
+<p>Ideas for what to cover from “Fluent Python” by Luciano Ramalho, which I highly recommend.</p>
+<p>Another great overview: <a class="reference external" href="https://dbader.org/blog/python-decorators">https://dbader.org/blog/python-decorators</a></p>
+</div>
 </div>
 
 
@@ -519,7 +636,7 @@ object. So you could actually do this:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Closures.html" class="btn btn-neutral float-right" title="Closures and function Currying" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Closures.html" class="btn btn-neutral float-right" title="Closures and Function Currying" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ContextManagers.html" class="btn btn-neutral" title="Context Managers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

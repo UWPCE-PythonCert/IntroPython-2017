@@ -4,399 +4,8 @@
 Packages and Packaging
 ######################
 
-Modules and Packages
-====================
-
-A module is a file (``something.py``) with python code in it
-
-A package is a directory with an ``__init__.py``  file in it
-
-And usually other modules, packages, etc...
-
-::
-
-    my_package
-        __init__.py
-        module_a.py
-        module_b.py
-
-
-.. code-block:: python
-
-    import my_package
-
-
-runs the code ``my_package/__init__.py`` (if there is any)
-
-
-The module search path
-----------------------
-
-The interpreter keeps a list of all the places that it looks for modules or packages when you do an import:
-
-.. code-block:: python
-
-    import sys
-    for p in sys.path:
-        print p
-
-you can manipulate that list to add or remove paths to let python find modules on a new place.
-
-And every module has a ``__file__`` name that points to the path it lives in. This lets you add paths relative to where you are, etc.
-
-*NOTE* it's usually better to use setuptools' "develop" mode instead -- see below.
-
-Reloading
----------
-
-Once loaded, a module stays loaded.
-
-If you import it again (usually in another module) it will simply load up teh versions already there -- rather than re-running the code.
-
-(demo)
-
-And you can access all the already loaded modules from ``sys.modules``. sys.modules is a dict with the module names as the keys, and the module objects as the values
-
-.. code-block:: ipython
-
-  In [4]: import sys
-
-  In [5]: sys.modules.keys()
-  Out[5]: dict_keys(['builtins', 'sys', '_frozen_importlib', '_imp', '_warnings', '_thread', '_weakref', '_frozen_importlib_external', '_io', 'marshal', 'posix', 'zipimport', 'encodings', 'codecs', '_codecs'
-
-A lot there!
-
-There's no reason too -- but you coud import an already imported module like so:
-
-.. code-block:: ipython
-
-  In [10]: math = sys.modules['math']
-
-  In [11]: math.sin(math.pi)
-  Out[11]: 1.2246467991473532e-16
-
-  In [12]: math.sin(math.pi / 2)
-  Out[12]: 1.0
-
-
-Distributions
--------------
-
-So far in this class, we've used the Python from python.org. It works great, and supports a lots of packages via pip.
-
-But there are also a few "curated" distributions. These provide python and a package management system for hard-to-build packages.
-
-Widely used by the scipy community
-(lots of hard to build stuff that needs to work together...)
-
-  * Anaconda (https://store.continuum.io/cshop/anaconda/)
-  * Canopy (https://www.enthought.com/products/canopy/)
-  * ActivePython (http://www.activestate.com/activepython)
-
-Anaconda has seen a LOT of growth recently -- it's based on the open-source conda packaging system, and provides both a commercial curated set of packages, and a community-developed collection of packages known as conda-forge:
-
-https://conda-forge.org/
-
-If you are doing data science or scientific development -- I recommend you take a look at Anaconda, conda and conda-forge.
-
-
-Installing Packages
--------------------
-
-Every Python installation has its own stdlib and ``site-packages`` folder
-
-``site-packages``  is the default place for third-party packages
-
-Installing Packages
--------------------
-
-    **From source**
-
-* (``setup.py install`` )
-
-* With the system installer (apt-get, yum, etc...)
-
-
-    **From binaries:**
-
-
-* Binary wheels -- (More and more of those available)
-
-* ``pip`` should find appropriate binary wheels if they are there.
-
-A bit of history:
------------------
-
-In the beginning, there was the ``distutils``:
-
-But ``distutils``  is missing some key features:
-
-* package versioning
-* package discovery
-* auto-install
-
-- And then came ``PyPi``
-
-- And then came ``setuptools`` (with easy_install)
-
-- But that wasn't well maintained...
-
-- Then there was ``distribute/pip``
-
-- Which has now been merged back into ``setuptools``
-
-Now it's pretty stable: pip+setuptools+wheel: use them.
-
-
-Installing Packages
--------------------
-
-Actually, it's still a bit of a mess
-
-But getting better, and the mess is *almost* cleaned up.
-
-
-Current State of Packaging
---------------------------
-
-To build packages: distutils
-
-  * http://docs.python.org/3/distutils/
-
-For more features: setuptools
-
-  * https://pythonhosted.org/setuptools/
-
-(note that setuptools still can also install -- but don't let it)
-
-To install packages: pip
-
-  * https://pip.pypa.io/en/latest/installing.html
-
-For binary packages: wheels
-
-  * http://www.python.org/dev/peps/pep-0427/
-
-(installable by pip)
-
-
-Compiled Packages
------------------
-
-Biggest issue is with compiled extensions:
-
-  * (C/C++, Fortran, etc.)
-
-  * You need the right compiler set up
-
-Dependencies:
-
-  * Here's were it gets really ugly
-
-  * Particularly on Windows
-
-**Linux**
-
-Pretty straightforward:
-
-1. Is there a system package?
-
-  * use it (apt-get install the_package)
-
-2. Try ``pip install``: it may just work!
-
-3. Install the dependencies, build from source::
-
-    python setup.py build
-
-    python setup.py install
-
-(may need "something-devel" packages)
-
-
-**Windows**
-
-Sometimes simpler:
-
-1) A lot of packages have Windows wheels now.
-
-  - often installable with pip (pip will install a wheel for you if it exists)
-  - Usually for python.org builds
-  - Excellent source: http://www.lfd.uci.edu/~gohlke/pythonlibs/
-  - Make sure you get 32 or 64 bit consistent
-
-2) But if no binaries:
-
-  - Hope the dependencies are available!
-  - Set up the compiler
-
-MS now has a compiler just for python2!
-
-http://www.microsoft.com/en-us/download/details.aspx?id=44266
-
-.. NOTE: add info on Windows compiler for py3
-
-**OS-X**
-
-Lots of Python versions:
-  - Apple's built-in (different for each version of OS)
-  - python.org builds
-  - 32+64 bit Intel (and even PPC still kicking around)
-  - Macports
-  - Homebrew
-
-Binary wheels are pretty much compatible between them -- yeah!
-
-
-**OS-X**
-
-If you have to build it yourself
-
-Xcode compiler (the right version)
-
-  - Version 3.* for 32 bit PPC+Intel
-
-  - Version > 4.* for 32+64 bit Intel
-
-(make sure to get the SDKs for older versions)
-
-If extra dependencies:
-
-  - macports or homebrew often easiest way to build them
-
-
-Final Recommendations
----------------------
-
-First try: ``pip install``
-
-If that doesn't work:
-
-Read the docs of the package you want to install
-
-Do what they say
-
-(Or use conda!)
-
-
-virtualenv
-----------
-
-``virtualenv`` is a tool to create isolated Python environments.
-
-Very useful for developing multiple apps
-
-Or deploying more than one app on one system
-
-http://www.virtualenv.org/en/latest/index.html}
-
-Remember the notes from the beginning of class? :ref:`virtualenv_section`
-
-**NOTE:** conda also provides a similar isolated environment system.
-
-
-Building Your Own Package
-=========================
-
-The very basics of what you need to know to make your own package.
-
-Why Build a Package?
---------------------
-
-There are a bunch of nifty tools that help you build, install and
-distribute packages.
-
-Using a well structured, standard layout for your package makes it
-easy to use those tools.
-
-Even if you never want to give anyone else your code, a well
-structured package eases development.
-
-
-What is a Package?
---------------------
-
-**A collection of modules**
-
-* ... and the documentation
-
-* ... and the tests
-
-* ... and any top-level scripts
-
-* ... and any data files required
-
-* ... and a way to build and install it...
-
-
-Python packaging tools:
-------------------------
-
-The ``distutils``::
-
-    from distutils.core import setup
-
-Getting klunky, hard to extend, maybe destined for deprecation...
-
-But it gets the job done -- and it does it well for the simple cases.
-
-``setuptools``: for extra features
-
-``pip``: for installing packages
-
-``wheel``: for binary distributions
-
-These last three are pretty much the standard now -- very well maintained by:
-
-"The Python Packaging Authority" -- PaPA
-
-https://www.pypa.io/en/latest/
-
-Where do I go to figure this out?
----------------------------------
-
-This is a really good guide:
-
-Python Packaging User Guide:
-
-https://packaging.python.org/
-
-and a more detailed tutorial:
-
-http://python-packaging.readthedocs.io/en/latest/
-
-**Follow one of them**
-
-There is a sample project here:
-
-https://github.com/pypa/sampleproject
-
-(this has all the complexity you might need...)
-
-You can use this as a template for your own packages.
-
-Here is an opinionated update -- a little more fancy, but some good ideas:
-
-https://blog.ionelmc.ro/2014/05/25/python-packaging/
-
-Rather than doing it by hand, you can use the nifty "cookie cutter" project:
-
-https://cookiecutter.readthedocs.io/en/latest/
-
-And there are a few templates that can be used with that.
-
-The core template written by the author:
-
-https://github.com/audreyr/cookiecutter-pypackage
-
-And one written by the author of the opinionated blog post above:
-
-https://github.com/ionelmc/cookiecutter-pylibrary
-
-Either are great starting points.
-
 Packages, modules, imports, oh my!
-----------------------------------
+==================================
 
 Before we get started on making your own package -- let's remind
 ourselves about packages and modules, and importing....
@@ -487,7 +96,7 @@ means: "import all the names in the module"
 You really don't want to do that! It is an old pattern that is now an anti-pattern
 
 But if you do encounter it, it doesn't actually import all the names --
-it imports the ones defined in teh module's ``_all__`` variable.
+it imports the ones defined in the module's ``_all__`` variable.
 
 ``__all__`` is a list of names that you want import * to import -- so
 the module author can control it, and not expect all sorts of build ins
@@ -511,7 +120,7 @@ This gets confusing! There is a good discussion on Stack Overflow here:
 
 http://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time
 
-Relative imports allow you to refer to other modules relative to where the existing module is in the package hierachy, rather than in the while thing. For instance, with the following pacakge structure::
+Relative imports allow you to refer to other modules relative to where the existing module is in the package hierarchy, rather than in the while thing. For instance, with the following package structure::
 
   package/
       __init__.py
@@ -550,7 +159,7 @@ Note that you have to use the "from" form when using relative imports.
 
 * you can not use relative imports from the interpreter
 
-* you can not use reltaive imports from a top-level script
+* you can not use relative imports from a top-level script
 
 
 The alternative is to always use absolute imports:
@@ -643,9 +252,379 @@ Implications of module import process:
 * If you change the code in a module while the program is running -- the
   change will **not** show up, even if re-imported.
 
-  - That's what ``reload()`` is for.
+  - That's what ``imp.reload()`` is for.
+
+The module search path
+----------------------
+
+The interpreter keeps a list of all the places that it looks for modules or packages when you do an import:
+
+.. code-block:: python
+
+    import sys
+    for p in sys.path:
+        print p
+
+you can manipulate that list to add or remove paths to let python find modules on a new place.
+
+And every module has a ``__file__`` name that points to the path it lives in. This lets you add paths relative to where you are, etc.
+
+*NOTE* it's usually better to use setuptools' "develop" mode instead -- see below.
+
+Reloading
+---------
+
+Once loaded, a module stays loaded.
+
+If you import it again (usually in another module) it will simply load up teh versions already there -- rather than re-running the code.
+
+And you can access all the already loaded modules from ``sys.modules``. sys.modules is a dict with the module names as the keys, and the module objects as the values
+
+.. code-block:: ipython
+
+  In [4]: import sys
+
+  In [5]: sys.modules.keys()
+  Out[5]: dict_keys(['builtins', 'sys', '_frozen_importlib', '_imp', '_warnings', '_thread', '_weakref', '_frozen_importlib_external', '_io', 'marshal', 'posix', 'zipimport', 'encodings', 'codecs', '_codecs'
+
+A lot there!
+
+There's no reason too -- but you could import an already imported module like so:
+
+.. code-block:: ipython
+
+  In [10]: math = sys.modules['math']
+
+  In [11]: math.sin(math.pi)
+  Out[11]: 1.2246467991473532e-16
+
+  In [12]: math.sin(math.pi / 2)
+  Out[12]: 1.0
 
 
+Python Distributions
+====================
+
+So far in this class, we've used the Python from python.org. It works great, and supports a lots of packages via pip.
+
+But there are also a few "curated" distributions. These provide python and a package management system for hard-to-build packages.
+
+Widely used by the scipy community
+(lots of hard to build stuff that needs to work together...)
+
+  * Anaconda (https://store.continuum.io/cshop/anaconda/)
+  * Canopy (https://www.enthought.com/products/canopy/)
+  * ActivePython (http://www.activestate.com/activepython)
+
+Anaconda has seen a LOT of growth recently -- it's based on the open-source conda packaging system, and provides both a commercial curated set of packages, and a community-developed collection of packages known as conda-forge:
+
+https://conda-forge.org/
+
+If you are doing data science or scientific development -- I recommend you take a look at Anaconda, conda and conda-forge.
+
+
+Installing Packages
+===================
+
+Every Python installation has its own stdlib and ``site-packages`` folder
+
+``site-packages``  is the default place for third-party packages
+
+
+From source
+-----------
+
+* (``setup.py install`` )
+
+* With the system installer (apt-get, yum, etc...)
+
+
+From binaries
+-------------
+
+* Binary wheels -- (More and more of those available)
+
+* ``pip`` should find appropriate binary wheels if they are there.
+
+
+A bit of history:
+-----------------
+
+In the beginning, there was the ``distutils``:
+
+But ``distutils``  is missing some key features:
+
+* package versioning
+* package discovery
+* auto-install
+
+- And then came ``PyPi``
+
+- And then came ``setuptools`` (with easy_install)
+
+- But that wasn't well maintained...
+
+- Then there was ``distribute/pip``
+
+- Which has now been merged back into ``setuptools``
+
+Now it's pretty stable: pip+setuptools+wheel: use them.
+
+**warning** -- setuptools still provides easy_install, but it hss mostly been deprecated, so you really want to use pip. And sometimes setuptools will invoke it for you under the hood by accident :-(
+
+
+Installing Packages
+-------------------
+
+Actually, it's still a bit of a mess
+
+But getting better, and the mess is *almost* cleaned up.
+
+
+Current State of Packaging
+--------------------------
+
+To build packages: setuptools
+.............................
+
+  * https://pythonhosted.org/setuptools/
+
+setuptools provides extensions to the build-in distutils:
+
+https://docs.python.org/3/library/distutils.html
+
+But there are a couple of those extensions that you really do need, so most folks use setuptools for everything. In fact, pip itself requires setuptools.
+
+
+To install packages: pip
+........................
+
+  * https://pip.pypa.io/en/latest/installing.html
+
+For binary packages: wheels
+...........................
+
+  * http://www.python.org/dev/peps/pep-0427/
+
+(installable by pip)
+
+
+Compiled Packages
+-----------------
+
+Biggest issue is with compiled extensions:
+
+  * (C/C++, Fortran, etc.)
+
+  * You need the right compiler set up
+
+Dependencies:
+
+  * Here's were it gets really ugly
+
+  * Particularly on Windows
+
+Linux
+.....
+
+Pretty straightforward:
+
+1. Is there a system package?
+
+  * use it (apt-get install the_package)
+
+2. Try ``pip install``: it may just work!
+
+3. Install the dependencies, build from source::
+
+    python setup.py build
+
+    python setup.py install
+
+(may need "something-devel" packages)
+
+
+Windows
+.......
+
+Sometimes simpler:
+
+1) A lot of packages have Windows wheels now.
+
+  - often installable with pip (pip will install a wheel for you if it exists)
+  - Usually for python.org builds
+  - Excellent source: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+  - Make sure you get 32 or 64 bit consistent
+
+2) But if no binaries:
+
+  - Hope the dependencies are available!
+  - Set up the compiler
+
+MS now has a compiler just for python2!
+
+http://www.microsoft.com/en-us/download/details.aspx?id=44266
+
+.. NOTE: add info on Windows compiler for py3
+
+OS-X
+....
+
+Lots of Python versions:
+  - Apple's built-in (different for each version of OS)
+  - python.org builds
+  - 32+64 bit Intel (and even PPC still kicking around)
+  - Macports
+  - Homebrew
+
+Binary wheels are pretty much compatible between them -- yeah!
+
+If you have to build it yourself
+
+Xcode compiler (the right version)
+
+  - Version 3.* for 32 bit PPC+Intel
+
+  - Version > 4.* for 32+64 bit Intel
+
+(make sure to get the SDKs for older versions)
+
+If extra dependencies:
+
+  - macports or homebrew often easiest way to build them
+
+
+Final Recommendations
+---------------------
+
+First try: ``pip install``
+
+If that doesn't work:
+
+Read the docs of the package you want to install
+
+Do what they say
+
+(Or use conda!)
+
+
+virtualenv
+----------
+
+``virtualenv`` is a tool to create isolated Python environments.
+
+Very useful for developing multiple apps
+
+Or deploying more than one app on one system
+
+http://www.virtualenv.org/en/latest/index.html}
+
+Remember the notes from the beginning of class? :ref:`virtualenv_section`
+
+**NOTE:** conda also provides a similar isolated environment system.
+
+
+Building Your Own Package
+=========================
+
+The very basics of what you need to know to make your own package.
+
+
+Why Build a Package?
+--------------------
+
+There are a bunch of nifty tools that help you build, install and
+distribute packages.
+
+Using a well structured, standard layout for your package makes it
+easy to use those tools.
+
+Even if you never want to give anyone else your code, a well
+structured package eases development.
+
+
+What is a Package?
+--------------------
+
+**A collection of modules**
+
+* ... and the documentation
+
+* ... and the tests
+
+* ... and any top-level scripts
+
+* ... and any data files required
+
+* ... and a way to build and install it...
+
+
+Python packaging tools:
+------------------------
+
+The ``distutils``::
+
+    from distutils.core import setup
+
+Getting klunky, hard to extend, maybe destined for deprecation...
+
+But it gets the job done -- and it does it well for the simple cases.
+
+``setuptools``: for extra features
+
+``pip``: for installing packages
+
+``wheel``: for binary distributions
+
+These last three are pretty much the standard now -- very well maintained by:
+
+"The Python Packaging Authority" -- PaPA
+
+https://www.pypa.io/en/latest/
+
+
+Where do I go to figure this out?
+---------------------------------
+
+This is a really good guide:
+
+Python Packaging User Guide:
+
+https://packaging.python.org/
+
+and a more detailed tutorial:
+
+http://python-packaging.readthedocs.io/en/latest/
+
+**Follow one of them**
+
+There is a sample project here:
+
+https://github.com/pypa/sampleproject
+
+(this has all the complexity you might need...)
+
+You can use this as a template for your own packages.
+
+Here is an opinionated update -- a little more fancy, but some good ideas:
+
+https://blog.ionelmc.ro/2014/05/25/python-packaging/
+
+Rather than doing it by hand, you can use the nifty "cookie cutter" project:
+
+https://cookiecutter.readthedocs.io/en/latest/
+
+And there are a few templates that can be used with that.
+
+The core template written by the author:
+
+https://github.com/audreyr/cookiecutter-pypackage
+
+And one written by the author of the opinionated blog post above:
+
+https://github.com/ionelmc/cookiecutter-pylibrary
+
+Either are great starting points.
 
 Basic Package Structure:
 ------------------------
@@ -670,8 +649,6 @@ Basic Package Structure:
                   test_module2.py
 
 
-.. nextslide::
-
 ``CHANGES.txt``: log of changes with each release
 
 ``LICENSE.txt``: text of the license you choose (do choose one!)
@@ -684,8 +661,6 @@ Basic Package Structure:
 
 ``setup.py``: distutils script for building/installing package.
 
-
-.. nextslide::
 
 ``bin/``: This is where you put top-level scripts
 
@@ -705,10 +680,11 @@ Put it inside the package -- supports ::
 
 Or keep it at the top level.
 
+
 The ``setup.py`` File
 ----------------------
 
-Your ``setup.py`` file is what describes your package, and tells the distutils how to pacakge, build and install it
+Your ``setup.py`` file is what describes your package, and tells the distutils how to package, build and install it
 
 It is python code, so you can add anything custom you need to it
 
@@ -718,9 +694,7 @@ But in the simple case, it is essentially declarative.
 ``http://docs.python.org/3/distutils/``
 
 
-.. nextslide::
-
-::
+.. code-block:: python
 
   from setuptools import setup
 
@@ -744,7 +718,7 @@ But in the simple case, it is essentially declarative.
 ``setup.cfg``
 --------------
 
-``setup.cfg`` provides a way to give the end user some ability to customise the install
+``setup.cfg`` provides a way to give the end user some ability to customize the install
 
 It's an ``ini`` style file::
 
@@ -762,9 +736,9 @@ Note that an option spelled ``--foo-bar`` on the command-line is spelled f``foo_
 
 
 Running ``setup.py``
----------------------
+--------------------
 
-With a ``setup.py`` script defined, the distutils can do a lot:
+With a ``setup.py`` script defined, setuptools can do a lot:
 
 * builds a source distribution (defaults to tar file)::
 
@@ -778,9 +752,7 @@ With a ``setup.py`` script defined, the distutils can do a lot:
 
 (other, more obscure ones, too....)
 
-But you probably want to use wheel for binary disributions now.
-
-.. nextslide::
+But you probably want to use wheel for binary distributions now.
 
 * build from source::
 
@@ -789,6 +761,15 @@ But you probably want to use wheel for binary disributions now.
 * and install::
 
     python setup.py install
+
+* install in "develop" or "editable" mode::
+
+    python setup.py develop
+
+or::
+
+   pip install .
+
 
 setuptools
 -----------
@@ -817,15 +798,11 @@ Wheels are a new binary format for packages.
 http://wheel.readthedocs.org/en/latest/
 
 Pretty simple, essentially an zip archive of all the stuff that gets put
-in
-
-``site-packages``
+in ``site-packages``.
 
 Can be just pure python or binary with compiled extensions
 
 Compatible with virtualenv.
-
-.. nextslide::
 
 Building a wheel::
 
@@ -839,9 +816,22 @@ Create a set of wheels (a wheelhouse)::
   # Install from cached wheels
   pip install --use-wheel --no-index --find-links=/tmp/wheelhouse pyramid
 
-``pip install packagename`` will find wheels for Windows and OS-X.
+``pip install packagename`` will find wheels for Windows and OS-X and "manylinux"
 
 ``pip install --no-use-wheel`` avoids that.
+
+manylinux
+---------
+
+There are a lot of Linux distributions out there. So for a long time, there were not easily available binary wheels for Linux -- how could you define an standard with all the Linux distros out there?
+
+Enter "manylinux" -- no one thinks you can support all Linux distros, but it was found that you could support many of the common ones, by building on a older version, and restricting system libraries. THis approach worked well for Canopy and conda, so PyPi adopted a similar strategy with manylinux:
+
+https://github.com/pypa/manylinux
+
+So there are now binary wheels for Linux on PyPi.
+
+The core scipy stack is a great example -- you can now pip install numpy on all three systems easily with pip.
 
 PyPi
 -----
@@ -861,17 +851,21 @@ To upload your package to PyPi::
 
 http://docs.python.org/2/distutils/packageindex.html
 
+NOTE: only do this if you really want to share your package with the world!
+
 
 Under Development
 ------------------
 
 Develop mode is *really* *really* nice::
 
-  python setup.py develop
+  $ python setup.py develop
 
 or::
 
-  pip install -e ./
+  $ pip install -e ./
+
+(the e stands for "editable" -- it is the same thing)
 
 It puts links into the python installation to your code, so that your package is installed, but any changes will immediately take effect.
 
@@ -899,15 +893,6 @@ So that you (or your users) can:
 
 Do do this, you need to add a ``test_suite`` stanza in setup.py.
 
-**nose**
-
-.. code-block:: python
-
-  setup (
-      # ...
-      test_suite = 'nose.collector'
-  )
-
 **pytest**
 
 .. code-block:: python
@@ -925,6 +910,11 @@ And create an alias into setup.cfg file::
   test=pytest
 
 https://pytest.org/latest/goodpractices.html#integrating-with-setuptools-python-setup-py-test-pytest-runner
+
+This may not be required, as pytest will also let you run the tests installed with a package with::
+
+    pytest --pyargs package_name
+
 
 **unittest**
 
@@ -955,6 +945,8 @@ To return the version string -- something like:
 
 "1.2.3"
 
+Using ``__version__`` is not a requirement, but it is a very commonly used convention -- *use it*!
+
 But you also need to specify it in the ``setup.py``:
 
 .. code-block:: python
@@ -967,6 +959,7 @@ But you also need to specify it in the ``setup.py``:
 Not Good.
 
 My solution:
+............
 
 Put the version in the package __init__
 
@@ -976,7 +969,7 @@ In the setup.py, you could import the package to get the version number
 ... but it not a safe practice to import you package when installing
 it (or building it, or...)
 
-So: read the __version__ string yourself:
+So: read the ``__version__`` string yourself with code like:
 
 .. code-block:: python
 
@@ -993,10 +986,11 @@ So: read the __version__ string yourself:
 
 **Alternative:**
 
-You can have a script that automatically updates the version number in whatever
-places it needs to. For instance:
+You can have a script that automatically updates the version number in whatever places it needs to. For instance:
 
 https://pypi.python.org/pypi/bumpversion
+
+Though I think it's better to have the version set in the code itself.
 
 
 Semantic Versioning
@@ -1045,19 +1039,18 @@ For anything but a single-file script (and maybe even then):
 
 2. Write a ``setup.py``
 
-3. ``python -m pip install -e .``
+3. ``pip install -e .``
 
 4. Put some tests in ``package/test``
 
-5. ``py.test`` or ``nosetests``
+5. ``pytest`` in the test dir, or ``pytest --pyargs package_name``
 
 or use "Cookie Cutter":
 
 https://cookiecutter.readthedocs.io/en/latest/
 
-
-LAB
----
+Creating a Small Example Package
+--------------------------------
 
 * Create a small package
 
@@ -1071,7 +1064,11 @@ LAB
 
 * If you are ready -- it can be the start of your project package.
 
-(otherwise you may start with the silly code in ``Examples/capitalize``)
+Start with the silly code in:
+
+:download:`capitalize.zip <../examples/packaging/capitalize.zip>`
+
+Or go straight to making a package our of mailroom.
 
 
 
