@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-import ffmailroom as mr
-import os.path
-
+from mailroom.donor import Donor
+from mailroom.transactions import Transactions
 
 def test_donor_init():
     name = "Ada Lovelace"
     amt = 345
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     assert d.name == name
     assert d.donations == [345]
@@ -15,7 +14,7 @@ def test_donor_init():
 def test_name():
     name = "Ada Lovelace"
     amt = 345
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     assert d.name == name
 
@@ -23,9 +22,9 @@ def test_name():
 def test_create_transactions():
     name = "Ada Lovelace"
     amt = 345
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     assert t.get_donor(name).name == name
 
@@ -33,13 +32,13 @@ def test_create_transactions():
 def test_add_donors_to_transactions():
     name = "Ada Lovelace"
     amt = 345
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     name2 = "Marge Simpson"
     amt2 = 500
-    d2 = mr.Donor(name2)
+    d2 = Donor(name2)
     d2.add_donation(amt2)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     t.add_donor(name2, amt2)
     assert t.get_donor(name).name == name
@@ -52,7 +51,7 @@ def test_add_donors_to_transactions():
 def test_add_donation():
     name = "Ada Lovelace"
     amt = 345
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     amt2 = 400
     d.add_donation(amt2)
@@ -65,13 +64,13 @@ def test_add_donation():
 def test_new_donor():
     name = "Ada Lovelace"
     amt = 345
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     name2 = "Marge Simpson"
     amt2 = 500
-    d2 = mr.Donor(name2)
+    d2 = Donor(name2)
     d2.add_donation(amt2)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     assert t.get_donor(name2) is None
     t.add_donor(name2, amt2)
@@ -82,13 +81,13 @@ def test_new_donor():
 def test_list_names():
     name = "Ada Lovelace"
     amt = 345
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     name2 = "Marge Simpson"
     amt2 = 500
-    d2 = mr.Donor(name2)
+    d2 = Donor(name2)
     d2.add_donation(amt2)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     t.add_donor(name2, amt2)
     result = 'Donor Names:\n' + name + '\n' + name2
@@ -98,12 +97,12 @@ def test_list_names():
 
 def test_generate_report_data():
     name, amt = ("Ada Lovelace", 345)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     name2, amt2, amt3 = ("Marge Simpson", 500, 1000)
-    d2 = mr.Donor(name2)
+    d2 = Donor(name2)
     d2.add_donation(amt2)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     t.add_donor(name2, amt2)
     t.add_donor(name2, amt3)
@@ -114,7 +113,7 @@ def test_generate_report_data():
 
 
 def test_setup_table():
-    t = mr.Transactions()
+    t = Transactions()
     returnval = t.setup_table()
     assert returnval.startswith("Donor Name")
     assert "Total Given" in returnval
@@ -124,12 +123,12 @@ def test_setup_table():
 
 def test_setup_body():
     name, amt = ("Ada Lovelace", 345)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     name2, amt2, amt3 = ("Marge Simpson", 500, 1000)
-    d2 = mr.Donor(name2)
+    d2 = Donor(name2)
     d2.add_donation(amt2)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     t.add_donor(name2, amt2)
     t.add_donor(name2, amt3)
@@ -142,14 +141,14 @@ def test_setup_body():
 
 def test_letter_string():
     name, amt = ("Ada Lovelace", 345)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     result = "Thank you, Ada Lovelace, for your generosity and recent gift of $345.00."
     assert d.generate_letter() == result
 
 def test_mult_donations():
     name, amt, amt2, amt3 = ("Ada Lovelace", 350, 700, 100)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     d.add_donation(amt2)
     d.add_donation(amt3)
@@ -158,7 +157,7 @@ def test_mult_donations():
 
 def test_filter_donations():
     name, amt, amt2, amt3 = ("Ada Lovelace", 350, 700, 100)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     d.add_donation(amt2)
     d.add_donation(amt3)
@@ -167,7 +166,7 @@ def test_filter_donations():
 
 def test_filter_correct_donations():
     name, amt, amt2, amt3 = ("Ada Lovelace", 350, 700, 100)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     d.add_donation(amt2)
     d.add_donation(amt3)
@@ -176,11 +175,11 @@ def test_filter_correct_donations():
 
 def test_total_donations():
     name, amt, amt2, amt3 = ("Ada Lovelace", 350, 700, 100)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     d.add_donation(amt2)
     d.add_donation(amt3)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     t.add_donor(name, amt2)
     t.add_donor(name, amt3)
@@ -188,12 +187,12 @@ def test_total_donations():
 
 def test_challenge():
     name, amt = ("Ada Lovelace", 345)
-    d = mr.Donor(name)
+    d = Donor(name)
     d.add_donation(amt)
     name2, amt2, amt3 = ("Marge Simpson", 500, 1000)
-    d2 = mr.Donor(name2)
+    d2 = Donor(name2)
     d2.add_donation(amt2)
-    t = mr.Transactions()
+    t = Transactions()
     t.add_donor(name, amt)
     t.add_donor(name2, amt2)
     t.add_donor(name2, amt3)
