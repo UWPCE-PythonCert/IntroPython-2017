@@ -110,106 +110,153 @@ Fluent Python
 Week 1: Jan 9 -- Iterators and Generators, Packaging
 ....................................................
 
-:ref:`iterators_generators`
+:ref:`session_2_01`
 
-:ref:`packaging`
 
-Homework: make an proper package of mailroom: :ref:`exercise_mailroom_package`
+.. :ref:`iterators_generators`
+
+.. :ref:`packaging`
+
+.. Homework: make an proper package of mailroom:
+.. :ref:`exercise_mailroom_package`
 
 Week 2: Jan 16
 ..............
 
-:ref:`decorators`
+:ref:`session_2_02`
 
-:ref:`context_managers`
+:ref:`notes_session12`
+
+.. * Code Reviews
+
+.. * Closures and Currying
+
+.. :ref:`decorators`
+
 
 Week 3: Jan 23
 ..............
 
-* Closures and Currying
+:ref:`session_2_03`
 
-* Itertools
+:ref:`notes_session13`
 
-* Functools
+.. :ref:`context_managers`
 
-.. * Multimethods
+.. * Itertools
 
-Week 4: Jan 30
-..............
+.. * Functools
 
-Metaprogramming
 
-* Metprogramming tools
+Week 4: Jan 30 -- Advanced Testing
+..................................
 
-* Class Decorators
+:ref:`session_2_04`
 
-* Metaclasses
+:ref:`notes_session14`
+
+
+.. * ``unittest``
+
+.. * Linting
+
+.. * Coverage
+
+.. * Fixtures
+
+.. * Mocking
+
+.. * Hypothesis Testing
+
 
 Week 5: Feb 6 -- Debugging and Logging
 ......................................
 
-* Logging module
+:ref:`session_2_05`
 
-* Syslog
+:ref:`notes_session15`
 
-* Debugging techniques
 
-* pdb/ipdb
+.. * Logging module
 
-* PyCharm's debugger
+.. * Syslog
 
-Week 6: Feb 13 -- Advanced Testing
-..................................
+.. * Debugging techniques
 
-* ``unittest``
+.. * pdb/ipdb
 
-* Linting
+Week 6: Feb 13 -- Metaprogramming
+.................................
 
-* Coverage
+:ref:`session_2_06`
 
-* Fixtures
+:ref:`notes_session16`
 
-* Mocking
 
-* Hypothesis Testing
+.. * Metprogramming tools
+
+.. * Class Decorators
+
+.. * Metaclasses
+
 
 Week 7: Feb 20 -- Relational Databases
 ......................................
 
-* SQL
-* ORMs
-* Normalization
-* Schema
-* Sqlite
-* Postgresql
+:ref:`session_2_07`
+
+:ref:`notes_session17`
+
+
+.. * SQL
+.. * ORMs
+.. * Normalization
+.. * Schema
+.. * Sqlite
+.. * Postgresql
 
 Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
 ................................................................
 
-* Persistence and Serialization: pickle, json, csv, ...
-* Schema vs “Schemaless”
-* No-Sql
-* Mongo
-* Redis
-* Neo4j
+:ref:`session_2_08`
 
-Week 9: Mar 6 -- Profiling & Performance
-.........................................
+:ref:`notes_session18`
 
-* Timing
-* Profiling
-* PyPy
-* Cython
 
-Week 10: Mar 13 -- Concurrency & Async Programming
-..................................................
 
-* Concurrency
-* Threading and Multiprocessing
-* Message Queues
-* Coroutines
-* Async
-* Celery
+.. * Persistence and Serialization: pickle, json, csv, ...
+.. * Schema vs “Schemaless”
+.. * No-Sql
+.. * Mongo
+.. * Redis
+.. * Neo4j
+
+Week 9: Mar 6 -- Concurrency & Async Programming
+................................................
+
+:ref:`session_2_09`
+
+:ref:`notes_session19`
+
+
+.. * Concurrency
+.. * Threading and Multiprocessing
+.. * Message Queues
+.. * Coroutines
+.. * Async
+.. * Celery
+
+Week 10: Mar 13 -- Profiling & Performance
+..........................................
+
+:ref:`session_2_10`
+
+:ref:`notes_session20`
+
+.. * Timing
+.. * Profiling
+.. * PyPy
+.. * Cython
 
 
 Lightning Talks
