@@ -472,29 +472,19 @@ decorated.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">real_decorator</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Congratulations. You decorated a function that does something with </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg</span>\
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Congratulations. You decorated a function that does</span>
+                   <span class="n">something</span> <span class="k">with</span> <span class="p">{}</span> <span class="ow">and</span> <span class="p">{}</span><span class="s2">&quot;.format(arg1, arg2))</span>
+            <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">real_decorator</span>
+
+
+<span class="nd">@decorator</span><span class="p">(</span><span class="s2">&quot;arg1&quot;</span><span class="p">,</span> <span class="s2">&quot;arg2&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">print_args</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>2))</dt>
-<dd><blockquote class="first">
-<div><blockquote>
-<div><blockquote>
-<div>function(<a href="#id3"><span class="problematic" id="id4">*</span></a>args, <a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs)</div></blockquote>
-<p>return wrapper</p>
-</div></blockquote>
-<p>return real_decorator</p>
-</div></blockquote>
-<p>&#64;decorator(“arg1”, “arg2”)
-def print_args(<a href="#id7"><span class="problematic" id="id8">*</span></a>args):</p>
-<blockquote class="last">
-<div><dl class="docutils">
-<dt>for arg in args:</dt>
-<dd>print(arg)</dd>
-</dl>
-</div></blockquote>
-</dd>
-</dl>
 <p>Last example from: <a class="reference external" href="http://scottlobdell.me/2015/04/decorators-arguments-python/">http://scottlobdell.me/2015/04/decorators-arguments-python/</a></p>
 </div>
 <div class="section" id="examples-from-the-standard-library">

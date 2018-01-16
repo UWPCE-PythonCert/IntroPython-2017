@@ -333,8 +333,8 @@ Add yet another function in scope:
     def decorator(arg1, arg2):
         def real_decorator(function):
             def wrapper(*args, **kwargs):
-                print("Congratulations. You decorated a function that does something with %s and %s" % (arg1, arg\
-2))
+                print("Congratulations. You decorated a function that does 
+                       something with {} and {}".format(arg1, arg2))
                 function(*args, **kwargs)
             return wrapper
         return real_decorator
