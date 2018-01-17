@@ -44,3 +44,5 @@ if __name__ == "__main__":
     for i in IterateMe_2(2,25,4):
         print(i)
 
+
+# I was able to get the iterator to act like range for 2 or 3 arguments, but couldn't figure out how to do it for 1 argument
