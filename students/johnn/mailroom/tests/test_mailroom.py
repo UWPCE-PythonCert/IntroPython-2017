@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
-import mailroom
 import pytest
 import io
 import os
 from pprint import pprint
-from mailroom import Donor
-from mailroom import Donors
+from mailroom.donors import Donor, Donors, load_donor_file, save_donor_file
+from mailroom.ui import print_thank_you, print_lines, thank_all_donors, list_donors
 
 def test_create_donor():
     """ baseline test to verify ability to create Donor() object """
@@ -40,7 +39,7 @@ def test_full_name():
 def test_print_lines():
     """ verify the print_lines() function """
     out = io.StringIO()
-    mailroom.print_lines(3,out)
+    print_lines(3,out)
     output = out.getvalue()
     out.close()
     assert output == "\n\n\n"
@@ -49,7 +48,7 @@ def test_print_thank_you():
     """ verify the print_thank_you() function """
     a_donor = Donor( full_name= 'Mary Jo Smith, IV' )
     out = io.StringIO()
-    mailroom.print_thank_you(a_donor,"testfull",out)
+    print_thank_you(a_donor,"testfull",out)
     output = out.getvalue()
     out.close()
     assert "Dearest Mary Jo Smith, IV," in output
@@ -63,7 +62,7 @@ def test_thank_all_donors():
     test_donors.add_donor(test_donor_b)
 
     out = io.StringIO()
-    mailroom.thank_all_donors(test_donors,dest_override=out)
+    thank_all_donors(test_donors,dest_override=out)
     output = out.getvalue()
     out.close()
 
@@ -116,7 +115,7 @@ def test_list_donors():
     test_donors = Donors(test_donor_a)
     test_donors.add_donor(test_donor_b)
     out = io.StringIO()
-    mailroom.list_donors(test_donors,dest=out)
+    list_donors(test_donors,dest=out)
     output = out.getvalue()
     out.close()
 
@@ -186,9 +185,9 @@ def test_save_read_file():
 
     test_donor_file="test_donor_file"
 
-    mailroom.save_donor_file(test_donors,donor_file=test_donor_file)
+    save_donor_file(test_donors,donor_file=test_donor_file)
 
-    return_donors = mailroom.load_donor_file(donor_file=test_donor_file)
+    return_donors = load_donor_file(donor_file=test_donor_file)
 
     name_matches = [x[0] for x in return_donors.full_name_index]
 

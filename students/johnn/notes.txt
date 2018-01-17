@@ -1,1 +1,2 @@
 https://uwpce-pythoncert.github.io/IntroPython-2017/
+https://uwpce-pythoncert.github.io/IntroPython-2017/#week-1-jan-9-iterators-and-generators-packaging
