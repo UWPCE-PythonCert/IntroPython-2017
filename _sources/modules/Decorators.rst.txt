@@ -441,8 +441,7 @@ But this could also be accomplished like so:
                      "I'm the 'x' property.")
 
 
-``Examples/Session10/property_ugly.py``
-
+:download:`property_ugly.py <../examples/decorators/property_ugly.py>`
 
 
 Note that in this case, the decorator object returned by the property decorator
@@ -472,7 +471,7 @@ Import Time Vs. Run Time
 
 Decorators are run at import time:
 
-:download:`play_with_imports.py <examples/decorators/play_with_imports.py>`
+:download:`play_with_imports.py <../examples/decorators/play_with_imports.py>`
 
 
 What if my decorated function uses unknown inputs?
