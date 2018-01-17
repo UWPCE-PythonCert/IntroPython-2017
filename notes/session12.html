@@ -174,6 +174,53 @@
 </li>
 </ul>
 </div>
+<div class="section" id="checking-your-package">
+<h3>Checking your package<a class="headerlink" href="#checking-your-package" title="Permalink to this headline">¶</a></h3>
+<p>It can be pretty tricky to know if you package is doing the right thing.</p>
+<p>While developing and testing, you want to use develop mode. But then if a file isn’t getting included, you don’t really notice, as it allstill works.</p>
+</div>
+<div class="section" id="building-the-package">
+<h3>Building the package<a class="headerlink" href="#building-the-package" title="Permalink to this headline">¶</a></h3>
+<p>You can use the <code class="docutils literal"><span class="pre">build</span></code> command to “build” the package. If there is not compiled code, it doesn’t do much – but it does copy everything into the build dir. So you can then look there and make sure it’s right – data files included, etc.</p>
+<p>OF course, the final test is to do a full install, and then test. If your tests are included in the pacakge, you can run them with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pytest --pyargs pkg_name
+</pre></div>
+</div>
+<p>This tells pytest to go into the package, look for its tests, and run them.</p>
+</div>
+<div class="section" id="source-distribution">
+<h3>Source Distribution<a class="headerlink" href="#source-distribution" title="Permalink to this headline">¶</a></h3>
+<p>One of setuptools’ features is the ability to build an “sdist”:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python setup.py sdist
+</pre></div>
+</div>
+<p>This builds a tarball of all the source, and puts it in the dist dir.</p>
+<p>You can unpack that tarball and make sure it has all the files as well.</p>
+</div>
+<div class="section" id="a-complete-package">
+<h3>A complete package<a class="headerlink" href="#a-complete-package" title="Permalink to this headline">¶</a></h3>
+<p>Let’s look at my Solution:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git pull upstream master
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">solutions/mailroom_pkg</span></code></p>
+</div>
+</div>
+<div class="section" id="generators">
+<h2>generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h2>
+<p>Any questions?</p>
+<p>Let’s look at my solutions:</p>
+<p><code class="docutils literal"><span class="pre">solutions/iterators_generators</span></code></p>
+</div>
+<div class="section" id="scope-and-closures-and-currying">
+<h2>Scope and Closures and Currying<a class="headerlink" href="#scope-and-closures-and-currying" title="Permalink to this headline">¶</a></h2>
+<p>Some nifty functional features:</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Closures.html#closures" title="(in PythonCert v4.0)"><span>Closures and Function Currying</span></a></p>
+</div>
+<div class="section" id="decorators">
+<h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this headline">¶</a></h2>
+<p>Finally we learn what’s under those &#64; symbols….</p>
+<p><a class="reference external" href="https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Decorators.html#decorators" title="(in PythonCert v4.0)"><span>Decorators</span></a></p>
 </div>
 </div>
 
