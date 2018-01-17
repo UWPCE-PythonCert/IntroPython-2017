@@ -4,12 +4,9 @@
 Trapezoidal Rule
 ################
 
-Passing functions around
-=========================
-
+**Passing functions around**
 
 Goal:
-
 
 Making use of functions as objects -- functions that act on functions.
 
@@ -23,7 +20,7 @@ https://en.wikipedia.org/wiki/Trapezoidal_rule
 
 Is one of the easiest "quadrature" methods.
 
-Otherwise known as computing a definite integral, or, simply,
+Otherwise known as computing a definite integral, or, simply:
 
 Computing the area under a curve.
 
@@ -69,7 +66,7 @@ Your function definition should look like:
       :param fun: the function to evaluate
       :type fun: a function that takes a single parameter
 
-      :param a: the start point for teh integration
+      :param a: the start point for the integration
       :type a: a numeric value
 
       :param b: the end point for the integration
@@ -148,17 +145,11 @@ And for non-linear functions, the result will certainly not be exact.
 
 So you want to check if the answer is *close* to what you expect.
 
-In py3.5 -- there is an ``isclose()`` function (PEP485)
+In py3.5+ -- there is an ``isclose()`` function (PEP485)
 
 https://www.python.org/dev/peps/pep-0485/
 
-In earlier pythons -- you'll need your own. There is one in:
-
-``Examples/Session09/test_trapz.py``
-
-
-
-Stage two:
+Stage Two:
 ----------
 
 Some functions need extra parameters to do their thing. But the above will only handle a single parameter. For example, a quadratic function:

@@ -37,8 +37,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="PythonCert 4.0 documentation" href="../index.html"/>
         <link rel="up" title="Modules" href="index.html"/>
-        <link rel="next" title="Exercises" href="../exercises/index.html"/>
-        <link rel="prev" title="Closures and Function Currying" href="Closures.html"/> 
+        <link rel="next" title="Code Reviews" href="CodeReviews.html"/>
+        <link rel="prev" title="Iterators and Generators" href="IteratorsAndGenerators.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -129,9 +129,6 @@
 <li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Packages and Packaging</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#packages-modules-imports-oh-my">Packages, modules, imports, oh my!</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#more-on-importing">More on Importing</a></li>
@@ -173,12 +170,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#handling-the-version-number">Handling the version number:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#semantic-versioning">Semantic Versioning</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tools-to-help">Tools to help:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#getting-started">Getting Started</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#creating-a-small-example-package">Creating a Small Example Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dealing-with-data-files">Dealing with data files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getting-started-with-a-new-package">Getting Started With a New Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lab-a-small-example-package">LAB: A Small Example Package</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="CodeReviews.html">Code Reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
@@ -801,6 +803,8 @@ structured package eases development.</p>
 </pre></div>
 </div>
 <p>Or keep it at the top level.</p>
+<p>Some notes on that:
+` Where to put Tests &lt;<a class="reference external" href="http://pythonchb.github.io/PythonTopics/where_to_put_tests.html">http://pythonchb.github.io/PythonTopics/where_to_put_tests.html</a>&gt;`_</p>
 </div>
 <div class="section" id="the-setup-py-file">
 <h3>The <code class="docutils literal"><span class="pre">setup.py</span></code> File<a class="headerlink" href="#the-setup-py-file" title="Permalink to this headline">¶</a></h3>
@@ -808,6 +812,8 @@ structured package eases development.</p>
 <p>It is python code, so you can add anything custom you need to it</p>
 <p>But in the simple case, it is essentially declarative.</p>
 <p><code class="docutils literal"><span class="pre">http://docs.python.org/3/distutils/</span></code></p>
+<div class="section" id="an-example">
+<h4>An example:<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
 
  <span class="n">setup</span><span class="p">(</span>
@@ -829,8 +835,10 @@ structured package eases development.</p>
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="setup-cfg">
 <h3><code class="docutils literal"><span class="pre">setup.cfg</span></code><a class="headerlink" href="#setup-cfg" title="Permalink to this headline">¶</a></h3>
+<p><strong>NOTE:</strong> this is usually a pretty advanced option – simple packages don’t need this.</p>
 <p><code class="docutils literal"><span class="pre">setup.cfg</span></code> provides a way to give the end user some ability to customize the install</p>
 <p>It’s an <code class="docutils literal"><span class="pre">ini</span></code> style file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">command</span><span class="p">]</span>
@@ -847,21 +855,18 @@ structured package eases development.</p>
 <h3>Running <code class="docutils literal"><span class="pre">setup.py</span></code><a class="headerlink" href="#running-setup-py" title="Permalink to this headline">¶</a></h3>
 <p>With a <code class="docutils literal"><span class="pre">setup.py</span></code> script defined, setuptools can do a lot:</p>
 <ul>
-<li><p class="first">builds a source distribution (defaults to tar file):</p>
+<li><p class="first">builds a source distribution (a tar archive of all the files needed to build and install the package):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span>
-<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">sdist</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="nb">zip</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">builds binary distributions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_rpm</span>
-<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wininst</span>
+<li><p class="first">builds wheels:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">bdist_wheel</span>
 </pre></div>
 </div>
 </li>
 </ul>
-<p>(other, more obscure ones, too….)</p>
-<p>But you probably want to use wheel for binary distributions now.</p>
+<p>(you need the wheel package for this to work: <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">wheel</span></code>)</p>
 <ul>
 <li><p class="first">build from source:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
@@ -998,7 +1003,6 @@ $ python setup.py <span class="nb">test</span>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">test_suite</span><span class="o">=</span><span class="s2">&quot;tests&quot;</span>
 </pre></div>
 </div>
-<p>(does py3 unittest have this??)</p>
 </div>
 <div class="section" id="handling-the-version-number">
 <h3>Handling the version number:<a class="headerlink" href="#handling-the-version-number" title="Permalink to this headline">¶</a></h3>
@@ -1073,8 +1077,58 @@ they upgrade.</p>
 <p>Versioneer:</p>
 <p><a class="reference external" href="https://github.com/warner/python-versioneer">https://github.com/warner/python-versioneer</a></p>
 </div>
-<div class="section" id="getting-started">
-<h3>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="dealing-with-data-files">
+<h3>Dealing with data files<a class="headerlink" href="#dealing-with-data-files" title="Permalink to this headline">¶</a></h3>
+<p>Oftentimes a package will require some files that are not Python code. In that case, you need to make sure the files are included with the package some how.</p>
+<p>There are a few ways to do this:</p>
+<p><a class="reference external" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#including-data-files">http://setuptools.readthedocs.io/en/latest/setuptools.html#including-data-files</a></p>
+<div class="section" id="the-simplest-option-package-data">
+<h4>The simplest option: package_data<a class="headerlink" href="#the-simplest-option-package-data" title="Permalink to this headline">¶</a></h4>
+<p>I personally like the simplest one with the least magic:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">package_data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;pkg_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;data/datatfile1&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;data/datafile2&#39;</span><span class="p">]},</span>
+    <span class="o">...</span>
+      <span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://packaging.python.org/tutorials/distributing-packages/#package-data">https://packaging.python.org/tutorials/distributing-packages/#package-data</a></p>
+<p>Then you’ll get the data file included in the package in the same place relative to your code regardless of how (or whether) it is installed.</p>
+<p>Now you’ll need to write your code to find that data file. You can do that by using the <code class="docutils literal"><span class="pre">__file__</span></code> module attribute – then the location of the data file will be relative to the <code class="docutils literal"><span class="pre">__file__</span></code> that your code is in. A little massaging with a <code class="docutils literal"><span class="pre">pathlib.Path</span></code> should do it. PUtting the path to the data directory in the package’s <code class="docutils literal"><span class="pre">__init__.py</span></code> provides a way for the rest of your code to find it.</p>
+<p>In <code class="docutils literal"><span class="pre">pkg_name/__init__.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+</pre></div>
+</div>
+<p>Now you can get that dir anywhere else in your code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pkg_name</span> <span class="kn">import</span> <span class="n">data_dir</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-complex-option-data-files">
+<h4>More complex option: data_files<a class="headerlink" href="#more-complex-option-data-files" title="Permalink to this headline">¶</a></h4>
+<p>Using the data_files setup option lets you put data files outside your package. They will get installed into the path of <code class="docutils literal"><span class="pre">sys.prefix</span></code>, so you can find them in your code with a path relative to <code class="docutils literal"><span class="pre">sys.prefix</span></code>.</p>
+<p>However, this means that the location of the files is different depending on whether the code is properly installed or not. And develop mode (or editable mode) does NOT install the data files.</p>
+<p>I honestly can’t think of any reason to do this.</p>
+<p><a class="reference external" href="https://packaging.python.org/tutorials/distributing-packages/#data-files">https://packaging.python.org/tutorials/distributing-packages/#data-files</a></p>
+</div>
+<div class="section" id="more-magic-pkg-resources">
+<h4>More magic: pkg_resources<a class="headerlink" href="#more-magic-pkg-resources" title="Permalink to this headline">¶</a></h4>
+<p>setuptools provides a pkg_resources system to access resources (such as data files) of the packages. It is a complex (and I think ugly) system, with lots of features.</p>
+<p><a class="reference external" href="http://setuptools.readthedocs.io/en/latest/pkg_resources.html">http://setuptools.readthedocs.io/en/latest/pkg_resources.html</a></p>
+<p>But for just using it to find data files, it has some advantages – the primary one that is it can find data files that are inside zipped-up packages. (Python can import modules from zip files, but you can’t easily read data files from inside a zipped package)</p>
+<p>To use pkg_resources, you include the files with <code class="docutils literal"><span class="pre">package_data</span></code> in setup.py but access them with the pkg_resources API:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_string</span>
+<span class="n">foo_config</span> <span class="o">=</span> <span class="n">resource_string</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;foo.conf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://setuptools.readthedocs.io/en/latest/pkg_resources.html#resourcemanager-api">http://setuptools.readthedocs.io/en/latest/pkg_resources.html#resourcemanager-api</a></p>
+</div>
+</div>
+<div class="section" id="getting-started-with-a-new-package">
+<h3>Getting Started With a New Package<a class="headerlink" href="#getting-started-with-a-new-package" title="Permalink to this headline">¶</a></h3>
 <p>For anything but a single-file script (and maybe even then):</p>
 <ol class="arabic simple">
 <li>Create the basic package structure</li>
@@ -1086,8 +1140,8 @@ they upgrade.</p>
 <p>or use “Cookie Cutter”:</p>
 <p><a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/">https://cookiecutter.readthedocs.io/en/latest/</a></p>
 </div>
-<div class="section" id="creating-a-small-example-package">
-<h3>Creating a Small Example Package<a class="headerlink" href="#creating-a-small-example-package" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="lab-a-small-example-package">
+<h3>LAB: A Small Example Package<a class="headerlink" href="#lab-a-small-example-package" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Create a small package<ul>
 <li>package structure</li>
@@ -1100,7 +1154,7 @@ they upgrade.</p>
 </ul>
 <p>Start with the silly code in:</p>
 <p><a class="reference download internal" href="../_downloads/capitalize.zip" download=""><code class="xref download docutils literal"><span class="pre">capitalize.zip</span></code></a></p>
-<p>Or go straight to making a package our of mailroom.</p>
+<p>Or go straight to making a package our of mailroom project.</p>
 </div>
 </div>
 </div>
@@ -1115,10 +1169,10 @@ they upgrade.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../exercises/index.html" class="btn btn-neutral float-right" title="Exercises" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="CodeReviews.html" class="btn btn-neutral float-right" title="Code Reviews" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Closures.html" class="btn btn-neutral" title="Closures and Function Currying" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="IteratorsAndGenerators.html" class="btn btn-neutral" title="Iterators and Generators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

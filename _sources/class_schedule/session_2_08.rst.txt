@@ -1,16 +1,22 @@
-#########################################
-Advanced Programming in Python: Session 8
-#########################################
+.. _session_2_08:
 
-Pre-class prep
-==============
+#########################################################
+Session 8: Object/Document, Key/Value and Graph Databases
+#########################################################
 
+* Persistence and Serialization: pickle, json, csv, ...
+* Schema vs “Schemaless”
+* No-Sql
+* Mongo
+* Redis
+* Neo4j
 
-In-class Activities
-===================
+Reading
+=======
 
+Supplemental Readings
+=====================
 
-Post-class Activites
-====================
+Exercises
+=========
 
-Finish the Exercises

@@ -680,6 +680,8 @@ Put it inside the package -- supports ::
 
 Or keep it at the top level.
 
+Some notes on that:
+` Where to put Tests <http://pythonchb.github.io/PythonTopics/where_to_put_tests.html>`_
 
 The ``setup.py`` File
 ----------------------
@@ -693,6 +695,8 @@ But in the simple case, it is essentially declarative.
 
 ``http://docs.python.org/3/distutils/``
 
+An example:
+...........
 
 .. code-block:: python
 
@@ -718,6 +722,8 @@ But in the simple case, it is essentially declarative.
 ``setup.cfg``
 --------------
 
+**NOTE:** this is usually a pretty advanced option -- simple packages don't need this.
+
 ``setup.cfg`` provides a way to give the end user some ability to customize the install
 
 It's an ``ini`` style file::
@@ -740,19 +746,15 @@ Running ``setup.py``
 
 With a ``setup.py`` script defined, setuptools can do a lot:
 
-* builds a source distribution (defaults to tar file)::
+* builds a source distribution (a tar archive of all the files needed to build and install the package)::
 
     python setup.py sdist
-    python setup.py sdist --format=zip
 
-* builds binary distributions::
+* builds wheels::
 
-    python setup.py bdist_rpm
-    python setup.py bdist_wininst
+    ./setup.py bdist_wheel
 
-(other, more obscure ones, too....)
-
-But you probably want to use wheel for binary distributions now.
+(you need the wheel package for this to work: ``pip install wheel``)
 
 * build from source::
 
@@ -920,10 +922,7 @@ This may not be required, as pytest will also let you run the tests installed wi
 
 .. code-block:: python
 
-
   test_suite="tests"
-
-(does py3 unittest have this??)
 
 
 Handling the version number:
@@ -1029,9 +1028,81 @@ Versioneer:
 
 https://github.com/warner/python-versioneer
 
+Dealing with data files
+-----------------------
 
-Getting Started
-----------------
+Oftentimes a package will require some files that are not Python code. In that case, you need to make sure the files are included with the package some how.
+
+There are a few ways to do this:
+
+http://setuptools.readthedocs.io/en/latest/setuptools.html#including-data-files
+
+The simplest option: package_data
+..................................
+
+I personally like the simplest one with the least magic:
+
+.. code-block:: python
+
+  setup(
+      ...
+      package_data={'pkg_name': ['data/datatfile1',
+                                  'data/datafile2']},
+      ...
+        )
+
+https://packaging.python.org/tutorials/distributing-packages/#package-data
+
+Then you'll get the data file included in the package in the same place relative to your code regardless of how (or whether) it is installed.
+
+Now you'll need to write your code to find that data file. You can do that by using the ``__file__`` module attribute -- then the location of the data file will be relative to the ``__file__`` that your code is in. A little massaging with a ``pathlib.Path`` should do it. PUtting the path to the data directory in the package's ``__init__.py`` provides a way for the rest of your code to find it.
+
+In ``pkg_name/__init__.py``:
+
+.. code-block:: python
+
+    from pathlib import Path
+
+    data_dir = data_file = Path(__file__).parent / "data"
+
+Now you can get that dir anywhere else in your code:
+
+.. code-block:: python
+
+    from pkg_name import data_dir
+
+
+More complex option: data_files
+...............................
+
+Using the data_files setup option lets you put data files outside your package. They will get installed into the path of ``sys.prefix``, so you can find them in your code with a path relative to ``sys.prefix``.
+
+However, this means that the location of the files is different depending on whether the code is properly installed or not. And develop mode (or editable mode) does NOT install the data files.
+
+I honestly can't think of any reason to do this.
+
+https://packaging.python.org/tutorials/distributing-packages/#data-files
+
+More magic: pkg_resources
+.........................
+
+setuptools provides a pkg_resources system to access resources (such as data files) of the packages. It is a complex (and I think ugly) system, with lots of features.
+
+http://setuptools.readthedocs.io/en/latest/pkg_resources.html
+
+But for just using it to find data files, it has some advantages -- the primary one that is it can find data files that are inside zipped-up packages. (Python can import modules from zip files, but you can't easily read data files from inside a zipped package)
+
+To use pkg_resources, you include the files with ``package_data`` in setup.py but access them with the pkg_resources API:
+
+.. code-block:: python
+
+    from pkg_resources import resource_string
+    foo_config = resource_string(__name__, 'foo.conf')
+
+http://setuptools.readthedocs.io/en/latest/pkg_resources.html#resourcemanager-api
+
+Getting Started With a New Package
+----------------------------------
 
 For anything but a single-file script (and maybe even then):
 
@@ -1049,8 +1120,8 @@ or use "Cookie Cutter":
 
 https://cookiecutter.readthedocs.io/en/latest/
 
-Creating a Small Example Package
---------------------------------
+LAB: A Small Example Package
+----------------------------
 
 * Create a small package
 
@@ -1068,7 +1139,7 @@ Start with the silly code in:
 
 :download:`capitalize.zip <../examples/packaging/capitalize.zip>`
 
-Or go straight to making a package our of mailroom.
+Or go straight to making a package our of mailroom project.
 
 
 

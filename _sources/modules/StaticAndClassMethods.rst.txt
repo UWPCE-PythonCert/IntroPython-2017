@@ -5,22 +5,18 @@
 Static and Class Methods
 ########################
 
+You've seen how methods of a class are *bound* to an instance when it is
+created.
 
-.. container::
+And you've seen how the argument ``self`` is then automatically passed to
+the method when it is called.
 
-    You've seen how methods of a class are *bound* to an instance when it is
-    created.
-
-    And you've seen how the argument ``self`` is then automatically passed to
-    the method when it is called.
-
-    And you've seen how you can call *unbound* methods on a class object so
-    long as you pass an instance of that class as the first argument.
-
-    |
+And you've seen how you can call *unbound* methods on a class object so
+long as you pass an instance of that class as the first argument.
 
 
-    **But what if you don't want or need an instance?**
+**But what if you don't want or need an instance?**
+
 
 Static Methods
 --------------
@@ -43,28 +39,26 @@ A *static method* is a method that doesn't get self:
 .. [demo: :download:`static_method.py <../../Examples/Session08/static_method.py>`]
 
 
+Where are static methods useful?
 
-.. container::
+Usually they aren't.  It is often better just to write a module-level function.
 
-    Where are static methods useful?
+An example from the Standard Library (tarfile.py):
 
-    Usually they aren't.  It is often better just to write a module-level function.
+.. code-block:: python
 
-    An example from the Standard Library (tarfile.py):
+    class TarInfo:
+        # ...
+        @staticmethod
+        def _create_payload(payload):
+            """Return the string payload filled with zero bytes
+               up to the next 512 byte border.
+            """
+            blocks, remainder = divmod(len(payload), BLOCKSIZE)
+            if remainder > 0:
+                payload += (BLOCKSIZE - remainder) * NUL
+            return payload
 
-    .. code-block:: python
-
-        class TarInfo:
-            # ...
-            @staticmethod
-            def _create_payload(payload):
-                """Return the string payload filled with zero bytes
-                   up to the next 512 byte border.
-                """
-                blocks, remainder = divmod(len(payload), BLOCKSIZE)
-                if remainder > 0:
-                    payload += (BLOCKSIZE - remainder) * NUL
-                return payload
 
 Class Methods
 -------------
@@ -92,23 +86,22 @@ argument
 Why?
 ----
 
-.. container::
+Unlike static methods, class methods are quite common.
 
-    Unlike static methods, class methods are quite common.
+They have the advantage of being friendly to subclassing.
 
-    They have the advantage of being friendly to subclassing.
+Consider this:
 
-    Consider this:
+.. code-block:: ipython
 
-    .. code-block:: ipython
+    In [44]: class SubClassy(Classy):
+       ....:     x = 3
+       ....:
 
-        In [44]: class SubClassy(Classy):
-           ....:     x = 3
-           ....:
+    In [45]: SubClassy.a_class_method(4)
+    in a class method:  <class '__main__.SubClassy'>
+    Out[45]: 64
 
-        In [45]: SubClassy.a_class_method(4)
-        in a class method:  <class '__main__.SubClassy'>
-        Out[45]: 64
 
 Alternate Constructors
 -----------------------
@@ -164,5 +157,4 @@ well.
 .. _Here is a low level look: https://docs.python.org/2/howto/descriptor.html
 
 
-For the Circle Lab: use a class method to make an alternate constructor that takes
-the diameter instead.
+For the Circle Lab: use a class method to make an alternate constructor that takes the diameter instead.

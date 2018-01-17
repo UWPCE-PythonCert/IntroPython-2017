@@ -1,16 +1,27 @@
-#########################################
-Advanced Programming in Python: Session 4
-#########################################
+.. _session_2_04:
 
-Pre-class prep
-==============
+###########################
+Session 4: Advanced Testing
+###########################
 
+* unittest
 
-In-class Activities
-===================
+* Linting
 
+* Coverage
 
-Post-class Activites
-====================
+* Fixtures
 
-Finish the Exercises
+* Mocking
+
+* Hypothesis Testing
+
+Reading
+=======
+
+Supplemental Readings
+=====================
+
+Exercises
+=========
+

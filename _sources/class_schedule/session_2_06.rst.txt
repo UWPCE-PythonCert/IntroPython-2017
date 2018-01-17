@@ -1,29 +1,21 @@
 .. _session_2_06:
 
-#########################################
-Advanced Programming in Python: Session 6
-#########################################
+##########################
+Session 6: Metaprogramming
+##########################
 
-Pre-class prep
-==============
+* Metprogramming tools
 
-Read:
+* Class Decorators
 
+* Metaclasses
 
-In-class Activities
-===================
+Reading
+=======
 
-Review Exercises from last week
--------------------------------
-
-Exercises
----------
-
-
-Post-class Activities
+Supplemental Readings
 =====================
 
-Finish the Exercises from class
-
-Refer to: :ref:`session_2_07` for prep for next week
+Exercises
+=========
 

@@ -1,16 +1,23 @@
-#########################################
-Advanced Programming in Python: Session 5
-#########################################
+.. _session_2_05:
 
-Pre-class prep
-==============
+################################
+Session 5: Logging and Debugging
+################################
 
+* Logging module
 
-In-class Activities
-===================
+* Syslog
 
+* Debugging techniques
 
-Post-class Activites
-====================
+* pdb/ipdb
 
-Finish the Exercises
+Reading
+=======
+
+Supplemental Readings
+=====================
+
+Exercises
+=========
+

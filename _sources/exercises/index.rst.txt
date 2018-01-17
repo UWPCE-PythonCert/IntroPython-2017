@@ -18,18 +18,21 @@ Exercises
     grid_printer.rst
     html_renderer.rst
     kata_fourteen.rst
-    lambda_magic.rst
     list_lab.rst
     mailroom.rst
     unit_testing.rst
     roman.rst
     rot13.rst
     slicing.rst
+    lambda_magic.rst
     sparse_array.rst
     string_formatting.rst
     trapezoid.rst
     mailroom-oo.rst
     mailroom-fp.rst
     mailroom-pkg.rst
+    mailroom-decorator.rst
+
+
 
 

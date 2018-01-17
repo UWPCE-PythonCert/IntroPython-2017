@@ -1,18 +1,27 @@
 .. _session_2_07:
 
-#########################################
-Advanced Programming in Python: Session 7
-#########################################
+###############################
+Session 7: Relational Databases
+###############################
 
-Pre-class prep
-==============
+* SQL
 
+* ORMs
 
-In-class Activities
-===================
+* Normalization
 
+* Schema
 
-Post-class Activites
-====================
+* Sqlite
 
-Finish the Exercises
+* Postgresql
+
+Reading
+=======
+
+Supplemental Readings
+=====================
+
+Exercises
+=========
+

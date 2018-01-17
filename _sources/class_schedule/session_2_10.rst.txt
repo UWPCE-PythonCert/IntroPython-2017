@@ -1,16 +1,21 @@
+.. _session_2_10:
+
 ##########################################
-Advanced Programming in Python: Session 10
+Session 10: Profiling & Performance
 ##########################################
 
-Pre-class prep
-==============
+* Timing
+* Profiling
+* PyPy
+* Cython
+
+Reading
+=======
+
+Supplemental Readings
+=====================
+
+Exercises
+=========
 
 
-In-class Activities
-===================
-
-
-Post-class Activites
-====================
-
-Finish the Exercises

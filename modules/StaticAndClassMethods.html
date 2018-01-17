@@ -135,10 +135,11 @@
 <li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CodeReviews.html">Code Reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
@@ -211,18 +212,13 @@
             
   <div class="section" id="static-and-class-methods">
 <span id="id1"></span><h1>Static and Class Methods<a class="headerlink" href="#static-and-class-methods" title="Permalink to this headline">¶</a></h1>
-<div class="docutils container">
 <p>You’ve seen how methods of a class are <em>bound</em> to an instance when it is
 created.</p>
 <p>And you’ve seen how the argument <code class="docutils literal"><span class="pre">self</span></code> is then automatically passed to
 the method when it is called.</p>
 <p>And you’ve seen how you can call <em>unbound</em> methods on a class object so
 long as you pass an instance of that class as the first argument.</p>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <p><strong>But what if you don’t want or need an instance?</strong></p>
-</div>
 <div class="section" id="static-methods">
 <h2>Static Methods<a class="headerlink" href="#static-methods" title="Permalink to this headline">¶</a></h2>
 <p>A <em>static method</em> is a method that doesn’t get self:</p>
@@ -237,7 +233,6 @@ long as you pass an instance of that class as the first argument.</p>
 <span class="gh">Out[37]: </span><span class="go">9</span>
 </pre></div>
 </div>
-<div class="docutils container">
 <p>Where are static methods useful?</p>
 <p>Usually they aren’t.  It is often better just to write a module-level function.</p>
 <p>An example from the Standard Library (tarfile.py):</p>
@@ -253,7 +248,6 @@ long as you pass an instance of that class as the first argument.</p>
             <span class="n">payload</span> <span class="o">+=</span> <span class="p">(</span><span class="n">BLOCKSIZE</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)</span> <span class="o">*</span> <span class="n">NUL</span>
         <span class="k">return</span> <span class="n">payload</span>
 </pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="class-methods">
@@ -275,7 +269,6 @@ argument</p>
 </div>
 <div class="section" id="why">
 <h2>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
-<div class="docutils container">
 <p>Unlike static methods, class methods are quite common.</p>
 <p>They have the advantage of being friendly to subclassing.</p>
 <p>Consider this:</p>
@@ -287,7 +280,6 @@ argument</p>
 <span class="go">in a class method:  &lt;class &#39;__main__.SubClassy&#39;&gt;</span>
 <span class="gh">Out[45]: </span><span class="go">64</span>
 </pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="alternate-constructors">
@@ -326,8 +318,7 @@ OO model.</p>
 <p><a class="reference external" href="https://docs.python.org/2/howto/descriptor.html">Here is a low level look</a> at how the descriptor protocol works.</p>
 <p>The cool part is that this mechanism is available to you, the programmer, as
 well.</p>
-<p>For the Circle Lab: use a class method to make an alternate constructor that takes
-the diameter instead.</p>
+<p>For the Circle Lab: use a class method to make an alternate constructor that takes the diameter instead.</p>
 </div>
 </div>
 

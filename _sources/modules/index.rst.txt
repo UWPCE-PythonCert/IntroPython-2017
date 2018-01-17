@@ -46,8 +46,8 @@ More or less in order of presentation
     MapFilterReduce
     IPythonParallel
     IteratorsAndGenerators
-    ContextManagers
-    Decorators
-    Closures
     Packaging
-
+    CodeReviews
+    Closures
+    Decorators
+    ContextManagers

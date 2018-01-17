@@ -1,3 +1,5 @@
+.. _session_2_01:
+
 ##############################################
 Session 1: Iterators and Generators, Packaging
 ##############################################
@@ -20,13 +22,14 @@ Reading
 
 :ref:`packaging`
 
-Supplemental Readings
-=====================
+Supplemental Reading
+====================
 
 Iterators and Generators
 ........................
 
 *Fluent Python:* Chapter 14: Iterables, Iterators, and Generators
+
 
 Packages and Packaging
 ......................
@@ -35,6 +38,7 @@ https://packaging.python.org/
 
 http://pythonchb.github.io/PythonTopics/where_to_put_your_code.html
 
+http://pythonchb.github.io/PythonTopics/where_to_put_tests.html
 
 Functools
 .........
@@ -51,28 +55,7 @@ http://www.programiz.com/python-programming/closure
 https://www.clear.rice.edu/comp130/12spring/curry/
 
 
-Multi-methods in Python
-.......................
-
-NOTE: this is using decorators -- have we talked about that yet??? Maybe save it for another time...
-
-GvR on Multi-methods
-
-http://www.artima.com/weblogs/viewpost.jsp?thread=101605
-
-
-
-In-class Activities
-===================
-
-
 Exercises
-.........
+=========
 
-:ref:`exercise_lambda_magic`
-
-
-Post-class Activites
-====================
-
-Finish the Exercises
+:ref:`exercise_mailroom_package`

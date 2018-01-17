@@ -1,16 +1,22 @@
-#########################################
-Advanced Programming in Python: Session 9
-#########################################
+.. _session_2_09:
 
-Pre-class prep
-==============
+##########################################
+Session 9: Concurrency & Async Programming
+##########################################
 
+* Concurrency
+* Threading and Multiprocessing
+* Message Queues
+* Coroutines
+* Async
+* Celery
 
-In-class Activities
-===================
+Reading
+=======
 
+Supplemental Readings
+=====================
 
-Post-class Activites
-====================
+Exercises
+=========
 
-Finish the Exercises
