@@ -1,31 +1,31 @@
-Name: Languages
-Adams, Eric V:  python, java, perl
-Anderson, Katherine Marguerite: Kate 
-Baughman, Eowyn C: fortran, java, matlab, bash
-Beausoleil, Larry: python, powershell
-Briggs, Matthew D: c#, javascript, python, typescript
-Chao, Po-Sung: c++, java
-Chudasma, Amitkumar: Amit shell, python
-Dehghani, Ali: 
-Egan, Kathryn: python, java
-Eng, Zandra: new
-Estrada, Marlon M: java, python, ruby
-Heinemann, Morgan: c++, python
-Kan, David K: java, c#, python
-Kuchan, Daniel W: Dan c++, matlab, 
-Maeda, Matthew Sachio: Matt, c, perl, java, erlang, python
-Matenda, Alinafe: Nafe, java, perl, c#, c++, python
-Nagata, Brian: bash, python
-Navitsky, John:bash, python, ansible
-Olsby, Jacob: Jake, c#, powershell, python, sql
-Peterson, Scott B: python, r, visualbasic
-Shibata, Hiroyuki: php, mysql, python
-Takata, James: Jim, rex, db
-Takechi, Hiroyuki: Hiro, r
-Thadigol Reddappa, Srikanth: Sri, perl, python
-Thomas, Guillaume R: Tom, shell, python, vb
-Uvarov, Evgeny S: Gene, python
-Warn, Brian: fortran, perl, sql, python
-Wojciechowski, Daniel: Dan, c, c++, lisp
-Yaramati, Rajaramesh V: Ramesh, bash, python, sql
-Yen, Tian Chuan: java, python
+Name: Nickname, languages
+Swift, Taylor: python, java, perl
+Swift, Samuel: Sam
+Brooks, Garth: fortran, java, matlab, bash
+Buble, Michael: python, powershell
+Stefani, Gwen: c#, javascript, python, typescript
+Gaye, Marvin: c++, java
+Jagger, Michael: Mick, shell, python
+Lennon, John:
+Nelson, Willy: python, java
+McCartney, Paul: nothing
+Dylan, Bob: java, python, ruby
+Springsteen, Bruce: c++, python
+Jackson, Michael: java, c#, python
+Berry, Charles: Chuck c++, matlab,
+Wonder, Steven: Stevie, c, perl, java, erlang, python
+Nicks, Stevie:  java, perl, c#, c++, python
+Turner, Tina: bash, python
+Plant, Robert: Bob, bash, python, ansible
+Townshend, Peter: Pete, c#, powershell, python, sql
+Moon, Keith: python, r, visualbasic
+Mitchell, Joni: php, mysql, python
+Ramone, John: Johnny, rex, db
+King, Carol: r
+Waters, Muddy: perl, python
+Star, Richard: Ringo, Tom, shell, python, vb
+Smith, Patricia: Patti, Gene, python
+Morrison, Jim: fortran, perl, sql, python
+Marley, Robert: Bob, c, c++, lisp
+Simon, Paul: bash, python, sql
+Charles, Ray: Chuck, java, python

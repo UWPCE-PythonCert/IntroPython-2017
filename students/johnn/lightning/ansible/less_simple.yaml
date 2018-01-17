@@ -1,0 +1,12 @@
+---
+
+# Ansible Playbook Example
+
+- name: local test Playbook
+  hosts: localhost
+
+  vars:
+    sample_var: "foo"
+
+  roles:
+    - less_simple
