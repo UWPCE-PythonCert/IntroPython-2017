@@ -33,7 +33,7 @@ Checking your package
 
 It can be pretty tricky to know if you package is doing the right thing.
 
-While developing and testing, you want to use develop mode. But then if a file isn't getting included, you don't really notice, as it allstill works.
+While developing and testing, you want to use develop mode. But then if a file isn't getting included, you don't really notice, as it all still works.
 
 Building the package
 --------------------
