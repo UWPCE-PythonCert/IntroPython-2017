@@ -472,12 +472,8 @@ Import Time Vs. Run Time
 
 Decorators are run at import time:
 
-Examples/decorators/play_with_imports.py
+:download:`play_with_imports.py <examples/decorators/play_with_imports.py>`
 
-
-Let's make a decorator that finds the best price for a shirt.
-
-Examples/decorators/shirt_price.py
 
 What if my decorated function uses unknown inputs?
 --------------------------------------------------
