@@ -1,6 +1,5 @@
 """
 Kathryn Egan
-
 """
 
 
@@ -33,40 +32,24 @@ class Element:
         format and pretty prints to file using given file handler.
         Args:
             file_out (TextIOWrapper) : file handler
-            ind (str) : level of indentation for this Element
+            ind (int) : level of indentation for this Element
         """
-        file_out.write(self.get_tag(ind))
-        file_out.write('\n')
+        file_out.write('{}<{}{}>\n'.format(
+            self.indent * ind, self.tag, self.attribute_str()))
         for c in self.content:
             try:
                 c.render(file_out, ind + 1)
             except AttributeError:
                 file_out.write('{}{}\n'.format((ind + 1) * self.indent, c))
-        file_out.write(self.get_tag(ind, style='close'))
-        file_out.write('\n')
+        file_out.write('{}</{}>\n'.format(self.indent * ind, self.tag))
 
-    def get_tag(self, ind, style='open'):
-        """ Generates an HTML tag according to given style
-        with given level of indent. Style can be 'open',
-        'close', or 'selfclosing' (defaults to 'open').
-        Args:
-            ind (str) : level of indent
-            style (str) : style to use
+    def attribute_str(self):
+        """ Returns this Element's attributes as a string.
         Returns:
-            tag : formatted tag
+            str : attributes as a string
         """
-        substrings = {
-            'indent': ind * self.indent,
-            'tag': self.tag,
-            'attributes':
-                '' if style == 'close' else ''.join([
-                    ' {}="{}"'.format(key, self.attrs[key])
-                    for key in sorted(self.attrs)]),
-            'close': '/' if style == 'close' else '',
-            'selfclosing': ' /' if style == 'selfclosing' else ''}
-        tag = '{indent}<{close}{tag}{attributes}{selfclosing}>'
-        tag = tag.format(**substrings)
-        return tag
+        return ''.join([
+            ' {}="{}"'.format(key, self.attrs[key]) for key in self.attrs])
 
 
 class OneLineTag(Element):
@@ -77,13 +60,13 @@ class OneLineTag(Element):
         on one line and writes to file using given file handler.
         Args:
             file_out (TextIOWrapper) : file handler
-            ind (str) : level of indentation for this Element
+            ind (int) : level of indentation for this Element
         """
-        file_out.write(self.get_tag(ind))
+        file_out.write('{}<{}{}>'.format(
+            self.indent * ind, self.tag, self.attribute_str()))
         for c in self.content:
             file_out.write(c)
-        file_out.write(self.get_tag(0, style='close'))
-        file_out.write('\n')
+        file_out.write('</{}>\n'.format(self.tag))
 
 
 class SelfClosingTag(Element):
@@ -94,10 +77,10 @@ class SelfClosingTag(Element):
         and writes to file using given file handler.
         Args:
             file_out (TextIOWrapper) : file handler
-            ind (str) : level of in
+            ind (int) : level of indentation for this Element
         """
-        file_out.write(self.get_tag(ind, 'selfclosing'))
-        file_out.write('\n')
+        file_out.write('{}<{}{} />\n'.format(
+            self.indent * ind, self.tag, self.attribute_str()))
 
 
 class Html(Element):
@@ -109,7 +92,7 @@ class Html(Element):
         format headed by doctype. Writes to file using given file handler.
         Args:
             file_out (TextIOWrapper) : file handler
-            ind (str) : level of indentation for this Element
+            ind (int) : level of indentation for this Element
         """
         file_out.write('<!DOCTYPE {}>\n'.format(self.tag))
         Element.render(self, file_out, ind=1)
@@ -119,26 +102,27 @@ class A(OneLineTag):
     """ HTML hyperlink element. """
     tag = 'a'
 
-    def __init__(self, link, content):
+    def __init__(self, link, content, **kwargs):
         """ Maps link to content as an HTML attribute of an Element.
         Args:
             link (str) : hyperlink
             content (str) : content to map hyperlink to
         """
-        Element.__init__(self, content, href=link)
+        kwargs['href'] = link
+        Element.__init__(self, content, **kwargs)
 
 
 class H(OneLineTag):
     """ HTML header element. """
 
-    def __init__(self, level, content):
+    def __init__(self, level, content, **kwargs):
         """ Initializes this element with the given level and content.
         Args:
             level (int) : level of this header
             content (str) : content of this header
         """
         self.tag = 'h' + str(level)
-        Element.__init__(self, content)
+        Element.__init__(self, content, **kwargs)
 
 
 class Title(OneLineTag):

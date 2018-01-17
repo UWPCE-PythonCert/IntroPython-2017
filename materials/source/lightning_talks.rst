@@ -23,7 +23,7 @@ Scott B Peterson: Pandas and numpy
 ----------------------------------
 
 Amitkumar Chudasma: how I got into python
-------------------
+-----------------------------------------
 
 Daniel Wojciechowski: OWASP secure dev.
 ---------------------------------------
@@ -144,8 +144,8 @@ Use Python as Cloud Glue
 Python can be useful for a writer.
 
 
-Hiroyuki Takechi
-----------------
+Hiroyuki Takechi: Statistical tools -- SAS and R
+------------------------------------------------
 
 Jacob Olsby
 -----------
