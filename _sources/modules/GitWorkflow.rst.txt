@@ -41,7 +41,7 @@ Remember that ``git status`` is your friend -- when in doubt, run that command t
 
 5. Commit the all the changes -- make sure to add a good commit message.
 
-   ``$ git commit -a``
+   ``$ git commit -m 'my message here'``
 
 6. Push your changes to your remote github account.
 
