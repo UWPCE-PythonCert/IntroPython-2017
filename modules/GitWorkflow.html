@@ -141,10 +141,11 @@
 <li class="toctree-l2"><a class="reference internal" href="MapFilterReduce.html">Map Filter and Reduce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPythonParallel.html">IPython Parallel Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IteratorsAndGenerators.html">Iterators and Generators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Packaging.html">Packages and Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CodeReviews.html">Code Reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Closures.html">Closures and Function Currying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ContextManagers.html">Context Managers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../exercises/index.html">Exercises</a></li>
@@ -218,14 +219,15 @@
   <div class="section" id="git-workflow">
 <span id="id1"></span><h1>Git Workflow<a class="headerlink" href="#git-workflow" title="Permalink to this headline">¶</a></h1>
 <p>Git is a very flexible system that can be used in a lot of different ways to manage code development. This page describes the workflow we are using for this class – about as simple a workflow as you can have with git.</p>
-<p>The following instructions are very explicit for those new to git and the command line, so once you have created your home directory within the students directory, this overview may be all you need for future work.</p>
+<p>We start with an overview of the usual process. This overview may be all you need for future work, once you have created your home directory within the students directory.
+The instructions following the overview are very explicit for those new to git and the command line.</p>
 <div class="section" id="the-usual-process">
 <h2>The usual process<a class="headerlink" href="#the-usual-process" title="Permalink to this headline">¶</a></h2>
 <p>This is the usual series of steps you will want to go through when you do a new project / assignment.</p>
 <p>First make sure you are on the command line “in” your copy of the class repo.</p>
 <p>Remember that <code class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></code> is your friend – when in doubt, run that command to see what’s going on in your repo.</p>
 <ol class="arabic">
-<li><p class="first">Make sure you are on correct branch – though if you never branch, you’ll only need to do this once:</p>
+<li><p class="first">Make sure you are on the correct branch – though if you never branch, you’ll only need to do this once:</p>
 <p><code class="docutils literal"><span class="pre">$</span> <span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">master</span></code></p>
 </li>
 <li><p class="first">Get any changes from class repository – good to do this whenever you start on something new</p>
@@ -251,6 +253,7 @@
 <li><p class="first">If your are ready to submit your work, make a pull request on the gitHub website.</p>
 </li>
 </ol>
+<p>Note that when you are working, you may want to do steps 2-6 far more often than step 7. (Don’t go too crazy here, we don’t want you to wait until the end of the quarter to get to step 7. ;-))</p>
 <p>Now put that to work to get you set up for class:</p>
 </div>
 <div class="section" id="initial-setup">
@@ -331,7 +334,7 @@
 <h2>Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permalink to this headline">¶</a></h2>
 <p>We are using gitHub to submit and review your work because it provides a nice interface for code review. But more importantly, because the git revision control system, and the gitHub collaborative code development platform are industry standard tools for developing code.</p>
 <p>Learning git is a great skill – we are only requiring the very basics for this class, but do take the opportunity to explore git a bit more – making branches, reverting to older versions, etc.</p>
-<p>Also – by doing it this way, you are getting an automatic back up of your work. Each time you “push”, a copy of your work is getting backed up on gitHub. And you can also use it to coordinate your work among multiple computers – you can have as many clones of your repo on gitHub as you like – say one on a computer at work, and one at home. If you push a change fro one computer, then running:</p>
+<p>Also – by doing it this way, you are getting an automatic back up of your work. Each time you “push”, a copy of your work is getting backed up on gitHub. And you can also use it to coordinate your work among multiple computers – you can have as many clones of your repo on gitHub as you like – say one on a computer at work, and one at home. If you push a change from one computer, then running:</p>
 <p><code class="docutils literal"><span class="pre">$</span> <span class="pre">git</span> <span class="pre">pull</span></code></p>
 <p>on the other will bring that change down.  This makes it really easy to do your classwork (or any work) in multiple places.</p>
 </div>

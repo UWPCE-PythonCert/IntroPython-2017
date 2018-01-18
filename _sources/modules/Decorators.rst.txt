@@ -222,20 +222,20 @@ function with given arguments:
 .. code-block:: python
 
     class Memoize:
-    """
-    memoize decorator from avinash.vora
-    http://avinashv.net/2008/04/python-decorators-syntactic-sugar/
-    """
-    def __init__(self, function):  # runs when memoize class is called
-        self.function = function
-        self.memoized = {}
+        """
+        memoize decorator from avinash.vora
+        http://avinashv.net/2008/04/python-decorators-syntactic-sugar/
+        """
+        def __init__(self, function):  # runs when memoize class is called
+            self.function = function
+            self.memoized = {}
 
-    def __call__(self, *args):  # runs when memoize instance is called
-        try:
-            return self.memoized[args]
-        except KeyError:
-            self.memoized[args] = self.function(*args)
-            return self.memoized[args]
+        def __call__(self, *args):  # runs when memoize instance is called
+            try:
+                return self.memoized[args]
+            except KeyError:
+                self.memoized[args] = self.function(*args)
+                return self.memoized[args]
 
 
 Let's try that out with a potentially expensive function:
@@ -333,7 +333,7 @@ Add yet another function in scope:
     def decorator(arg1, arg2):
         def real_decorator(function):
             def wrapper(*args, **kwargs):
-                print("Congratulations. You decorated a function that does 
+                print("Congratulations. You decorated a function that does
                        something with {} and {}".format(arg1, arg2))
                 function(*args, **kwargs)
             return wrapper

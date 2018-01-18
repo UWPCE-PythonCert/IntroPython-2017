@@ -5,7 +5,8 @@ Git Workflow
 
 Git is a very flexible system that can be used in a lot of different ways to manage code development. This page describes the workflow we are using for this class -- about as simple a workflow as you can have with git.
 
-The following instructions are very explicit for those new to git and the command line, so once you have created your home directory within the students directory, this overview may be all you need for future work.
+We start with an overview of the usual process. This overview may be all you need for future work, once you have created your home directory within the students directory. 
+The instructions following the overview are very explicit for those new to git and the command line.
 
 The usual process
 -----------------
@@ -16,7 +17,7 @@ First make sure you are on the command line "in" your copy of the class repo.
 
 Remember that ``git status`` is your friend -- when in doubt, run that command to see what's going on in your repo.
 
-1. Make sure you are on correct branch -- though if you never branch, you'll only need to do this once:
+1. Make sure you are on the correct branch -- though if you never branch, you'll only need to do this once:
 
    ``$ git checkout master``
 
@@ -47,6 +48,8 @@ Remember that ``git status`` is your friend -- when in doubt, run that command t
    ``$ git push``
 
 7. If your are ready to submit your work, make a pull request on the gitHub website.
+
+Note that when you are working, you may want to do steps 2-6 far more often than step 7. (Don't go too crazy here, we don't want you to wait until the end of the quarter to get to step 7. ;-))
 
 Now put that to work to get you set up for class:
 
@@ -181,7 +184,7 @@ We are using gitHub to submit and review your work because it provides a nice in
 
 Learning git is a great skill -- we are only requiring the very basics for this class, but do take the opportunity to explore git a bit more -- making branches, reverting to older versions, etc.
 
-Also -- by doing it this way, you are getting an automatic back up of your work. Each time you "push", a copy of your work is getting backed up on gitHub. And you can also use it to coordinate your work among multiple computers -- you can have as many clones of your repo on gitHub as you like -- say one on a computer at work, and one at home. If you push a change fro one computer, then running:
+Also -- by doing it this way, you are getting an automatic back up of your work. Each time you "push", a copy of your work is getting backed up on gitHub. And you can also use it to coordinate your work among multiple computers -- you can have as many clones of your repo on gitHub as you like -- say one on a computer at work, and one at home. If you push a change from one computer, then running:
 
 ``$ git pull``
 

@@ -383,20 +383,20 @@ returns a callable as a return value.</p>
 <p>Consider a decorator that would save the results of calling an expensive
 function with given arguments:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Memoize</span><span class="p">:</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">memoize decorator from avinash.vora</span>
-<span class="sd">http://avinashv.net/2008/04/python-decorators-syntactic-sugar/</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>  <span class="c1"># runs when memoize class is called</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    memoize decorator from avinash.vora</span>
+<span class="sd">    http://avinashv.net/2008/04/python-decorators-syntactic-sugar/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>  <span class="c1"># runs when memoize class is called</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>  <span class="c1"># runs when memoize instance is called</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
-    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span><span class="p">[</span><span class="n">args</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>  <span class="c1"># runs when memoize instance is called</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span><span class="p">[</span><span class="n">args</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memoized</span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Let’s try that out with a potentially expensive function:</p>

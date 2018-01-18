@@ -115,7 +115,7 @@ When you *fork* a repository, you make a copy of that repository in your own (Gi
 
 When you have made changes that you believe the rest of the community will want to adopt, you make a *pull request* to the original project. The maintainer(s) of that project than have the option of accepting your changes, in which case your changes will become part of that project.
 
-This is how we will be working in this class. When you are ready tosubmit an assignment, you will make a *pull request* to main class repo, and your instructors can review it.
+This is how we will be working in this class. When you are ready to submit an assignment, you will make a *pull request* to main class repo, and your instructors can review it.
 
 The class repositories are on *GitHub* in the *UWPCE-PythonCert-ClassRepos* organization:
 
@@ -123,7 +123,7 @@ The class repositories are on *GitHub* in the *UWPCE-PythonCert-ClassRepos* orga
    :width: 50%
    :class: center
 
-Each class with have repository created specifically it, called something like: "Wi2018-Online".
+Each class with have repository created specifically for it, called something like: "Wi2018-Online".
 
 In examples below it is called IntroToPython, so replace that in your head with the name of your classes repository.
 
@@ -142,7 +142,7 @@ Setting up Your Fork of the Class Repository
 
 The first thing we have to do is on the GitHub website. You will create a fork of the class repository from the ``UWPCE-PythonCert-ClassRepos`` account on GitHub into your personal account.
 
-The first step is to create a GitHub account if you don't have one already.  Your gitHub id will be associated with this class' public repo, so it is up to you if you want to use your real name for your gitHub account, or an alias to maintain your privacy.
+Before you can do that, you need to create a GitHub account, if you don't have one already.  Your gitHub id will be associated with this class' public repo, so it is up to you if you want to use your real name for your gitHub account, or an alias to maintain your privacy.
 
 Once you are logged in to your gitHub account, go to the appropriate class repository here:
 

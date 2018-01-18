@@ -39,9 +39,7 @@ Introduction to This Class
 
   Introduction to Python
 
-Link to the syllabus, schedule, supplemental materials and other resources:
-
-https://uwpce-pythoncert.github.io/IntroPython-2017/
+A link to the syllabus, schedule, supplemental materials and other resources should have been sent to you.
 
 Class Structure
 ---------------
@@ -83,15 +81,12 @@ Communication
 
 **Mailing list:**
 
-We've set up a Google Group for this class:
-
-programming-in-python@googlegroups.com
+You should have been subscribed to the mailing list, if not talk to your instructors.
 
 We will be using this list to communicate with you. You should have (or will soon) received an email invitation to join the mailing list.
 
-Slack: We have set up a slack channel for discussions. Anything python related is fair game.
+Slack: We have set up a slack channel for discussions. Anything python related is fair game (or not in the random channel). Again, if you did not receive and invite to slack, talk to your instructors.
 
-https://python2017-fall.slack.com/
 
 We highly encourage you to work together. You will learn at a much deeper level if you work together, and it gets you ready to collaborate with colleagues. If you have never used slack before, you may want to look at their intro:
 
@@ -100,8 +95,7 @@ https://get.slack.help/hc/en-us/articles/115004071768
 Office Hours
 ------------
 
-We will generally will hold "office hours" at a coffee shop for a couple hours
-each weekend.
+We will generally will hold "office hours" at a coffee shop for a couple hours each weekend.
 
 Please feel free to attend even if you do not have a specific question. It is an opportunity to work with the instructors and fellow students, and learn from each other.
 
