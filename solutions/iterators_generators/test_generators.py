@@ -29,7 +29,13 @@ def test_doubler():
 
 def test_fib():
     g = gs.fib()
-    assert [next(g) for i in range(9)] == [1, 1, 2, 3, 5, 8, 13, 21, 34]
+    assert [next(g) for i in range(10)] == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+
+def test_fib2():
+    g = gs.fib(8)
+    #print([f for f in g])
+    assert [f for f in g] == [0, 1, 1, 2, 3, 5, 8, 13]
 
 
 def test_prime():
