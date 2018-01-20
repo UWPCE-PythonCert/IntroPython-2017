@@ -5,10 +5,11 @@ import datetime
 import uuid
 import pickle
 import os
+from mailroom.audit import audit_log
 
 """ Program to manage donations. """
 
-
+@audit_log
 class Donors:
 
     """
@@ -84,7 +85,7 @@ class Donors:
                 matches.append( (name, id) )
         return matches
 
-
+@audit_log
 class Donor:
 
     """
@@ -432,4 +433,3 @@ def save_donor_file(donors,donor_file=None):
         print("Sorry, couldn't write the donor file!")
         print(e)
         return False
-
