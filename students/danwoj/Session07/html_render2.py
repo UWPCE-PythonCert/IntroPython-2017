@@ -26,8 +26,8 @@ class Element():
 			file_object.write(ind + self.indent + '<' + self.tag + '>\n')
 			iter_self = iter(self.content)
 			file_object.write(ind + self.indent + '</' + self.tag + '>\n')
-			each = next(iter_self)
-			each.render(file_object)
+			content2 = next(iter_self)
+			content2.render(file_object)
 			return
 		file_object.write(ind + self.indent + '<' + self.tag + '>\n')
 		for each in self.content:
@@ -76,11 +76,12 @@ class OneLineTag(Element):
 			try:
 				each.render(file_object)
 			except AttributeError:
-				file_object.write(ind + self.indent + indent4 + str(each))
-		file_object.write(ind + self.indent + ' </' + self.tag + '>')
+				file_object.write(str(each))
+		file_object.write(' </' + self.tag + '>\n')
 
 class Title(OneLineTag):
 	tag = 'title'
+	indent = indent4 * 3
 
 def mainloop():
 	print('run')

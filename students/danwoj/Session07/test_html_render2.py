@@ -130,10 +130,6 @@ def test_render_hbp():
     This test renders an HTML file with properly formed 'head', 'body',
     and 'para' tags within it.
     '''
-#    el_object2 = Head('words')
-#    el_object3 = Body(Para('more words'))
-#    el_object = str(el_object2) + str(el_object3)
-#    el_object = Html(el_object)
     el_object = Html(Head(Body(Para('spam, spam, spam, wonderful spam'))))
     with open('test_render_hbp_output.html', 'w') as out_file:
     	el_object.render(out_file)
@@ -180,6 +176,55 @@ def test_onelinetag():
 
 def test_title_tag():
 	assert Title.tag == 'title'
+
+#def test_title_render():
+#    '''
+#    This test renders an HTML file with properly formed 'title', 'head', 'body',
+#    and 'para' tags within it.
+#    '''
+#    words = 'spam, spam, spam, wonderful spam'
+#    words2 = 'PythonClass = Revision 1087:'
+#    el_object2 = Head(Title(words2))
+#    el_object = Body(Para(words))
+#    with open('test_title_render_output.html', 'w') as out_file:
+#    	el_object2.render(out_file)
+#    	el_object.render(out_file)
+#    with open('test_title_render_output.html', 'r') as in_file:
+#    	contents = in_file.read()
+    # Make sure extra whitespace at beginning or end doesn't mess things up.
+#    contents = contents.strip()
+
+#    print(contents)  # To see what's going on if a test fails
+
+    # Ensure the file begins with 'DOCTYPE' tag per the example
+ #   assert contents.startswith('<!DOCTYPE html>')
+ #   assert contents.endswith('</html>')
+
+    # Validates the 'Body' tag is in the file
+ #   assert '<body>' in contents
+ #   assert '</body>' in contents
+
+    # Validates the 'Para' tag is in the file
+ #   assert '<p>' in contents
+ #   assert '</p>' in contents
+
+    # Validates the 'Head' tag is in the file
+ #   assert '<head>' in contents
+ #   assert '</head>' in contents
+
+    # Validates sample text is in the file
+ #   assert 'spam, spam, spam, wonderful spam' in contents
+
+    # The opening tag should come before the ending tag
+ #   assert contents.index('<p>') < contents.index('</p>')
+    # The opening tag should come before the content
+ #   assert contents.index('<p>') < contents.index('wonderful spam')
+    # The next two assertions validate the 'Head' tags remain above the 'Body'
+ #   assert contents.index('<head>') < contents.index('<body>')
+ #   assert contents.index('</head>') < contents.index('<body>')
+    # The next two assertions validate the 'Para' tags are nested within the 'Body'
+ #   assert contents.index('<body>') < contents.index('<p>')
+ #   assert contents.index('</p>') < contents.index('</body>')
 
 #def test_adding_empty_string():
 #	el_object = Element('')
