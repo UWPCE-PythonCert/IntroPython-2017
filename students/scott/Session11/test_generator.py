@@ -63,12 +63,11 @@ def test_prime():
 def test_squared():
     g = gen.squared()
     assert next(g) == 1
-    assert next(g) == 1
     assert next(g) == 4
     assert next(g) == 9
     assert next(g) == 16
     assert next(g) == 25
-    assert next(g) == 49
+    assert next(g) == 36
 
 
 
