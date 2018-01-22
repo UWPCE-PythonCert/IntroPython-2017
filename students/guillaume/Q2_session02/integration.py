@@ -4,7 +4,7 @@ from numpy import linspace
 from itertools import islice
 
 
-def trapz(func, a, b, precision=10):
+def trapz(func, a, b, precision=10, **func_args):
     '''
     This function uses a more generic approach to trapeziodal numerical
     integration in order to allow non constant size of the sub integration
@@ -13,9 +13,13 @@ def trapz(func, a, b, precision=10):
     # Test order of a & b
     if a > b:
         a, b = b, a
-    print('u\222B')
+
+    def loc_f(x):
+        nonlocal func_args
+        return func(x, **func_args)
+
     values, band = sectors(lambda x: x, lambda x, y: y - x, a, b, precision)
-    f_values, f_band = sectors(func,
+    f_values, f_band = sectors(loc_f,
                                lambda x, y: 0.5 * (x + y), a, b, precision)
     integral = sum([x * y for x, y in zip(band, f_band)])
     return integral
@@ -36,38 +40,38 @@ def sectors(*args):
     return values, bands
 
 
-def function_val(func, values):
-    '''
-    return a list of avg f_values for each sub integration sectors
-    '''
-    f_values = [func(x) for x in values]
+def test():
+    args = {'a': 1, 'b': 2}
+
+    def inner():
+        nonlocal args
+        for x, y in args.items():
+            print('{} {}'.format(x, y))
+    inner()
 
 
-    pass
+def f_b(x, A, B, C=0):
+    return C * x + A + B
 
 
-def func_values_np(func, a, b, precision):
-    input_f = linspace(a, b, abs(b - a) * 15)
-    f_input = [func(x) for x in input_f]
-    f_precision = [(abs(x2 - x1) / precision) for x1, x2 in zip(f_input[:-1], f_input[1:])]
-    # print(f_precision)
-    return input_f, f_input, f_precision
+def test_f_b(x):
+    args = {'A': 1, 'B': 2}
 
-
-def func_values(func, a, b, precision):
-    input = [a]
-    while input[-1] < b:
-        input.append(input[-1] + precision)
-    input[-1] = b
-    return input
+    def inner(x):
+        nonlocal args
+        return f_b(x, **args)
+    return inner(x)
 
 
 if __name__ == "__main__":
-    # print(func_values(cos, 0, 10, 0.01))
-    # print(linspace(0, 10, 100))
-    #print(func_values_np(cos, 0, 10, 0.01))
-    area = trapz(lambda x: 2, 0, 5)
+    area = trapz(lambda x: 2 * x, 0, 5, 10)
+    # primitive of 2 * x is x**2 hence area value should be 25
+    assert area == 25
     print(area)
-
-
+    test()
+    print(test_f_b(0))
+    area_2 = trapz(f_b, 0, 5, **{'A': 1, 'B': 2})
+    print(area_2)
+    area_3 = trapz(f_b, 0, 5, 10, A=1, B=2, C=1)
+    print(area_3)
 
