@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 """
 Test code for generator assignments
 
@@ -29,13 +28,7 @@ def test_doubler():
 
 def test_fib():
     g = gs.fib()
-    assert [next(g) for i in range(10)] == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-
-
-def test_fib2():
-    g = gs.fib(8)
-    #print([f for f in g])
-    assert [f for f in g] == [0, 1, 1, 2, 3, 5, 8, 13]
+    assert [next(g) for i in range(9)] == [1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 
 def test_prime():
@@ -54,3 +47,11 @@ def test_prime2():
 #    assert False
 
 
+def test_squares():
+    g = gs.squares(10)
+    assert list(g) == [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+
+def test_squares2():
+    g = gs.squares2(10)
+    assert list(g) == [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]

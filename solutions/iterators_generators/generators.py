@@ -35,10 +35,9 @@ def doubler():  # 1, 2, 4, 8, 16, 32, 64...
         a = a * 2
 
 
-def fib(num=10):  # 1, 1, 2, 3, 5, 8, 13, 21, 34...
+def fib():  # 1, 1, 2, 3, 5, 8, 13, 21, 34...
     a, b = 0, 1
-    yield a
-    for count in range(num - 1):
+    while True:
         yield b
         a, b = b, a + b
 
@@ -91,4 +90,20 @@ def prime2():  # 2, 3, 5, 7, 11, 13, 17, 19, 23...
                 if a % x == 0:
                     p = False           # ...unless it isn't
                     break
+
+
+def squares(n):
+    count = 0
+    while count < n:
+        yield count ** 2
+        count += 1
+
+
+def squares2(n):
+    for count in range(n):
+        yield count ** 2
+
+
+
+
 
