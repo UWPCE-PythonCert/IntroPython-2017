@@ -10,7 +10,11 @@ def mathfunc1(x):
 
 def mathfunc2(x):
     # line function
-    return x + 12.5
+    return x + 10
+
+
+def mathfunc3(x):
+    return 10
 
 
 def trapz(line, start, end, steps):
@@ -19,15 +23,17 @@ def trapz(line, start, end, steps):
     mathfuncvals = []
     areas = []
     single_step = (end - start) / steps
-    stepvals = [single_step * n for n in range(0, steps)]
-    mathfuncvals = [line(stepvals[n]) for n in range(0, steps)]
-    areas = [(mathfuncvals[n] * single_step) + .5 * single_step * abs(mathfuncvals[n + 1] - mathfuncvals[n]) for n in range(0, steps - 1)] 
-    for i in range(0, steps):
+    stepvals = [single_step * n for n in range(start, steps)]
+    # print(stepvals)
+    mathfuncvals = [line(stepvals[n]) for n in range(start, steps)]
+    # print(mathfuncvals)
+    areas = [(mathfuncvals[n] * single_step) + .5 * single_step * abs(mathfuncvals[n + 1] - mathfuncvals[n]) for n in range(start, steps-1)] 
+    for i in range(start, steps - 1):
         area += areas[i]
     return area
 
 
-trapz(mathfunc2, 0, 30, 100)
+print(trapz(mathfunc3, 0, 30, 100))
 
 
 
@@ -48,4 +54,3 @@ repeat until xn is reached
 
 # I think a closure would work with trapz as inner function
 
-t
