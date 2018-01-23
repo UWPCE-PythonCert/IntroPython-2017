@@ -44,6 +44,7 @@ class Donors:
     def __iter__(self):
         return iter(self.full_name_index)
 
+    @audit_log
     def add_donor(self, donor):
         """
         add a donor to the donors database
@@ -162,7 +163,7 @@ class Donor:
             id="", created="",
             full_name="",
             first_name="", last_name="", middle_name="", suffix="",
-            donations=None, donation=None):
+            donations=None, donation=None, audit=None):
 
         # normally no id is passed in, so we create one
         if id == "":
@@ -210,12 +211,18 @@ class Donor:
             else:
                 self._donations = list()
             
+        if audit == None:
+            self._audit = list()
+        else:
+            self._audit = audit
+
     @property
     def id(self):
         """ return the donor id """
         return self._id
 
     @id.setter
+    @audit_log
     def id(self, value):
         """ donor id cannot be changed once established """
         raise AttributeError("You cannot change the 'id' after the record has been created.")
@@ -226,10 +233,12 @@ class Donor:
         return self._donations
 
     @donations.setter
+    @audit_log
     def donations(self, value):
         """ allow bulk setting of donation entries """
         self._donations = value
 
+    @audit_log
     def add_donation(self, value):
         """ add a single donation """
         today = datetime.datetime.utcnow().date().isoformat() + "Z"
@@ -238,6 +247,14 @@ class Donor:
         except ValueError:
             raise ValueError("Donations must be values.")
         self._donations.append( { "amount": value, "date": today } )
+
+    def add_audit_entry(self, value):
+        """ add a single audit line """
+        now = datetime.datetime.utcnow().isoformat() + "Z"
+        self._audit.append(( now, value))
+
+    def show_audit(self):
+        return self._audit
 
     @property
     def number_donations(self):
@@ -266,6 +283,7 @@ class Donor:
         return self._first_name
 
     @first_name.setter
+    @audit_log
     def first_name(self, value):
         """ set the first name """
         self._first_name = value.title()
@@ -276,6 +294,7 @@ class Donor:
         return self._middle_name
 
     @middle_name.setter
+    @audit_log
     def middle_name(self, value):
         """ set the middle name """
         self._middle_name = value.title()
@@ -286,6 +305,7 @@ class Donor:
         return self._last_name
 
     @last_name.setter
+    @audit_log
     def last_name(self, value):
         """ set the last name """
         self._last_name = value.title()
@@ -296,6 +316,7 @@ class Donor:
         return self._suffix
 
     @suffix.setter
+    @audit_log
     def suffix(self, value):
         """ set the suffix """
         # special case roman numbers to all caps
