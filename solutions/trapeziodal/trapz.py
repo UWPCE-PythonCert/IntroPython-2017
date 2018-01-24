@@ -32,7 +32,7 @@ def quadratic(x, A=0, B=0, C=0):
 
 #     """
 #     delta = (float(b) - a) / n
-#     return [a + i * delta for i in range(n + 1)]
+#     return (a + i * delta for i in range(n + 1))
 
 
 # # this version returns a generator
@@ -63,8 +63,7 @@ def quadratic(x, A=0, B=0, C=0):
 from frange import frange
 
 
-
-def trapz(fun, a, b, *args, **kwargs):
+def trapz(infun, a, b, *args, **kwargs):
     """
     Compute the area under the curve defined by
     y = fun(x), for x between a and b
@@ -78,14 +77,24 @@ def trapz(fun, a, b, *args, **kwargs):
     :param b: the end point for the integration
     :type b: a numeric value
     """
+
+    # curry the input function
+    def fun(x):
+        return infun(x, *args, **kwargs)
+
+
     # compute the range
     n = 100  # hard code that for now
-    # vals = iter(frange(a, b, n))
 
-    # next(vals)
+
+
+
+    #vals = frange(a, b, n)
+
+    #next(vals)
     # s = sum([fun(next(vals), *args, **kwargs) for i in range(n - 1)])
-    s = sum([fun(val, *args, **kwargs) for val in frange(a, b, n)[1:-1]])
-    s += (fun(a, *args, **kwargs) + fun(b, *args, **kwargs)) / 2
+    s = sum((fun(val) for val in frange(a, b, n)[1:-1]))
+    s += (fun(a) + fun(b)) / 2
     s *= (b - a) / n
 
     return s
