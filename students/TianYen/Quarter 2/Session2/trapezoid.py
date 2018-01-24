@@ -7,8 +7,8 @@ def frange(start, stop, step):
         yield i
         i += step
 
-def trapz(func, a, b):
+def trapz(func, a, b, *args, **kwargs):
     """trapezoidal approximation of the area under a curve"""
     n = 100
     step = (b - a) / n
-    return step * ((func(a) + func(b)) / 2 + sum([func(x) for x in frange(a + step, b - step, step)]))
+    return step * ((func(a, *args, **kwargs) + func(b, *args, **kwargs)) / 2 + sum([func(x,*args, **kwargs) for x in frange(a + step, b - step, step)]))
