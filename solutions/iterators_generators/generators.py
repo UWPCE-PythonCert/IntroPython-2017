@@ -91,3 +91,19 @@ def prime2():  # 2, 3, 5, 7, 11, 13, 17, 19, 23...
                     p = False           # ...unless it isn't
                     break
 
+
+def squares(n):
+    count = 0
+    while count < n:
+        yield count ** 2
+        count += 1
+
+
+def squares2(n):
+    for count in range(n):
+        yield count ** 2
+
+
+
+
+

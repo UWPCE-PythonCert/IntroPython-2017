@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 """
 Test code for generator assignments
 
@@ -48,3 +47,11 @@ def test_prime2():
 #    assert False
 
 
+def test_squares():
+    g = gs.squares(10)
+    assert list(g) == [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+
+def test_squares2():
+    g = gs.squares2(10)
+    assert list(g) == [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
