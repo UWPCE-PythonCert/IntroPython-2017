@@ -33,14 +33,7 @@ def trapz(line, start, end, steps):
     return area
 
 
-print(trapz(mathfunc3, 0, 30, 100))
-
-
-
-    # generate a list of x values to interrogate line funciton 
-    # get Y values back 
-
-
+print(trapz(mathfunc3, 0, 30, 10000))
 
 
 
@@ -52,5 +45,5 @@ area (to be summed to completion) = step size * x0 value + step size * .5* abs(x
 repeat until xn is reached 
 '''
 
-# I think a closure would work with trapz as inner function
+
 
