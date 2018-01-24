@@ -1,21 +1,15 @@
 import inspect
 
 def audit_log(called_function):
-    def audit_log_inner(*args, **kwargs):
-        if inspect.isclass(called_function):
-            print("AUDIT {} called with:".format(called_function.__name__) ,args, kwargs)
-            #print("AUDIT:",repr(called_function(*args, **kwargs)))
-        else:
-            try:
-                print("AUDIT function ",called_function.__name__,"called with value",repr(args[1]))
-                print("AUDIT repr:",repr(args[0]))
-                print("AUDIT type:",type(args[0]))
-                #args[0].add_audit_entry(called_function.__name__ + "set to" + repr(args[1]))
-            except:
-                print("AUDIT: no name")
-                pass
-
-        result = called_function(*args, **kwargs)
+    def audit_log_inner(self, *args, **kwargs):
+        # if inspect.isclass(called_function):
+        #     print("AUDIT {} called with:".format(called_function.__name__) ,args, kwargs)
+        #     #print("AUDIT:",repr(called_function(*args, **kwargs)))
+        # else:
+        if not hasattr(self, "_audit"):
+            self._audit = []
+        self._audit.append(called_function.__name__ + "set to" + str(args))
+        result = called_function(self, *args, **kwargs)
         return result
     return audit_log_inner
 

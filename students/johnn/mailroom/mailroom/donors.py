@@ -9,14 +9,14 @@ from mailroom.audit import audit_log
 
 """ Program to manage donations. """
 
-@audit_log
+# @audit_log
 class Donors:
 
     """
     Class that stores donor records
 
     Optionally provide a Donor() object or add Donor() object
-    with add_donor().  
+    with add_donor().
 
     Iterable, and provides an index for searching as well as
     a match(search) utility function.
@@ -68,13 +68,13 @@ class Donors:
         """ Provide an index of keys, full_name, last_name and first_name """
         index=[]
         for key in self._donors:
-            index.append( (self._donors[key].full_name, key, 
+            index.append( (self._donors[key].full_name, key,
                 self._donors[key].last_name,
                 self._donors[key].first_name ) )
         return sorted(index)
 
     def match_donor(self, query_full_name):
-        """ 
+        """
         find all records that match the query string
 
         return tupple with full_name, id
@@ -86,11 +86,11 @@ class Donors:
                 matches.append( (name, id) )
         return matches
 
-@audit_log
+# @audit_log
 class Donor:
 
     """
-    Class to store a donor record 
+    Class to store a donor record
 
     Args:
         full_name(str)      format: <first name> [<middle_name>] <last_name> [,<suffix>]
@@ -113,7 +113,7 @@ class Donor:
     Usage:
 
         The class allows flexibility in how a record is set.  It is allowable
-        to create an empty instance of the class and update it piecemeal.  
+        to create an empty instance of the class and update it piecemeal.
 
         It is also allowable to pass in all information needed to create a record
         using different strategies such as a full_name vs the constituent parts.
@@ -129,41 +129,48 @@ class Donor:
         # empty donor record
         In [599]: d=Donor()
         In [600]: repr(d)
-        Out[600]: "Donor( id='97d744de-de23-11e7-bee5-0800274b0a84', 
+        Out[600]: "Donor( id='97d744de-de23-11e7-bee5-0800274b0a84',
             created='2017-12-11T03:30:11.077937Z' )"
         In [601]:
 
         # automatic parsing of full_name
         In [601]: d=Donor(full_name="sally q smith, iv")
         In [602]: repr(d)
-        Out[602]: "Donor( id='067f51c4-de24-11e7-bee5-0800274b0a84', first_name='Sally', 
-            middle_name='Q', last_name='Smith', suffix='IV', 
+        Out[602]: "Donor( id='067f51c4-de24-11e7-bee5-0800274b0a84', first_name='Sally',
+            middle_name='Q', last_name='Smith', suffix='IV',
             created='2017-12-11T03:33:16.728654Z' )"
         In [603]:
 
         # name creation based name sub-components
         In [594]: d=Donor(first_name="joe", last_name="smith", donation=100)
         In [595]: repr(d)
-        Out[595]: "Donor( id='7724e750-de23-11e7-bee5-0800274b0a84', first_name='Joe', 
-            last_name='Smith', donations=[{'amount': 100.0, 'date': '2017-12-11Z'}], 
+        Out[595]: "Donor( id='7724e750-de23-11e7-bee5-0800274b0a84', first_name='Joe',
+            last_name='Smith', donations=[{'amount': 100.0, 'date': '2017-12-11Z'}],
             created='2017-12-11T03:29:16.221954Z' )"
-        In [596]:    
+        In [596]:
 
         In [636]: d=Donor(full_name="john adams")
         In [637]: d.add_donation=1000
         In [638]: repr(d)
-        Out[638]: "Donor( id='7e93d724-de25-11e7-bee5-0800274b0a84', first_name='John', 
-            last_name='Adams', donations=[{'amount': 1000.0, 'date': '2017-12-11Z'}, 
+        Out[638]: "Donor( id='7e93d724-de25-11e7-bee5-0800274b0a84', first_name='John',
+            last_name='Adams', donations=[{'amount': 1000.0, 'date': '2017-12-11Z'},
             {'amount': 1000.0, 'date': '2017-12-11Z'}], created='2017-12-11T03:43:47.686457Z' )"
         In [639]:
 
     """
 
-    def __init__(self, 
+    def __init__(self,
             id="", created="",
             full_name="",
             first_name="", last_name="", middle_name="", suffix="",
-            donations=None, donation=None, audit=None):
+            donations=None, donation=None
+            ):
+            # , audit=None):
+
+        # if audit is None:
+        #     self._audit = list()
+        # else:
+        #     self._audit = audit
 
         # normally no id is passed in, so we create one
         if id == "":
@@ -183,7 +190,7 @@ class Donor:
             middle_name,
             last_name,
             suffix))
-     
+
         # we don't expect full_name and a subset to be set at the same time
         if full_name != "" and sub_name_set:
             raise ValueError("You cannot set 'full_name' and a subset of the name at the same time.")
@@ -210,11 +217,7 @@ class Donor:
                 self._donations = donations
             else:
                 self._donations = list()
-            
-        if audit == None:
-            self._audit = list()
-        else:
-            self._audit = audit
+
 
     @property
     def id(self):
@@ -250,6 +253,7 @@ class Donor:
 
     def add_audit_entry(self, value):
         """ add a single audit line """
+        print("add_audit_entry called")
         now = datetime.datetime.utcnow().isoformat() + "Z"
         self._audit.append(( now, value))
 
@@ -337,7 +341,7 @@ class Donor:
         if self.suffix != "":
             suffix=", " + self.suffix
         else:
-            suffix=""    
+            suffix=""
         return " ".join(filter(None, [self.first_name, self.middle_name, self.last_name])) + suffix
 
     @full_name.setter
@@ -360,7 +364,7 @@ class Donor:
 
         # we assume the last name is one word minus the suffix
         last_name=informal_name.split()[-1]
-       
+
         # build a list with everything to the left of the last name
         everything_but_last=informal_name.split()[0:-1]
 
@@ -412,7 +416,7 @@ class Donor:
             if not attr.startswith("_"):
                 which_attributes.append(attr)
         return "Donor Record ( " + ", ".join(self._query_attributes(which_attributes)) + " )"
- 
+
 
 def load_donor_file(donor_file=None):
     """ load donors from file into Donors object """
