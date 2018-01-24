@@ -1,68 +1,52 @@
+"""
+Kathryn Egan
+"""
 
 
-class intsum(object):
-
-    def __init__(self):
-        self._index = 0
-        self._curr = 0
-
-    def __next__(self):
-        self._curr += self._index
-        self._index += 1
-        return self._curr
-
-    def __iter__(self):
-        return self
+def intsum():
+    index = 1
+    curr = 0
+    while True:
+        yield curr
+        curr += index
+        index += 1
 
 
-class doubler(object):
-
-    def __init__(self):
-        self.value = 1
-
-    def __next__(self):
-        temp = self.value
-        self.value *= 2
-        return temp
-
-    def __iter__(self):
-        return self
+def doubler():
+    value = 1
+    while True:
+        yield value
+        value *= 2
 
 
-class fib(object):
-
-    def __init__(self):
-        self.prev = 0
-        self.curr = 1
-
-    def __next__(self):
-        temp = self.curr
-        self.curr += self.prev
-        self.prev = temp
-        return self.prev
-
-    def __iter__(self):
-        return self
+def fib():
+    prev = 0
+    curr = 1
+    while True:
+        yield curr
+        temp = curr
+        curr += prev
+        prev = temp
 
 
-class prime(object):
-
-    def __init__(self):
-        self.curr = 1
-
-    def __next__(self):
-        self.curr += 1
+def prime():
+    curr = 1
+    while True:
+        # advance past last prime returned
+        curr += 1
         while True:
             temp = 2
             prime = True
-            while temp <= self.curr / 2:
-                if self.curr % temp == 0:
+            # test divisors up to 1/2 current number
+            while temp <= curr / 2:
+                # current num is divisible - not prime
+                if curr % temp == 0:
                     prime = False
                     break
+                # not divisible - try another divisor
                 temp += 1
+            # end of divisors or non-prime reached
             if prime:
-                return self.curr
-            self.curr += 1
-
-    def __iter__(self):
-        return self
+                yield curr
+            # check next number
+            curr += 1
