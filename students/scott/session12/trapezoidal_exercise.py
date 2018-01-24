@@ -12,15 +12,16 @@ from math import exp
 
 
 def trapz(func, a, b, num):
-    h = (b-a)/float(num)
-    s = (func(a) + func(b))*(1/2)
+    first_part = (b-a)/float(num)
+    second_part = (func(a) + func(b))*(1/2)
     for i in range(1,num,1):
-        s = s + func(a + i*h)
-    return h*s
+        second_part = second_part + func(a + i*first_part)
+    
+    return first_part*second_part
 
 
 def passed_in_func(t):
-    return exp(-t**4)
+    return exp(-t**3)
 
 a = 2
 b = 30
