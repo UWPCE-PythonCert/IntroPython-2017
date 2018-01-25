@@ -52,7 +52,12 @@ def test_trapz():
     assert round(area, 2) == round(answer, 2)
 
 
-# def test_arbitrary_coeffs():
+def test_arbitrary_coeffs():
+    def throwaway(x, y, z):
+        return x ** y + z * 2
+
+    area = trapz.trapz(throwaway, 0, 5, 2, 2)
+    assert round(area, 2) == 61.67
 
 
 def test_polynomial():
