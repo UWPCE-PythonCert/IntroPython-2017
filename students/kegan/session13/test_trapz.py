@@ -3,6 +3,7 @@ Kathryn Egan
 """
 
 import trapz
+import math
 import pytest
 
 
@@ -40,9 +41,32 @@ def test_segment():
 def test_trapz():
     line = trapz.line(m=0, b=5)
     area = trapz.trapz(line, 0, 10)
-    assert area == 50
+    assert round(area, 5) == 50
 
     line = trapz.line(m=.5)
     area = trapz.trapz(line, 0, 10)
-    print(area)
-    assert False
+    assert round(area, 5) == 25
+
+    area = trapz.trapz(math.sin, 0, 1)
+    answer = math.cos(0) - math.cos(1)
+    assert round(area, 2) == round(answer, 2)
+
+
+# def test_arbitrary_coeffs():
+
+
+def test_polynomial():
+    A, B, C, D = 5, 4, 3, 2
+    f = trapz.polynomial(A, B, C, D)
+    x = 2
+    assert f(x) == sum([A * x ** 3, B * x ** 2, C * x, D])
+    A, B, C, D, E, F = 2, 0, 4, 1, 0, 0
+    f = trapz.polynomial(A, B, C, D, E, F)
+    x = 4
+    assert f(x) == sum([A * x ** 5, C * x ** 3, D * x ** 2])
+
+
+def test_quadtratic():
+    f = trapz.polynomial(3, 2, 2)
+    x = 5
+    assert f(x) == sum([3 * x ** 2, 2 * x, 2])
