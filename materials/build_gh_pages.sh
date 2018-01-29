@@ -28,7 +28,7 @@ git push
 
 # make sure the gh pages repo is there and in the right branch
 pushd $GHPAGESDIR
-git checkout -b gh-pages
+git checkout gh-pages
 popd
 
 # make the docs
