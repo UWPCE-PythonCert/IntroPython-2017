@@ -33,7 +33,7 @@ class Donor():
 
     @property
     def sum_donations(self):
-        return round(sum(self.donations), 2)
+        return sum(self.donations)
 
     @property
     def count_donations(self):
@@ -65,20 +65,22 @@ class Transactions():
         return this_donor.generate_letter()
 
     def get_donor(self, name):
-        for i in self.all_donors:
-            if i.name == name:
-                return i
+        for this_donor in self.all_donors:
+            if this_donor.name == name:
+                return this_donor
 
     def list_names(self):
         return ("Donor Names:\n" +
                 '\n'.join([i.name for i in self.all_donors]))
 
     def generate_report_data(self):
-        names = [i.name for i in self.all_donors]
-        totals = [i.sum_donations for i in self.all_donors]
-        counts = [i.count_donations for i in self.all_donors]
-        averages = [i.average_donation for i in self.all_donors]
-        report_data = list(zip(names, totals, counts, averages))
+        report_data = []
+        for this_donor in self.all_donors:
+            new_data = (this_donor.name,
+                        this_donor.sum_donations,
+                        this_donor.count_donations,
+                        this_donor.average_donation)
+            report_data.append(new_data)
         report_data = sorted(report_data,
                              key=lambda y: int(y[1]),
                              reverse=True)
@@ -110,10 +112,8 @@ class Transactions():
 
     @property
     def total_donations(self):
-        total = 0
-        for i in self.all_donors:
-            total += i.sum_donations
-        return total
+        return sum( (d.sum_donations for d in self.all_donors) )
+
 
     def challenge(self, factor, min_donation=0,
                   max_donation=float('inf')):
