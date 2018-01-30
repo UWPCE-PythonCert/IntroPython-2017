@@ -58,3 +58,11 @@ Eric found this decorator in *Core Python Programming* by Wesley Chun.
 
 There's a lot of layers of nesting in there -- let's figure it out!
 
+Context Managers
+----------------
+
+Any questions?
+
+Let's take a look at my solutions.
+
+
