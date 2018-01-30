@@ -436,9 +436,11 @@ def load_donor_file(donor_file=None):
         # when pickle files are corrupt they can present in lots of ways
         # so if catch something other than what we expect, assume it's
         # a corrupt pickle file
-        print("The donors file is corrupt!")
+        print("The donors file is invalid!")
         print(e)
-        print("Please delete or restore the donor file from a backup.")
+        print("If you have run a previous version of Mailroom 2000, it may not be")
+        print("compatible with the current version.  Please remove ~/.donors.p and")
+        print("try again.")
         sys.exit(1)
 
 def save_donor_file(donors,donor_file=None):
