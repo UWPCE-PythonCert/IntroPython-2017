@@ -9,7 +9,7 @@ from mailroom.audit import audit_log
 
 """ Program to manage donations. """
 
-# @audit_log
+
 class Donors:
 
     """
@@ -42,7 +42,10 @@ class Donors:
         return "Donors( " + ", ".join(repr_out) + " )"
 
     def __str__(self):
-        return self.__repr__()
+        str_out=[]
+        for key in self._donors:
+            str_out.append( str(self._donors[key]) )
+        return "str(Donors(\n  " + ",\n  ".join(str_out) + " ))"
 
     def __iter__(self):
         return iter(self.full_name_index)
@@ -89,7 +92,7 @@ class Donors:
                 matches.append( (name, id) )
         return matches
 
-# @audit_log
+
 class Donor:
 
     """
@@ -251,15 +254,6 @@ class Donor:
             raise ValueError("Donations must be values.")
         self._donations.append( { "amount": value, "date": today } )
 
-    def add_audit_entry(self, value):
-        """ add a single audit line """
-        print("add_audit_entry called")
-        now = datetime.datetime.utcnow().isoformat() + "Z"
-        self._audit.append(( now, value))
-
-    def show_audit(self):
-        return self._audit
-
     @property
     def number_donations(self):
         """ return the number of donations """
@@ -415,7 +409,7 @@ class Donor:
         for attr in dir(self):
             if not attr.startswith("_"):
                 which_attributes.append(attr)
-        return "Donor Record ( " + ", ".join(self._query_attributes(which_attributes)) + " )"
+        return "str(Donor(\n    " + ",\n    ".join(self._query_attributes(which_attributes)) + " ))"
 
 
 def load_donor_file(donor_file=None):
