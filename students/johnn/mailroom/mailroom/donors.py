@@ -26,6 +26,9 @@ class Donors:
     """
 
     def __init__(self, donor=None):
+
+        self.__name__ = "Donors"
+
         self._donors = {}
         # TODO:
         #   donors should take a donor object or multiple donor objects
@@ -167,10 +170,7 @@ class Donor:
             ):
             # , audit=None):
 
-        # if audit is None:
-        #     self._audit = list()
-        # else:
-        #     self._audit = audit
+        self.__name__ = "Donor"
 
         # normally no id is passed in, so we create one
         if id == "":
