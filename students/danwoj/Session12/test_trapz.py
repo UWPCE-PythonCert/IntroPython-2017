@@ -19,8 +19,19 @@ def test_slopped_straight():
     def ssline(x, m=1, B=0):
         return (m * x) + B
 
-    area = trapz(ssline, 0, 4)
-    assert area == 8
+    def ssline2(x, m=1, B=1):
+        return (m * x) + B
 
-#def test_quadratic(x, A=0, B=0, C=0):
-#    return A * x**2 + B * x + C
+    area = trapz(ssline, 0, 4)
+    area2 = trapz(ssline2, 0, 4)
+    assert math.isclose(area, 8, rel_tol=0.01, abs_tol=0.0)
+    assert math.isclose(area2, 12, rel_tol=0.01, abs_tol=0.0)
+
+def test_quadratic():
+
+    def quadratic(x, *args, **kwargs):
+        result = A * x**2 + B * x + C
+        return result
+
+    area = trapz(quadratic, 2, 20, A=1, B=3, C=2)
+    assert area == 14
