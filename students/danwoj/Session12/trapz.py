@@ -1,3 +1,6 @@
+def quadratic(x, A=0, B=0, C=0):
+    return A * x**2 + B * x + C
+
 def trapz(fun, a, b, *args, **kwargs):
     '''
     Trapezoidal Function
