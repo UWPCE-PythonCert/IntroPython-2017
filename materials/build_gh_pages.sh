@@ -28,7 +28,7 @@ git push
 
 # make sure the gh pages repo is there and in the right branch
 pushd $GHPAGESDIR
-git checkout -b gh-pages
+git checkout gh-pages
 popd
 
 # make the docs
@@ -38,7 +38,7 @@ cp -R build/html/ $GHPAGESDIR
 
 pushd $GHPAGESDIR
 git add . # in case there are new files added
-git commit -a -m "updating presentation materials"
+git commit -a -m "updating Fall 2017 class materials"
 git pull -s ours --no-edit
 git push --set-upstream origin gh-pages
 

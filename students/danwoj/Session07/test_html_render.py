@@ -19,7 +19,7 @@ def render_element(element, filename='temp_render_file.html', remove=True):
     NOTE: - this could be refactored, and still used everywhere.
     """
     with open(filename, 'w') as out_file:
-        element.render(out_file)
+        Element.render(out_file)
     with open(filename, 'r') as in_file:
         contents = in_file.read()
     # NOTE: you could comment out this if you want to see the file.
@@ -100,8 +100,10 @@ def test_render_body():
 def test_render_non_strings():
     # this is crating a html page with a single body() element in it
     el_object = Html(Body('any string I like'))
-
-    contents = render_element(el_object)
+    with open('test_render_non_strings_output.html', 'w') as out_file:
+    	el_object.render(out_file)
+    with open('test_render_non_strings_output.html', 'r') as in_file:
+    	contents = in_file.read()
     # make sure extra whitespace at beginning or end doesn't mess things up.
     contents = contents.strip()
 
