@@ -63,6 +63,7 @@ class frange:
         # process a slice:
         # fixme: might want to round a bit when making a slice:
         # http://code.activestate.com/recipes/578114-round-number-to-specified-number-of-significant-di/
+        print("index is:", ind)
         if isinstance(ind, slice):
             print("slice is:", ind)
             if ind.step is not None:
