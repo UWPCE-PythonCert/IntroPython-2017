@@ -5,13 +5,19 @@ Intro to Python: Fall 2017
 
 .. :ref:`syllabus`
 
+:ref:`first_quarter`
+
+:ref:`second_quarter`
+
 .. toctree::
     :maxdepth: 1
 
     syllabus
 
-Class Schedule
-==============
+.. _first_quarter:
+
+Intro To Python:  Fall 2017
+===========================
 
 Orientation: Sept 27
 ....................
@@ -92,6 +98,8 @@ Week 10: December 12
 :ref:`session_1_10`
 
 :ref:`notes_session10`
+
+.. _second_quarter:
 
 ############################
 Advanced Python: Winter 2017
