@@ -23,18 +23,35 @@ def trapz(line, start, end, steps):
     mathfuncvals = []
     areas = []
     single_step = (end - start) / steps
-    stepvals = [single_step * n for n in range(start, steps)]
+    stepvals = [single_step * n for n in range(start, steps + 1)]
     # print(stepvals)
-    mathfuncvals = [line(stepvals[n]) for n in range(start, steps)]
+    mathfuncvals = [line(stepvals[n]) for n in range(start, steps + 1)]
     # print(mathfuncvals)
-    areas = [(mathfuncvals[n] * single_step) + .5 * single_step * abs(mathfuncvals[n + 1] - mathfuncvals[n]) for n in range(start, steps-1)] 
-    for i in range(start, steps - 1):
+    areas = [(mathfuncvals[n] * single_step) + .5 * single_step * (mathfuncvals[n + 1] - mathfuncvals[n]) for n in range(start, steps)] 
+    for i in range(start, steps):
         area += areas[i]
     return area
 
+def trapz2(line, start, end, steps):
+    area = 0
+    stepvals = []
+    mathfuncvals = []
+    areas = []
+    single_step = (end - start) / steps
+    for i in range(start, steps):
+        stepvals = (single_step * n for n in range(i))
+        # print(stepvals)
+        mathfuncvals = (line(stepvals[n]) for n in range(i))
+        # print(mathfuncvals)
+        areas = ((mathfuncvals[n] * single_step) + .5 * single_step * abs(mathfuncvals[n + 1] - mathfuncvals[n]) for n in range(i))
+        print(areas)
+        #area += areas
+    return area
 
-print(trapz(mathfunc3, 0, 30, 10000))
 
+
+print(trapz(mathfunc1, 0, 30, 1000))
+print(trapz2(mathfunc1, 0, 30, 1000))
 
 
 ''' 
