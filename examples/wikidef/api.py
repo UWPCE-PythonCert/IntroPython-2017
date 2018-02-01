@@ -17,7 +17,7 @@ class MissingArticleError(Exception):
     pass
 
 
-class Wikipedia(object):
+class Wikipedia:
     """
     Wikipedia API interface
 
@@ -42,7 +42,7 @@ class Wikipedia(object):
         json_response = response.json()
 
         if "error" in json_response:
-            print (json_response)
+            print(json_response)
             raise MissingArticleError(str(json_response["error"]["info"]))
         else:
             try:
