@@ -25,107 +25,21 @@ class Circle:
     def __str__(self):
         return "Circle with radius: {}".format(self.radius)
 
-#  ---------------- NUMERIC OPERATORS --------------------------
+    @classmethod
+    def create_from_diameter(cls, dia):
+        return cls(dia/2)
 
-    def __add__(self, other):
-        # Add circles by adding their radii
-        newrad = self.radius + other.radius
-        return Circle(newrad)
+#  ---------------- NUMERIC OPERATORS ----------------------------
 
-    def __mul__(self, factor):
-        newrad = self.radius * factor
-        return Circle(newrad)
+#  ---------------- COMPARE OPERATORS ----------------------------
 
-    def __rmul__(self, factor):
-        # reflective multiply... repeats code??
-        newrad = self.radius * factor
-        return Circle(newrad)
-
-    def __truediv__(self, factor):
-        newrad = self.radius / factor
-        return Circle(newrad)
-
-    def __rtruediv__(self, factor):
-        # reflective division... repeats code??
-        newrad = factor / self.radius
-        return Circle(newrad)
-
-    def __floordiv__(self, factor):
-        newrad = self.radius // factor
-        return Circle(newrad)
-
-    def __rfloordiv__(self, factor):
-        # reflective division... repeats code??
-        newrad = self.radius // factor
-        return Circle(newrad)
-
-    def __sub__(self, other):
-        # Subtract circles by subtracting their radii
-        # Do NOT allow negative radii
-        newrad = self.radius - other.radius
-        return abs(Circle(newrad))
-
-    def __mod__(self, other):
-        newrad = self.radius - other.radius*(self.radius//other.radius)
-        return abs(Circle(newrad))
-
-#  ---------------- COMPARE OPERATORS --------------------------
-
-    def __eq__(self, other):
-        if self.radius == other.radius:
-            return True
-        else:
-            return False
-
-    def __ge__(self, other):
-        if self.radius >= other.radius:
-            return True
-        else:
-            return False
-
-    def __le__(self, other):
-        if self.radius <= other.radius:
-            return True
-        else:
-            return False
-
-    def __lt__(self, other):
-        if self.radius < other.radius:
-            return True
-        else:
-            return False
-
-    def __gt__(self, other):
-        if self.radius > other.radius:
-            return True
-        else:
-            return False
-
-#  ---------------- AUGMENTED ASSIGNMENT OPERATORS --------------------
-
-    def __iadd__(self, other):
-        newrad = self.radius + other.radius
-        return Circle(newrad)
-
-    def __isub__(self, other):
-        # Do NOT allow negative radii
-        newrad = self.radius - other.radius
-        return abs(Circle(newrad))
-
-    def __imul__(self, factor):
-        newrad = self.radius * factor
-        return Circle(newrad)
-
-    def __idiv__(self, factor):
-        newrad = self.radius / factor
-        return Circle(newrad)
+#  ---------------- AUGMENTED ASSIGNMENT OPERATORS ---------------
 
 
-#  ---------------- UNARY ARITHMETIC OPERATORS -----------------------
-
-    def __abs__(self):
-        if self.radius < 0:
-            newrad = self.radius * -1
-            return Circle(newrad)
-        else:
-            return self
+# ---------------- SPHERE CLASS ----------------------------------
+class Sphere(Circle):
+    pass
+    # Area should be surface area
+    # repr and str should be different
+    # Volume should be defined
+    # The rest of it should work the same

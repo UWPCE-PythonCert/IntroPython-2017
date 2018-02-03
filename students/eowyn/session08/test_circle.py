@@ -2,7 +2,7 @@
 test for circle class
 '''
 
-from circle import Circle
+from circle import Circle, Sphere
 from math import pi
 import pytest
 
@@ -136,6 +136,26 @@ def test_modulo_circles():
     c1 = Circle(5)
     c2 = Circle(2)
     assert c1%c2 == Circle(1)
+
+def test_create_from_diameter():
+    c = Circle.create_from_diameter(10)
+    assert type(c) == Circle
+    assert c.radius == 5
+
+
+# Sphere tests
+
+def test_sphere_radius():
+    s = Sphere(5)
+    assert s.radius == 5
+    assert s.diameter == 10
+
+
+def test_sphere_from_diameter():
+    s = Sphere.create_from_diameter(10)
+    assert type(s) == Sphere
+    assert s.radius == 5
+    assert s.diameter == 10
 
 
 
