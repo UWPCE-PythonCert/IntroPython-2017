@@ -180,6 +180,8 @@ Week 4: Jan 30 -- Advanced Testing
 Week 5: Feb 6 -- Debugging and Logging
 ......................................
 
+.. Chris out of town
+
 :ref:`session_2_05`
 
 :ref:`notes_session15`
@@ -210,6 +212,8 @@ Week 6: Feb 13 -- Metaprogramming
 
 Week 7: Feb 20 -- Relational Databases
 ......................................
+
+.. maria out of town
 
 :ref:`session_2_07`
 
@@ -256,6 +260,8 @@ Week 9: Mar 6 -- Concurrency & Async Programming
 
 Week 10: Mar 13 -- Profiling & Performance
 ..........................................
+
+.. Chris out of town.
 
 :ref:`session_2_10`
 
