@@ -5,13 +5,19 @@ Intro to Python: Fall 2017
 
 .. :ref:`syllabus`
 
+:ref:`first_quarter`
+
+:ref:`second_quarter`
+
 .. toctree::
     :maxdepth: 1
 
     syllabus
 
-Class Schedule
-==============
+.. _first_quarter:
+
+Intro To Python:  Fall 2017
+===========================
 
 Orientation: Sept 27
 ....................
@@ -93,6 +99,8 @@ Week 10: December 12
 
 :ref:`notes_session10`
 
+.. _second_quarter:
+
 ############################
 Advanced Python: Winter 2017
 ############################
@@ -110,105 +118,159 @@ Fluent Python
 Week 1: Jan 9 -- Iterators and Generators, Packaging
 ....................................................
 
-:ref:`iterators_generators`
+:ref:`session_2_01`
 
-:ref:`packaging`
 
-Homework: make an proper package of mailroom: :ref:`exercise_mailroom_package`
+.. :ref:`iterators_generators`
+
+.. :ref:`packaging`
+
+.. Homework: make an proper package of mailroom:
+.. :ref:`exercise_mailroom_package`
 
 Week 2: Jan 16
 ..............
 
-* Code Reviews
+:ref:`session_2_02`
 
-* Closures and Currying
+:ref:`notes_session12`
 
-:ref:`decorators`
+.. * Code Reviews
+
+.. * Closures and Currying
+
+.. :ref:`decorators`
 
 
 Week 3: Jan 23
 ..............
 
-:ref:`context_managers`
+:ref:`session_2_03`
 
-* Itertools
+:ref:`notes_session13`
 
-* Functools
+.. :ref:`context_managers`
+
+.. * Itertools
+
+.. * Functools
 
 
 Week 4: Jan 30 -- Advanced Testing
 ..................................
 
-* ``unittest``
+:ref:`session_2_04`
 
-* Linting
+:ref:`notes_session14`
 
-* Coverage
 
-* Fixtures
+.. * ``unittest``
 
-* Mocking
+.. * Linting
 
-* Hypothesis Testing
+.. * Coverage
+
+.. * Fixtures
+
+.. * Mocking
+
+.. * Hypothesis Testing
 
 
 Week 5: Feb 6 -- Debugging and Logging
 ......................................
 
-* Logging module
+.. Chris out of town
 
-* Syslog
+:ref:`session_2_05`
 
-* Debugging techniques
+:ref:`notes_session15`
 
-* pdb/ipdb
+
+.. * Logging module
+
+.. * Syslog
+
+.. * Debugging techniques
+
+.. * pdb/ipdb
 
 Week 6: Feb 13 -- Metaprogramming
 .................................
 
-* Metprogramming tools
+:ref:`session_2_06`
 
-* Class Decorators
+:ref:`notes_session16`
 
-* Metaclasses
+
+.. * Metprogramming tools
+
+.. * Class Decorators
+
+.. * Metaclasses
+
 
 Week 7: Feb 20 -- Relational Databases
 ......................................
 
-* SQL
-* ORMs
-* Normalization
-* Schema
-* Sqlite
-* Postgresql
+.. maria out of town
+
+:ref:`session_2_07`
+
+:ref:`notes_session17`
+
+
+.. * SQL
+.. * ORMs
+.. * Normalization
+.. * Schema
+.. * Sqlite
+.. * Postgresql
 
 Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
 ................................................................
 
-* Persistence and Serialization: pickle, json, csv, ...
-* Schema vs “Schemaless”
-* No-Sql
-* Mongo
-* Redis
-* Neo4j
+:ref:`session_2_08`
+
+:ref:`notes_session18`
+
+
+
+.. * Persistence and Serialization: pickle, json, csv, ...
+.. * Schema vs “Schemaless”
+.. * No-Sql
+.. * Mongo
+.. * Redis
+.. * Neo4j
 
 Week 9: Mar 6 -- Concurrency & Async Programming
 ................................................
 
-* Concurrency
-* Threading and Multiprocessing
-* Message Queues
-* Coroutines
-* Async
-* Celery
+:ref:`session_2_09`
+
+:ref:`notes_session19`
+
+
+.. * Concurrency
+.. * Threading and Multiprocessing
+.. * Message Queues
+.. * Coroutines
+.. * Async
+.. * Celery
 
 Week 10: Mar 13 -- Profiling & Performance
 ..........................................
 
-* Timing
-* Profiling
-* PyPy
-* Cython
+.. Chris out of town.
+
+:ref:`session_2_10`
+
+:ref:`notes_session20`
+
+.. * Timing
+.. * Profiling
+.. * PyPy
+.. * Cython
 
 
 Lightning Talks
