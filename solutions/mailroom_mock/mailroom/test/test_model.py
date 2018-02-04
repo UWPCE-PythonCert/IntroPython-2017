@@ -11,7 +11,7 @@ $ pytest py.test --cov=mailroom mailroom/test/
 
 will run the tests and show a coverage report.
 
-$ pytest --cov=mailroom --cov-report html mailroom/test/
+$ pytest --cov=mailroom --cov-report html
 
 will generate an html report.
 
@@ -159,16 +159,3 @@ def test_save_letters_to_disk(sample_db):
     with open('William_Gates_III.txt') as f:
         size = len(f.read())
     assert size > 0
-
-
-# if __name__ == "__main__":
-#     # this is best run with a test runner, like pytest
-#     # But if not, at least this will run them all.
-#     test_list_donors()
-#     test_find_donor()
-#     test_find_donor_not()
-#     test_gen_letter()
-#     test_add_donor()
-#     test_generate_donor_report()
-#     test_save_letters_to_disk()
-#     print("All tests Passed")
