@@ -111,7 +111,7 @@ def test_gen_letter(sample_db):
 
     # create a sample donor
     donor = model.Donor("Fred Flintstone", [432.45, 65.45, 230.0])
-    letter = sample_db.gen_letter(donor)
+    letter = donor.gen_letter()
     # what to test? tricky!
     assert letter.startswith("Dear Fred Flintstone")
     assert letter.endswith("-The Team\n")

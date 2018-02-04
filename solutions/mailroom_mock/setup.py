@@ -35,5 +35,5 @@ setup(
     package_data={'mailroom': ['data/sample_data.json']},
     license='LICENSE.txt',
     description='Simple app for managing donations for a non-profit',
-    long_description=open('README.txt').read(),
+    long_description=open('README.rst').read(),
 )

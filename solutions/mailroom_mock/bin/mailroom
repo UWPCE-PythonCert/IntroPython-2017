@@ -9,5 +9,5 @@ in the cli module in the pacakge.
 import mailroom.cli
 
 if __name__ == "__main__":
-
-    mailroom.cli.main()
+    cli = mailroom.cli.create_cli_with_sample_data()
+    cli.main()

@@ -13,22 +13,11 @@ from textwrap import dedent
 import json
 
 
-def get_sample_data():
-    """
-    returns a list of donor objects to use as sample data
-    """
-    data_dir = pathlib.Path(__file__).parents[1] / "data"
-
-    return [Donor("William Gates III", [653772.32, 12.17]),
-            Donor("Jeff Bezos", [877.33]),
-            Donor("Paul Allen", [663.23, 43.87, 1.32]),
-            Donor("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
-            ]
-
 class Donor:
     """
     class to hold the information about a single donor
     """
+
     def __init__(self, name, donations=None):
         """
         create a new Donor object
@@ -81,6 +70,27 @@ class Donor:
             raise ValueError("Donation must be greater than zero")
         self.donations.append(amount)
 
+    def gen_letter(self):
+        """
+        Generate a thank you letter for the donor
+
+        :param: donor tuple
+
+        :returns: string with letter
+
+        note: This doesn't actually write to a file -- that's a separate
+              function. This makes it more flexible and easier to test.
+        """
+        return dedent('''Dear {0:s},
+
+              Thank you for your very kind donation of ${1:.2f}.
+              It will be put to very good use.
+
+                             Sincerely,
+                                -The Team
+              '''.format(self.name, self.last_donation)
+                      )
+
 
 class DonorDB:
     """
@@ -97,10 +107,6 @@ class DonorDB:
             self.donor_data = {}
         else:
             self.donor_data = {d.norm_name: d for d in donors}
-
-    def save_to_file(self, filename):
-        with open(filename, 'w') as outfile:
-            self.to_json(outfile)
 
     @classmethod
     def load_from_file(cls, filename):
@@ -153,27 +159,6 @@ class DonorDB:
         self.donor_data[donor.norm_name] = donor
         return donor
 
-    def gen_letter(self, donor):
-        """
-        Generate a thank you letter for the donor
-
-        :param: donor tuple
-
-        :returns: string with letter
-
-        note: This doesn't actually write to a file -- that's a separate
-              function. This makes it more flexible and easier to test.
-        """
-        return dedent('''Dear {0:s},
-
-              Thank you for your very kind donation of ${1:.2f}.
-              It will be put to very good use.
-
-                             Sincerely,
-                                -The Team
-              '''.format(donor.name, donor.last_donation)
-                      )
-
     @staticmethod
     def sort_key(item):
         # used to sort on name in self.donor_data
@@ -214,7 +199,7 @@ class DonorDB:
         print("Saving letters:")
         for donor in self.donor_data.values():
             print("donor:", donor.name)
-            letter = self.gen_letter(donor)
+            letter = donor.gen_letter()
             # I don't like spaces in filenames...
             filename = donor.name.replace(" ", "_") + ".txt"
             open(filename, 'w').write(letter)
