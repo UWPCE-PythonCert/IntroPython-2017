@@ -22,7 +22,7 @@ class Donors:
     a match(search) utility function.
 
     get_donor can be used to return a Donor() object given the
-    donor id.
+    donor did.
     """
 
     def __init__(self, donor=None):
@@ -55,19 +55,19 @@ class Donors:
         """
         add a donor to the donors database
 
-        The add_donor method leverages the donor id which allows
+        The add_donor method leverages the donor did which allows
         you to update or add a record using the same method.
         """
-        self._donors[donor.id] = donor
+        self._donors[donor.did] = donor
 
     @property
     def number_donors(self):
         """ return the number of donor records """
         return len(self._donors)
 
-    def get_donor(self, id):
-        """ given a donor id, return the donor object """
-        return self._donors[id]
+    def get_donor(self, did):
+        """ given a donor did, return the donor object """
+        return self._donors[did]
 
     @property
     def full_name_index(self):
@@ -83,13 +83,13 @@ class Donors:
         """
         find all records that match the query string
 
-        return tupple with full_name, id
+        return tupple with full_name, did
 
         """
         matches = []
-        for name, id, _, _ in self.full_name_index:
+        for name, did, _, _ in self.full_name_index:
             if query_full_name.strip().lower() == name.lower():
-                matches.append((name, id))
+                matches.append((name, did))
         return matches
 
 
@@ -113,7 +113,7 @@ class Donor:
 
         Not typically specified
         -----------------------
-        id(str)             string representation of a record UUID
+        did(str)            string representation of a record UUID
         created(str)        string representation of an utcnow isoformat
                             timestamp with "Z" appended
 
@@ -128,7 +128,7 @@ class Donor:
 
         In general, record manipulation is simply the name and donation.
         However, it is also allowable to set information that is normally
-        auto-created such as the id, time created and entire donation list.
+        auto-created such as the did, time created and entire donation list.
         This allows a record to be created from its repr which may have
         practical uses in record backup/recreation as needed.
 
@@ -137,14 +137,14 @@ class Donor:
         # empty donor record
         In [599]: d=Donor()
         In [600]: repr(d)
-        Out[600]: "Donor( id='97d744de-de23-11e7-bee5-0800274b0a84',
+        Out[600]: "Donor(did='97d744de-de23-11e7-bee5-0800274b0a84',
             created='2017-12-11T03:30:11.077937Z' )"
         In [601]:
 
         # automatic parsing of full_name
         In [601]: d=Donor(full_name="sally q smith, iv")
         In [602]: repr(d)
-        Out[602]: "Donor(id='067f51c4-de24-11e7-bee5-0800274b0a84',
+        Out[602]: "Donor(did='067f51c4-de24-11e7-bee5-0800274b0a84',
                          first_name='Sally', middle_name='Q',
                          last_name='Smith', suffix='IV',
                          created='2017-12-11T03:33:16.728654Z' )"
@@ -153,7 +153,7 @@ class Donor:
         # name creation based name sub-components
         In [594]: d=Donor(first_name="joe", last_name="smith", donation=100)
         In [595]: repr(d)
-        Out[595]: "Donor(id='7724e750-de23-11e7-bee5-0800274b0a84',
+        Out[595]: "Donor(did='7724e750-de23-11e7-bee5-0800274b0a84',
                          first_name='Joe',last_name='Smith',
                          donations=[{'amount': 100.0, 'date': '2017-12-11Z'}],
                          created='2017-12-11T03:29:16.221954Z' )"
@@ -162,7 +162,7 @@ class Donor:
         In [636]: d=Donor(full_name="john adams")
         In [637]: d.add_donation=1000
         In [638]: repr(d)
-        Out[638]: "Donor(id='7e93d724-de25-11e7-bee5-0800274b0a84',
+        Out[638]: "Donor(did='7e93d724-de25-11e7-bee5-0800274b0a84',
                          first_name='John',last_name='Adams',
                          donations=[{'amount': 1000.0, 'date': '2017-12-11Z'},
                          {'amount': 1000.0, 'date': '2017-12-11Z'}],
@@ -172,7 +172,7 @@ class Donor:
     """
 
     def __init__(self,
-                 id="",
+                 did="",
                  created="",
                  full_name="",
                  first_name="",
@@ -185,11 +185,11 @@ class Donor:
 
         self.__name__ = "Donor"
 
-        # normally no id is passed in, so we create one
-        if id == "":
-            id = str(uuid.uuid1())
+        # normally no did is passed in, so we create one
+        if did == "":
+            did = str(uuid.uuid1())
         # create a uuid for each record
-        self._id = id
+        self._did = did
 
         # normally, no timestamp is passed in, so we create one
         if created == "":
@@ -235,9 +235,9 @@ class Donor:
                 self._donations = list()
 
     @property
-    def id(self):
-        """ return the donor id """
-        return self._id
+    def did(self):
+        """ return the donor did """
+        return self._did
 
     @property
     def donations(self):
@@ -412,7 +412,7 @@ class Donor:
         Return only settable attributes so
         eval(repr(Donor(<foo>))) == Donor(<foo>)
         """
-        which_attributes = ["id", "first_name", "middle_name", "last_name",
+        which_attributes = ["did", "first_name", "middle_name", "last_name",
                             "suffix",
                             "donations", "created"]
         attributes = self._query_attributes(which_attributes,

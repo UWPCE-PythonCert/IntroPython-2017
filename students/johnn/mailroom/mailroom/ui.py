@@ -48,9 +48,9 @@ def list_donors(donors, dest=sys.stdout):
         "Donor Name", "Total Given", "Num Gifts", "Average Gift"), file=dest)
     print("-"*72, file=dest)
 
-    for _, id, _, _ in donors:
+    for _, did, _, _ in donors:
 
-        donor = donors.get_donor(id)
+        donor = donors.get_donor(did)
 
         #                 name     total gvn    #gifts    avg gift
         print("{0:20}  ${1:14,.2f}   {2:9.0f}  ${3:12,.2f}".format(
@@ -199,9 +199,9 @@ def data_entry(donors):
 def thank_all_donors(donors, dest_override=None):
     """ loop through donors, open file, print a thank you letter. """
 
-    for _, id, _, _ in donors:
+    for _, did, _, _ in donors:
 
-        donor = donors.get_donor(id)
+        donor = donors.get_donor(did)
 
         file_name = "_".join(
             filter(None, ["thank_you",
