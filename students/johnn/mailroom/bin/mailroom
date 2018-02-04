@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Mailroom entry point
+"""
+
 from mailroom.ui import main
 
 # call the main input loop
