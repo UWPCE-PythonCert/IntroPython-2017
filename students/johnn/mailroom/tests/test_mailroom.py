@@ -6,16 +6,85 @@ test script for mailroom
 
 import io
 import os
+from unittest.mock import (patch, MagicMock)
 import pytest
 from mailroom import security
 from mailroom.donors import Donor, Donors, load_donor_file, save_donor_file
 from mailroom.ui import (print_thank_you,
                          print_lines,
                          thank_all_donors,
-                         list_donors)
+                         list_donors,
+                         safe_input,
+                         user_login,
+                         user_logout,
+                         get_donation_amount,
+                         data_entry)
+
 
 # define a default user so we can make objects
 security.user = "Test User"
+
+
+def test_user_logout():
+    """ test the logout routine """
+    assert security.user == "Test User"
+    user_logout()
+    assert security.user is None
+
+
+# define a default user so we can make objects
+security.user = "Test User"
+
+safe_input_normal = MagicMock(return_value="m0cked")
+@patch("builtins.input", safe_input_normal)
+def test_safe_input_normal():
+    """ test the safe_input routine """
+    returned = safe_input()
+    assert returned == "m0cked"
+
+
+safe_input_error = MagicMock(return_value="m0cked")
+@patch("builtins.input", safe_input_error)
+def test_safe_input_error():
+    """ test the safe_input routine """
+    safe_input_error.side_effect = EOFError
+    returned = safe_input()
+    assert returned == ""
+
+
+deck_user_login = MagicMock(return_value="Joe User")
+@patch("builtins.input", deck_user_login)
+def test_user_login():
+    """ test the login routine """
+    user_login()
+    assert security.user == "Joe User"
+
+
+get_donation_normal = MagicMock(return_value="101")
+@patch("builtins.input", get_donation_normal)
+def test_get_donation_normal():
+    """ test the donation input routine """
+    amount = get_donation_amount(Donor(full_name="Test Donor4"))
+    assert amount == 101
+
+
+get_donations_quit = MagicMock(return_value="q")
+@patch("builtins.input", get_donations_quit)
+def test_get_donation_quit():
+    """ test the donation input routine """
+    amount = get_donation_amount(Donor(full_name="Test Donor5"))
+    assert amount is None
+
+
+test_donor_normal = MagicMock(side_effect=["Fred Smith", "101", "q"])
+@patch("builtins.input", test_donor_normal)
+def test_donor_entry_normal():
+    my_donors = Donors()
+    data_entry(my_donors)
+    matches = my_donors.match_donor("Fred Smith")
+    name_matches = [x[0] for x in matches]
+    print(matches)
+    assert "Fred Smith" in name_matches
 
 
 def test_create_donor():
