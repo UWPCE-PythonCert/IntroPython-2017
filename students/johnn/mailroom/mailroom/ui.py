@@ -218,13 +218,8 @@ def thank_all_donors(donors, dest_override=None):
             dest.close()
 
 
-def main():
+def main(donors):
     """ Main menu / input loop. """
-
-    # load or initalize the donors object
-    donors = load_donor_file()
-    if donors is None:
-        donors = Donors()
 
     menu = "\n"
     menu += "DONATION WIZARD MAIN MENU\n"

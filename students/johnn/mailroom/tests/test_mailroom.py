@@ -18,7 +18,8 @@ from mailroom.ui import (print_thank_you,
                          user_login,
                          user_logout,
                          get_donation_amount,
-                         data_entry)
+                         data_entry,
+                         main)
 
 
 # define a default user so we can make objects
@@ -66,6 +67,18 @@ def test_get_donation_normal():
     """ test the donation input routine """
     amount = get_donation_amount(Donor(full_name="Test Donor4"))
     assert amount == 101
+
+
+deck_donation_error = MagicMock(side_effect=["foobar", "999"])
+@patch("builtins.input", deck_donation_error)
+def test_donor_entry_error():
+    """
+    test donation error
+
+    we enter invalid data (string) and then are re-prompted
+    """
+    amount = get_donation_amount(Donor(full_name="Test Donor5"))
+    assert amount == 999
 
 
 get_donations_quit = MagicMock(return_value="q")
@@ -369,3 +382,30 @@ def test_access_restriction():
         assert donor.find("did=")
         assert donor.find("created=")
     assert err.value.args[0] == "You must be logged in to make changes."
+
+
+deck_main_menu2 = MagicMock(side_effect=["e",
+                                         "u", "Joe Datagrub",
+                                         "e", "Fred Smith", "101",
+                                         "q",
+                                         "l",
+                                         "p",
+                                         "d",
+                                         "o",
+                                         "q"])
+@patch("builtins.input", deck_main_menu2)
+def test_donor_entry_misc():
+    """
+    lazy system test
+
+    This is pretty brittle and lazy, but implicitly tests that
+    that a wide variety of functions work becase each step
+    needs to act in the predicted manor for you to get to the
+    end result.
+    """
+    my_donors = Donors()
+    main(my_donors)
+    matches = my_donors.match_donor("Fred Smith")
+    name_matches = [x[0] for x in matches]
+    print(matches)
+    assert "Fred Smith" in name_matches
