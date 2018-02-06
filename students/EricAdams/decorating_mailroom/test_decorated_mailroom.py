@@ -27,17 +27,18 @@ NOTE: when I first ran it, I got 97% coverage -- it was missing tests
 
 import os
 import pytest
-import mailroom
+import decorated_mailroom
 
 
 # creates a sample database for the tests to use
-sample_db = mailroom.DonorDB(mailroom.get_sample_data())
+sample_db = decorated_mailroom.DonorDB(decorated_mailroom.get_sample_data())
+
 
 def test_empty_db():
     """
     tests that you can initilize an empty DB
     """
-    db = mailroom.DonorDB()
+    db = decorated_mailroom.DonorDB()
 
     assert len(db.donors) == 0
 
@@ -51,7 +52,7 @@ def test_new_empty_donor():
     """
     creates an new donor with no donations
     """
-    donor = mailroom.Donor("Fred Flintstone")
+    donor = decorated_mailroom.Donor("Fred Flintstone")
 
     assert donor.name == "Fred Flintstone"
     assert donor.last_donation is None
@@ -79,7 +80,8 @@ def test_add_donation_negative():
 
 def test_list_donors():
     # create a clean one to make sure everything is there.
-    sample_db = mailroom.DonorDB(mailroom.get_sample_data())
+    sample_db = decorated_mailroom.DonorDB(
+        decorated_mailroom.get_sample_data())
     listing = sample_db.list_donors()
 
     # hard to test this throughly -- better not to hard code the entire
@@ -110,7 +112,7 @@ def test_gen_letter():
     """ test the donor letter """
 
     # create a sample donor
-    donor = mailroom.Donor("Fred Flintstone", [432.45, 65.45, 230.0])
+    donor = decorated_mailroom.Donor("Fred Flintstone", [432.45, 65.45, 230.0])
     letter = sample_db.gen_letter(donor)
     # what to test? tricky!
     assert letter.startswith("Dear Fred Flintstone")
@@ -137,7 +139,8 @@ def test_generate_donor_report():
     # these are not great, because they will fail if unimportant parts of the
     # report are changed.
     # but at least you know that code's working now.
-    assert report.startswith("Donor Name                | Total Given | Num Gifts | Average Gift")
+    assert report.startswith(
+        "Donor Name                | Total Given | Num Gifts | Average Gift")
 
     assert "Jeff Bezos                  $    877.33           1   $     877.33" in report
 
@@ -159,6 +162,40 @@ def test_save_letters_to_disk():
     with open('William_Gates_III.txt') as f:
         size = len(f.read())
     assert size > 0
+
+
+def test_decorated_normalize_name():
+    """
+    Test the decorated normalize_name method in decorated_mailroom.py
+    :decorator: will log the time normalized_name method was called, args used,
+                as well as kwargs used.  This data will be written to a text
+                file called monitor_mailroom.txt, in the current directory
+    """
+    if os.path.exists('monitor_mailroom.txt'):
+        os.remove('monitor_mailroom.txt')
+    d = decorated_mailroom.Donor('me')
+    d.normalize_name('Eric')
+    with open('monitor_mailroom.txt', 'r') as fopen:
+        result = fopen.readlines()
+    # print(result)
+    assert "'Eric'" in str(result)
+
+
+def test_decorated_add_donation():
+    """
+    Test that the decoration named monitor logs the add_donation call
+    :decorator: will log the time add_donation method was called, args used,
+                as well as kwargs used.  This data will be written to a text
+                file called monitor_mailroom.txt, in the current directory
+    """
+    if os.path.exists('monitor_mailroom.txt'):
+        os.remove('monitor_mailroom.txt')
+    d = decorated_mailroom.Donor('me')
+    d.add_donation(50)
+    with open('monitor_mailroom.txt', 'r') as fopen:
+        result = fopen.readlines()
+    # print(result)
+    assert "50" in str(result)
 
 
 # if __name__ == "__main__":

@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-import sys
-import copy
-from textwrap import dedent
 
 
 class Donor():
