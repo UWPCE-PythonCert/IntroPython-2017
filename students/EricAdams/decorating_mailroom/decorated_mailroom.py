@@ -1,15 +1,40 @@
 #!/usr/bin/env python
 """
-This is an object oriented version
+This is an object oriented version.
+Added decorators for monitoring use
 """
 
 import sys
 import math
 from textwrap import dedent
+# import functools
+import datetime
 
 import make_donors
 
 # Utility so we have data to test with, etc.
+
+
+def monitor(method):
+    '''
+    Create a decorator to monitor each time a method is used
+    Log the method name, arguments and date/time used in a file
+    named monitor_mailroom.txt
+    '''
+    # @functools.wraps(method)
+
+    def log(*args, **kwargs):
+        result = method(*args, **kwargs)
+        name = method.__name__
+        arg_str = ', '.join(repr(arg) for arg in args)
+        kwarg_str = ', '.join(repr(kwarg) for kwarg in kwargs)
+        with open('monitor_mailroom.txt', 'a') as fopen:
+            fopen.writelines('Called: method: {} args: {} kwargs: {} time: {}\n'.format(
+                name, arg_str, kwarg_str, datetime.datetime.now()))
+        return result
+    return log
+
+
 def get_sample_data():
     """
     returns a list of donor objects to use as sample data
@@ -27,6 +52,7 @@ class Donor():
     """
     class to hold the information about a single donor
     """
+    # @monitor
 
     def __init__(self, name, donations=None):
         """
@@ -45,6 +71,7 @@ class Donor():
             self.donations = list(donations)
 
     @staticmethod
+    @monitor
     def normalize_name(name):
         """
         return a normalized version of a name to use as a comparison key
@@ -71,6 +98,7 @@ class Donor():
     def average_donation(self):
         return self.total_donations / len(self.donations)
 
+    @monitor
     def add_donation(self, amount):
         """
         add a new donation
@@ -83,7 +111,8 @@ class Donor():
 
 class DonorDB():
     """
-    encapsulation of the entire database of donors and data associated with them.
+    encapsulation of the entire database of donors and data associated
+    with them.
     """
 
     def __init__(self, donors=None):
@@ -132,7 +161,8 @@ class DonorDB():
 
         :param: the name of the donor
 
-        :returns: The donor data structure -- None if not in the self.donor_data
+        :returns: The donor data structure -- None if not in the
+        self.donor_data
         """
         return self.donor_data.get(Donor.normalize_name(name))
 
@@ -197,7 +227,8 @@ class DonorDB():
                                                                 "Average Gift"))
         report.append("-" * 66)
         for row in report_rows:
-            report.append("{:25s}   ${:10.2f}   {:9d}   ${:11.2f}".format(*row))
+            report.append(
+                "{:25s}   ${:10.2f}   {:9d}   ${:11.2f}".format(*row))
         return "\n".join(report)
 
     def save_letters_to_disk(self):
@@ -216,7 +247,6 @@ class DonorDB():
 # Above this is all the logic code
 #  The stuff you'd need if you had a totally different UI.different
 #  below is code only for the command line interface.
-
 
 
 def main_menu_selection():
@@ -255,7 +285,8 @@ def send_thank_you():
     # also an exit point to the main menu, we want to make sure this is
     # done before mutating the db.
     while True:
-        amount_str = input("Enter a donation amount (or 'menu' to exit)> ").strip()
+        amount_str = input(
+            "Enter a donation amount (or 'menu' to exit)> ").strip()
         if amount_str == "menu":
             return
         # Make sure amount is a valid amount before leaving the input loop
@@ -291,6 +322,7 @@ def quit():
     sys.exit(0)
 
 
+# @monitor
 def main():
     selection_dict = {"1": send_thank_you,
                       "2": print_donor_report,

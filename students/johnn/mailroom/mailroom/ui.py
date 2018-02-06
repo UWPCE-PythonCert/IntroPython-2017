@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 import sys
-from pprint import pprint
-from mailroom.donors import Donors, Donor, save_donor_file
+from mailroom import security
+from mailroom.donors import Donors, Donor, save_donor_file, load_donor_file
+
+#security.user = None
 
 def safe_input(prompt=">"):
     """ Generic input routine. """
@@ -20,6 +22,14 @@ def print_lines(lines=2,dest=sys.stdout):
 
     for i in range(lines):
         print("",file=dest)
+
+def user_login():
+    """ stub for user login """
+    security.user = input("Enter your username: ")
+
+def user_logout():
+    """ stub for user logout """
+    security.user = None
 
 def list_donors(donors,dest=sys.stdout):
 
@@ -195,8 +205,13 @@ def thank_all_donors(donors,dest_override=None):
             dest.close()
 
 
-def main(donors):
+def main():
     """ Main menu / input loop. """
+
+    # load or initalize the donors object
+    donors = load_donor_file()
+    if donors is None:
+        donors=Donors()
     
     menu =  "\n"
     menu += "DONATION WIZARD MAIN MENU\n"
@@ -208,15 +223,28 @@ def main(donors):
     menu += "(E)nter/(A)dd Donation\n"
     menu += "(P)rint Donor Letters\n"
     menu += "(Q)uit\n"
+    menu += "(U)ser login\n"
+    menu += "User log(O)ut\n"
     menu += "\n"
 
     selection=None
     while selection not in ["0", "quit", "q"]:
 
+        if security.user:
+            user_hint = security.user.title()
+        else:
+            user_hint = "Guest User"
+
         print_lines()
 
         print(menu)
-        selection=safe_input("(l)ist, (e)nter, (q)uit: ").lower()
+        selection=safe_input("{} (l)ist, (e)nter, (q)uit: ".format(user_hint)).lower()
+
+        if selection in ["u", "login"]:
+            user_login()
+
+        if selection in ["o", "logout"]:
+            user_logout()
 
         if selection in ["l", "list"]:
             list_donors(donors)
@@ -226,11 +254,14 @@ def main(donors):
 
         # accept either send or enter
         if selection in ["s", "send", "e", "enter", "a", "add"]:
-            data_entry(donors)
+            if security.user:
+                data_entry(donors)
+            else:
+                print("log in to edit")
 
         if selection in ["d", "debug"]:
             print_lines()
-            pprint(repr(donors))
+            print(str(donors))
             print_lines()
 
         if selection in ["q", "quit"]:

@@ -17,7 +17,7 @@ class MissingArticleError(Exception):
     pass
 
 
-class Wikipedia:
+class Wikipedia(object):
     """
     Wikipedia API interface
 
@@ -39,15 +39,16 @@ class Wikipedia:
                       'prop': 'text',
                       'page': title}
         response = requests.get(cls.api_endpoint, params=req_params)
-        json_response = response.json()
+        json_response = response.json
 
         if "error" in json_response:
-            print(json_response)
+            print (json_response)
             raise MissingArticleError(str(json_response["error"]["info"]))
         else:
             try:
                 # limit the output, cause sometimes it is obnoxious
-                contents = json_response['parse']['text']['*'][:1000]
+                print('output limited')
+                contents = json_response['parse']['text']['*'][:3000]
                 return contents
             except KeyError:
                 raise ParseError(json_response)

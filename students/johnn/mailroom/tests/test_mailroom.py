@@ -4,8 +4,11 @@ import pytest
 import io
 import os
 from pprint import pprint
+from mailroom import security
 from mailroom.donors import Donor, Donors, load_donor_file, save_donor_file
 from mailroom.ui import print_thank_you, print_lines, thank_all_donors, list_donors
+
+security.user="Test User"
 
 def test_create_donor():
     """ baseline test to verify ability to create Donor() object """
@@ -156,7 +159,9 @@ def test_donors_repr():
         donations=[{'amount': 99.0, 'date': '2017-12-12Z'}], 
         created='2017-12-12T05:44:47.480878Z' ) )
 
-    assert repr(in_donors) == str(in_donors)
+    repr_str = repr(in_donors)
+    out_donors = eval(repr_str)
+    assert repr(in_donors) == repr(out_donors)
 
 def test_donors_str():
     """ test repr values represent donors object """
@@ -239,3 +244,23 @@ def test_add_donations():
     assert test_donor.number_donations == 3
     assert test_donor.total_donations ==  1027.77
     assert test_donor.average_donations == 342.59
+
+def test_audit_entry():
+    """ baseline test to verify ability to create Donor() object """
+    security.user="Jeff Jones"
+    donor = Donor(first_name="joe")
+    print(donor.audit)
+    assert donor.audit[0]["user"] == "Jeff Jones"
+    assert donor.audit[0]["action"] == "first_name"
+    assert donor.audit[0]["args"] == ('Joe',)
+
+def test_access_restriction():
+    """ we expect object creation to fail without a user context """
+    with pytest.raises(PermissionError) as e:
+        security.user=None
+        donor = repr(Donor())
+        print(donor)
+        assert donor.find("id=")
+        assert donor.find("created=")
+    assert e.value.args[0] == "You must be logged in to make changes."
+
