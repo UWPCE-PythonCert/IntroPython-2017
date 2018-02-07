@@ -2,6 +2,7 @@ import os
 from html_render import Element, Body, P, Html, Head, OneLineTag, Title
 from html_render import Hr, Br, A, Ul, Li, H, Meta
 from io import StringIO
+import pytest
 
 
 def render_element_file(el_object, filename='test1.html', remove=True):
@@ -311,18 +312,10 @@ def test_self_closing_tag():
     assert len(lines) == 1
 
 def test_self_closing_tag_string():
+    # Check that error is raised if content is used to init
     atts = {"id": "fred", "class": "special", "size": "12px"}
-    p = Br("Now Leasing", **atts)
-    contents = render_element(p).strip()
-    lines = contents.split('\n')
-    print(contents)
-    assert lines[0].startswith('<br')
-    assert lines[0].endswith("/>")
-    assert 'id="fred"' in lines[0]
-    assert 'class="special"' in lines[0]
-    assert 'size="12px"' in lines[0]
-    assert len(lines) == 1
-    assert "Now Leasing" not in lines[0]
+    with pytest.raises(TypeError):
+        p = Br("Now Leasing", **atts)
 
 
 def test_anchor_element():
