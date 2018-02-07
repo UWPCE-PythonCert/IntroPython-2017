@@ -1,17 +1,18 @@
 #!/usr/bin/env python
-import sys
 import copy
-from textwrap import dedent
 from mailroom.donor import Donor
-from mailroom.authorized_users import record_user
+from mailroom.authorized_users import UserLogger
+
 
 class Transactions():
     # Collect list of Donor objects and generate reports
 
+    ul = UserLogger()
+
     def __init__(self):
         self.all_donors = []
 
-    @record_user
+    @ul.record_user
     def add_donor(self, name, amt):
         this_donor = self.get_donor(name)
         if this_donor:

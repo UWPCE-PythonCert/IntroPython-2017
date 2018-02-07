@@ -10,24 +10,28 @@ DONORS = dict(zip(donor_names, donations))
 
 
 def mainloop():
-    ''' main interactive loop 
+    ''' main interactive loop
     "send a thank you" "create a report" or "quit"
     '''
+    arg_dict = {"1": thank_you, "2": print_report,
+                "3": send_letters, "4": quit_code}
     while True:
-        answer = input("Select from one of these options: \n"
-                       "(1) Send a Thank You\n"
-                       "(2) Create a Report\n"
-                       "(3) Send letters to everyone\n"
-                       "(4) Quit\n>")
-        arg_dict = {"1": thank_you,
-                    "2": print_report,
-                    "3": send_letters,
-                    "4": quit_code}
+        try:
+            answer = input("Select from one of these options: \n"
+                           "(1) Send a Thank You\n"
+                           "(2) Create a Report\n"
+                           "(3) Send letters to everyone\n"
+                           "(4) Quit\n>")
+        except (EOFError, KeyboardInterrupt):
+            safe_input()
         try:
             arg_dict.get(answer)()
-        except TypeError:
+        except KeyError:
             continue
 
+
+def safe_input():
+    return None
 
 def quit_code():
     sys.exit()
@@ -36,10 +40,14 @@ def quit_code():
 def thank_you():
     ''' Update donor records and print thank you notes.'''
     while True:
-        fullname = input("To send a thank you, "
-                         "Enter a donor name (new or existing)\n"
-                         "Enter all to list existing DONORS \n"
-                         "Enter menu to return to main menu \n >")
+        try:
+            fullname = input("To send a thank you, "
+                             "Enter a donor name (new or existing)\n"
+                             "Enter all to list existing DONORS \n"
+                             "Enter menu to return to main menu \n >")
+        except (EOFError, KeyboardInterrupt):
+            safe_input()
+
         fullname = remove_inputquotes(fullname)
         if fullname == 'menu':
             break
@@ -60,10 +68,13 @@ def thank_you():
 def print_report():
     ''' Pretty-print a table of donor statistics '''
     while True:
-        choice = input("To generate a summary report, \n"
-                       "type run now.\n"
-                       "To return to the main menu,\n"
-                       "type menu now>")
+        try:
+            choice = input("To generate a summary report, \n"
+                           "type run now.\n"
+                           "To return to the main menu,\n"
+                           "type menu now>")
+        except (EOFError, KeyboardInterrupt):
+            safe_input()
         choice = remove_inputquotes(choice)
         if choice == 'menu':
             break
@@ -83,7 +94,7 @@ def print_report():
 def send_letters():
     ''' Send thank you notes to everyone in the DONORS dict'''
     for donor in DONORS:
-        outfile = donor.replace(" ","_") + '.txt'
+        outfile = donor.replace(" ", "_") + '.txt'
         with open(outfile, 'w') as f:
             f.write(generate_letter(donor))
     print("Successfully saved letters for each donor.")
