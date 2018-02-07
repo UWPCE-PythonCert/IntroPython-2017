@@ -9,7 +9,7 @@ from mailroom.audit import audit_log
 
 """ Program to manage donations. """
 
-# @audit_log
+
 class Donors:
 
     """
@@ -26,6 +26,9 @@ class Donors:
     """
 
     def __init__(self, donor=None):
+
+        self.__name__ = "Donors"
+
         self._donors = {}
         # TODO:
         #   donors should take a donor object or multiple donor objects
@@ -39,7 +42,10 @@ class Donors:
         return "Donors( " + ", ".join(repr_out) + " )"
 
     def __str__(self):
-        return self.__repr__()
+        str_out=[]
+        for key in self._donors:
+            str_out.append( str(self._donors[key]) )
+        return "str(Donors(\n  " + ",\n  ".join(str_out) + " ))"
 
     def __iter__(self):
         return iter(self.full_name_index)
@@ -86,7 +92,7 @@ class Donors:
                 matches.append( (name, id) )
         return matches
 
-# @audit_log
+
 class Donor:
 
     """
@@ -167,10 +173,7 @@ class Donor:
             ):
             # , audit=None):
 
-        # if audit is None:
-        #     self._audit = list()
-        # else:
-        #     self._audit = audit
+        self.__name__ = "Donor"
 
         # normally no id is passed in, so we create one
         if id == "":
@@ -250,15 +253,6 @@ class Donor:
         except ValueError:
             raise ValueError("Donations must be values.")
         self._donations.append( { "amount": value, "date": today } )
-
-    def add_audit_entry(self, value):
-        """ add a single audit line """
-        print("add_audit_entry called")
-        now = datetime.datetime.utcnow().isoformat() + "Z"
-        self._audit.append(( now, value))
-
-    def show_audit(self):
-        return self._audit
 
     @property
     def number_donations(self):
@@ -415,7 +409,7 @@ class Donor:
         for attr in dir(self):
             if not attr.startswith("_"):
                 which_attributes.append(attr)
-        return "Donor Record ( " + ", ".join(self._query_attributes(which_attributes)) + " )"
+        return "str(Donor(\n    " + ",\n    ".join(self._query_attributes(which_attributes)) + " ))"
 
 
 def load_donor_file(donor_file=None):
@@ -442,9 +436,11 @@ def load_donor_file(donor_file=None):
         # when pickle files are corrupt they can present in lots of ways
         # so if catch something other than what we expect, assume it's
         # a corrupt pickle file
-        print("The donors file is corrupt!")
+        print("The donors file is invalid!")
         print(e)
-        print("Please delete or restore the donor file from a backup.")
+        print("If you have run a previous version of Mailroom 2000, it may not be")
+        print("compatible with the current version.  Please remove ~/.donors.p and")
+        print("try again.")
         sys.exit(1)
 
 def save_donor_file(donors,donor_file=None):

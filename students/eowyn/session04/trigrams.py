@@ -8,6 +8,8 @@ import string
 PUNCTUATION = ['.', '!', '?']
 
 # TO DO: figure out how to properly capitalize I, proper nouns
+# the I thing can be addressed with an if word == "i"
+## look into using translate method to replace lots of things with other things
 # TO DO: Fix trigrams that end in words like "and", prepositional phrases, articles
 
 
@@ -78,7 +80,7 @@ def process_output(word_list):
         word_list[i] = word_list[i].capitalize()
         try:
             word_list[i + sentence_length - 1] = word_list[i +
-            sentence_length - 1] + random.choice(PUNCTUATION)
+             sentence_length - 1] + random.choice(PUNCTUATION)
         except:
             sentence_length = len(word_list) - i
             word_list[i + sentence_length - 1] = word_list[i +
