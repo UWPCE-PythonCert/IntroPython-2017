@@ -17,7 +17,7 @@ def quit_code():
     sys.exit()
 
 def return_to_menu():
-    ''' Raise a zero division error to trigger exit out of loop'''
+    ''' Return True to trigger exit out of sub-loop'''
     # raise NotImplementedError
     return True
 

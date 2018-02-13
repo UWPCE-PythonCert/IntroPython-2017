@@ -1,4 +1,5 @@
 from setuptools import setup
+import os
 
 def get_version():
     """

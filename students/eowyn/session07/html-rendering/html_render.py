@@ -5,11 +5,10 @@ class Element():
     extra_indent = 4 * ' '
 
     def __init__(self, content=None, **kwargs):
-        if content is None:
-            self.content = []
-        else:
-            self.content = [content]
+        self.content = []
         self.attributes = kwargs  # a dictionary w/all the keyword args
+        if content is not None:
+            self.append(content)
 
     def append(self, content):
         # Collect additional objects alongside existing objects
@@ -114,6 +113,10 @@ class SelfClosingTag(Element):
         open_tag += self.get_tag_attributes()
         open_tag += ' />'
         return open_tag
+
+    def append(self, content):
+        # Collect additional objects alongside existing objects
+        raise TypeError("SelfClosingTags cannot accept content")
 
 
 class Hr(SelfClosingTag):
