@@ -1,11 +1,13 @@
 import os
 import model as MD
+import logging
 import pprint
 
 
 def send_thanks(donor_records, filename):
     ''' '''
     # get set of full names
+    logging.info('Send thanks.')
     full_name_list = []
     for record in donor_records.donors:
         full_name_list.append(record.full_name)
@@ -50,6 +52,7 @@ def send_thanks(donor_records, filename):
 
 def create_report(donor_records, filename):
     '''Create a pretty printed report with the Report class.'''
+    logging.info('Create report.')
     report = MD.Report()
     report.create_report(donor_records)
     return True
@@ -57,6 +60,7 @@ def create_report(donor_records, filename):
 
 def exit_mail(donor_records, filename):
     '''Save the data; close the app.'''
+    logging.info('Exiting...')
     utility = MD.Utilities()
     try:
         print("Goodbye.")
@@ -78,7 +82,10 @@ chooser = {
 def mainloop(donor_records, filename):
     '''Central loop of the mailroom application.'''
     run = True
+    loop_count = 0
     while run == True:
+        loop_count += 1
+        logging.info("loop No: {}".format(loop_count))
         try:
             for k in chooser.keys():
                 print("{} | {}".format(k, chooser[k][0]))
@@ -89,12 +96,18 @@ def mainloop(donor_records, filename):
 
 
 if __name__ == "__main__":
+    fileDir = os.path.dirname(os.path.realpath('__file__'))
+    logging.basicConfig(filename=fileDir + '\\data\\mailroom.log', level=logging.INFO)
+    logging.info('Started')
     try:
-        fileDir = os.path.dirname(os.path.realpath('__file__'))
+        
+        
         filename = fileDir + "\\data\\mailroomdata.json"
         utility = MD.Utilities()
         donor_records = utility.open_json(filename)
         print ("Data loaded.")
         mainloop(donor_records, filename)
-    except FileNotFoundError: 
+        logging.info('Finished')
+    except FileNotFoundError:
+        logging.info('End - FileNotFoundError')
         print ("Unable to find data file.")
