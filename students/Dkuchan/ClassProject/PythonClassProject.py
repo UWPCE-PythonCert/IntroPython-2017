@@ -9,7 +9,8 @@
     '''Need to add a tuple for allowed users to baseline who does what'''
 
 
-
+monteblue = [0, 0, 0]
+montered = [0, 0, 0]
 class Match:
     ''' A match is a collection of data which represents a match.
     Match is the primary class which is edited by the user.'''
@@ -49,7 +50,27 @@ def importdatabase():
 def setupmonte():
     '''Allows the user to set parameters for
     the monte carlo analysis'''
+    userin = None
+    print()
+    print()
+    print('Welcome to the Monte Carlo System')
+    print('Please select which teams to simulate.')
 
+    for i in range(1, 3):
+        userin = input('Please enter team' + i + 'in the Blue Alliance')
+        #check if the number is a number
+        #check if it is a valid team
+        #check if there is data (or sufficient data) on a team
+    for j in range(1,3):
+        userin = input('Please enter team' + i + 'in the Red Alliance')
+        #check if the number is a number
+        #check if it is a valid team
+        #check if the team is on the Blue Alliance
+        #check if there is data (or sufficient data) on a team
+    #print the alliances selected
+    #ask user how many runs to do 
+    #verify user entered a number
+    #call simulation with entered data
 
 def simulation(runs):
     '''Runs a monte carlo with the number of runs and imported params
