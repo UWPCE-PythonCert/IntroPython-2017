@@ -17,6 +17,7 @@ def send_thanks(donor_records, filename):
     thanks = input("Type \'List\' for a list of donors, or a full name to thank. > ")
 
     if thanks.lower() == "list":
+        logging.info('Getting list.')
         for record in donor_records.donors:
             print(record.full_name)
         return True
@@ -24,19 +25,20 @@ def send_thanks(donor_records, filename):
     elif thanks in full_name_set:
         # get donation amount, add to donations, and print thank you latter.
         amount = float(input("Type a donation amount. > "))
+        logging.info('Thanks to {} for {}'.format(thanks, amount))
         for record in donor_records.donors:
             if thanks == record.full_name:
                 record.donations.append(amount)
                 letter1 = MD.Letter()
-                letter1_text = "This is it."
+                letter1_text = letter1.create_letter(record.full_name, "User", amount)
                 print(letter1_text)
                 return True
 
     else:
         print("A new donor!")
         first_name = input("First name > ")
-        last_name = input("First name > ")
-        email = input("First name > ")
+        last_name = input("Last name > ")
+        email = input("Email name > ")
         amount = float(input("Type a donation amount. > "))
         new_donor = MD.Donor()
         new_donor.first_name
@@ -44,8 +46,9 @@ def send_thanks(donor_records, filename):
         new_donor.email
         new_donor.donations.append(amount)
         donor_records.donors.append(new_donor)
+        logging.info('Adding a new donor: {} for {}'.format(new_donor.full_name, amount))
         letter2 = MD.Letter()
-        letter2_text = "This is it."
+        letter2_text = letter2.create_letter(record.full_name, "User", amount)
         print(letter2_text)
         return True
 
