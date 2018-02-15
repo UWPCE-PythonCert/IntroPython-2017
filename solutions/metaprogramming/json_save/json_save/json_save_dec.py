@@ -7,11 +7,10 @@ json_save implemented as a decorator
 import json
 
 from .json_save_meta import *
-from .json_save_meta import ALL_SAVABLES
 
 
-# assorted methods that will need to be added:
-def to_json_compat(self):
+# assorted methods that will need to be added to the decorated class:
+def _to_json_compat(self):
     """
     converts this object to a json-compatible dict.
 
@@ -38,7 +37,7 @@ def __eq__(self, other):
     return True
 
 @classmethod
-def from_json_dict(cls, dic):
+def _from_json_dict(cls, dic):
     """
     creates an instance of this class populated by the contents of
     the json compatible dict
@@ -57,7 +56,7 @@ def from_json_dict(cls, dic):
     return obj
 
 
-def to_json(self, fp=None, indent=4):
+def _to_json(self, fp=None, indent=4):
     """
     Converts the object to JSON
 
@@ -78,7 +77,7 @@ def json_save(cls):
     """
     json_save decorator
 
-    makes decorated classes savable to json
+    makes decorated classes Saveable to json
     """
     # make sure this is decorating a class object
     if type(cls) is not type:
@@ -90,15 +89,38 @@ def json_save(cls):
     attr_dict = vars(cls)
     cls._attrs_to_save = {}
     for key, attr in attr_dict.items():
-        if isinstance(attr, Savable):
+        if isinstance(attr, Saveable):
             cls._attrs_to_save[key] = attr
     # register this class so we can re-construct instances.
-    ALL_SAVABLES[cls.__qualname__] = cls
+    Saveable.ALL_SAVEABLES[cls.__qualname__] = cls
 
     # add the methods:
-    cls.to_json_compat = to_json_compat
+    cls.to_json_compat = _to_json_compat
     cls.__eq__ = __eq__
-    cls.from_json_dict = from_json_dict
-    cls.to_json = to_json
+    cls.from_json_dict = _from_json_dict
+    cls.to_json = _to_json
 
     return cls
+
+
+# utilities for loading arbitrary objects from json
+def from_json_dict(j_dict):
+    """
+    factory function that creates an arbitrary JsonSaveable
+    object from a json-compatible dict.
+    """
+    # determine the class it is.
+    obj_type = j_dict["__obj_type"]
+    obj = Saveable.ALL_SAVEABLES[obj_type].from_json_dict(j_dict)
+    return obj
+
+
+def from_json(_json):
+    """
+    factory function that re-creates a JsonSaveable object
+    from a json string or file
+    """
+    if isinstance(_json, str):
+        return from_json_dict(json.loads(_json))
+    else:  # assume a file-like object
+        return from_json_dict(json.load(_json))
