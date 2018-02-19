@@ -150,7 +150,7 @@ class List(Saveable):
                 obj_type = item["__obj_type"]
                 obj = Saveable.ALL_SAVEABLES[obj_type].from_json_dict(item)
                 new_list.append(obj)
-            except TypeError:
+            except (TypeError, KeyError):
                 new_list.append(item)
         return new_list
 
