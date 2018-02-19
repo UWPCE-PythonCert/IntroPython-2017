@@ -27,6 +27,9 @@ class Donors(js.JsonSaveable):
     donor did.
     """
 
+    _donors = js.Dict()
+    audit = js.List()
+
     def __init__(self, donor=None):
 
         self.__name__ = "Donors"
