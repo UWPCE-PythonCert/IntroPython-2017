@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
-import copy
 from textwrap import dedent
+
 
 class Mailroom():
 
@@ -33,6 +33,7 @@ class Mailroom():
         Then print a thank-you note for the donation.
         '''
         try:
+            # check for none instead
             (fullname, amount) = self.collect_donor_input()
         except TypeError:
             pass
