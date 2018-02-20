@@ -51,8 +51,23 @@ def _from_json_dict(cls, dic):
     obj = cls.__new__(cls)
     for attr, typ in cls._attrs_to_save.items():
         setattr(obj, attr, typ.to_python(dic[attr]))
-    # make sure it gets initialized
-    # obj.__init__()
+    return obj
+
+
+def __new__(cls, *args, **kwargs):
+    """
+    This adds instance attributes to assure they are all there, even if
+    they are not set in the subclasses __init__
+
+    it's in __new__ so that it will get called before the decorated class'
+    __init__ -- the __init__ will override anything here.
+    """
+    # create the instance by calling the base class __new__
+    obj = cls.__base__.__new__(cls)
+    # using super() did not work here -- why??
+    # set the instance attributes to defaults
+    for attr, typ in cls._attrs_to_save.items():
+        setattr(obj, attr, typ.default)
     return obj
 
 
@@ -95,6 +110,7 @@ def json_save(cls):
     Saveable.ALL_SAVEABLES[cls.__qualname__] = cls
 
     # add the methods:
+    cls.__new__ = __new__
     cls.to_json_compat = _to_json_compat
     cls.__eq__ = __eq__
     cls.from_json_dict = _from_json_dict

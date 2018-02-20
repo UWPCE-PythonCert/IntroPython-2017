@@ -4,11 +4,13 @@
 Examples of using json_save
 """
 
-import json_save.json_save_meta as js
+import json_save.json_save_dec as js
 
-# Metaclass examples
 
-class MyClass(js.JsonSaveable):
+# Examples using the decorator
+
+@js.json_save
+class MyClass:
 
     x = js.Int()
     y = js.Float()
@@ -19,7 +21,8 @@ class MyClass(js.JsonSaveable):
         self.lst = lst
 
 
-class OtherSaveable(js.JsonSaveable):
+@js.json_save
+class OtherSaveable:
 
     foo = js.String()
     bar = js.Int()
@@ -27,6 +30,7 @@ class OtherSaveable(js.JsonSaveable):
     def __init__(self, foo, bar):
         self.foo = foo
         self.bar = bar
+
 
 # create one:
 print("about to create a instance")
