@@ -1,5 +1,6 @@
 import os
 import json
+from prettytable import PrettyTable
 import model as MD
 
 def open_json(filename):
@@ -22,25 +23,24 @@ def open_json(filename):
             donor_directory.donors.append(donor)
         return donor_directory
 
-def save_json(filename, OutDirectory):
-        '''Takes the Donar Directory list of Donor types and saves a JSON file using the mailroom data schema.
-        @param filename: The relative path from the root directory of the package.
-        @type: string
-        @param OutDirectory: The DonorDirectory object populated with data from the JSON file.
-        @type: DonorDirectory'''
-        outdata = "{"
-        for record in OutDirectory.donors:
-            rec_string = '"{}" : {{"first_name": "{}", "last_name": "{}", "email": "{}", "donations": "{}"}},'.format(record.id, record.first_name, record.last_name, record.email, record.donations)
-            outdata += rec_string
-        outdata = outdata[:-1] + "}"
-        fout = open(filename, "w")
-        for line in outdata:
-            fout.write(line)
-        fout.close()
+def create_report(donor_directory):
+    '''Create a pretty printed report to the console.
+    @param donor_directory: The donor directory with donars.
+    @type: DonorDirectory'''
+    t = PrettyTable(["Donor","No.","Average","Total"])
+    for record in donor_directory.donors:
+        t.add_row([record.full_name, record.donation_number, record.average_donations, record.donations_total])
+    print(t)
 
+
+    # pp = pprint.PrettyPrinter(indent=4)
+    # pp.pprint("\nREPORT\nDonor\t\tNo\tAverage\tTotal\n")
+    # for record in donor_directory.donors:
+    #     pp.pprint("{}\t\t{}\t{}\t{}".format(
+    #         record.full_name, record.donation_number, record.average_donations, record.donations_total))
+    # pp.pprint("\n")
 
 fileDir = os.path.dirname(os.path.realpath('__file__'))
-filename = fileDir + "\\data\\mailroomdata.json"
+filename = fileDir + "\\mailroompkg\\mailroom\\data\\mailroomdata.json"
 donor_directory = open_json(filename)
-print(donor_directory)
-save_json(filename, donor_directory)
+create_report(donor_directory)

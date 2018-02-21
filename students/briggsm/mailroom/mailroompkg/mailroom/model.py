@@ -3,10 +3,11 @@ The object model for the mailroom application.
 '''
 import uuid
 import json
-import pprint
+from prettytable import PrettyTable
 
 class Person():
     '''A person in the context of the application.'''
+
     def __init__(self):
         '''Creates a Person object.
         @param first_name: The first name of the person.
@@ -15,7 +16,7 @@ class Person():
         @type first_name: string
         @param email: The email of the person, for example, matt@mattbriggs.com
         @type email: string'''
-        self.id = str(uuid.uuid4)
+        self.id = str(uuid.uuid4())
         self.first_name = ""
         self.last_name = ""
         self.email = ""
@@ -34,6 +35,7 @@ class Donor(Person):
         '''Creates a Donor, a Person of type donor.
         @param donations: A list of Donor objects.
         @type donations: list'''
+        self.id = str(uuid.uuid4())
         self.donations = donations
 
     @property
@@ -158,12 +160,13 @@ class Report():
         '''Create a pretty printed report to the console.
         @param donor_directory: The donor directory with donars.
         @type: DonorDirectory'''
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint("\nREPORT\nDonor\t\tNo\tAverage\tTotal\n")
+        '''Create a pretty printed report to the console.
+        @param donor_directory: The donor directory with donars.
+        @type: DonorDirectory'''
+        t = PrettyTable(["Donor","No.","Average","Total"])
         for record in donor_directory.donors:
-            pp.pprint("{}\t\t{}\t{}\t{}".format(
-                record.full_name, record.donation_number, record.average_donations, record.donations_total))
-        pp.pprint("\n")
+            t.add_row([record.full_name, record.donation_number, record.average_donations, record.donations_total])
+        print(t)
 
 class UI():
     '''The command line user interface that handles interactions between the 
@@ -200,14 +203,14 @@ class Utilities():
             with open(filename) as f:
                 read_data = f.read()
             record = json.loads(read_data)
-            donor_directory = DonorDirectory()          
+            donor_directory = DonorDirectory()
             for key, value in record.items():
                 donor = Donor()
                 donor.id = key
                 donor.first_name = value["first_name"]
                 donor.last_name = value["last_name"]
                 donor.email = value["email"]
-                donor.donations = value["donations"]
+                donor.donations = list(value["donations"])
                 donor_directory.donors.append(donor)
             return donor_directory
 
@@ -223,7 +226,7 @@ class Utilities():
             @type: string'''
             outdata = "{"
             for record in donor_directory.donors:
-                rec_string = '"{}" : {{"first_name": "{}", "last_name": "{}", "email": "{}", "donations": "{}"}},'.format(record.id, record.first_name, record.last_name, record.email, record.donations)
+                rec_string = '"{}" : {{"first_name": "{}", "last_name": "{}", "email": "{}", "donations": {}}},'.format(record.id, record.first_name, record.last_name, record.email, record.donations)
                 outdata += rec_string
             outdata = outdata[:-1] + "}"
             fout = open(filename, "w")
