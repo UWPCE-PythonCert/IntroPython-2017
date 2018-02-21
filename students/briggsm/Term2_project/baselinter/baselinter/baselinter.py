@@ -4,7 +4,7 @@ import json
 import datetime
 import os
 
-LOCATION = "E:\\MB\Better-Butter\\Projects\\BaseLinter\\baselinter\\baselinter" # os.path.dirname(os.path.realpath('__file__'))
+LOCATION = "D:\\UW\\Intro-to-Python\\IntroPython-2017\\students\\briggsm\\Term2_project\\baselinter\\baselinter\\" # os.path.dirname(os.path.realpath('__file__'))
 THISDATE = str(datetime.date.today()) # e:\MB\Better-Butter\Projects\BaseLinter
 LIST_of_SETS = []
 LINTER_NAME = ""
