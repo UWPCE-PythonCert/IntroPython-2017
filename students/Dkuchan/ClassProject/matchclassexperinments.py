@@ -1,4 +1,5 @@
 
+import csv
 
 matchlist = []
 
@@ -31,6 +32,7 @@ class Match:
         self.kpa = None
         self.autokpa = None
         self.climb = None
+        self.penalties = None
 
     def __repr__(self):
         return '{}, {}: {}'.format(self.team, self.matchnumber, self.win)
@@ -39,8 +41,8 @@ class Match:
         return 'Match {}, Team {}'.format(self.matchnumber, self.team)
 
 
-matchlist.append(Match(1,4469))
-matchlist.append(Match(2,4469))
+#matchlist.append(Match(1,4469))
+#matchlist.append(Match(2,4469))
 
 # def creatematch(matchnumber, teamnumber):
 # check to see if this entry is already in the list
@@ -73,7 +75,26 @@ def interimupdater(mnumber, teamnumber):
     if found == 0:
         print("Im sorry we were unable to locate that match file.")
 
+#def dumptofile():
 
+def readfile():
+    with open('MatchLedger.csv', 'r') as inputfile:
+        csvreader = csv.reader(inputfile)
+        next(inputfile)
+        for line in csvreader:
+            matchlist.append(Match(line[0], line[1]))
+            for i in range(0, len(matchlist)):
+                if matchlist[i].matchnumber == line[0] and matchlist[i].team == line[1]:
+                    matchlist[i].alliance = line[2]
+                    matchlist[i].fieldpos = line[3]
+                    matchlist[i].win = line[4]
+                    matchlist[i].pilot = line[5]
+                    matchlist[i].gears = line[6]
+                    matchlist[i].autogears = line[7]
+                    matchlist[i].kpa = line[8]
+                    matchlist[i].autokpa = line[9]
+                    matchlist[i].climb = line[10]
+                    matchlist[i].penalties = line[11]
 
 def updategears(mnumber, teamnumber, gears):
     found = 0
@@ -84,7 +105,7 @@ def updategears(mnumber, teamnumber, gears):
     if found == 0:
         print("Target Not Found - No Updates Made")
 
-
+'''
 for i in range (0, len(matchlist)):
     print(str(matchlist[i]))
     print()
@@ -94,4 +115,12 @@ for i in range (0, len(matchlist)):
 interimupdater(1, 4466)
 
 for i in range(0, len(matchlist)):
+    print(matchlist[i].gears)
+
+    '''
+readfile()
+for i in range(0, len(matchlist)):
+    print(str(matchlist[i]))
+    print()
+    print()
     print(matchlist[i].gears)
