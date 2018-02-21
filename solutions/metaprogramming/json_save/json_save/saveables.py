@@ -147,13 +147,15 @@ class List(Saveable):
         Complicated because list may contain non-json-compatible objects
         """
         # try to reconstitute using the obj method
+        print("in list to_python")
         new_list = []
         for item in val:
+            print("item is:", item)
             try:
                 obj_type = item["__obj_type"]
                 obj = Saveable.ALL_SAVEABLES[obj_type].from_json_dict(item)
                 new_list.append(obj)
-            except TypeError:
+            except (KeyError, TypeError):
                 new_list.append(item)
         return new_list
 
@@ -215,6 +217,6 @@ class Dict(Saveable):
                 obj_type = item["__obj_type"]
                 obj = Saveable.ALL_SAVEABLES[obj_type].from_json_dict(item)
                 new_dict[key] = obj
-            except TypeError:
+            except (KeyError, TypeError):
                 new_dict[key] = item
         return new_dict

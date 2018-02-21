@@ -18,6 +18,9 @@ basics = [(String, "This is a string"),
           (Bool, False),
           (List, [2, 3, 4]),
           (Tuple, (1, 2, 3.4, "this")),
+          (List, [[1, 2, 3], [4, 5, 6]]),
+          (List, [{"3": 34}, {"4": 5}]),  # list with dicts in it.
+          (Dict, {"this": {"3": 34}, "that": {"4": 5}})  # dict with dicts
           ]
 
 
@@ -30,6 +33,8 @@ def test_basics(Type, val):
     print("new value is:", val2)
     assert val == val2
     assert type(val) == type(val2)
+#    if Type is List:
+#        assert False
 
 
 dicts = [{"this": 14, "that": 1.23},
