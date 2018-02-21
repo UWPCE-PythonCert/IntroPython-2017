@@ -3,6 +3,7 @@ Add an audit entry when an object is modified.
 """
 
 import datetime
+import logging
 
 
 def audit_log(called_function):
@@ -32,6 +33,9 @@ def audit_log(called_function):
                            "action": called_function.__name__,
                            "args": args,
                            "kwargs": kwargs})
+        logging.debug("called {}, with {}, {}".format(
+            user, called_function.__name__, args, kwargs),
+            extra={ "user": security.user })
         result = called_function(self, *args, **kwargs)
         return result
     return audit_log_inner

@@ -7,10 +7,12 @@ import datetime
 import uuid
 import pickle
 import os
+from mailroom import security
 from mailroom.audit import audit_log
+import json_save.json_save_meta as js
 
 
-class Donors:
+class Donors(js.JsonSaveable):
 
     """
     Class that stores donor records
@@ -24,6 +26,9 @@ class Donors:
     get_donor can be used to return a Donor() object given the
     donor did.
     """
+
+    _donors = js.Dict()
+    audit = js.List()
 
     def __init__(self, donor=None):
 
@@ -93,7 +98,7 @@ class Donors:
         return matches
 
 
-class Donor:
+class Donor(js.JsonSaveable):
 
     """
     Class to store a donor record
@@ -171,6 +176,15 @@ class Donor:
 
     """
 
+    created = js.String()
+    audit = js.List()
+    _did = js.String()
+    _first_name = js.String()
+    _last_name = js.String()
+    _middle_name = js.String()
+    _suffix = js.String()
+    _donations = js.List()
+
     def __init__(self,
                  did="",
                  created="",
@@ -189,7 +203,7 @@ class Donor:
         if did == "":
             did = str(uuid.uuid1())
         # create a uuid for each record
-        self._did = did
+        self.did = did
 
         # normally, no timestamp is passed in, so we create one
         if created == "":
@@ -238,6 +252,12 @@ class Donor:
     def did(self):
         """ return the donor did """
         return self._did
+
+    @did.setter
+    @audit_log
+    def did(self, value):
+        """ set the did """
+        self._did = value
 
     @property
     def donations(self):
