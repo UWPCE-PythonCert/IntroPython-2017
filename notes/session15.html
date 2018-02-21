@@ -155,6 +155,34 @@
             
   <div class="section" id="notes-for-quarter-2-class-5">
 <span id="notes-session15"></span><h1>Notes for Quarter 2, class 5<a class="headerlink" href="#notes-for-quarter-2-class-5" title="Permalink to this headline">¶</a></h1>
+<p>Exercises:</p>
+<p>Look in the examples/logging foler.</p>
+<p>In example.py, a logging system is set up that logs to a file, and also the console.</p>
+<p>It calls a fake “application” that does things in random order, logging as it goes…</p>
+<p>Let’s go check it out!</p>
+<div class="section" id="debugging-exercise">
+<h2>Debugging exercise<a class="headerlink" href="#debugging-exercise" title="Permalink to this headline">¶</a></h2>
+<p>Find the wikidef app in the examples/debugging folder</p>
+<p>See if you can find the bug and get the app working. Use whatever debugging
+technique(s) you prefer.</p>
+<p>To run the app:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">interesting_topic</span>
+</pre></div>
+</div>
+<p>where interesting_topic is a topic of interest, like python. ;-)</p>
+<p>Once it is working again:
+Using (i)pdb in module mode (python -m pdb ) to find the name of the server and the Content-Type that
+wikipedia is using by looking at response.headers in Wikipedia.article. What type of object is response.headers?</p>
+<p>You can enter the debugger by running:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="o">./</span><span class="n">define</span><span class="o">.</span><span class="n">py</span> <span class="n">robot</span>
+</pre></div>
+</div>
+<p>(define.py takes the first sys arg and finds articles on wikipedia on that topic)</p>
+<p>You can get to the code by walking through each line with ‘s’tep and
+‘n’ext commands, or by setting a breakpoint and ‘c’ontinuing.</p>
+<p>What’s the result?</p>
+<p>You may also want to take a look at long_loop.py and see if you can answer the questions there.</p>
+</div>
 </div>
 
 
