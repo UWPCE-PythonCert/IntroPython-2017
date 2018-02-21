@@ -6,13 +6,16 @@ test code for the decorator version of json_save
 
 import pytest
 
-import json_save as js
+import json_save.json_save_dec as js
 
 
 # Some simple classes to test:
 
 @js.json_save
 class NoInit:
+    """
+    A class with saveable attribute, but no __init__
+    """
     x = js.Int()
     y = js.String()
 
@@ -72,13 +75,16 @@ def nested_dict():
 
 # now the actual test code
 
-# this doesn't work yet
-# def test_hasattr():
-#     ts = NoInit()
-#     # has the attributes even though no __init__ exists
-#     # they should be the default values
-#     assert ts.x == 0
-#     assert ts.y == ""
+def test_hasattr():
+    """
+    checks that the default attributes get set if they are not created by an __init__
+    """
+    print("about to create a NoInit object")
+    ts = NoInit()
+    # has the attributes even though no __init__ exists
+    # they should be the default values
+    assert ts.x == 0
+    assert ts.y == ""
 
 
 def test_attrs():
@@ -201,7 +207,7 @@ def test_from_json_dict2(nested_dict):
     """
 
     json_str = nested_dict.to_json()
-
+    print(js.Saveable.ALL_SAVEABLES)
     reconstructed = js.from_json(json_str)
 
     assert reconstructed == nested_dict

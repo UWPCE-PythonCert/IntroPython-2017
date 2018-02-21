@@ -7,7 +7,14 @@ menu system for donor program
 import sys
 from mailroom import security
 from mailroom.donors import Donors, Donor, save_donor_file, load_donor_file
+import logging
 
+# 2018-02-11T00:04:31.921864-06:00
+log_level = logging.DEBUG
+logging.basicConfig(filename='donor.log',
+                    filemode='a',
+                    format='%(asctime)s %(levelname)s %(module)s %(user)s %(message)s',
+                    level=log_level)
 
 def safe_input(prompt=">"):
     """ Generic input routine. """
@@ -29,11 +36,13 @@ def print_lines(lines=2, dest=sys.stdout):
 
 def user_login():
     """ stub for user login """
-    security.user = input("Enter your username: ")
+    security.user = safe_input("Enter your username: ")
+    logging.debug("user logged in", extra={ 'user': security.user})
 
 
 def user_logout():
     """ stub for user logout """
+    logging.debug("user logged out", extra={ 'user': security.user})
     security.user = None
 
 
@@ -58,6 +67,7 @@ def list_donors(donors, dest=sys.stdout):
             donor.total_donations,
             donor.number_donations,
             donor.average_donations), file=dest)
+    logging.debug("listed donors", extra={ 'user': security.user})
 
 
 def get_donation_amount(donor):
@@ -109,6 +119,8 @@ def create_thank_you(donor, hint="wonderful"):
     letter += "Tux Humboldt\n"
     letter += "Shark Loss Prevention Institue\n"
 
+    logging.debug("created thank you letter for {}".format(donor.full_name),
+        extra={ 'user': security.user})
     return letter.format(donor.full_name, donor.last_name, hint)
 
 
