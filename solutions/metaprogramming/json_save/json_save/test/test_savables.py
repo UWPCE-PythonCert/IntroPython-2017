@@ -37,6 +37,24 @@ def test_basics(Type, val):
 #        assert False
 
 
+nested = [(List, [(1, 2), (3, 4), (5, 6)]),  # tuple in list
+          (Tuple, ((1, 2), (3, 4), (5, 6))),  # tuple in tuple
+          ]
+
+@pytest.mark.xfail(reason="nested not-standard types not supported")
+@pytest.mark.parametrize(('Type', 'val'), nested)
+def test_nested(Type, val):
+    print("original value:", val)
+    js = json.dumps(Type.to_json_compat(val))
+    print("js is:", js)
+    val2 = Type.to_python(json.loads(js))
+    print("new value is:", val2)
+    assert val == val2
+    assert type(val) == type(val2)
+
+
+
+
 dicts = [{"this": 14, "that": 1.23},
          {34: 15, 23: 5},
          {3.4: "float_key", 1.2: "float_key"},

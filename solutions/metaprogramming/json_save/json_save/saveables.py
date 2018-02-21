@@ -147,10 +147,8 @@ class List(Saveable):
         Complicated because list may contain non-json-compatible objects
         """
         # try to reconstitute using the obj method
-        print("in list to_python")
         new_list = []
         for item in val:
-            print("item is:", item)
             try:
                 obj_type = item["__obj_type"]
                 obj = Saveable.ALL_SAVEABLES[obj_type].from_json_dict(item)
@@ -182,7 +180,6 @@ class Dict(Saveable):
         for key, item in val.items():
             kis = type(key) is str
             if ((kis and key_not_string) or (not (kis or key_not_string))):
-                print("key type mismatch")
                 raise TypeError("dict keys must be all strings or no strings")
             if key_type is not str:
                 # convert key to string
@@ -210,7 +207,6 @@ class Dict(Saveable):
         new_dict = {}
         key_not_string = val.pop('__key_not_string', False)
         for key, item in val.items():
-            print("key is:", key)
             if key_not_string:
                 key = ast.literal_eval(key)
             try:
