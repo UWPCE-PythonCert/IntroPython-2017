@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import pytest
+import os.path
 from unittest import mock
 from mailroom.donor import Donor
 from mailroom.transactions import Transactions
@@ -223,4 +224,6 @@ class TestFunctions():
         t.add_donor(name2, amt3)
         result = t.challenge(2, 400, 600)
         assert result == 500
+
+
 
