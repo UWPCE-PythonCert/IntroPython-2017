@@ -27,22 +27,3 @@ class Party:
         self.hard_cr = hard_cr
         self.deadly_cr = deadly_cr
 
-    def monster_types(self, group_size):
-        split = 0
-        if group_size > 1:
-            while True:
-                split = input("How many types of monsters do you want? (Must be less or equal to {}\n>".format(group_size))
-                try:
-                    split = int(split)
-                    if split > group_size:
-                        print("Please enter a value less than {}".format(group_size))
-                    else:
-                        self.monster_variety = split
-                        break
-                except ValueError:
-                    print("Please enter an integer")
-                    pass
-                except TypeError:
-                    print("Please enter an integer")
-                    pass
-        # print(self.monster_variety)

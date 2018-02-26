@@ -65,3 +65,11 @@ def test_prime():
     assert next(g) == 19
     assert next(g) == 23
 
+
+def test_fib2():
+    g = gen.fib2(0,1,5)
+    assert [f for f in g] == [1, 1, 2, 3, 5, 8, 13]
+
+def test_fib3():
+    g = gen.fib3(0,1,5)
+    assert [f for f in g] == [1, 1, 2, 3, 5]

@@ -38,7 +38,7 @@ def monster_types(group_size):
     split = 0
     if group_size > 1:
         while True:
-            split = input("How many types of monsters do you want? (Must be less or equal to {}\n>".format(group_size))
+            split = input("How many types of monsters do you want? (Must be less or equal to {})\n>".format(group_size))
             try:
                 split = int(split)
                 if split > group_size:
@@ -53,6 +53,42 @@ def monster_types(group_size):
                 print("Please enter an integer")
                 pass
 
+
+def enemy_force_size():
+    while True:
+        size = input("How many enemies should the party face?\n>")
+        try:
+            size = int(size)
+            return size
+        except ValueError:
+            print("Please enter an integer")
+            pass
+        except TypeError:
+            print("Please enter an integer")
+            pass
+
+def choose_difficulty():
+    while True:
+        difficulty = input("What difficulty of encounter do you want?\n"
+                     "1. Easy\n"
+                     "2. Medium\n"
+                     "3. Hard\n"
+                     "4. Deadly\n>")
+
+
+        try:
+            difficulty = int(difficulty)
+            if 1 <= difficulty <= 4:
+                return difficulty
+            else:
+                print("Please enter a value 1 through 4")
+                pass
+        except ValueError:
+            print("Please enter a value 1 through 4")
+            pass
+        except TypeError:
+            print("Please enter a value 1 through 4")
+            pass
 
 
 if __name__ == "__main__":

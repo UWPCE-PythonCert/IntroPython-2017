@@ -2,6 +2,7 @@
 # import encounter_builder
 import csv
 import math
+import random
 
 def establish_budgets(infile, party):
     difficulty_sheet = {}
@@ -153,6 +154,29 @@ def CR_ranges(xp_by_cr, monster_multiplier, party, group_size):
     # print('easy xp total{}, easy pool after multi{}, easy XP max{}, easy CR range{}'.format(party.easy, easy_mon_xp_pool, easy_xp_max, easy_cr_range))
     # print('medium fight',medium_cr_range)
     # print('hard fight', hard_cr_range)
-    print('deadly fight', deadly_cr_range)
+    print('easy fight', easy_cr_range)
 
 
+def monster_stat_ranges(infile):
+    print('stats start here')
+    the_dict = {}
+    with open(infile, 'r') as f:
+        cr_stats = csv.reader(f,delimiter=',')
+        # next(cr_stats, None)
+        for entry in cr_stats:
+            the_dict[entry[0]]=entry[1:]
+            print(entry)
+
+    print(the_dict)
+    for key, val in the_dict.items():
+        for index, entry in enumerate(val):
+            if entry.startswith('<'):
+                holder = int(entry.strip('<'))
+                val[index] = holder - random.randint(0, math.ceil(.5 * holder))
+            try:
+                val[index] = int(entry)
+            except: ValueError
+
+
+    print(the_dict)
+    return the_dict
