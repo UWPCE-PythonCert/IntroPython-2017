@@ -186,8 +186,10 @@ def nearby_airports_within_one_degree(airport_id, airport_lat_long=False, state_
         raise
     for row in list_of_records:
         if row[10] not in nearby_airports:
-            if float(row[4]) <= nearby_airport_max_lat and float(row[4]) >= nearby_airport_min_lat:
-                if float(row[5]) <= nearby_airport_max_long and float(row[5]) >= nearby_airport_min_long:
+            if float(row[4]) <= nearby_airport_max_lat\
+                    and float(row[4]) >= nearby_airport_min_lat:
+                if float(row[5]) <= nearby_airport_max_long\
+                        and float(row[5]) >= nearby_airport_min_long:
                     nearby_airports.append(row[10])
     if airport_lat_long is False and state_country is False:
         return nearby_airports
@@ -197,10 +199,6 @@ def nearby_airports_within_one_degree(airport_id, airport_lat_long=False, state_
         return country_state
     if airport_lat_long is True and state_country is True:
         return country_state, airport_id_lat, airport_id_long
-
-
-# To Do List:
-# search .csv's for wiki pages
 
 
 def airports_with_home_links():
@@ -264,12 +262,44 @@ def open_web_page(url_of_web_page):
 # 13 Is the airport even open to use?
 
 
-def runway_data_from_csv_file(airport_id, length=False, status=False, elevation=False):
+def runway_data_from_csv_file(airport_id, length=False,
+                              status=False, elevation=False):
     """ Create a list of runway data, derived from runway.csv.
-    :param - airport_id = column 2 of runway.csv
-    :return - true if length is long enough for a big plane, length, if True, returns runway length
-              elevation, if True, returns runway elevation in feet above sealevel
-              status, if True, returns "closed" or "open"
+    Args:
+         airport_id (str):  From column 2 of runway.csv. This is the
+                            unique airport identifier
+         length (bool):     See Returns section for usage
+
+         status (bool):     See Returns section for usage
+
+         elevation (bool):  See Returns section for usage
+
+    Returns:
+         dict:  The default returned dict has 6 key value pairs for each
+                of the airport_id's runways. The keys will be:
+                'runway_elevation_xx'
+                'runway_length_xx'
+                'runway_width_xx'
+                'runway_is_lit_xx'
+                'runway_paved_xx'
+                'runway_closed_xx'
+                where xx is the runway name.  The values are all strings
+
+                Usage of the boolean args:
+                length=False, status=False, elevation=True: returns
+                the field elevations
+                length=False, status=True, elevation=False: returns
+                the field status
+                length=False, status=True, elevation=True:  returns
+                field elevations and field status
+                length=True, status=False, elevation=False: returns
+                the field lengths
+                length=True, status=False, elevation=True:  returns
+                the field lengths and elevations
+                length=True, status=True, elevation=False:  returns
+                the field lengths and status
+                length=True, status=True, elevation=True:   returns
+                the field lengths, status, and elevations
     """
     #  Column names in runways.csv
     # row[0] = "id",
@@ -298,32 +328,125 @@ def runway_data_from_csv_file(airport_id, length=False, status=False, elevation=
     for row in list_of_records:
         # data for airport_id
         if row[2] == airport_id:
-            runway_info['runway_elevation'] = row[11]
-            runway_info['runway_length'] = row[3]
-            runway_info['runway_width'] = row[4]
-            runway_info['runway_is_lit'] = row[6]
-            runway_info['runway_paved'] = row[5]
-            runway_info['runway_closed'] = row[7]
+            # ensure an entry for multiple runways
+            runway = row[8]
+            runway_info['runway_elevation_' + runway] = row[11]
+            runway_info['runway_length_' + runway] = row[3]
+            runway_info['runway_width_' + runway] = row[4]
+            runway_info['runway_is_lit_' + runway] = row[6]
+            runway_info['runway_paved_' + runway] = row[5]
+            runway_info['runway_closed_' + runway] = row[7]
     if length is False and status is False and elevation is False:
         return runway_info
     if length is False and status is False and elevation is True:
-        return runway_info['runway_elevation']
+        runway_elevation_dict = {}
+        for key in list(runway_info.keys()):
+            if key.startswith('runway_elevation_'):
+                runway_elevation_dict[key] = runway_info[key]
+        return runway_elevation_dict
     if length is False and status is True and elevation is False:
-        return runway_info['runway_closed']
+        runway_closed_dict = {}
+        for key in list(runway_info.keys()):
+            if key.startswith('runway_closed_'):
+                runway_closed_dict[key] = runway_info[key]
+        return runway_closed_dict
     if length is False and status is True and elevation is True:
-        return runway_info['runway_closed'], runway_info['runway_elevation']
+        runway_status_elevation_dict = {}
+        for key in list(runway_info.keys()):
+            if key.startswith('runway_closed_')\
+                    or key.startswith('runway_elevation_'):
+                runway_status_elevation_dict[key] = runway_info[key]
+        return runway_status_elevation_dict
     if length is True and status is False and elevation is False:
-        return runway_info['runway_length']
+        runway_length_dict = {}
+        for key in list(runway_info.keys()):
+            if key.startswith('runway_length_'):
+                runway_length_dict[key] = runway_info[key]
+        return runway_length_dict
     if length is True and status is False and elevation is True:
-        return runway_info['runway_length'], runway_info['runway_elevation']
+        runway_length_elevation_dict = {}
+        for key in list(runway_info.keys()):
+            if key.startswith('runway_length_')\
+                    or key.startswith('runway_elevation_'):
+                runway_length_elevation_dict[key] = runway_info[key]
+        return runway_length_elevation_dict
     if length is True and status is True and elevation is False:
-        return runway_info['runway_length'], runway_info['runway_closed']
+        runway_length_status_dict = {}
+        for key in list(runway_info.keys()):
+            if key.startswith('runway_length_')\
+                    or key.startswith('runway_closed_'):
+                runway_length_status_dict[key] = runway_info[key]
+        return runway_length_status_dict
     if length is True and status is True and elevation is True:
-        return runway_info['runway_length'], runway_info['runway_closed'],\
-            runway_info['runway_elevation']
+        runway_length_status_elevation_dict = {}
+        for key in list(runway_info.keys()):
+            if key.startswith('runway_length_')\
+                    or key.startswith('runway_closed_')\
+                    or key.startswith('runway_elevation'):
+                runway_length_status_elevation_dict[key] = runway_info[key]
+        return runway_length_status_elevation_dict
 
 
-#
+def nav_aids_data_from_csv_file(country, airport_id=''):
+    """ Find the navigational aids to aviation, name and type,
+    by country or airport
+
+    Args:
+         country (str):     ISO_Country as listed in countries.csv
+         airport_id (str):  airport id as listed in airports.csv,
+                            or as listed under associated airport
+                            in navaids.csv
+
+    Return:
+          dict:  default return is a dict of navigational aids per country,
+                 e.g. {"country":["name_of_navaid","type_of_navaid"]}
+                 If airport_id is not empty then a dict of navaids for that
+                 airport is returned.
+                 e.g {"airport_id":["Country","name_of_navaid",
+                 "type_of_navaid"]}
+    """
+    # column names in navaids.csv
+    # row[0] = "id",
+    # row[1] = "filename",
+    # row[2] = "ident",
+    # row[3] = "name",
+    # row[4] = "type",
+    # row[5] = "frequency_khz",
+    # row[6] = "latitude_deg",
+    # row[7] = "longitude_deg",
+    # row[8] = "elevation_ft",
+    # row[9] = "iso_country",
+    # row[10] = "dme_frequency_khz",
+    # row[11] = "dme_channel",
+    # row[12] = "dme_latitude_deg",
+    # row[13] = "dme_longitude_deg",
+    # row[14] = "dme_elevation_ft",
+    # row[15] = "slaved_variation_deg",
+    # row[16] = "magnetic_variation_deg",
+    # row[17] = "usageType",
+    # row[18] = "power",
+    # row[19] = "associated_airport",
+
+    navaids_per_country = {}
+    navaid_name_country = []
+    list_of_records = get_list_of_records_from_a_csv_file('navaids.csv')
+    if airport_id == '':
+        for row in list_of_records:
+            if row[9] == country:
+                navaid_name_country.extend([row[3], row[4]])
+                navaids_per_country[row[9]] = navaid_name_country[:]
+        # navaid_name_country.clear()
+        return navaids_per_country
+    else:
+        for row in list_of_records:
+            if row[19] == airport_id:
+                navaid_name_country.extend([row[3], row[4]])
+                navaids_per_country[row[19]] = navaid_name_country[:]
+                # keys are now airport names instead of countries
+        return navaids_per_country
+
+
+
 
 # 14 What radio frequencies are used?
 # 15 How many navigational aids for airplanes in the country?

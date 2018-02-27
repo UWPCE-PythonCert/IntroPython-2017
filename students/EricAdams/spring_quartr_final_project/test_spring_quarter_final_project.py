@@ -11,7 +11,8 @@ from spring_quarter_final_project import download_airport_data_csv_files,\
     nearby_airports_within_one_degree,\
     airports_with_home_links,\
     airports_with_wiki_pages,\
-    runway_data_from_csv_file
+    runway_data_from_csv_file,\
+    nav_aids_data_from_csv_file
 import os
 import pytest
 
@@ -122,10 +123,93 @@ def test_airports_with_wiki_pages():
     assert wiki_in_list is True
 
 
-def test_runway_data_from_csv_file():
+def test_runway_data_from_csv_file_default_params():
     url = "http://ourairports.com/data/runways.csv"
     filename = './runways.csv'
     download_airport_data_csv_files([(url, filename)])
     result = runway_data_from_csv_file("KSEA")
+    assert len(result) == 24
+    assert type(result) == dict
+
+
+def test_runway_data_from_csv_file_elevation_true():
+    url = "http://ourairports.com/data/runways.csv"
+    filename = './runways.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = runway_data_from_csv_file("KSEA", elevation=True)
+    assert len(result) == 4
+    assert type(result) == dict
+
+
+def test_runway_data_from_csv_file_status_true():
+    url = "http://ourairports.com/data/runways.csv"
+    filename = './runways.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = runway_data_from_csv_file("KSEA", status=True)
+    assert len(result) == 4
+    assert type(result) == dict
+
+
+def test_runway_data_from_csv_file_status_elevation_true():
+    url = "http://ourairports.com/data/runways.csv"
+    filename = './runways.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = runway_data_from_csv_file("KSEA", status=True, elevation=True)
+    print(result)
+    assert len(result) == 8
+    assert type(result) == dict
+
+
+def test_runway_data_from_csv_file_length_true():
+    url = "http://ourairports.com/data/runways.csv"
+    filename = './runways.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = runway_data_from_csv_file("KSEA", length=True)
+    assert len(result) == 4
+    assert type(result) == dict
+
+
+def test_runway_data_from_csv_file_length_elevation_true():
+    url = "http://ourairports.com/data/runways.csv"
+    filename = './runways.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = runway_data_from_csv_file("KSEA", length=True, elevation=True)
+    assert len(result) == 8
+    assert type(result) == dict
+
+
+def test_runway_data_from_csv_file_length_status_true():
+    url = "http://ourairports.com/data/runways.csv"
+    filename = './runways.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = runway_data_from_csv_file("KSEA", length=True, status=True)
+    assert len(result) == 8
+    assert type(result) == dict
+
+
+def test_runway_data_from_csv_file_length_status_elevation_true():
+    url = "http://ourairports.com/data/runways.csv"
+    filename = './runways.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = runway_data_from_csv_file("KSEA", length=True,
+                                       status=True, elevation=True)
+    assert len(result) == 12
+    assert type(result) == dict
+
+
+def test_nav_aids_data_from_csv_file_by_country():
+    url = "http://ourairports.com/data/navaids.csv"
+    filename = 'navaids.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = nav_aids_data_from_csv_file("US")
+    assert type(result) == dict
+    assert "US" in result.keys()
+
+
+def test_nav_aids_data_from_csv_file_by_airport_id():
+    url = "http://ourairports.com/data/navaids.csv"
+    filename = 'navaids.csv'
+    download_airport_data_csv_files([(url, filename)])
+    result = nav_aids_data_from_csv_file("US", airport_id="KSEA")
     print(result)
     assert False
