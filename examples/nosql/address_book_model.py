@@ -108,7 +108,7 @@ class Business(Household):
     pass
 
 
-class AddressBook(object):
+class AddressBook:
     """
     And address book -- has people, households, businesses.
 

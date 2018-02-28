@@ -10,6 +10,7 @@ This version uses ZODB for the data management.
 import persistent  # from ZODB
 from persistent.list import PersistentList
 
+
 class Person(persistent.Persistent):
     """
     class to represent an individual person
@@ -69,7 +70,8 @@ class Address(persistent.Persistent):
         self.zip_code = str(zip_code).strip()
 
     def __str__(self):
-        msg = "{line_1}\n{line_2}\n{city} {state} {zip_code}\n".format(**self.__dict__)
+        msg = "an address"
+        #msg = "{line_1}\n{line_2}\n{city} {state} {zip_code}\n".format()
         return msg
 
 
