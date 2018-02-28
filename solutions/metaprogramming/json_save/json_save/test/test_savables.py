@@ -26,21 +26,18 @@ basics = [(String, "This is a string"),
 
 @pytest.mark.parametrize(('Type', 'val'), basics)
 def test_basics(Type, val):
-    print("original value:", val)
     js = json.dumps(Type.to_json_compat(val))
-    print("js is:", js)
     val2 = Type.to_python(json.loads(js))
-    print("new value is:", val2)
     assert val == val2
     assert type(val) == type(val2)
-#    if Type is List:
-#        assert False
 
 
 nested = [(List, [(1, 2), (3, 4), (5, 6)]),  # tuple in list
           (Tuple, ((1, 2), (3, 4), (5, 6))),  # tuple in tuple
           ]
 
+
+# This maybe should be fixed in the future??
 @pytest.mark.xfail(reason="nested not-standard types not supported")
 @pytest.mark.parametrize(('Type', 'val'), nested)
 def test_nested(Type, val):
@@ -66,13 +63,8 @@ dicts = [{"this": 14, "that": 1.23},
 
 @pytest.mark.parametrize('val', dicts)
 def test_dicts(val):
-    print("original value:", val)
-    jsc = Dict.to_json_compat(val)
-    print("json_compat:", jsc)
     js = json.dumps(Dict.to_json_compat(val))
-    print("js is:", js)
     val2 = Dict.to_python(json.loads(js))
-    print("new value is:", val2)
     assert val == val2
     assert type(val) == type(val2)
     # check that the types of the keys is the same
@@ -88,8 +80,8 @@ bad_dicts = [{"this": "string_key", 4: "int_key"},
              {"this": "string_key", None: "none_key"},
              ]
 
+
 @pytest.mark.parametrize("val", bad_dicts)
 def test_bad_dicts(val):
-    print("original value:", val)
     with pytest.raises(TypeError):
         Dict.to_json_compat(val)
