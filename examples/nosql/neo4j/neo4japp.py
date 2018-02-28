@@ -154,12 +154,11 @@ def test3(driver):
         print('Adding a few Person nodes')
         for first, last in [('Bob', 'Jones'),
                             ('Nancy', 'Cooper'),
+                            ('Alice', 'Cooper'),
+                            ('Fred', 'Barnes')
                             ]:
-            cyph = "CREATE (n:Person {first_name:'%s', last_name: '%s'})".format(first, last)
+            cyph = "CREATE (n:Person {first_name:'%s', last_name: '%s'})" % (first, last)
             session.run(cyph)
-
-        session.run("CREATE (n:Person {first_name:'Alice', last_name: 'Cooper'})")
-        session.run("CREATE (n:Person {first_name:'Fred', last_name: 'Barnes'})")
 
         print('Create a relationship')
         # Bob Jones likes Alice Cooper
@@ -195,14 +194,17 @@ def test4(driver):
     with driver.session() as session:
 
         print('Adding a few Person nodes')
-        session.run("CREATE (n:Person {first_name:'Bob', last_name: 'Jones'})")
-        session.run("CREATE (n:Person {first_name:'Nancy', last_name: 'Cooper'})")
-        session.run("CREATE (n:Person {first_name:'Alice', last_name: 'Cooper'})")
-        session.run("CREATE (n:Person {first_name:'Fred', last_name: 'Barnes'})")
-        session.run("CREATE (n:Person {first_name:'Fred', last_name: 'Barnes'})")
+        for first, last in [('Bob', 'Jones'),
+                            ('Nancy', 'Cooper'),
+                            ('Alice', 'Cooper'),
+                            ('Fred', 'Barnes'),
+                            ('Mary', 'Evans'),
+                            ('Marie', 'Curie'),
+                            ]:
+            cyph = "CREATE (n:Person {first_name:'%s', last_name: '%s'})" % (first, last)
+            session.run(cyph)
 
         print("\nHere are all of people in the DB now:")
-
         cyph = """MATCH (p:Person)
                   RETURN p.first_name as first_name, p.last_name as last_name
                 """
@@ -213,7 +215,9 @@ def test4(driver):
         print('\nCreate some relationship')
         # Bob Jones likes Alice Cooper and Fred Barnes
 
-        for first, last in [("Alice", "Cooper"), ("Fred", "Barnes")]:
+        for first, last in [("Alice", "Cooper"),
+                            ("Fred", "Barnes"),
+                            ("Marie", "Curie")]:
             cypher = """
               MATCH (p1:Person {first_name:'Bob', last_name:'Jones'})
               CREATE (p1)-[friend:FRIEND]->(p2:Person {first_name:'%s', last_name:'%s'})
@@ -221,7 +225,7 @@ def test4(driver):
             """ % (first, last)
             session.run(cypher)
 
-        print("can we find all of Bob's friends?")
+        print("Can we find all of Bob's friends?")
         cyph = """
           MATCH (bob {first_name:'Bob', last_name:'Jones'})
                 -[:FRIEND]->(bobFriends)
@@ -233,7 +237,17 @@ def test4(driver):
             for f in rec.values():
                 print(f['first_name'], f['last_name'])
 
-        print("seting up another friend relationship")
+        print("\nSetting up Marie's friends")
+
+        for first, last in [("Mary", "Evans"),
+                            ("Alice", "Cooper"),
+                            ]:
+            cypher = """
+              MATCH (p1:Person {first_name:'Marie', last_name:'Curie'})
+              CREATE (p1)-[friend:FRIEND]->(p2:Person {first_name:'%s', last_name:'%s'})
+              RETURN p1
+            """ % (first, last)
+            session.run(cypher)
 
 
 if __name__ == '__main__':
