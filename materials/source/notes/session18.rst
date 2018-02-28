@@ -29,6 +29,7 @@ Today we'll be talking about NoSQL databases -- or other ways to work with large
 Lot to cover, so we have a choice:
 
 1) Spend some time on code review of some of your work -- we promised that.
+
   - which means we'll probably leave some of the NoSQL material for you to study up on your own.
 
 2) Get right into the the new material!
