@@ -106,6 +106,9 @@ def json_save(cls):
     for key, attr in attr_dict.items():
         if isinstance(attr, Saveable):
             cls._attrs_to_save[key] = attr
+    if not cls._attrs_to_save:
+        raise TypeError(f"{cls.__name__} class has no saveable attributes.\n"
+                        "           Note that Savable attributes must be instances")
     # register this class so we can re-construct instances.
     Saveable.ALL_SAVEABLES[cls.__qualname__] = cls
 
@@ -133,7 +136,7 @@ def from_json_dict(j_dict):
 
 def from_json(_json):
     """
-    factory function that re-creates a JsonSaveable object
+    Factory function that re-creates a JsonSaveable object
     from a json string or file
     """
     if isinstance(_json, str):
