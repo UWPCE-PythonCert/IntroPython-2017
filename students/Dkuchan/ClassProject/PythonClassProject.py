@@ -86,10 +86,26 @@ class Team:
     def __init__(self, num):
         self.number = num
         self.name = None
+        self.matchesplayed = []
+        self.gearsdelivered = []
+
+    @property
+    def nummatches(self):
+        return(len(matchesplayed))
+
+    @property
+    def averagegears(self):
+        return(sum(gearsdelivered) / len(gearsdelivered))
+
+    @property
+    def maxgearsdelivered(self):
+        return(max(gearsdelivered))
+        
+
+def readteamfile():
 
 
-
-def readfile():
+def readmatchfile():
     with open('MatchLedger.csv', 'r') as inputfile:
         csvreader = csv.reader(inputfile)
         next(inputfile)
@@ -130,7 +146,7 @@ def primaryUI():
         elif userin == '3':
             setupmonte()
         elif userin == '4':
-            readfile()
+            readmatchfile()
             for i in range(0,len(matchlist)):
                 print(str(matchlist[i]))
         elif userin == '5':
