@@ -100,7 +100,6 @@ def test_nested(nested_example):
 
     saved = nested_example.to_json_compat()
 
-    print(saved)
     assert saved['x'] == 34
     assert len(saved['lst']) == 3
     for obj in saved['lst']:
@@ -192,3 +191,45 @@ def test_from_json_dict2(nested_dict):
     reconstructed = js.from_json(json_str)
 
     assert reconstructed == nested_dict
+
+def test_eq():
+    sc1 = SimpleClass(3, 4.5)
+    sc2 = SimpleClass(3, 4.5)
+
+    assert sc1 == sc2
+
+
+def test_not_eq():
+    sc1 = SimpleClass(3, 4.5)
+    sc2 = SimpleClass(3, 4.4)
+
+    assert sc1 != sc2
+
+
+def test_not_eq_reconstruct():
+    sc1 = SimpleClass.from_json_dict(SimpleClass(3, 4.5).to_json_compat())
+    sc2 = SimpleClass.from_json_dict(SimpleClass(2, 4.5).to_json_compat())
+
+    assert sc1 != sc2
+    assert sc2 != sc1
+
+
+def test_not_valid():
+    """
+    You should get an error trying to make a savable class with
+    no savable attributes.
+    """
+    with pytest.raises(TypeError):
+        class NotValid(js.JsonSaveable):
+            pass
+
+
+def test_not_valid_class_not_instance():
+    """
+    You should get an error trying to make a savable class with
+    no savable attributes.
+    """
+    with pytest.raises(TypeError):
+        class NotValid(js.JsonSaveable):
+            a = js.Int
+            b = js.Float

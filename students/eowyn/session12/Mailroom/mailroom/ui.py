@@ -33,22 +33,23 @@ class Mailroom():
         Then print a thank-you note for the donation.
         '''
         try:
-            # check for none instead
             (fullname, amount) = self.collect_donor_input()
-        except TypeError:
-            pass
+        except ValueError:
+            print("Invalid Numeric Input!")
+            return None
         else:
             letter = self.transactions.add_donor(fullname, amount)
             print(letter)
+            return letter
+
+
 
     def collect_donor_input(self):
         ''' Get name and donation amount to add to DONORS'''
         fullname = input("Enter a donor name (new or existing):\n")
-        try:
-            amount = float(input("Donation amount: "))
-            return (fullname, amount)
-        except ValueError:
-            print("Invalid Numeric Input!")
+        amount = float(input("Donation amount: "))
+        return (fullname, amount)
+
 
     def get_user_input(self, prompt_string):
         ''' Print a prompt_string, return keyboard input if no exceptions'''
@@ -84,7 +85,9 @@ class Mailroom():
                 print("Too few donations to compute projection.")
                 return
             else:
-                amount = self.transactions.challenge(factor, min_donation, max_donation)
+                amount = self.transactions.challenge(factor,
+                                                     min_donation,
+                                                     max_donation)
                 #  This code is broken somehow:
                 print(dedent('''Projected contribution needed to match
                             donations between ${0:.2f} - ${1:.2f}
