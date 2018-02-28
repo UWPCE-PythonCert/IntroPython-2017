@@ -3,7 +3,9 @@
 """
 The Saveable objects used by both the metaclass and decorator approach.
 """
-import json
+import ast
+
+# import json
 
 __all__ = ['Bool',
            'Dict',
@@ -102,6 +104,7 @@ class Float(Saveable):
 
 # Container types: these need to hold  Saveable objects.
 
+
 class Tuple(Saveable):
     """
     This assumes that whatever is in the tuple is Saveable  or a "usual"
@@ -150,26 +153,46 @@ class List(Saveable):
                 obj_type = item["__obj_type"]
                 obj = Saveable.ALL_SAVEABLES[obj_type].from_json_dict(item)
                 new_list.append(obj)
-            except TypeError:
+            except (TypeError, KeyError):
                 new_list.append(item)
         return new_list
 
 
 class Dict(Saveable):
     """
-    This assumes that whatever in the dict is Saveable as well,
-    or a basic type.
+    This assumes that whatever in the dict is Saveable as well.
+
+    This supports non-string keys, but all keys must be the same type.
     """
     default = {}
 
     @staticmethod
     def to_json_compat(val):
         d = {}
+        # first key, arbitrarily
+        key_type = type(next(iter(val.keys())))
+        if key_type is not str:
+            # need to add key_type to json
+            d['__key_not_string'] = True
+            key_not_string = True
+        else:
+            key_not_string = False
         for key, item in val.items():
+            kis = type(key) is str
+            if ((kis and key_not_string) or (not (kis or key_not_string))):
+                raise TypeError("dict keys must be all strings or no strings")
+            if key_type is not str:
+                # convert key to string
+                s_key = repr(key)
+                # make sure it can be reconstituted
+                if ast.literal_eval(s_key) != key:
+                    raise ValueError(f"json save cannot save dicts with key:{key}")
+            else:
+                s_key = key
             try:
-                d[key] = item.to_json_compat()
+                d[s_key] = item.to_json_compat()
             except AttributeError:
-                d[key] = item
+                d[s_key] = item
         return d
 
     @staticmethod
@@ -182,13 +205,14 @@ class Dict(Saveable):
 
         # try to reconstitute using the obj method
         new_dict = {}
+        key_not_string = val.pop('__key_not_string', False)
         for key, item in val.items():
+            if key_not_string:
+                key = ast.literal_eval(key)
             try:
                 obj_type = item["__obj_type"]
                 obj = Saveable.ALL_SAVEABLES[obj_type].from_json_dict(item)
                 new_dict[key] = obj
-            except TypeError:
+            except (KeyError, TypeError):
                 new_dict[key] = item
         return new_dict
-
-
