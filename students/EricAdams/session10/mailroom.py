@@ -10,6 +10,8 @@ from textwrap import dedent
 import make_donors
 
 # Utility so we have data to test with, etc.
+
+
 def get_sample_data():
     """
     returns a list of donor objects to use as sample data
@@ -83,7 +85,8 @@ class Donor():
 
 class DonorDB():
     """
-    encapsulation of the entire database of donors and data associated with them.
+    encapsulation of the entire database of donors and data associated
+    with them.
     """
 
     def __init__(self, donors=None):
@@ -132,7 +135,8 @@ class DonorDB():
 
         :param: the name of the donor
 
-        :returns: The donor data structure -- None if not in the self.donor_data
+        :returns: The donor data structure -- None if not in the
+        self.donor_data
         """
         return self.donor_data.get(Donor.normalize_name(name))
 
@@ -197,7 +201,8 @@ class DonorDB():
                                                                 "Average Gift"))
         report.append("-" * 66)
         for row in report_rows:
-            report.append("{:25s}   ${:10.2f}   {:9d}   ${:11.2f}".format(*row))
+            report.append(
+                "{:25s}   ${:10.2f}   {:9d}   ${:11.2f}".format(*row))
         return "\n".join(report)
 
     def save_letters_to_disk(self):
@@ -216,7 +221,6 @@ class DonorDB():
 # Above this is all the logic code
 #  The stuff you'd need if you had a totally different UI.different
 #  below is code only for the command line interface.
-
 
 
 def main_menu_selection():
@@ -255,7 +259,8 @@ def send_thank_you():
     # also an exit point to the main menu, we want to make sure this is
     # done before mutating the db.
     while True:
-        amount_str = input("Enter a donation amount (or 'menu' to exit)> ").strip()
+        amount_str = input(
+            "Enter a donation amount (or 'menu' to exit)> ").strip()
         if amount_str == "menu":
             return
         # Make sure amount is a valid amount before leaving the input loop

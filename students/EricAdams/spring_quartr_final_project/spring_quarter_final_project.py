@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 #  all kinds of data on airports
 
 
-# def navigate_to_our_airports_com(url):
-#     webbrowser.open(url, new=1)
+def navigate_to_our_airports_com(url):
+    webbrowser.open(url, new=1)
 
 
 # He goes to the website and finds that there are six csv files with
@@ -24,17 +24,17 @@ logger = logging.getLogger(__name__)
 # navaids.csv, countries.csv and regions.csv
 # Intrigued, he downloads the files
 
-def download_airport_data_csv_files(urls_filenames):
-    """Download the file from `url` and save it locally
-       under ./filename.
-       :parameters urls_filenames = [(url1, filename1), (url2, filename2)...]
-    """
-    for url, filename in urls_filenames:
+# def download_airport_data_csv_files(urls_filenames):
+#     """Download the file from `url` and save it locally
+#        under ./filename.
+#        :parameters urls_filenames = [(url1, filename1), (url2, filename2)...]
+#     """
+#     for url, filename in urls_filenames:
 
-        if not os.path.isfile(filename):
-            with urllib.request.urlopen(url):
-                with open(filename, 'w'):
-                    urllib.request.urlretrieve(url, filename)
+#         if not os.path.isfile(filename):
+#             with urllib.request.urlopen(url):
+#                 with open(filename, 'w'):
+#                     urllib.request.urlretrieve(url, filename)
 
 
 # Curious as to what data are in these files, he opens them:
@@ -48,13 +48,13 @@ def get_csv_files_in_current_directory():
     return files
 
 
-def get_column_names_in_csv_file(filename):
-    """ Return the column names from a csv file.
-    :parameters - filename = name of the csv file.
-    """
-    with open(filename, "r") as file_obj:
-        line = file_obj.readline()
-        return line
+# def get_column_names_in_csv_file(filename):
+#     """ Return the column names from a csv file.
+#     :parameters - filename = name of the csv file.
+#     """
+#     with open(filename, "r") as file_obj:
+#         line = file_obj.readline()
+#         return line
 
 # Now that he knows what kind of data are in the files, he comes
 # up with a list of questions to ask of the data.
@@ -63,51 +63,51 @@ def get_column_names_in_csv_file(filename):
 # 2 What country has the most airports with unscheduled service
 
 
-def get_list_of_records_from_a_csv_file(filename):
-    """Return the records from airports.csv or countries.csv file in list form.
-    :params - filename - airport.csv or countries.csv.
-    :return - the list returned will be in the form list[row][column]
-    """
-    with open(filename, 'r') as file_obj:
-        csv_reader_obj = csv.reader(file_obj)
-        # skip the first line of the file, which lists the column names
-        list_of_records = [
-            record for record in csv_reader_obj if record[0] != 'id']
-    return list_of_records
+# def get_list_of_records_from_a_csv_file(filename):
+#     """Return the records from airports.csv or countries.csv file in list form.
+#     :params - filename - airport.csv or countries.csv.
+#     :return - the list returned will be in the form list[row][column]
+#     """
+#     with open(filename, 'r') as file_obj:
+#         csv_reader_obj = csv.reader(file_obj)
+#         # skip the first line of the file, which lists the column names
+#         list_of_records = [
+#             record for record in csv_reader_obj if record[0] != 'id']
+#     return list_of_records
 
 
-def number_of_scheduled_or_nonscheduled_service_airports_per_country(scheduled_or_not_scheduled):
-    """Use the airports.csv, existing in current working directory.
-    Return a dict of
-    {country_code:number_of_schedule_or_not_scheduled_airports}
-    :params - scheduled_or_not_scheduled boolean True = get scheduled airports,
-    False = get unscheduled airports.
-    """
-    # list_of_records_for_airport_csv[row][8] = country code
-    # list_of_records_for_airport_csv[row][11] = scheduled service
-    # list_of_records_for_airport_csv[row][1] = airport ident
+# def number_of_scheduled_or_nonscheduled_service_airports_per_country(
+#         scheduled_or_not_scheduled):
+#     """Use the airports.csv, existing in current working directory.
+#     Return a dict of
+#     {country_code:number_of_schedule_or_not_scheduled_airports}
+#     :params - scheduled_or_not_scheduled boolean True = get scheduled airports,
+#     False = get unscheduled airports.
+#     """
+#     # list_of_records_for_airport_csv[row][8] = country code
+#     # list_of_records_for_airport_csv[row][11] = scheduled service
+#     # list_of_records_for_airport_csv[row][1] = airport ident
 
-    # {country_name:number_of_airports_with_scheduled_service}
+#     # {country_name:number_of_airports_with_scheduled_service}
 
-    list_of_records_for_airports = get_list_of_records_from_a_csv_file(
-        'airports.csv')
-    list_of_countries_and_service = []
-    number_of_airports_with_service_or_no_service_per_country = {}
-    for row in list_of_records_for_airports:
-        list_of_countries_and_service.append([row[8], row[11]])
-    for country in list_of_countries_and_service:
-        # Sample entry of country = country['JP', 'no'] or ['JP', 'yes']
-        if scheduled_or_not_scheduled is True:
-            scheduled_or_not_scheduled = "yes"
-        if scheduled_or_not_scheduled is False:
-            scheduled_or_not_scheduled = "no"
-        if country[1] == scheduled_or_not_scheduled:
-            if country[0] in number_of_airports_with_service_or_no_service_per_country:
-                number_of_airports_with_service_or_no_service_per_country[country[0]] += 1
-            else:
-                number_of_airports_with_service_or_no_service_per_country[country[0]] = 1
-    # the return will be a dict with entries like {'US':22398, ...}
-    return number_of_airports_with_service_or_no_service_per_country
+#     list_of_records_for_airports = get_list_of_records_from_a_csv_file()
+#     list_of_countries_and_service = []
+#     number_of_airports_with_service_or_no_service_per_country = {}
+#     for row in list_of_records_for_airports:
+#         list_of_countries_and_service.append([row[8], row[11]])
+#     for country in list_of_countries_and_service:
+#         # Sample entry of country = country['JP', 'no'] or ['JP', 'yes']
+#         if scheduled_or_not_scheduled is True:
+#             scheduled_or_not_scheduled = "yes"
+#         if scheduled_or_not_scheduled is False:
+#             scheduled_or_not_scheduled = "no"
+#         if country[1] == scheduled_or_not_scheduled:
+#             if country[0] in number_of_airports_with_service_or_no_service_per_country:
+#                 number_of_airports_with_service_or_no_service_per_country[country[0]] += 1
+#             else:
+#                 number_of_airports_with_service_or_no_service_per_country[country[0]] = 1
+#     # the return will be a dict with entries like {'US':22398, ...}
+#     return number_of_airports_with_service_or_no_service_per_country
 
 
 def country_with_the_most_scheduled_nonscheduled_service(scheduled_or_nonscheduled):
@@ -444,8 +444,6 @@ def nav_aids_data_from_csv_file(country, airport_id=''):
                 navaids_per_country[row[19]] = navaid_name_country[:]
                 # keys are now airport names instead of countries
         return navaids_per_country
-
-
 
 
 # 14 What radio frequencies are used?
