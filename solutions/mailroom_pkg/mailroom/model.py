@@ -54,6 +54,11 @@ class Donor:
         """
         return name.lower().strip()
 
+    def __str__(self):
+        msg = (f"Donor: {self.name}, with {self.num_donations:d} "
+               f"donations, totaling: ${self.total_donations:.2f}")
+        return msg
+
     @property
     def last_donation(self):
         """
@@ -69,8 +74,12 @@ class Donor:
         return sum(self.donations)
 
     @property
+    def num_donations(self):
+        return len(self.donations)
+
+    @property
     def average_donation(self):
-        return self.total_donations / len(self.donations)
+        return self.total_donations / self.num_donations
 
     def add_donation(self, amount):
         """
