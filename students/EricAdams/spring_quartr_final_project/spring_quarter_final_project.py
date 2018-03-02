@@ -110,147 +110,147 @@ def get_csv_files_in_current_directory():
 #     return number_of_airports_with_service_or_no_service_per_country
 
 
-def country_with_the_most_scheduled_nonscheduled_service(scheduled_or_nonscheduled):
-    """ Using the airport.csv in the current directory, return
-    the country with the least or with the most scheduled service airports.
-    Also return the number of airports
-    :params = Boolean.  If True, return the country with the most airports
-    with scheduled service.  If False then return the country
-    with the most airports without scheduled service.
-    :return - a tuple (country, number of airports with or without scheduled service)
-    """
-    number_of_scheduled_nonscheduled_service_airports_in_each_country = number_of_scheduled_or_nonscheduled_service_airports_per_country(
-        scheduled_or_nonscheduled)
-    sorted_by_value_descending = sorted(number_of_scheduled_nonscheduled_service_airports_in_each_country.items(
-    ), key=operator.itemgetter(1), reverse=True)
-    # print(sorted_by_value_descending)
-    country_code = sorted_by_value_descending[0][0]
-    country = country_code_to_country_conversion(country_code)
-    return country, sorted_by_value_descending[0][1]
+# def country_with_the_most_scheduled_nonscheduled_service(scheduled_or_nonscheduled):
+#     """ Using the airport.csv in the current directory, return
+#     the country with the least or with the most scheduled service airports.
+#     Also return the number of airports
+#     :params = Boolean.  If True, return the country with the most airports
+#     with scheduled service.  If False then return the country
+#     with the most airports without scheduled service.
+#     :return - a tuple (country, number of airports with or without scheduled service)
+#     """
+#     number_of_scheduled_nonscheduled_service_airports_in_each_country = number_of_scheduled_or_nonscheduled_service_airports_per_country(
+#         scheduled_or_nonscheduled)
+#     sorted_by_value_descending = sorted(number_of_scheduled_nonscheduled_service_airports_in_each_country.items(
+#     ), key=operator.itemgetter(1), reverse=True)
+#     # print(sorted_by_value_descending)
+#     country_code = sorted_by_value_descending[0][0]
+#     country = country_code_to_country_conversion(country_code)
+#     return country, sorted_by_value_descending[0][1]
 
 
-def country_code_to_country_conversion(country_code):
-    '''
-    Retrieve the country from countries.csv, given the country code.
-    countries.csv must in the current directory
-    country codes to country mapped in countries.csv
-    :params - country_code as displayed in the airports.csv file
-    '''
-    # list_of_records_for_countries_csv[row][1] =  countrycode
-    # list_of_records_for_countries_csv[row][2] = country name
-    list_of_records = get_list_of_records_from_a_csv_file('countries.csv')
-    for record in list_of_records:
-        if country_code == record[1]:
-            return record[2]
+# def country_code_to_country_conversion(country_code):
+#     '''
+#     Retrieve the country from countries.csv, given the country code.
+#     countries.csv must in the current directory
+#     country codes to country mapped in countries.csv
+#     :params - country_code as displayed in the airports.csv file
+#     '''
+#     # list_of_records_for_countries_csv[row][1] =  countrycode
+#     # list_of_records_for_countries_csv[row][2] = country name
+#     list_of_records = get_list_of_records_from_a_csv_file('countries.csv')
+#     for record in list_of_records:
+#         if country_code == record[1]:
+#             return record[2]
 
 
 # 3 How many airports are within 100 miles of Seattle
 # 5 What is the lat/long of the airport?
 # 6 What state/country is the airport in?
 
-def nearby_airports_within_one_degree(airport_id, airport_lat_long=False, state_country=False):
-    """ Find other airports within a 1 deg.lat/long of airport_id.
-    :params - airport_id.  Id of the airport as shown in airports.csv
-    :return - a list of towns with airports within +- 1 deg. lat/long of airport_id.
-    """
-    # list_of_records[row][column]
-    list_of_records = get_list_of_records_from_a_csv_file('airports.csv')
-    # airport id in column 2, lat, long in column 5 and 6, airport name is in
-    # column 4, municipality in row[10]
-    # initialize airport_id_lat to determine if param is correct
-    # country = row[8]
-    # region = fow[9]
+# def nearby_airports_within_one_degree(airport_id, airport_lat_long=False, state_country=False):
+#     """ Find other airports within a 1 deg.lat/long of airport_id.
+#     :params - airport_id.  Id of the airport as shown in airports.csv
+#     :return - a list of towns with airports within +- 1 deg. lat/long of airport_id.
+#     """
+#     # list_of_records[row][column]
+#     list_of_records = get_list_of_records_from_a_csv_file('airports.csv')
+#     # airport id in column 2, lat, long in column 5 and 6, airport name is in
+#     # column 4, municipality in row[10]
+#     # initialize airport_id_lat to determine if param is correct
+#     # country = row[8]
+#     # region = fow[9]
 
-    nearby_airports = []
-    country_state = []
-    for row in list_of_records:
-        # data for airport_id
-        if row[1] == airport_id:
-            airport_id_lat = row[4]
-            airport_id_long = row[5]
-            country_state.append(row[8])
-            country_state.append(row[9])
+#     nearby_airports = []
+#     country_state = []
+#     for row in list_of_records:
+#         # data for airport_id
+#         if row[1] == airport_id:
+#             airport_id_lat = row[4]
+#             airport_id_long = row[5]
+#             country_state.append(row[8])
+#             country_state.append(row[9])
 
-            nearby_airport_max_lat = float(airport_id_lat) + 1.0
-            nearby_airport_min_lat = float(airport_id_lat) - 1.0
-            nearby_airport_max_long = float(airport_id_long) + 1.0
-            nearby_airport_min_long = float(airport_id_long) - 1.0
-    try:
-        if airport_id_lat is None:
-            pass
-    except UnboundLocalError as err:
-        print("Airport Id can not be found.\n"
-              "Make sure that"
-              "nearby_airports_within_two_degrees(airport_id)"
-              " has the correct airport_id\n", err)
-        raise
-    for row in list_of_records:
-        if row[10] not in nearby_airports:
-            if float(row[4]) <= nearby_airport_max_lat\
-                    and float(row[4]) >= nearby_airport_min_lat:
-                if float(row[5]) <= nearby_airport_max_long\
-                        and float(row[5]) >= nearby_airport_min_long:
-                    nearby_airports.append(row[10])
-    if airport_lat_long is False and state_country is False:
-        return nearby_airports
-    if airport_lat_long is True and state_country is False:
-        return airport_id_lat, airport_id_long
-    if airport_lat_long is False and state_country is True:
-        return country_state
-    if airport_lat_long is True and state_country is True:
-        return country_state, airport_id_lat, airport_id_long
+#             nearby_airport_max_lat = float(airport_id_lat) + 1.0
+#             nearby_airport_min_lat = float(airport_id_lat) - 1.0
+#             nearby_airport_max_long = float(airport_id_long) + 1.0
+#             nearby_airport_min_long = float(airport_id_long) - 1.0
+#     try:
+#         if airport_id_lat is None:
+#             pass
+#     except UnboundLocalError as err:
+#         print("Airport Id can not be found.\n"
+#               "Make sure that"
+#               "nearby_airports_within_two_degrees(airport_id)"
+#               " has the correct airport_id\n", err)
+#         raise
+#     for row in list_of_records:
+#         if row[10] not in nearby_airports:
+#             if float(row[4]) <= nearby_airport_max_lat\
+#                     and float(row[4]) >= nearby_airport_min_lat:
+#                 if float(row[5]) <= nearby_airport_max_long\
+#                         and float(row[5]) >= nearby_airport_min_long:
+#                     nearby_airports.append(row[10])
+#     if airport_lat_long is False and state_country is False:
+#         return nearby_airports
+#     if airport_lat_long is True and state_country is False:
+#         return airport_id_lat, airport_id_long
+#     if airport_lat_long is False and state_country is True:
+#         return country_state
+#     if airport_lat_long is True and state_country is True:
+#         return country_state, airport_id_lat, airport_id_long
 
 
-def airports_with_home_links():
-    """ Return a list of airports from the airports.csv file and their
-     home web page
-    airports.csv exists in working directory.
-    """
-    list_of_records = get_list_of_records_from_a_csv_file('airports.csv')
-    # list_of_records_for_airport_csv[row][15] = home_link
-    # list_of_records_for_airport_csv[row][16] = wiki page
-    # list_of_records_for_airport_csv[row][3] = airport name
+# def airports_with_home_links():
+#     """ Return a list of airports from the airports.csv file and their
+#      home web page
+#     airports.csv exists in working directory.
+#     """
+#     list_of_records = get_list_of_records_from_a_csv_file('airports.csv')
+#     # list_of_records_for_airport_csv[row][15] = home_link
+#     # list_of_records_for_airport_csv[row][16] = wiki page
+#     # list_of_records_for_airport_csv[row][3] = airport name
 
-    # dict{name:homepage}
-    airport_names_homepage = {}
-    for row in list_of_records:
-        if row[3] != "name":
-            if "http" in row[15]:
-                airport_names_homepage[row[3]] = row[15]
-    return airport_names_homepage
+#     # dict{name:homepage}
+#     airport_names_homepage = {}
+#     for row in list_of_records:
+#         if row[3] != "name":
+#             if "http" in row[15]:
+#                 airport_names_homepage[row[3]] = row[15]
+#     return airport_names_homepage
 
 
 #  Some random questions
 # 1 Does the airport have a wiki page?
 # 2 Does the airport have a home link?
 
-def airports_with_wiki_pages():
-    """ Return a list of airports from the airports.csv file and their
-    wiki web page.
-    airports.csv exists in working directory.
-    """
-    list_of_records = get_list_of_records_from_a_csv_file('airports.csv')
-    # list_of_records_for_airport_csv[row][15] = home_link
-    # list_of_records_for_airport_csv[row][16] = wiki page
-    # list_of_records_for_airport_csv[row][3] = airport name
+# def airports_with_wiki_pages():
+#     """ Return a list of airports from the airports.csv file and their
+#     wiki web page.
+#     airports.csv exists in working directory.
+#     """
+#     list_of_records = get_list_of_records_from_a_csv_file('airports.csv')
+#     # list_of_records_for_airport_csv[row][15] = home_link
+#     # list_of_records_for_airport_csv[row][16] = wiki page
+#     # list_of_records_for_airport_csv[row][3] = airport name
 
-    # dict{name:wiki}
-    airport_names_wiki = {}
-    for row in list_of_records:
-        if row[3] != "name":
-            if "http" in row[16]:
-                airport_names_wiki[row[3]] = row[16]
-    return airport_names_wiki
+#     # dict{name:wiki}
+#     airport_names_wiki = {}
+#     for row in list_of_records:
+#         if row[3] != "name":
+#             if "http" in row[16]:
+#                 airport_names_wiki[row[3]] = row[16]
+#     return airport_names_wiki
 
 # 3 What does the wiki page say?
 # 4 What does the home link say?
 
 
-def open_web_page(url_of_web_page):
-    """Open a web page in a new window"""
-    url = url_of_web_page
-    # new=1 opens in a new window
-    webbrowser.open(url, new=1)
+# def open_web_page(url_of_web_page):
+#     """Open a web page in a new window"""
+#     url = url_of_web_page
+#     # new=1 opens in a new window
+#     webbrowser.open(url, new=1)
 
 
 # 7 What is the field elevation?
