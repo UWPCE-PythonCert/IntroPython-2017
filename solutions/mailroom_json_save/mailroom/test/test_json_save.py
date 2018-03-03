@@ -4,15 +4,12 @@
 Test code for saving data to/from json with json_save
 """
 
+
 import pytest
 
-from mailroom import data_dir
+from json_save import json_save_dec as js
+
 from mailroom.model import Donor, DonorDB
-
-
-@pytest.fixture()
-def sample_db():
-    return DonorDB.load_from_file(data_dir / "sample_data.json")
 
 
 def test_one_donor():
@@ -42,17 +39,34 @@ def test_donor_db(sample_db):
     db2 = DonorDB.from_json_dict(dbd)
 
     # See if it's the same:
-    jeff_bezos = db2.find_donor('jeff bezos')
-    jeff_bezos.add_donation(2000)
-
-    print(jeff_bezos)
-
-    print(db2.donor_data.keys())
-
     assert db2 == sample_db
 
-    print(db2)
 
-    assert False
+def test_donor_db_not_equal(sample_db, sample_db2):
+    """
+    makes sure that two DBs aren't equal if you change something.
 
+    __eq__ is provided by json_save
+    """
+    # They should be equal initially
+
+    assert sample_db == sample_db2
+
+    # now make a change in one
+    jeff_bezos = sample_db2.find_donor('jeff bezos')
+    jeff_bezos.add_donation(2000)
+
+    assert sample_db != sample_db2
+
+
+def test_save(sample_db):
+    # save out the DB
+    sample_db.save()
+
+    # Make a new one from the file
+    with open(sample_db.db_file) as js_file:
+        DB = js.from_json(js_file)
+
+    # are they the same?
+    assert sample_db == DB
 

@@ -5,6 +5,7 @@ json_save implemented as a decorator
 """
 
 import json
+from pathlib import Path
 
 from .json_save_meta import *
 
@@ -139,7 +140,7 @@ def from_json(_json):
     Factory function that re-creates a JsonSaveable object
     from a json string or file
     """
-    if isinstance(_json, str):
+    if isinstance(_json, (str, Path)):
         return from_json_dict(json.loads(_json))
     else:  # assume a file-like object
         return from_json_dict(json.load(_json))

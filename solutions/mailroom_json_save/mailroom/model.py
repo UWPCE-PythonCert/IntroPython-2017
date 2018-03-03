@@ -9,9 +9,12 @@ This version has been made Object Oriented.
 
 # handy utility to make pretty printing easier
 from textwrap import dedent
+from pathlib import Path
 
 import json_save.json_save_dec as js
 import json
+
+from . import data_dir
 
 
 @js.json_save
@@ -108,30 +111,77 @@ class Donor:
 @js.json_save
 class DonorDB:
     """
-    encapsulation of the entire database of donors and data associated with them.
+    Encapsulation of the entire database of donors and data associated with them.
     """
+    # specify a json_save dict as the data structure for the data.
     donor_data = js.Dict()
 
-    def __init__(self, donors=None):
+    def __init__(self, donors=None, db_file=None):
         """
         Initialize a new donor database
 
         :param donors=None: iterable of Donor objects
+
+        :param db_file=None: path to file to store the datbase in.
+                             if None, the data will be stored in the
+                             package data_dir
         """
         if donors is None:
             self.donor_data = {}
         else:
             self.donor_data = {d.norm_name: d for d in donors}
 
+        if db_file is None:
+            self.db_file = data_dir / "mailroom_data.json"
+        else:
+            self.db_file = Path(db_file)
+
+    def mutating(self, method):
+        """
+        Decorator that saves the DB when a change is made
+
+        It should be applied to all mutating methods, so the
+        data will be saved whenever it's been changed.
+
+        NOTE: This is not very efficient -- it will re-write
+              the entire file each time.
+        """
+        def wrapped(*args, **kwargs):
+            res = method(*args, **kwargs)
+            self.save()
+            return res
+        return wrapped
+
     @classmethod
     def load_from_file(cls, filename):
         """
-        loads a donor database from a json file
+        loads a donor database from a raw json file
+        NOTE: This is not a json_save format file!
+              -- it is a simpler, less flexible format.
         """
         with open(filename) as infile:
             donors = json.load(infile)
         db = cls([Donor(*d) for d in donors])
         return db
+
+
+    @classmethod
+    def load_json_save(cls, filename):
+        """
+        loads a donor database from a json_save format file.
+        """
+
+        # with open(filename) as infile:
+        #     donors = json.load(infile)
+        # db = cls([Donor(*d) for d in donors])
+        # return db
+
+    def save(self):
+        """
+        save the data to a json_save file
+        """
+        with open(self.db_file, 'w') as db_file:
+            self.to_json(db_file)
 
     @property
     def donors(self):

@@ -26,7 +26,8 @@ NOTE: when I first ran it, I got 97% coverage -- it was missing tests
 
 import os
 import pytest
-from mailroom import model, data_dir
+from mailroom import model
+
 
 
 def test_empty_db():
