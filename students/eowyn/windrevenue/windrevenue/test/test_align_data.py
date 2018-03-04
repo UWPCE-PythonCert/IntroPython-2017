@@ -74,9 +74,10 @@ class TestAlignData():
         assert sample_data.met_hour is not None
 
     def test_aligned_data_size(self, sample_data2):
-        q = sample_data.align_data()
-        print(type(q))
-        assert False
+        q = sample_data2.align_data()
+        print(q.shape)
+        assert q.shape == (24390, 3)
+
 
 
 
