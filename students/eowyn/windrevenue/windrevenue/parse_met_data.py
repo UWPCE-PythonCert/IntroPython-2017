@@ -17,6 +17,13 @@ import os
 
 
 class MetData():
+    def __init__(self, fname=None, pct=None):
+        self.pct = pct
+        if fname is not None:
+            self.parse_met_file(fname)
+
+    def setPct(self, pct):
+        self.pct = pct
 
     # Round float value n to nearest precision
     # https://stackoverflow.com/questions/4265546/python-round-to-nearest-05
@@ -24,11 +31,14 @@ class MetData():
         correction = 0.5 if n >= 0 else -0.5
         return int( n/precision+correction ) * precision
 
-    def parse_met_file(self):
+    def parse_met_file(self, fname=None):
         """
         Read met data file, store in data frame and store sensor choice
         """
-        self.metdf = self.read_met_data()
+        if fname is None:
+            from windrevenue.UI import UI
+            fname = UI.get_user_input("What the fucking met file name?@!??!?!?")
+        self.load_new(fname)
         self.sensorInfo = self.parse_sensor_information(self.metdf)
         self.windVar = self.locate_highest_anemometer(self.sensorInfo)
 
@@ -43,18 +53,20 @@ class MetData():
         currentdf = currentdf.dropna(axis=0, how='any')
         return currentdf
 
-    def read_met_data(self, fname=os.path.abspath("windrevenue/sample_data/sample_met.txt")):
-        # Use sample data, or else read data from file provided by user
-        filename = None
+    def dummy_function(self, fname=os.path.abspath("sample_data/sample_met.txt")):
         filename = input("Full path to met file (leave blank to use sample data):\n")
         fname = filename or fname
+
+    def load_new(self, fname):
+        # Use sample data, or else read data from file provided by user
+        filename = None
         print("Reading met file: ", fname)
         metdf = pd.read_table(fname, skiprows=1,
                               index_col=0,
                               parse_dates=True,
                               infer_datetime_format=True)
         metdf.index.name = 'DateTime'
-        return metdf
+        self.metdf = metdf
 
     def parse_sensor_information(self, metdf):
         """
@@ -109,7 +121,11 @@ class MetData():
             self.windVar = colnames[int(choice)]
             print("Using sensor: ", self.windVar)
 
-    def calculate_power_generation(self):
+    def new_helper_function(self, series_argument):
+        pcdf = self.pct.power_curve
+        pcdf.append(self.get_met_timeseries().values)
+
+    def get_wind_and_generation(self):
         """
         Construct a time series (dataframe) of power generation.
         Create 10-min power generation data from
@@ -117,27 +133,19 @@ class MetData():
         Otherwise, round windspeed to the nearest 0.5m/s and select generation
         value from power curve dictionary. 
         """
-        metdf = self.get_met_timeseries().applymap(self.round_to_05)
-        # Create a new column with the power generation. IF the map fails 
-        # to find a matching wind speed, the Generation is nan
-        metdf["Generation"] = metdf.iloc[:,0].map(self.pct.power_curve)
-        # Replace nan generation with zero for ws < cut-int or > cut-out
-        metdf["Generation"] = metdf["Generation"].replace(np.nan, 0.0)
-        return metdf
+        met_timeseries = self.get_met_timeseries()
+        pcdf = self.pct.power_curve
 
-    def get_power_generation(self):
-        """
-        Return time series of the power generation
-        """
-        return self.metdf.iloc[:,"Generation"]
+        pcdf= pcdf.append(pd.DataFrame({'WS': (self.get_met_timeseries()[(self.windVar)])}), True)
+        power_lookup = pd.Series(index=pcdf.WS, data=pcdf.Pwr.values).interpolate(method='index')
+        subset = power_lookup.tail(len(power_lookup) - len(self.pct.power_curve))
 
-    def get_wind_and_generation(self):
-        """
-        Combine generation and one wind speed time series into 
-        data frame for use outside this module.
-        """
-        wind = self.get_met_timeseries()
-        gen = self.get_power_generation()
-        return pd.concat([wind, gen])
+        subset_df = pd.DataFrame(subset)
+        subset_df.index = met_timeseries.index
+
+        generated = pd.concat([met_timeseries, subset_df], axis=1)
+        generated.columns = [self.windVar, 'Generation']
+
+        return generated
 
 

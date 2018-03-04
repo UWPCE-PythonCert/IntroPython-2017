@@ -29,7 +29,8 @@ class UI():
         ''' Return True to trigger exit out of sub-loop'''
         return True
 
-    def get_user_input(self, prompt_string):
+    @staticmethod
+    def get_user_input(prompt_string):
         ''' Print a prompt_string, return keyboard input if no exceptions'''
         try:
             answer = input(prompt_string)
@@ -116,7 +117,7 @@ class UI():
         Parse electricity pricing time series files
         '''
         while True:
-            arg_dict = {"1": self.pricing.parse_pricing_file,
+            arg_dict = {"1": self.pricing.load_new,
                         "2": self.pricing.show_pricing_field,
                         "3": self.pricing.set_pricing_field,
                         "4": self.return_to_menu}
@@ -161,6 +162,6 @@ class UI():
 
     def get_gross_revenue(self):
         # Wrapper to pass self to revenue model
-        df = ad.align_data(self)
+        df = self.ad.align_data()
         print(df.head())
         #rev.get_gross_revenue(self)

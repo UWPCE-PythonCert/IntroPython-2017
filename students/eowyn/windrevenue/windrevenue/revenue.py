@@ -19,3 +19,8 @@ def GrossRevenue():
     def calculate_revenue(self):
         """
 
+        :param self:
+        :return:
+        """
+        pass
+

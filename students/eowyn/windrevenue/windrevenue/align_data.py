@@ -21,12 +21,9 @@ import pandas as pd
 import numpy as np
 
 class AlignData():
-
-        # https://stackoverflow.com/questions/4265546/python-round-to-nearest-05
-    def round_to_05(n, precision=0.5):
-        correction = 0.5 if n >= 0 else -0.5
-        return int( n/precision+correction ) * precision
-
+    def __init__(self, price_data=None, met_data=None):
+        self.pricing = price_data
+        self.met = met_data
 
     def resample_timeseries(self, timestep='60min'):
         """
@@ -106,12 +103,12 @@ class AlignData():
         Drop all Feb 29 rows:
         temp2 = temp.drop(temp.index[1416:1440], axis = 0)
         """
-        if len(self.met_yr.index) == 8784:
+        if len(self.met_hour.index) == 8784:
             print("removing leap day from met year")
-            self.met_yr = self.met_yr.drop(self.met_yr.index[1416:1440], axis=0)
-        if len(self.pwr_yr.index) == 8784:
+            self.met_yr = self.met_hour.drop(self.met_hour.index[1416:1440], axis=0)
+        if len(self.power_hour.index) == 8784:
             print("removing leap day from power year")
-            self.pwr_yr = self.pwr_yr.drop(self.pwr_yr.index[1416:1440], axis=0)
+            self.pwr_yr = self.power_hour.drop(self.power_hour.index[1416:1440], axis=0)
 
     def get_typical_year(self):
         # Construct a dummy TimeStamp index for the typical year

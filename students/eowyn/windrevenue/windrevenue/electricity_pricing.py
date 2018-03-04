@@ -13,16 +13,25 @@ import pandas as pd
 import numpy as np
 
 class ElectricityPricing():
+    def __init__(self, fname=None):
+        if fname is not None:
+            self.load_new(fname)
 
-    def parse_pricing_file(self, fname=os.path.abspath("windrevenue/sample_data/sample_pricing.txt")):
+    def dummy_function(self, fname=os.path.abspath("sample_data/sample_pricing.txt")):
+        filename = None
+        filename = input("Full path to electricity pricing file (leave blank to use sample data):\n")
+        fname = filename or fname
+
+    def load_new(self, fname=None):
         """
         Read pricing time series data from file, provided or default. 
         Store all pricing data as data frame, and select first
         substation as the powerVar.
         """
-        filename = None
-        filename = input("Full path to electricity pricing file (leave blank to use sample data):\n")
-        fname = filename or fname
+        if fname is None:
+            from windrevenue.UI import UI
+            fname = UI.get_user_input("What the fucking pricing data file name?@!??!?!?")
+
         print("Reading electicity pricing file: ", fname)
         powerdf = pd.read_table(fname, skiprows=0,
                                 index_col=0,

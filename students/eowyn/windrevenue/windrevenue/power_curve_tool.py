@@ -33,20 +33,24 @@ class PowerCurve():
     def list_existing(self):
         print("not yet implemented")
 
-    def load_new(self, fname):
+    def load_new(self, fname=None):
         """ 
         Read power curve from file, either default or user-provided.
         Store power curve as dict in self.power_curve
         """
+        if fname is None:
+            from windrevenue.UI import UI
+            fname = UI.get_user_input("What the fucking power curve file name?@!??!?!?")
         print("Reading power curve file: ", fname)
-        pcdict = dict()
-        with open(fname) as f:
-            f.readline()
-            for line in f:
-                entry = (line.strip().split())
-                # to do: round the key.... or use numpy array to interpolate
-                pcdict[float(entry[0])] = float(entry[1])
-        self.power_curve = pcdict
+        # pcdict = dict()
+        # with open(fname) as f:
+        #     f.readline()
+        #     for line in f:
+        #         entry = (line.strip().split())
+        #         # to do: round the key.... or use numpy array to interpolate
+        #         pcdict[float(entry[0])] = float(entry[1])
+        # self.power_curve = pcdict
+        self.power_curve = pd.read_table(fname, sep="\t")
 
         def get_user_inpt(self, fname=os.path.abspath("windrevenue/sample_data/power_curve.txt")):
             filename = None
