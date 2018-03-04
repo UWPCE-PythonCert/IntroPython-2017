@@ -25,6 +25,10 @@ class Donor:
     name = js.String()
     donations = js.List()
 
+    # reference to the DB its in -- this will be set in the instance
+    # when added to the DonorDB
+    _donor_db = None
+
     def __init__(self, name, donations=None):
         """
         create a new Donor object
@@ -45,6 +49,28 @@ class Donor:
         msg = (f"Donor: {self.name}, with {self.num_donations:d} "
                f"donations, totaling: ${self.total_donations:.2f}")
         return msg
+
+    def mutating(method):
+        """
+        Decorator that saves the DB when a change is made
+
+        It should be applied to all mutating methods, so the
+        data will be saved whenever it's been changed.
+
+        NOTE: This requires that the donor object is in a DonorDB.
+        """
+
+        # note that this is expecting to decorate a method
+        # so self will be the first argument
+        def wrapped(self, *args, **kwargs):
+            print("wrapped method called")
+            print(self)
+            print(self._donor_db)
+            res = method(self, *args, **kwargs)
+            if self._donor_db is not None:
+                self._donor_db.save()
+            return res
+        return wrapped
 
     @staticmethod
     def normalize_name(name):
@@ -77,10 +103,12 @@ class Donor:
     def average_donation(self):
         return self.total_donations / self.num_donations
 
+    @mutating
     def add_donation(self, amount):
         """
         add a new donation
         """
+        print("add_donation called")
         amount = float(amount)
         if amount <= 0.0:
             raise ValueError("Donation must be greater than zero")
@@ -116,6 +144,8 @@ class DonorDB:
     # specify a json_save dict as the data structure for the data.
     donor_data = js.Dict()
 
+    _frozen = False
+
     def __init__(self, donors=None, db_file=None):
         """
         Initialize a new donor database
@@ -126,17 +156,21 @@ class DonorDB:
                              if None, the data will be stored in the
                              package data_dir
         """
-        if donors is None:
-            self.donor_data = {}
-        else:
-            self.donor_data = {d.norm_name: d for d in donors}
-
         if db_file is None:
             self.db_file = data_dir / "mailroom_data.json"
         else:
             self.db_file = Path(db_file)
 
-    def mutating(self, method):
+        self.donor_data = {}
+
+        if donors is not None:
+            # you can set _frozen so that it won't save on every change.
+            self._frozen = True
+            for d in donors:
+                self.add_donor(d)
+            self.save  # save resets _frozen
+
+    def mutating(method):
         """
         Decorator that saves the DB when a change is made
 
@@ -146,9 +180,13 @@ class DonorDB:
         NOTE: This is not very efficient -- it will re-write
               the entire file each time.
         """
-        def wrapped(*args, **kwargs):
-            res = method(*args, **kwargs)
-            self.save()
+
+        # note that this is expecting to decorate a method
+        # so self will be the first argument
+        def wrapped(self, *args, **kwargs):
+            res = method(self, *args, **kwargs)
+            if not self._frozen:
+                self.save()
             return res
         return wrapped
 
@@ -164,22 +202,21 @@ class DonorDB:
         db = cls([Donor(*d) for d in donors])
         return db
 
-
     @classmethod
-    def load_json_save(cls, filename):
+    def load(cls, filepath):
         """
         loads a donor database from a json_save format file.
         """
-
-        # with open(filename) as infile:
-        #     donors = json.load(infile)
-        # db = cls([Donor(*d) for d in donors])
-        # return db
+        with open(filepath) as jsfile:
+            db = js.from_json(jsfile)
+        db.db_file = filepath
 
     def save(self):
         """
-        save the data to a json_save file
+        Save the data to a json_save file
         """
+        # if explicitly called, you want to do it!
+        self._frozen = False
         with open(self.db_file, 'w') as db_file:
             self.to_json(db_file)
 
@@ -212,16 +249,20 @@ class DonorDB:
         """
         return self.donor_data.get(Donor.normalize_name(name))
 
-    def add_donor(self, name):
+    @mutating
+    def add_donor(self, donor):
         """
         Add a new donor to the donor db
 
-        :param: the name of the donor
+        :param donor: A Donor instance, or the name of the donor
 
-        :returns: the new Donor data structure
+        :returns: The new or existing Donor object
         """
-        donor = Donor(name)
+
+        if not isinstance(donor, Donor):
+            donor = Donor(donor)
         self.donor_data[donor.norm_name] = donor
+        donor._donor_db = self
         return donor
 
     @staticmethod

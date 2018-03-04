@@ -70,3 +70,63 @@ def test_save(sample_db):
     # are they the same?
     assert sample_db == DB
 
+
+def test_save_changed(sample_db):
+    donor = sample_db.find_donor("paul allen")
+
+    sample_db.save()
+
+    donor.add_donation(500)
+
+    sample_db.save()
+
+    # Make a new one from the file
+    with open(sample_db.db_file) as js_file:
+        DB = js.from_json(js_file)
+
+    donor1 = sample_db.find_donor("paul allen")
+    donor2 = DB.find_donor("paul allen")
+    assert donor1 == donor2
+    assert donor2.num_donations == 4
+
+
+def test_save_on_change_donor(sample_db):
+    """
+    tests the DB gets saved automatcially when it's changed
+    """
+    sample_db.save()  # make sure it's saved before we change it.
+    donor = sample_db.find_donor("paul allen")
+
+    donor.add_donation(500)
+    # note: not explicitly saving it !
+
+    # Make a new one from the file
+    with open(sample_db.db_file) as js_file:
+        DB = js.from_json(js_file)
+
+    donor1 = sample_db.find_donor("paul allen")
+    donor2 = DB.find_donor("paul allen")
+    print(donor1)
+    assert donor1 == donor2
+    assert donor2.num_donations == 4
+
+
+def test_save_on_add_donor(sample_db):
+    """
+    tests the DB gets saved automatcially when it's changed
+    """
+    sample_db.save()  # make sure it's saved before we change it.
+
+    sample_db.add_donor("Fred Jones")
+    # note: not explicitly saving it !
+
+    # Make a new one from the file
+    with open(sample_db.db_file) as js_file:
+        DB = js.from_json(js_file)
+
+    assert sample_db == DB
+
+
+
+
+
