@@ -1,0 +1,96 @@
+import zmq
+import random
+import sys
+import os
+import time
+from threading import Thread
+import logging
+import optparse
+
+# 
+parser = optparse.OptionParser()
+parser.add_option("-a", "--admin_port", dest="admin_port", help="Port of the admin interface on localhost")
+parser.add_option("-p", "--pub_port", dest="pub_port", help="Port of the publisher interface on localhost")
+parser.add_option("-d", "--debug", dest="debug", action="store_true", help="Print debug information to the screen")
+
+(options, args) = parser.parse_args()
+
+if options.admin_port is None:
+    options.admin_port = "5561"
+
+if options.pub_port is None:
+    options.pub_port = "5556"
+
+options.admin_interface = "tcp://*:{}".format(options.admin_port)
+options.pub_interface = "tcp://*:{}".format(options.pub_port)
+
+if options.debug is None:
+    options.stream_log_level = logging.INFO
+else:
+    options.stream_log_level = logging.DEBUG
+
+# look up process name, pid
+scriptname = os.path.basename(__file__)
+pid = os.getpid()
+
+# define where to write the logs
+log_path = '{}-{}.log'.format(scriptname, pid)
+
+# define a stream and file handler
+log = logging.getLogger()
+log.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(module)s:%(threadName)s %(message)s')
+
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(options.stream_log_level)
+stream_handler.setFormatter(formatter)
+
+file_handler = logging.FileHandler(filename = log_path)
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+
+log.addHandler(file_handler)
+log.addHandler(stream_handler)
+
+# write out startup info to the log
+log.info("process {}, PID {} starting".format(scriptname, pid))
+log.info("logging to {}".format(log_path))
+log.debug("screen log level {}".format(options.stream_log_level))
+
+# log.info("using admin_interface " + options.admin_interface)
+# log.info("using pub_interface " + options.pub_interface)
+
+
+def admin():
+    context = zmq.Context()
+    admin = context.socket(zmq.REP)
+    admin.bind(options.admin_interface)
+    log.info("admin bound on {}".format(options.admin_interface))
+    while True:
+        #log.debug("admin listening")
+        message = admin.recv_string()
+        log.info("recived command: " + str(message))
+        admin.send_string("admin got your " + str(message))
+
+def pub():
+    context = zmq.Context()
+    socket = context.socket(zmq.PUB)
+    socket.bind(options.pub_interface)
+    log.info("pub bound on " + str(options.pub_interface))
+
+    while True:
+        topic = str(random.randrange(9999, 10005))
+        messagedata = (options.pub_port, random.randrange(1, 215) - 80)
+        log.debug("{} {}".format(topic, messagedata))
+        socket.send_string("{} {}".format(topic, messagedata))
+        time.sleep(2)
+
+pub_thread = Thread(target=pub)
+admin_thread = Thread(target=admin)
+
+log.debug("pub_thread is {}".format(pub_thread.name))
+log.debug("admin_thread is {}".format(admin_thread.name))
+
+pub_thread.start()
+admin_thread.start()
+
