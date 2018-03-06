@@ -149,10 +149,11 @@ def sub(config):
             socket.connect(value)
         except queue.Empty:
             continue
-        # string = socket.recv_string()
-        # topic, message = string.split(" ", 1)
-        # config.set_value( topic, message )
-        # log.info("sub got {} {}".format(topic, message))
+        string = socket.recv_string()
+        key, value = string.split(" ", 1)
+        config.set_value( topic, message )
+        log.info("sub got {} {}".format(topic, message))
+
 
 class Config():
     def __init__(self):
