@@ -78,28 +78,30 @@ def admin(config):
     log.info("admin bound on {}".format(options.admin_interface))
     while True:
         command, key, value = decode_command(admin.recv_string())
+        response = ""
         log.info("received command {}, key {}, value {}".format(command, key, value))
         if command == "dump":
             log.info("DUMP: " + str(config.data))
-            admin.send_string(str(config.data))
+            response = str(config.data)
         if command == "put":
             log.info("putting {} {}".format(key, value))
             config.pub_queue.put((key, value))
             config.sub_queue.put(key)
-            admin.send_string("ack")
+            response = "ack"
         if command == "get":
             log.info("getting {}".format(key))
             try:
                 config.sub_queue.put(key)
                 value = config.get_value(key)
-                admin.send_string(value)
+                reponse = value
             except KeyError:
                 config.sub_queue.put(key)
-                admin.send_string("")
+                response = ""
         if command == "link":
             log.info("linking {}".format(value))
             config.link_queue.put(value)
-            admin.send_string("ack")
+            response = "ack"
+        admin.send_string(response)
 
 def pub(config):
     context = zmq.Context()
