@@ -12,6 +12,7 @@ Print results to stdout and save to file(s) on disk
 
 import pandas as pd
 import numpy as np
+from tabulate import tabulate
 from windrevenue.peakhours import PeakHours
 from windrevenue.align_data import AlignData
 
@@ -61,7 +62,8 @@ class GrossRevenue():
         elif subset_on == "off-peak":
             hours = hrsoptions[1]
         else:
-            raise(UserWarning, "Selection must be peak or off-peak")
+            hours = hrsoptions[0]
+            print("Selection must be peak or off-peak. Using peak.")
         # Construct timeseries of 1, NaN for times included,excluded
         include_times = pd.Series(self.aligned_data.index.hour).isin(hours)
         # Set up time index to match aligned_data so we can mask
@@ -71,26 +73,63 @@ class GrossRevenue():
         # Mask aligned_data to NaN-out excluded times
         return self.aligned_data.mul(include_times, axis=0)
 
-    def group_data(self, input_df):
+    def group_data(self, input_df, methods=[np.mean, np.mean, sum, sum]):
         """
         Return a dataframe of the data grouped by month, and hour
-        of day (latter is inherent in aligned_data) for a dataframe
+        of day (latter is inherent in aligned_data) for an aligned_data
         of windspeed, generation, price, and revenue. Average the
-        windspeed and price; sum generation and revenue.
+        windspeed and price; sum generation and revenue. User may also
+        adjust the methods as an arg.
         """
-        pass
+        self.method_names = [i.__name__ for i in methods]  # store it
+        windname = input_df.columns[0]
+        genname = input_df.columns[1]
+        pricename = input_df.columns[2]
+        revname = input_df.columns[3]
+        aggdict = {windname: methods[0],
+                   genname: methods[1],
+                   pricename: methods[2],
+                   revname: methods[3]}
+        grouped = input_df.groupby(input_df.index.month).agg(aggdict)
+        grouped.index.names = ["Month"]
+        return grouped
 
-    def save_pretty_table(self, outputfile="sample_output.csv"):
+    def save_grouped_data(self, input_df, outputfile="sample_output.csv"):
         """
-        Save a pretty table of results to outputfile (.csv)
+        Save a table of results to outputfile (.csv) with
+        headers indicating how the variables were aggregated.
+        Retain full precision on values
         """
-        pass
+        colnames = list(input_df)
+        methodnames = self.method_names
+        headers = ', '.join('%s %s' % t for t in
+                            zip(methodnames, colnames)).split(',')
+        input_df.columns = headers
+        input_df.to_csv(outputfile, sep=',')
 
-    def print_pretty_table(self):
+    def print_pretty_table(self, input_df):
         """
         Print a pretty table of results to stdout
         """
-        pass
+        print(tabulate(input_df, headers='keys'))
+
+    def calculate_gross_revenue(self):
+        """
+        Calculate monthly grouped values of wind speed, generation,
+        price, and gross revenue. Pretty print result to screen, and
+        also save full precision to csv file.
+        """
+        self.add_revenue_column()
+        peak = self.subset_data(subset_on="peak")
+        offpeak = self.subset_data(subset_on="off-peak")
+        peak_grouped = self.group_data(peak)
+        offpeak_grouped = self.group_data(offpeak)
+        self.save_grouped_data(peak_grouped, 'GrossRevenue-PeakHrs.csv')
+        self.save_grouped_data(offpeak_grouped, 'GrossRevenue-OffPeakHrs.csv')
+        self.print_pretty_table(peak_grouped)
+        self.print_pretty_table(offpeak_grouped)
+
+
 
 
 

@@ -30,15 +30,6 @@ def sample_data():
     return align_data.align_data()
 
 
-@pytest.fixture
-def sample_data2():
-    power_curve = PowerCurve(fname=power_curve_file)
-    price_data = ElectricityPricing(fname=price_file2)
-    met_data = MetData(fname=met_file_2, pct=power_curve)
-    align_data = AlignData(price_data=price_data, met_data=met_data)
-    return align_data.align_data()
-
-
 class TestRevenue():
 
     def test_revenue_init_default_peak_hours(self, sample_data):
@@ -74,7 +65,7 @@ class TestRevenue():
         assert isclose(z[2], 25.164100, rel_tol=1e-04)
         assert isclose(z[3], 6.333930, rel_tol=1e-04)
 
-    def test_subset_data(self, sample_data):
+    def test_subset_data_peak(self, sample_data):
         rev = GrossRevenue(aligned_data=sample_data)
         rev.add_revenue_column()
         subdf = rev.subset_data(subset_on="peak")
@@ -93,6 +84,85 @@ class TestRevenue():
             assert elem == 4380
         for elem in offcount:
             assert elem == 4380
+
+    def test_subset_data_offpeak(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.add_revenue_column()
+        subdf = rev.subset_data(subset_on="off-peak")
+        print("Off-Peak")
+        oncount = subdf.isna().sum()
+        offcount = subdf.notnull().sum()
+        for elem in oncount:
+            assert elem == 4380
+        for elem in offcount:
+            assert elem == 4380
+
+    def test_subset_data_badpeak(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.add_revenue_column()
+        subdf = rev.subset_data(subset_on="perk")
+        oncount = subdf.isna().sum()
+        offcount = subdf.notnull().sum()
+        for elem in oncount:
+            assert elem == 4380
+        for elem in offcount:
+            assert elem == 4380
+
+    def test_groupby_runs_default_methods(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.add_revenue_column()
+        subdf = rev.subset_data(subset_on="peak")
+        grouped = rev.group_data(subdf)
+        assert grouped.shape == (12, 4)
+        print(grouped)
+        assert grouped.index.min() == 1
+        assert grouped.index.max() == 12
+
+    def test_groupby_defaults_spotcheck(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.add_revenue_column()
+        subdf = rev.subset_data(subset_on="peak")
+        grouped = rev.group_data(subdf)
+        z = grouped.iloc[6, :]
+        print(z)
+        assert isclose(z[0], 6.793248, rel_tol=1e-04)
+        assert isclose(z[1], 1422.076282, rel_tol=1e-04)
+        assert isclose(z[2], 10184.529100, rel_tol=1e-04)
+        assert isclose(z[3], 1469.932431, rel_tol=1e-04)
+
+    def test_groupby_runs_other_methods(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.add_revenue_column()
+        subdf = rev.subset_data(subset_on="peak")
+        grouped = rev.group_data(subdf, [max, min, max, min])
+        assert grouped.shape == (12, 4)
+
+    def test_groupby_other_methods_spotcheck(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.add_revenue_column()
+        subdf = rev.subset_data(subset_on="peak")
+        grouped = rev.group_data(subdf, [max, min, max, min])
+        z = grouped.iloc[6, :]
+        print(z)
+        assert isclose(z[0], 9.530556, rel_tol=1e-04)
+        assert isclose(z[1], 131.111105, rel_tol=1e-04)
+        assert isclose(z[2], 43.969100, rel_tol=1e-04)
+        assert isclose(z[3], 0.309022, rel_tol=1e-04)
+
+    def test_write_grouped_data_to_file(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.add_revenue_column()
+        subdf = rev.subset_data(subset_on="peak")
+        grouped = rev.group_data(subdf)
+        outfile = "peak-data.csv"
+        rev.save_grouped_data(grouped, outfile)
+        assert os.path.isfile(outfile)
+
+    def test_calculate_gross_revenue(self, sample_data):
+        rev = GrossRevenue(aligned_data=sample_data)
+        rev.calculate_gross_revenue()
+        assert os.path.isfile('GrossRevenue-PeakHrs.csv')
+        assert os.path.isfile('GrossRevenue-OffPeakHrs.csv')
 
 
 
