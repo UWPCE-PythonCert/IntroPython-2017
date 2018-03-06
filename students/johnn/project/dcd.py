@@ -81,19 +81,26 @@ def admin(config):
         #message = admin.recv_string()
         command, key, value = decode_command(admin.recv_string())
         log.info("received command {}, key {}, value {}".format(command, key, value))
-        admin.send_string("ack")
         if command == "dump":
             log.info("DUMP: " + str(config.data))
+            admin.send_string(str(config.data))
         if command == "put":
             log.info("putting {} {}".format(key, value))
             config.pub_queue.put((key, value))
+            config.sub_queue.put(key)
+            admin.send_string("ack")
         if command == "get":
             log.info("getting {}".format(key))
-            config.sub_queue.put(key)
+            try:
+                value = config.get_value(key)
+                config.sub_queue.put(key)
+            except KeyError:
+                value = None
+            admin.send_string(value)
         if command == "link":
             log.info("linking {}".format(value))
             config.link_queue.put(value)
-
+            admin.send_string("ack")
 
 def pub(config):
     context = zmq.Context()
@@ -127,24 +134,25 @@ def sub(config):
     # subscribe to the following message types
     #socket.setsockopt_string(zmq.SUBSCRIBE, "10001")
     #socket.setsockopt_string(zmq.SUBSCRIBE, "9999")
+    log.info("sub thread working")
 
     while True:
         try:
-            queue_entry = config.sub_queue.get()
-            log.info("noticed sub queue_entry {}".format(queue_entry))
-            socket.setsockopt_string(zmq.SUBSCRIBE, queue_entry)
+            key = config.sub_queue.get()
+            log.info("noticed sub queue_entry {}".format(key))
+            socket.setsockopt_string(zmq.SUBSCRIBE, key)
         except queue.Empty:
             continue
         try:
-            queue_entry = config.link_queue.get()
-            log.info("noticed link queue_entry {}".format(queue_entry))
-            socket.connect(queue_entry)
+            value = config.link_queue.get()
+            log.info("noticed link queue_entry {}".format(value))
+            socket.connect(value)
         except queue.Empty:
             continue
-        string = socket.recv_string()
-        topic, message = string.split(" ", 1)
-        config.set_value( topic, message )
-        log.info("sub got {} {}".format(topic, message))
+        # string = socket.recv_string()
+        # topic, message = string.split(" ", 1)
+        # config.set_value( topic, message )
+        # log.info("sub got {} {}".format(topic, message))
 
 class Config():
     def __init__(self):
@@ -159,14 +167,15 @@ class Config():
 
 config = Config()
 
-
-pub_thread = Thread(target=pub, args=(config,))
 admin_thread = Thread(target=admin, args=(config,))
-#sub_thread = Thread(target=sub, args=(config,))
+pub_thread = Thread(target=pub, args=(config,))
+sub_thread = Thread(target=sub, args=(config,))
 
-log.debug("pub_thread is {}".format(pub_thread.name))
 log.debug("admin_thread is {}".format(admin_thread.name))
+log.debug("pub_thread is {}".format(pub_thread.name))
+log.debug("sub_thread is {}".format(sub_thread.name))
 
-pub_thread.start()
 admin_thread.start()
+pub_thread.start()
+sub_thread.start()
 

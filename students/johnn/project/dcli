@@ -17,7 +17,7 @@ parser.add_option("-p", "--put", dest="put", action="store_true", help="Set the 
 parser.add_option("-k", "--key", dest="key", help="key to process")
 parser.add_option("-v", "--value", dest="value", help="key to process")
 parser.add_option("-e", "--echo_test", dest="test", help="Send an echo test to the server")
-parser.add_option("-l", "--link", dest="link", help="Link this server to another")
+parser.add_option("-l", "--link", dest="link", action="store_true", help="Link this server to another")
 parser.add_option("-d", "--debug", dest="debug", action="store_true", help="Print debug information to the screen")
 parser.add_option("--dump", dest="dump", action="store_true", help="Show all values in the database")
 
@@ -68,7 +68,7 @@ def send_message(message):
     me.send_string(message)
     log.info("{} sent {} to {}".format(pid, message, options.server))
     in_message = me.recv_string()
-    log.debug("{} received: ".format(pid) + str(in_message))
+    log.info("{} received: ".format(pid) + str(in_message))
 
 if not args:
     print("please enter a command")
@@ -83,7 +83,7 @@ if options.test:
     send_message(build_message("echo_test", "", options.value))
 
 if options.link:
-    send_message(build_message("link", "", options.link))
+    send_message(build_message("link", "", options.value))
 
 if options.dump:
     send_message(build_message("dump", "", ""))
