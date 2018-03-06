@@ -25,12 +25,6 @@ class MetData():
     def setPct(self, pct):
         self.pct = pct
 
-    # Round float value n to nearest precision
-    # https://stackoverflow.com/questions/4265546/python-round-to-nearest-05
-    def round_to_05(n, precision=0.5):
-        correction = 0.5 if n >= 0 else -0.5
-        return int( n/precision+correction ) * precision
-
     def parse_met_file(self, fname=None):
         """
         Read met data file, store in data frame and store sensor choice
@@ -53,13 +47,8 @@ class MetData():
         currentdf = currentdf.dropna(axis=0, how='any')
         return currentdf
 
-    def dummy_function(self, fname=os.path.abspath("sample_data/sample_met.txt")):
-        filename = input("Full path to met file (leave blank to use sample data):\n")
-        fname = filename or fname
-
     def load_new(self, fname):
-        # Use sample data, or else read data from file provided by user
-        filename = None
+        # Read met data from file into data frame self.metdf
         print("Reading met file: ", fname)
         metdf = pd.read_table(fname, skiprows=1,
                               index_col=0,

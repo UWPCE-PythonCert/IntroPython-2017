@@ -18,9 +18,16 @@ Return a single data frame of 1 year of aligned hourly data
 """
 
 import pandas as pd
-import numpy as np
+#import pdb
+
 
 class AlignData():
+
+    @staticmethod
+    def get_typical_year():
+        # Construct a dummy TimeStamp index for the typical year
+        return pd.date_range('2015-01-01', periods=8760, freq='H')
+
     def __init__(self, price_data=None, met_data=None):
         self.pricing = price_data
         self.met = met_data
@@ -28,9 +35,12 @@ class AlignData():
     def resample_timeseries(self, timestep='60min'):
         """
         Resample met, generation, and power pricing data to hourly
+        TO DO: Handle missing vals introduced by re-indexing better
         """
-        self.power_hour = self.pricing.get_pricing_field().resample(timestep).mean()
-        self.met_hour = self.met.get_wind_and_generation().resample(timestep).mean()
+        repwr = self.pricing.get_pricing_field().resample(timestep).mean()
+        self.power_hour = repwr.bfill()
+        remet = self.met.get_wind_and_generation().resample(timestep).mean()
+        self.met_hour = remet.bfill()
 
     def determine_overlap(self):
         # Check if there of overlap between generation and pricing data
@@ -82,17 +92,19 @@ class AlignData():
         At this point, the datetime axis is no longer available. 
         We will deal with leap-years then re-create the TimeStamp index.
         """
+        #pdb.set_trace()
         self.met_yr = self.met_hour.groupby([self.met_hour.index.month,
                                            self.met_hour.index.day,
                                            self.met_hour.index.hour]).mean()
         self.pwr_yr = self.power_hour.groupby([self.power_hour.index.month,
                                                self.power_hour.index.day,
                                              self.power_hour.index.hour]).mean()
-        self.met_yr = self.met_yr.remove_leap_day()
-        self.pwr_yr = self.pwr_yr.remove_leap_day()
+        self.remove_leap_day()
         typical_year = self.get_typical_year()
-        self.met_yr.index, self.met_yr.index.names = typical_year, ["TimeStamp"]
-        self.pwr_yr.index, self.pwr_yr.index.names = typical_year, ["TimeStamp"]
+        self.met_yr.index = typical_year
+        self.met_yr.index.names =  ["TimeStamp"]
+        self.pwr_yr.index = typical_year
+        self.pwr_yr.index.names = ["TimeStamp"]
 
 
     def remove_leap_day(self):
@@ -103,28 +115,26 @@ class AlignData():
         Drop all Feb 29 rows:
         temp2 = temp.drop(temp.index[1416:1440], axis = 0)
         """
-        if len(self.met_hour.index) == 8784:
+        if len(self.met_yr.index) == 8784:
             print("removing leap day from met year")
-            self.met_yr = self.met_hour.drop(self.met_hour.index[1416:1440], axis=0)
-        if len(self.power_hour.index) == 8784:
+            self.met_yr = self.met_yr.drop(self.met_yr.index[1416:1440], axis=0)
+        if len(self.pwr_yr.index) == 8784:
             print("removing leap day from power year")
-            self.pwr_yr = self.power_hour.drop(self.power_hour.index[1416:1440], axis=0)
-
-    def get_typical_year(self):
-        # Construct a dummy TimeStamp index for the typical year
-        typical_year = pd.date_range('2015-01-01', periods=8760, freq='H')
+            self.pwr_yr = self.pwr_yr.drop(self.pwr_yr.index[1416:1440], axis=0)
 
     def align_data(self):
         """
-        Determine if there is a year of overlapping data, else, 
+        Determine if there is a year of overlapping data, else,
         calculate a typical year of data. Return single data frame
         of met and power on same time axis.
         """
         self.resample_timeseries()
-        self.remove_leap_day()
         if self.determine_overlap() and self.determine_amt_overlap():
+            print("Calcuating Concurrent Year")
             self.calculate_same_year()
-        else:
             self.calculate_typical_year()
-        return pd.concat([self.met_hour, self.power_hour],axis = 1)
+        else:
+            print("Calcutating Typical Year")
+            self.calculate_typical_year()
+        return pd.concat([self.met_yr, self.pwr_yr], axis=1)
 

@@ -10,14 +10,24 @@ from windrevenue.align_data import AlignData as ad
 
 class UI():
 
-    def __init__(self):
+    def __init__(self, met=met, pct=pct, pricing=pricing):
         """
         Instantiate classes to store state related to
         different data and funcionality.
         """
-        self.met = met()
-        self.pct = pct()
-        self.pricing = pricing()
+        if met is not None:
+            self.met = met
+        else:
+            self.met = met()
+        if pct is not None:
+            self.pct = pct
+        else:
+            self.pct = pct()
+        if pricing is not None:
+            self.pricing = pricing
+        else:
+            self.pricing = pricing()
+
         self.peak = peak()
         self.rev = rev()
         self.ad = ad()

@@ -2,26 +2,28 @@
 
 import os
 import pytest
-import pandas as pd
 from math import isclose
 from windrevenue.parse_met_data import MetData
 from windrevenue.power_curve_tool import PowerCurve
 
+
 @pytest.fixture
 def sample_data():
     pcfile = os.path.abspath("sample_data/power_curve.txt")
-    fname=os.path.abspath("sample_data/sample_met.txt")
+    fname = os.path.abspath("sample_data/sample_met.txt")
     pc = PowerCurve(fname=pcfile)
-    met = MetData(fname=fname,pct = pc)
+    met = MetData(fname=fname, pct=pc)
     return met
+
 
 @pytest.fixture
 def sample_data2():
     pcfile = os.path.abspath("sample_data/power_curve.txt")
-    fname=os.path.abspath("sample_data/sample_met2.txt")
+    fname = os.path.abspath("sample_data/sample_met2.txt")
     pc = PowerCurve(fname=pcfile)
-    met = MetData(fname=fname,pct = pc)
+    met = MetData(fname=fname, pct=pc)
     return met
+
 
 class TestMet():
 
@@ -30,7 +32,7 @@ class TestMet():
 
     def test_data_no_nan(self, sample_data):
         ts = sample_data.get_met_timeseries().isna().sum()
-        assert ts.all() == 0
+        assert ts.sum() == 0
 
     def test_select_correct_sensor(self, sample_data):
         ts = sample_data.get_met_timeseries().columns
@@ -47,8 +49,8 @@ class TestMet():
 
     def test_generation_data_spotcheck(self, sample_data):
         ts = sample_data.get_wind_and_generation()
-        z = ts.iloc[400,:]
-        assert isclose(z[0],11.64, rel_tol=1e-04)
+        z = ts.iloc[400, :]
+        assert isclose(z[0], 11.64, rel_tol=1e-04)
         assert isclose(z[1], 3114, rel_tol=1e-04)
 
 

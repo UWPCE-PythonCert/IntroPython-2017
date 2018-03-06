@@ -3,7 +3,6 @@
 import os
 import pytest
 import pandas as pd
-from math import isclose
 from windrevenue.electricity_pricing import ElectricityPricing
 
 @pytest.fixture
@@ -19,7 +18,7 @@ class TestPricing():
 
     def test_data_nonans(self, sample_data):
         q = sample_data.get_pricing_field().isna().sum()
-        assert q.all() == 0
+        assert q.sum() == 0
 
 
 
