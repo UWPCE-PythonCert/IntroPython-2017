@@ -22,46 +22,123 @@ def country_with_the_most_scheduled_nonscheduled_service_true():
     airport_obj = airports()
     result =\
         airport_obj.country_with_the_most_scheduled_nonscheduled_service(True)
-    print(result)
+    print('*' * 80)
+    print(
+        'country with most scheduled service airports,(number)')
+    print('{0:>30},({1})'.format(result[0], result[1]))
+    print('*' * 80)
 
 
 def country_with_the_most_scheduled_nonscheduled_service_false():
     airport_obj = airports()
     result =\
         airport_obj.country_with_the_most_scheduled_nonscheduled_service(False)
-    print(result)
+    print('*' * 80)
+    print(
+        'country with most unscheduled service airports,(number)')
+    print('{0:>30},({1})'.format(result[0], result[1]))
+    print('*' * 80)
 
 
-def country_with_scheduled_service():
-    pass
+def towns_with_airports_within_100_miles_of_Seattle():
+    airport_id = 'KSEA'
+    airport_name = 'Seattle'
+    airport_obj = airports()
+    result = airport_obj.nearby_airports_within_one_degree(airport_id)
+    print('*' * 80)
+    print(
+        'number of towns with airports within 100 miles of ', airport_name)
+    print('{0:>30}'.format(len(result)))
+    print('*' * 80)
 
 
 def home_page():
-    pass
+    airport_obj = airports()
+    result = airport_obj.airports_with_home_links()
+    url = result["Seattle Tacoma International Airport"]
+    airport_obj.open_web_page(url)
 
 
 def lat_long():
-    pass
+    airport_obj = airports()
+    airport_id = "KSEA"
+    result =\
+        airport_obj.nearby_airports_within_one_degree(
+            airport_id, airport_lat_long=True)
+    print('*' * 80)
+    print('Latitude/Longitude of ', airport_id)
+    print('{0:>30}/{1}'.format(result[0], result[1]))
+    print('*' * 80)
 
 
 def state_country():
-    pass
+    airport_obj = airports()
+    airport_id = "KSEA"
+    result =\
+        airport_obj.nearby_airports_within_one_degree(
+            airport_id, state_country=True)
+    print('*' * 80)
+    print('State-Country of ', airport_id)
+    print('{0:>30}'.format(result[1]))
+    print('*' * 80)
 
 
 def elevation_runway():
-    pass
+    runway_obj = runways()
+    airport_id = "KSEA"
+    result =\
+        runway_obj.runway_data_from_csv_file(airport_id, elevation=True)
+    print('*' * 80)
+    print('Runway elevations ', airport_id)
+    # returned runway names are like 'runway_elevation_runway'
+    for runway_name in result:
+        runway = runway_name.split('_')
+        print('{0}{1:>30}'.format(runway[2], result[runway_name]))
+    print('*' * 80)
 
 
 def wiki():
-    pass
+    airport_obj = airports()
+    result = airport_obj.airports_with_wiki_pages()
+    url = result["Seattle Tacoma International Airport"]
+    airport_obj.open_web_page(url)
 
 
 def land_737():
-    pass
+    # takes 6791 ft of runway to land a 737
+    landing_737 = 6791.0
+    landing_flag = False
+    runway_obj = runways()
+    airport_id = 'KSEA'
+    result = runway_obj.runway_data_from_csv_file(airport_id, length=True)
+    print('*' * 80)
+    print('Runway lengths', airport_id)
+    print('Runway name', ' ' * 10, 'Runway length', ' ' * 10, '737?')
+
+    # returned runway names are like 'runway_elevation_runway'
+    for runway_length in result:
+        length = runway_length.split('_')
+        if float(result[runway_length]) / landing_737 > 1.0:
+            landing_flag = True
+        print('{0}{1:>30}{2:>17}'.format(
+            length[2], result[runway_length], landing_flag))
+        landing_flag = False
+    print('*' * 80)
 
 
 def runway_length():
-    pass
+    runway_obj = runways()
+    airport_id = 'KSEA'
+    result = runway_obj.runway_data_from_csv_file(airport_id, length=True)
+    print('*' * 80)
+    print('Runway lengths', airport_id)
+    print('Runway name', ' ' * 10, 'Runway length')
+
+    # returned runway names are like 'runway_elevation_runway'
+    for runway_length in result:
+        length = runway_length.split('_')
+        print('{0}{1:>30}'.format(length[2], result[runway_length]))
+    print('*' * 80)
 
 
 def runway_lighted():
@@ -140,7 +217,7 @@ if __name__ == "__main__":
               "  The country with the most airports with scheduled"
               " service")
         print("2."
-              "  The country with the most airports with"
+              "  The country with the most airports with "
               "unscheduled service")
         print("3."
               "  The number of airports that are within 100 miles"
@@ -170,7 +247,7 @@ if __name__ == "__main__":
         {
             "1": country_with_the_most_scheduled_nonscheduled_service_true,
             "2": country_with_the_most_scheduled_nonscheduled_service_false,
-            "3": country_with_scheduled_service,
+            "3": towns_with_airports_within_100_miles_of_Seattle,
             "4": home_page,
             "5": lat_long,
             "6": state_country,
