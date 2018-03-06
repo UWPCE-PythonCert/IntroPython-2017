@@ -77,8 +77,6 @@ def admin(config):
     admin.bind(options.admin_interface)
     log.info("admin bound on {}".format(options.admin_interface))
     while True:
-        #log.debug("admin listening")
-        #message = admin.recv_string()
         command, key, value = decode_command(admin.recv_string())
         log.info("received command {}, key {}, value {}".format(command, key, value))
         if command == "dump":
@@ -117,24 +115,13 @@ def pub(config):
             log.info("published queue_entry {} {}".format(key, value))
         except queue.Empty:
             continue
-        # topic = str(random.randrange(9999, 10005))
-        # messagedata = (options.pub_port, random.randrange(1, 215) - 80)
-        # log.debug("{} {}".format(topic, messagedata))
-        # pub.send_string("{} {}".format(topic, messagedata))
-        # time.sleep(2)
+
 
 def sub(config):
     # Socket to talk to server
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
 
-    # listen to the following servers
-    #socket.connect("tcp://localhost:%s" % 5556)
-    #socket.connect("tcp://localhost:%s" % 5557)
-
-    # subscribe to the following message types
-    #socket.setsockopt_string(zmq.SUBSCRIBE, "10001")
-    #socket.setsockopt_string(zmq.SUBSCRIBE, "9999")
     log.info("sub thread working")
 
     while True:
