@@ -3,11 +3,20 @@
 
 
 import os
+import logging
 import pytest
 from spring_quarter_final_project import \
     get_csv_files_in_current_directory
 from Airports import airports, countries, runways,\
     navaids
+
+logger = logging.getLogger('test_spring_quarter_final_project')
+logger.setLevel(logging.INFO)
+fh = logging.FileHandler('test_spring_quarter_final_project.log')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 
 @pytest.fixture
@@ -83,7 +92,7 @@ def test_country_with_the_most_scheduled_nonscheduled_service_least():
     airport_obj = airports()
     result = airport_obj.country_with_the_most_scheduled_nonscheduled_service(
         False)
-    assert result == ('United States', 21910)
+    assert result == ('United States', 21919)
 
 
 def test_country_code_to_country_conversion():
@@ -229,3 +238,8 @@ def test_nav_aids_data_from_csv_file_by_airport_id():
     assert type(result) == dict
     assert "KSEA" in result.keys()
     assert len(result) == 1
+
+
+# def test_logging_config():
+#     airport_obj = airports()
+#     logger.info('Created')

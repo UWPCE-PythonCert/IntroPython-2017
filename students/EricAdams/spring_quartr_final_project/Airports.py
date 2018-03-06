@@ -4,6 +4,7 @@ import urllib.error
 import operator
 import csv
 import webbrowser
+import logging
 
 
 class airports():
@@ -24,6 +25,11 @@ class airports():
         Return:
               None
         """
+        # in case this class is subclassed
+        if 'airports' in str(type(self)):
+            self.logger = logging.getLogger(
+                'test_spring_quarter_final_project.Airports.airports')
+            self.logger.info('Creating an instance of airports')
         self.url = url
         self.filename = filename
         if not os.path.isfile(self.filename):
@@ -32,7 +38,7 @@ class airports():
                     with open(self.filename, 'w'):
                         urllib.request.urlretrieve(self.url, self.filename)
             except urllib.error.URLError as e:
-                    print("Check internet connection ", e)
+                self.logger.error("Check internet connection ", e)
 
     def get_column_names_in_csv_file(self, filename="airports.csv"):
         """ Return the column names from the airport.csv file.
@@ -46,6 +52,8 @@ class airports():
         with open(self.filename, "r") as file_obj:
             line = file_obj.readline()
         columns = line.split(',')
+        self.logger.info('Finished get_column_names_in_csv_file'
+                         ' returning columns')
         return columns
 
     def get_list_of_records_from_a_csv_file(self, filename='airports.csv'):
@@ -68,8 +76,10 @@ class airports():
                 list_of_records = [
                     record for record in csv_reader_obj if record[0] != 'id']
         except FileNotFoundError as e:
-            print("No .csv files, error is: ", e)
+            self.logger.error("No .csv files, error is: ", e)
             raise
+        self.logger.info('Finished get_list_of_records_from_a_csv_file'
+                         ' returning list_of_records')
         return list_of_records
 
     def number_of_scheduled_or_nonscheduled_service_airports_per_country(
@@ -118,6 +128,11 @@ class airports():
                 else:
                     number_of_airports_with_service_or_no_service_per_country[country[0]] = 1
         # the return will be a dict with entries like {'US':22398, ...}
+        self.logger.info(
+            'Finished'
+            ' number_of_scheduled_or_nonscheduled_service_airports_per_country'
+            ' returning'
+            ' number_of_airports_with_service_or_no_service_per_country')
         return number_of_airports_with_service_or_no_service_per_country
 
     def country_with_the_most_scheduled_nonscheduled_service(self, scheduled_or_nonscheduled=True):
@@ -147,6 +162,9 @@ class airports():
         country_code = sorted_by_value_descending[0][0]
         country_obj = countries()
         country = country_obj.country_code_to_country_conversion(country_code)
+        self.logger.info(
+            'Finished country_with_the_most_scheduled_nonscheduled_service'
+            ' returning country, sorted_by_value_descending[0][1]')
         return country, sorted_by_value_descending[0][1]
 
     def nearby_airports_within_one_degree(
@@ -202,10 +220,10 @@ class airports():
             if airport_id_lat is None:
                 pass
         except UnboundLocalError as err:
-            print("Airport Id can not be found.\n"
-                  "Make sure that"
-                  "nearby_airports_within_two_degrees(airport_id)"
-                  " has the correct airport_id\n", err)
+            self.logger.error("Airport Id can not be found.\n"
+                              "Make sure that"
+                              "nearby_airports_within_two_degrees(airport_id)"
+                              " has the correct airport_id\n", err)
             raise
         for row in list_of_records:
             if row[10] not in nearby_airports:
@@ -215,12 +233,24 @@ class airports():
                             and float(row[5]) >= nearby_airport_min_long:
                         nearby_airports.append(row[10])
         if airport_lat_long is False and state_country is False:
+            self.logger.info(
+                'Finished nearby_airports_within_one_degree, returning '
+                'airport_lat_long')
             return nearby_airports
         if airport_lat_long is True and state_country is False:
+            self.logger.info(
+                'Finished nearby_airports_within_one_degree returning '
+                'airport_id_lat, airport_id_long')
             return airport_id_lat, airport_id_long
         if airport_lat_long is False and state_country is True:
+            self.logger.info(
+                'Finished nearby_airports_within_one_degree returning '
+                'country_state')
             return country_state
         if airport_lat_long is True and state_country is True:
+            self.logger.info(
+                'Finished nearby_airports_within_one_degree returning '
+                'country_state, airport_id_lat, airport_id_long')
             return country_state, airport_id_lat, airport_id_long
 
     def airports_with_home_links(self):
@@ -247,6 +277,8 @@ class airports():
             if row[3] != "name":
                 if "http" in row[15]:
                     airport_names_homepage[row[3]] = row[15]
+        self.logger.info(
+            'Finished airports_with_home_links')
         return airport_names_homepage
 
     def airports_with_wiki_pages(self):
@@ -273,6 +305,8 @@ class airports():
             if row[3] != "name":
                 if "http" in row[16]:
                     airport_names_wiki[row[3]] = row[16]
+        self.logger.info(
+            'Finished airports_with_wiki_pages')
         return airport_names_wiki
 
     def open_web_page(self, url_of_web_page):
@@ -288,6 +322,8 @@ class airports():
         self.url = url_of_web_page
         # new=1 opens in a new window
         webbrowser.open(self.url, new=1)
+        self.logger.info(
+            'Finished open_web_page')
 
 
 class countries(airports):
@@ -309,6 +345,10 @@ class countries(airports):
         Return:
               None
         """
+        if 'countries' in str(type(self)):
+            self.logger = logging.getLogger(
+                'test_spring_quarter_final_project.Airports.countries')
+            self.logger.info('Creating an instance of countries')
         self.url = url
         self.filename = filename
         super(countries, self).__init__(
@@ -328,6 +368,7 @@ class countries(airports):
             self.get_list_of_records_from_a_csv_file('countries.csv')
         for record in list_of_records:
             if country_code == record[1]:
+                self.logger.info('Finished country_code_to_country_conversion')
                 return record[2]
 
 
@@ -345,6 +386,10 @@ class runways(airports):
         Return:
               None
         """
+        if 'runways' in str(type(self)):
+            self.logger = logging.getLogger(
+                'test_spring_quarter_final_project.Airports.runways')
+            self.logger.info('Creating an instance of runways')
         self.url = url
         self.filename = filename
         super(runways, self).__init__(
@@ -427,18 +472,24 @@ class runways(airports):
                 runway_info['runway_paved_' + runway] = row[5]
                 runway_info['runway_closed_' + runway] = row[7]
         if length is False and status is False and elevation is False:
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_info')
             return runway_info
         if length is False and status is False and elevation is True:
             runway_elevation_dict = {}
             for key in list(runway_info.keys()):
                 if key.startswith('runway_elevation_'):
                     runway_elevation_dict[key] = runway_info[key]
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_elevation_dict')
             return runway_elevation_dict
         if length is False and status is True and elevation is False:
             runway_closed_dict = {}
             for key in list(runway_info.keys()):
                 if key.startswith('runway_closed_'):
                     runway_closed_dict[key] = runway_info[key]
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_closed_dict')
             return runway_closed_dict
         if length is False and status is True and elevation is True:
             runway_status_elevation_dict = {}
@@ -446,12 +497,16 @@ class runways(airports):
                 if key.startswith('runway_closed_')\
                         or key.startswith('runway_elevation_'):
                     runway_status_elevation_dict[key] = runway_info[key]
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_status_elevation_dict')
             return runway_status_elevation_dict
         if length is True and status is False and elevation is False:
             runway_length_dict = {}
             for key in list(runway_info.keys()):
                 if key.startswith('runway_length_'):
                     runway_length_dict[key] = runway_info[key]
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_length_dict')
             return runway_length_dict
         if length is True and status is False and elevation is True:
             runway_length_elevation_dict = {}
@@ -459,6 +514,8 @@ class runways(airports):
                 if key.startswith('runway_length_')\
                         or key.startswith('runway_elevation_'):
                     runway_length_elevation_dict[key] = runway_info[key]
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_length_elevation_dict')
             return runway_length_elevation_dict
         if length is True and status is True and elevation is False:
             runway_length_status_dict = {}
@@ -466,6 +523,8 @@ class runways(airports):
                 if key.startswith('runway_length_')\
                         or key.startswith('runway_closed_'):
                     runway_length_status_dict[key] = runway_info[key]
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_length_status_dict')
             return runway_length_status_dict
         if length is True and status is True and elevation is True:
             runway_length_status_elevation_dict = {}
@@ -474,6 +533,8 @@ class runways(airports):
                         or key.startswith('runway_closed_')\
                         or key.startswith('runway_elevation'):
                     runway_length_status_elevation_dict[key] = runway_info[key]
+            self.logger.info('Finished runway_data_from_csv_file returning '
+                             'runway_length_status_elevation_dict')
             return runway_length_status_elevation_dict
 
 
@@ -481,6 +542,10 @@ class navaids(airports):
     def __init__(self,
                  url="http://ourairports.com/data/navaids.csv",
                  filename="navaids.csv"):
+        if 'navaids' in str(type(self)):
+            self.logger = logging.getLogger(
+                'test_spring_quarter_final_project.Airports.navaids')
+            self.logger.info('Creating an instance of navaids')
         self.url = url
         self.filename = filename
         super(navaids, self).__init__(
@@ -544,6 +609,6 @@ class navaids(airports):
                     navaid_name_country.extend([row[3], row[4]])
                     navaids_per_country[row[19]] = navaid_name_country[:]
                     # keys are now airport names instead of countries
+            self.logger.info('Finished nav_aids_data_from_csv_file returning '
+                             'navaids_per_country')
             return navaids_per_country
-
-
