@@ -235,7 +235,6 @@ Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
 :ref:`notes_session18`
 
 
-
 .. * Persistence and Serialization: pickle, json, csv, ...
 .. * Schema vs “Schemaless”
 .. * No-Sql

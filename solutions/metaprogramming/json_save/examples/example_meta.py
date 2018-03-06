@@ -12,7 +12,7 @@ class MyClass(js.JsonSaveable):
 
     x = js.Int()
     y = js.Float()
-    l = js.List()
+    lst = js.List()
 
     def __init__(self, x, lst):
         self.x = x

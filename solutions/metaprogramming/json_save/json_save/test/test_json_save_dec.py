@@ -13,6 +13,9 @@ import json_save.json_save_dec as js
 
 @js.json_save
 class NoInit:
+    """
+    A class with saveable attribute, but no __init__
+    """
     x = js.Int()
     y = js.String()
 
@@ -72,13 +75,15 @@ def nested_dict():
 
 # now the actual test code
 
-# this doesn't work yet
-# def test_hasattr():
-#     ts = NoInit()
-#     # has the attributes even though no __init__ exists
-#     # they should be the default values
-#     assert ts.x == 0
-#     assert ts.y == ""
+def test_hasattr():
+    """
+    checks that the default attributes get set if they are not created by an __init__
+    """
+    ts = NoInit()
+    # has the instance attributes even though no __init__ exists
+    # they should be the default values
+    assert ts.x == 0
+    assert ts.y == ""
 
 
 def test_attrs():
@@ -201,8 +206,51 @@ def test_from_json_dict2(nested_dict):
     """
 
     json_str = nested_dict.to_json()
-    print(js.Saveable.ALL_SAVEABLES)
     reconstructed = js.from_json(json_str)
 
     assert reconstructed == nested_dict
 
+
+def test_eq():
+    sc1 = SimpleClass(3, 4.5)
+    sc2 = SimpleClass(3, 4.5)
+
+    assert sc1 == sc2
+
+
+def test_not_eq():
+    sc1 = SimpleClass(3, 4.5)
+    sc2 = SimpleClass(3, 4.4)
+
+    assert sc1 != sc2
+
+
+def test_not_eq_reconstruct():
+    sc1 = SimpleClass.from_json_dict(SimpleClass(3, 4.5).to_json_compat())
+    sc2 = SimpleClass.from_json_dict(SimpleClass(2, 4.5).to_json_compat())
+
+    assert sc1 != sc2
+    assert sc2 != sc1
+
+
+def test_not_valid():
+    """
+    You should get an error trying to make a savable class with
+    no savable attributes.
+    """
+    with pytest.raises(TypeError):
+        @js.json_save
+        class NotValid():
+            pass
+
+
+def test_not_valid_class_not_instance():
+    """
+    You should get an error trying to make a savable class with
+    no savable attributes.
+    """
+    with pytest.raises(TypeError):
+        @js.json_save
+        class NotValid():
+            a = js.Int
+            b = js.Float

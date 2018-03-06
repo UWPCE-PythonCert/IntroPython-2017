@@ -3,3 +3,8 @@ Jeff_Bezos.txt
 Mark_Zuckerberg.txt
 Paul_Allen.txt
 William_Gates_III.txt
+Fred_Barnes.txt
+
+context_managers/log.txt
+mailroom_mock/test_donor_db.json
+metaprogramming/json_save/json_save/test/temp.json
