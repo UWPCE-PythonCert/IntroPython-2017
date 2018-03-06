@@ -92,8 +92,8 @@ def admin(config):
         if command == "get":
             log.info("getting {}".format(key))
             try:
-                value = config.get_value(key)
                 config.sub_queue.put(key)
+                value = config.get_value(key)
                 admin.send_string(value)
             except KeyError:
                 value = None
@@ -112,8 +112,8 @@ def pub(config):
     while True:
         try:
             key, value = config.pub_queue.get()
-            pub.send_string("{} {}".format(key, value))
             config.set_value(key, value)
+            pub.send_string("{} {}".format(key, value))
             log.info("published queue_entry {} {}".format(key, value))
         except queue.Empty:
             continue
