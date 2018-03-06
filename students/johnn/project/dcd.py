@@ -94,9 +94,10 @@ def admin(config):
             try:
                 value = config.get_value(key)
                 config.sub_queue.put(key)
+                admin.send_string(value)
             except KeyError:
                 value = None
-            admin.send_string(value)
+                admin.send_string("")
         if command == "link":
             log.info("linking {}".format(value))
             config.link_queue.put(value)
