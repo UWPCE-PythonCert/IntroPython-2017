@@ -152,8 +152,8 @@ def sub(config):
             continue
         string = socket.recv_string()
         key, value = string.split(" ", 1)
-        config.set_value( topic, message )
-        log.info("sub got {} {}".format(topic, message))
+        config.set_value( key, value )
+        log.info("sub got {} {}".format(key, value))
 
 
 class Config():
