@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+"""
+DCD Client Interface (dcli)
+"""
 
 import zmq
 import logging
@@ -6,6 +11,10 @@ import os
 
 parser = optparse.OptionParser()
 parser.add_option("-s", "--server", dest="server", help="URI of the server")
+parser.add_option("-g", "--get", dest="get", help="Query the server")
+parser.add_option("-p", "--put", dest="put", help="Set the value on the server")
+parser.add_option("-e", "--echo_test", dest="test", help="Send an echo test to the server")
+parser.add_option("-l", "--link", dest="link", help="Link this server to another")
 parser.add_option("-d", "--debug", dest="debug", action="store_true", help="Print debug information to the screen")
 
 (options, args) = parser.parse_args()

@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+Distributed Config Daemon (DCD)
+"""
+
 import zmq
 import random
 import sys
@@ -30,11 +36,11 @@ else:
     options.stream_log_level = logging.DEBUG
 
 # look up process name, pid
-scriptname = os.path.basename(__file__)
+scriptname = os.path.basename(__file__).split(".py")[0]
 pid = os.getpid()
 
 # define where to write the logs
-log_path = '{}-{}.log'.format(scriptname, pid)
+log_path = 'log/{}-{}.log'.format(scriptname, pid)
 
 # define a stream and file handler
 log = logging.getLogger()
@@ -57,9 +63,6 @@ log.info("process {}, PID {} starting".format(scriptname, pid))
 log.info("logging to {}".format(log_path))
 log.debug("screen log level {}".format(options.stream_log_level))
 
-# log.info("using admin_interface " + options.admin_interface)
-# log.info("using pub_interface " + options.pub_interface)
-
 
 def admin():
     context = zmq.Context()
@@ -69,21 +72,41 @@ def admin():
     while True:
         #log.debug("admin listening")
         message = admin.recv_string()
-        log.info("recived command: " + str(message))
-        admin.send_string("admin got your " + str(message))
+        log.info("received command: " + str(message))
+        admin.send_string("ack: " + str(message))
 
 def pub():
     context = zmq.Context()
-    socket = context.socket(zmq.PUB)
-    socket.bind(options.pub_interface)
+    pub = context.socket(zmq.PUB)
+    pub.bind(options.pub_interface)
     log.info("pub bound on " + str(options.pub_interface))
 
     while True:
         topic = str(random.randrange(9999, 10005))
         messagedata = (options.pub_port, random.randrange(1, 215) - 80)
         log.debug("{} {}".format(topic, messagedata))
-        socket.send_string("{} {}".format(topic, messagedata))
+        pub.send_string("{} {}".format(topic, messagedata))
         time.sleep(2)
+
+def sub():
+    # Socket to talk to server
+    context = zmq.Context()
+    socket = context.socket(zmq.SUB)
+
+    # listen to the following servers
+    socket.connect("tcp://localhost:%s" % 5556)
+    socket.connect("tcp://localhost:%s" % 5557)
+
+    # subscribe to the following message types
+    socket.setsockopt_string(zmq.SUBSCRIBE, "10001")
+    socket.setsockopt_string(zmq.SUBSCRIBE, "9999")
+
+    for update_nbr in range(20):
+        string = socket.recv_string()
+        topic, message = string.split(" ", 1)
+        print(topic, message)
+
+
 
 pub_thread = Thread(target=pub)
 admin_thread = Thread(target=admin)
