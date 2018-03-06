@@ -12,6 +12,7 @@ import time
 from threading import Thread
 import logging
 import optparse
+import queue
 
 # 
 parser = optparse.OptionParser()
@@ -63,53 +64,105 @@ log.info("process {}, PID {} starting".format(scriptname, pid))
 log.info("logging to {}".format(log_path))
 log.debug("screen log level {}".format(options.stream_log_level))
 
+def decode_command(message):
+    try:
+        command, key, value = eval(message)
+    except SyntaxError:
+        command, key, value = (None, None, None)
+    return ( command, key, value )
 
-def admin():
+def admin(config):
     context = zmq.Context()
     admin = context.socket(zmq.REP)
     admin.bind(options.admin_interface)
     log.info("admin bound on {}".format(options.admin_interface))
     while True:
         #log.debug("admin listening")
-        message = admin.recv_string()
-        log.info("received command: " + str(message))
-        admin.send_string("ack: " + str(message))
+        #message = admin.recv_string()
+        command, key, value = decode_command(admin.recv_string())
+        log.info("received command {}, key {}, value {}".format(command, key, value))
+        admin.send_string("ack")
+        if command == "dump":
+            log.info("DUMP: " + str(config.data))
+        if command == "put":
+            log.info("putting {} {}".format(key, value))
+            config.pub_queue.put((key, value))
+        if command == "get":
+            log.info("getting {}".format(key))
+            config.sub_queue.put(key)
+        if command == "link":
+            log.info("linking {}".format(value))
+            config.link_queue.put(value)
 
-def pub():
+
+def pub(config):
     context = zmq.Context()
     pub = context.socket(zmq.PUB)
     pub.bind(options.pub_interface)
     log.info("pub bound on " + str(options.pub_interface))
 
     while True:
-        topic = str(random.randrange(9999, 10005))
-        messagedata = (options.pub_port, random.randrange(1, 215) - 80)
-        log.debug("{} {}".format(topic, messagedata))
-        pub.send_string("{} {}".format(topic, messagedata))
-        time.sleep(2)
+        try:
+            key, value = config.pub_queue.get()
+            pub.send_string("{} {}".format(key, value))
+            config.set_value(key, value)
+            log.info("published queue_entry {} {}".format(key, value))
+        except queue.Empty:
+            continue
+        # topic = str(random.randrange(9999, 10005))
+        # messagedata = (options.pub_port, random.randrange(1, 215) - 80)
+        # log.debug("{} {}".format(topic, messagedata))
+        # pub.send_string("{} {}".format(topic, messagedata))
+        # time.sleep(2)
 
-def sub():
+def sub(config):
     # Socket to talk to server
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
 
     # listen to the following servers
-    socket.connect("tcp://localhost:%s" % 5556)
-    socket.connect("tcp://localhost:%s" % 5557)
+    #socket.connect("tcp://localhost:%s" % 5556)
+    #socket.connect("tcp://localhost:%s" % 5557)
 
     # subscribe to the following message types
-    socket.setsockopt_string(zmq.SUBSCRIBE, "10001")
-    socket.setsockopt_string(zmq.SUBSCRIBE, "9999")
+    #socket.setsockopt_string(zmq.SUBSCRIBE, "10001")
+    #socket.setsockopt_string(zmq.SUBSCRIBE, "9999")
 
-    for update_nbr in range(20):
+    while True:
+        try:
+            queue_entry = config.sub_queue.get()
+            log.info("noticed sub queue_entry {}".format(queue_entry))
+            socket.setsockopt_string(zmq.SUBSCRIBE, queue_entry)
+        except queue.Empty:
+            continue
+        try:
+            queue_entry = config.link_queue.get()
+            log.info("noticed link queue_entry {}".format(queue_entry))
+            socket.connect(queue_entry)
+        except queue.Empty:
+            continue
         string = socket.recv_string()
         topic, message = string.split(" ", 1)
-        print(topic, message)
+        config.set_value( topic, message )
+        log.info("sub got {} {}".format(topic, message))
+
+class Config():
+    def __init__(self):
+        self.pub_queue = queue.Queue()
+        self.sub_queue = queue.Queue()
+        self.link_queue = queue.Queue()
+        self.data = {}
+    def set_value(self, key, value):
+        self.data[key] = value
+    def get_value(self, key):
+        return self.data[key]
+
+config = Config()
 
 
-
-pub_thread = Thread(target=pub)
-admin_thread = Thread(target=admin)
+pub_thread = Thread(target=pub, args=(config,))
+admin_thread = Thread(target=admin, args=(config,))
+#sub_thread = Thread(target=sub, args=(config,))
 
 log.debug("pub_thread is {}".format(pub_thread.name))
 log.debug("admin_thread is {}".format(admin_thread.name))

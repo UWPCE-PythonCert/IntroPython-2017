@@ -10,24 +10,19 @@ import optparse
 import os
 
 parser = optparse.OptionParser()
-parser.add_option("-s", "--server", dest="server", help="URI of alternate server to communicate with")
-parser.add_option("-g", "--get", dest="get", help="Send a data query the server")
-parser.add_option("-p", "--put", dest="put", help="Set the data value on the server")
+parser.add_option("-s", "--server", dest="server", 
+                  help="URI of alternate server to communicate with", default="tcp://127.0.0.1:5561")
+parser.add_option("-g", "--get", dest="get", action="store_true", help="Send a data query the server")
+parser.add_option("-p", "--put", dest="put", action="store_true", help="Set the data value on the server")
+parser.add_option("-k", "--key", dest="key", help="key to process")
+parser.add_option("-v", "--value", dest="value", help="key to process")
 parser.add_option("-e", "--echo_test", dest="test", help="Send an echo test to the server")
 parser.add_option("-l", "--link", dest="link", help="Link this server to another")
 parser.add_option("-d", "--debug", dest="debug", action="store_true", help="Print debug information to the screen")
+parser.add_option("--dump", dest="dump", action="store_true", help="Show all values in the database")
+
 
 (options, args) = parser.parse_args()
-
-
-#print("ARGS",args)
-if not args:
-    message="echo_test"
-else:
-    message=args[0]
-
-if options.server is None:
-    options.server = "tcp://127.0.0.1:5561"
 
 if options.debug is None:
     options.stream_log_level = logging.INFO
@@ -65,9 +60,30 @@ context = zmq.Context()
 me = context.socket(zmq.REQ)
 me.connect(options.server)
 
-# Process messages from both sockets
-#message = "hello world"
-me.send_string(message)
-log.info("{} sent {} to {}".format(pid, message, options.server))
-in_message = me.recv_string()
-log.debug("{} received: ".format(pid) + str(in_message))
+
+def build_message(command, key, value):
+    return repr((command, key, value))
+
+def send_message(message):
+    me.send_string(message)
+    log.info("{} sent {} to {}".format(pid, message, options.server))
+    in_message = me.recv_string()
+    log.debug("{} received: ".format(pid) + str(in_message))
+
+if not args:
+    print("please enter a command")
+
+if options.get:
+    send_message(build_message("get", options.key, ""))
+
+if options.put:
+    send_message(build_message("put", options.key, options.value))
+
+if options.test:
+    send_message(build_message("echo_test", "", options.value))
+
+if options.link:
+    send_message(build_message("link", "", options.link))
+
+if options.dump:
+    send_message(build_message("dump", "", ""))
