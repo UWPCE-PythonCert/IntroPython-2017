@@ -1,21 +1,20 @@
 '''Test for BaseLinter'''
 
 import json
+import os
 import datetime
 import mock
-import baselinter as BL
+import baselinter.baselinter as BS
 
 def test_open_set_json():
     '''Function returns a list of sets from a json file.'''
-    list_of_sets = BL.open_set_json("dummy-data.json")
+    list_of_sets = BS.open_set_json(os.path.dirname(BS.__file__) + "\\test\\dummy-data.json")
 
-    assert type(list_of_sets) == list
-    assert type(list_of_sets[0]) == set
-    assert list_of_sets[1] == {"mole", "vole"}
+    assert {"mole","vole"} == list_of_sets[0]
 
 def test_text_to_list():
     '''Function returns from a filename a list of words in order.'''
-    wordlist = BL.text_to_list("dummy-text.txt")
+    wordlist = BS.text_to_list(os.path.dirname(BS.__file__) + "\\test\\dummy-text.txt")
 
     assert len(wordlist) == 413
     assert wordlist[0] == "We"
@@ -24,7 +23,7 @@ def test_text_to_list():
 def test_wordlist_to_text():
     '''Function returns from a list of words in order a single string.'''
     test_list = ['We', 'got', 'up', 'at', 'four', 'in', 'the', 'morning,', 'that', 'first', 'day', 'in', 'the', 'east.']
-    out_text = BL.wordlist_to_text(test_list)
+    out_text = BS.wordlist_to_text(test_list)
     
     assert out_text == "We got up at four in the morning, that first day in the east."
 
@@ -33,8 +32,8 @@ def test_return_members():
     '''Function returns the set of an item if a member of the set, otherwise returns None.'''
     test_set = [{"that1", "that2", "that3"},{"mole", "vole"}]
 
-    assert BL.return_members(test_set, "mole") == {"mole", "vole"}
-    assert BL.return_members(test_set, "fig") == None
+    assert BS.return_members(test_set, "mole") == {"mole", "vole"}
+    assert BS.return_members(test_set, "fig") == None
 
 def test_select_update():
     '''Function returns an updated list'''

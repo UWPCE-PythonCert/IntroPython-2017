@@ -16,7 +16,7 @@ setup(name='Base Linter',
       author_email='matt_d_briggs@hotmail.com',
       license='MIT',
       packages=['baselinter'],
-      scripts=['bin\\baselinter.py'],
+      scripts=['baselinter\\baselinter.py'],
       package_data={'baselinter': ['data\\guide-amhomo.json']},
       install_requires=[
           'datetime',

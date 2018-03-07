@@ -59,6 +59,16 @@ def test_new_empty_donor():
     assert donor.last_donation is None
 
 
+def test_donor_str():
+        donor = model.Donor("Fred Flintstone", [100, 200, 300])
+
+        st = str(donor)
+
+        assert "Fred Flintstone" in st
+        assert " 3 " in st
+        assert st.endswith("$600.00")
+
+
 def test_add_donation(sample_db):
     # fixme: there should be a better way to get an arbitrary donor
     donor = sample_db.donor_data.popitem()[1]
