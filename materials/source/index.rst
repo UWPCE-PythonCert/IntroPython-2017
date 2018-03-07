@@ -5,13 +5,19 @@ Intro to Python: Fall 2017
 
 .. :ref:`syllabus`
 
+:ref:`first_quarter`
+
+:ref:`second_quarter`
+
 .. toctree::
     :maxdepth: 1
 
     syllabus
 
-Class Schedule
-==============
+.. _first_quarter:
+
+Intro To Python:  Fall 2017
+===========================
 
 Orientation: Sept 27
 ....................
@@ -93,6 +99,8 @@ Week 10: December 12
 
 :ref:`notes_session10`
 
+.. _second_quarter:
+
 ############################
 Advanced Python: Winter 2017
 ############################
@@ -106,6 +114,12 @@ Fluent Python
 .............
 
 `Fluent Python <http://shop.oreilly.com/product/0636920032519.do>`_, by Luciano Ramalho, is an excellent book about the more advanced features of Python. We highly recommend you get it, and we will be referencing it throughout the class.
+
+Individual Project
+------------------
+
+In addition to weekly exercises, you will also complete an individual project of your choosing. More detail here: :ref:`individual_project`
+
 
 Week 1: Jan 9 -- Iterators and Generators, Packaging
 ....................................................
@@ -172,6 +186,8 @@ Week 4: Jan 30 -- Advanced Testing
 Week 5: Feb 6 -- Debugging and Logging
 ......................................
 
+.. Chris out of town
+
 :ref:`session_2_05`
 
 :ref:`notes_session15`
@@ -203,6 +219,8 @@ Week 6: Feb 13 -- Metaprogramming
 Week 7: Feb 20 -- Relational Databases
 ......................................
 
+.. maria out of town
+
 :ref:`session_2_07`
 
 :ref:`notes_session17`
@@ -221,7 +239,6 @@ Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
 :ref:`session_2_08`
 
 :ref:`notes_session18`
-
 
 
 .. * Persistence and Serialization: pickle, json, csv, ...
@@ -248,6 +265,8 @@ Week 9: Mar 6 -- Concurrency & Async Programming
 
 Week 10: Mar 13 -- Profiling & Performance
 ..........................................
+
+.. Chris out of town.
 
 :ref:`session_2_10`
 
