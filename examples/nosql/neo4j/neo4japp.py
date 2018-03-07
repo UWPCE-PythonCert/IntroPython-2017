@@ -212,8 +212,8 @@ def test4(driver):
         for record in result:
             print(record['first_name'], record['last_name'])
 
-        print('\nCreate some relationship')
-        # Bob Jones likes Alice Cooper and Fred Barnes
+        print('\nCreate some relationships')
+        # Bob Jones likes Alice Cooper, Fred Barnes and Marie Curie
 
         for first, last in [("Alice", "Cooper"),
                             ("Fred", "Barnes"),
@@ -241,13 +241,27 @@ def test4(driver):
 
         for first, last in [("Mary", "Evans"),
                             ("Alice", "Cooper"),
+                            ('Fred', 'Barnes'),
                             ]:
             cypher = """
               MATCH (p1:Person {first_name:'Marie', last_name:'Curie'})
               CREATE (p1)-[friend:FRIEND]->(p2:Person {first_name:'%s', last_name:'%s'})
               RETURN p1
             """ % (first, last)
+            # print(cypher)
             session.run(cypher)
+
+        print("Can we find all of Marie's friends?")
+        cyph = """
+          MATCH (marie {first_name:'Marie', last_name:'Curie'})
+                -[:FRIEND]->(friends)
+          RETURN friends
+          """
+        result = session.run(cyph)
+        print("Marie's friends are:")
+        for rec in result:
+            for f in rec.values():
+                print(f['first_name'], f['last_name'])
 
 
 if __name__ == '__main__':

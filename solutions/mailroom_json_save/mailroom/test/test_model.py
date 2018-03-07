@@ -11,7 +11,7 @@ $ pytest py.test --cov=mailroom mailroom/test/
 
 will run the tests and show a coverage report.
 
-$ pytest --cov=mailroom --cov-report html mailroom/test/
+$ pytest --cov=mailroom --cov-report html
 
 will generate an html report.
 
@@ -26,15 +26,8 @@ NOTE: when I first ran it, I got 97% coverage -- it was missing tests
 
 import os
 import pytest
-from mailroom import model, data_dir
+from mailroom import model
 
-
-@pytest.fixture
-def sample_db():
-    """
-    creates a clean sample database for the tests to use
-    """
-    return model.DonorDB.load_from_file(data_dir / "sample_data.json")
 
 
 def test_empty_db():
@@ -57,16 +50,6 @@ def test_new_empty_donor():
 
     assert donor.name == "Fred Flintstone"
     assert donor.last_donation is None
-
-
-def test_donor_str():
-        donor = model.Donor("Fred Flintstone", [100, 200, 300])
-
-        st = str(donor)
-
-        assert "Fred Flintstone" in st
-        assert " 3 " in st
-        assert st.endswith("$600.00")
 
 
 def test_add_donation(sample_db):
@@ -110,7 +93,7 @@ def test_find_donor(sample_db):
 
 
 def test_find_donor_not(sample_db):
-    "test one that's not there"
+    """ test one that's not there """
     donor = sample_db.find_donor("Jeff Bzos")
 
     assert donor is None
@@ -121,7 +104,7 @@ def test_gen_letter(sample_db):
 
     # create a sample donor
     donor = model.Donor("Fred Flintstone", [432.45, 65.45, 230.0])
-    letter = sample_db.gen_letter(donor)
+    letter = donor.gen_letter()
     # what to test? tricky!
     assert letter.startswith("Dear Fred Flintstone")
     assert letter.endswith("-The Team\n")
@@ -169,16 +152,3 @@ def test_save_letters_to_disk(sample_db):
     with open('William_Gates_III.txt') as f:
         size = len(f.read())
     assert size > 0
-
-
-# if __name__ == "__main__":
-#     # this is best run with a test runner, like pytest
-#     # But if not, at least this will run them all.
-#     test_list_donors()
-#     test_find_donor()
-#     test_find_donor_not()
-#     test_gen_letter()
-#     test_add_donor()
-#     test_generate_donor_report()
-#     test_save_letters_to_disk()
-#     print("All tests Passed")

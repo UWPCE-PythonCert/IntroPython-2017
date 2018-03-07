@@ -9,26 +9,26 @@ This version has been made Object Oriented.
 
 # handy utility to make pretty printing easier
 from textwrap import dedent
+from pathlib import Path
 
+import json_save.json_save_dec as js
 import json
 
+from . import data_dir
 
-def get_sample_data():
-    """
-    returns a list of donor objects to use as sample data
-    """
-    data_dir = pathlib.Path(__file__).parents[1] / "data"
 
-    return [Donor("William Gates III", [653772.32, 12.17]),
-            Donor("Jeff Bezos", [877.33]),
-            Donor("Paul Allen", [663.23, 43.87, 1.32]),
-            Donor("Mark Zuckerberg", [1663.23, 4300.87, 10432.0]),
-            ]
-
+@js.json_save
 class Donor:
     """
     class to hold the information about a single donor
     """
+    name = js.String()
+    donations = js.List()
+
+    # reference to the DB its in -- this will be set in the instance
+    # when added to the DonorDB
+    _donor_db = None
+
     def __init__(self, name, donations=None):
         """
         create a new Donor object
@@ -45,6 +45,33 @@ class Donor:
         else:
             self.donations = list(donations)
 
+    def __str__(self):
+        msg = (f"Donor: {self.name}, with {self.num_donations:d} "
+               f"donations, totaling: ${self.total_donations:.2f}")
+        return msg
+
+    def mutating(method):
+        """
+        Decorator that saves the DB when a change is made
+
+        It should be applied to all mutating methods, so the
+        data will be saved whenever it's been changed.
+
+        NOTE: This requires that the donor object is in a DonorDB.
+        """
+
+        # note that this is expecting to decorate a method
+        # so self will be the first argument
+        def wrapped(self, *args, **kwargs):
+            print("wrapped method called")
+            print(self)
+            print(self._donor_db)
+            res = method(self, *args, **kwargs)
+            if self._donor_db is not None:
+                self._donor_db.save()
+            return res
+        return wrapped
+
     @staticmethod
     def normalize_name(name):
         """
@@ -53,11 +80,6 @@ class Donor:
         simple enough to not be in a method now, but maybe you'd want to make it fancier later.
         """
         return name.lower().strip()
-
-    def __str__(self):
-        msg = (f"Donor: {self.name}, with {self.num_donations:d} "
-               f"donations, totaling: ${self.total_donations:.2f}")
-        return msg
 
     @property
     def last_donation(self):
@@ -81,45 +103,122 @@ class Donor:
     def average_donation(self):
         return self.total_donations / self.num_donations
 
+    @mutating
     def add_donation(self, amount):
         """
         add a new donation
         """
+        print("add_donation called")
         amount = float(amount)
         if amount <= 0.0:
             raise ValueError("Donation must be greater than zero")
         self.donations.append(amount)
 
+    def gen_letter(self):
+        """
+        Generate a thank you letter for the donor
 
+        :param: donor tuple
+
+        :returns: string with letter
+
+        note: This doesn't actually write to a file -- that's a separate
+              function. This makes it more flexible and easier to test.
+        """
+        return dedent('''Dear {0:s},
+
+              Thank you for your very kind donation of ${1:.2f}.
+              It will be put to very good use.
+
+                             Sincerely,
+                                -The Team
+              '''.format(self.name, self.last_donation)
+                      )
+
+
+@js.json_save
 class DonorDB:
     """
-    encapsulation of the entire database of donors and data associated with them.
+    Encapsulation of the entire database of donors and data associated with them.
     """
+    # specify a json_save dict as the data structure for the data.
+    donor_data = js.Dict()
 
-    def __init__(self, donors=None):
+    _frozen = False
+
+    def __init__(self, donors=None, db_file=None):
         """
         Initialize a new donor database
 
         :param donors=None: iterable of Donor objects
-        """
-        if donors is None:
-            self.donor_data = {}
-        else:
-            self.donor_data = {d.norm_name: d for d in donors}
 
-    def save_to_file(self, filename):
-        with open(filename, 'w') as outfile:
-            self.to_json(outfile)
+        :param db_file=None: path to file to store the datbase in.
+                             if None, the data will be stored in the
+                             package data_dir
+        """
+        if db_file is None:
+            self.db_file = data_dir / "mailroom_data.json"
+        else:
+            self.db_file = Path(db_file)
+
+        self.donor_data = {}
+
+        if donors is not None:
+            # you can set _frozen so that it won't save on every change.
+            self._frozen = True
+            for d in donors:
+                self.add_donor(d)
+            self.save  # save resets _frozen
+
+    def mutating(method):
+        """
+        Decorator that saves the DB when a change is made
+
+        It should be applied to all mutating methods, so the
+        data will be saved whenever it's been changed.
+
+        NOTE: This is not very efficient -- it will re-write
+              the entire file each time.
+        """
+
+        # note that this is expecting to decorate a method
+        # so self will be the first argument
+        def wrapped(self, *args, **kwargs):
+            res = method(self, *args, **kwargs)
+            if not self._frozen:
+                self.save()
+            return res
+        return wrapped
 
     @classmethod
     def load_from_file(cls, filename):
         """
-        loads a donor database from a json file
+        loads a donor database from a raw json file
+        NOTE: This is not a json_save format file!
+              -- it is a simpler, less flexible format.
         """
         with open(filename) as infile:
             donors = json.load(infile)
         db = cls([Donor(*d) for d in donors])
         return db
+
+    @classmethod
+    def load(cls, filepath):
+        """
+        loads a donor database from a json_save format file.
+        """
+        with open(filepath) as jsfile:
+            db = js.from_json(jsfile)
+        db.db_file = filepath
+
+    def save(self):
+        """
+        Save the data to a json_save file
+        """
+        # if explicitly called, you want to do it!
+        self._frozen = False
+        with open(self.db_file, 'w') as db_file:
+            self.to_json(db_file)
 
     @property
     def donors(self):
@@ -150,38 +249,21 @@ class DonorDB:
         """
         return self.donor_data.get(Donor.normalize_name(name))
 
-    def add_donor(self, name):
+    @mutating
+    def add_donor(self, donor):
         """
         Add a new donor to the donor db
 
-        :param: the name of the donor
+        :param donor: A Donor instance, or the name of the donor
 
-        :returns: the new Donor data structure
+        :returns: The new or existing Donor object
         """
-        donor = Donor(name)
+
+        if not isinstance(donor, Donor):
+            donor = Donor(donor)
         self.donor_data[donor.norm_name] = donor
+        donor._donor_db = self
         return donor
-
-    def gen_letter(self, donor):
-        """
-        Generate a thank you letter for the donor
-
-        :param: donor tuple
-
-        :returns: string with letter
-
-        note: This doesn't actually write to a file -- that's a separate
-              function. This makes it more flexible and easier to test.
-        """
-        return dedent('''Dear {0:s},
-
-              Thank you for your very kind donation of ${1:.2f}.
-              It will be put to very good use.
-
-                             Sincerely,
-                                -The Team
-              '''.format(donor.name, donor.last_donation)
-                      )
 
     @staticmethod
     def sort_key(item):
@@ -223,7 +305,7 @@ class DonorDB:
         print("Saving letters:")
         for donor in self.donor_data.values():
             print("donor:", donor.name)
-            letter = self.gen_letter(donor)
+            letter = donor.gen_letter()
             # I don't like spaces in filenames...
             filename = donor.name.replace(" ", "_") + ".txt"
             open(filename, 'w').write(letter)

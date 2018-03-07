@@ -168,7 +168,7 @@ class Business(Household):
     pass
 
 
-class AddressBook(object):
+class AddressBook:
     """
     An address book -- has people, households, businesses.
 
@@ -199,13 +199,13 @@ class AddressBook(object):
         self.households = db.households
 
     def add_person(self, person):
-        self.people.insert(person.to_dict())
+        self.people.insert_one(person.to_dict())
 
     def add_household(self, household):
-        self.households.insert(household.to_dict())
+        self.households.insert_one(household.to_dict())
 
     def add_business(self, business):
-        self.businesses.insert(business.to_dict())
+        self.businesses.insert_one(business.to_dict())
 
     def __str__(self):
         msg = ["An Address Book:"]
@@ -341,7 +341,7 @@ def create_sample():
                            )
 
 
-    address_book = AddressBook()
+    address_book = AddressBook(fresh=True)
 
     address_book.add_person(chris)
     address_book.add_person(donna)
