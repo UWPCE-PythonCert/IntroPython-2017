@@ -56,9 +56,10 @@ class Match:
     def __str__(self):
         return 'Match {}, Team {}'.format(self.matchnumber, self.team)
 
+    #def __iter__(self):
 
-class Team:
-    # Team is an object which contains data specific to a team
+
+class Team:    # Team is an object which contains data specific to a team
     # it is not intended to be user editable but is user viewable
 
     # number - Done
@@ -126,27 +127,39 @@ class Team:
     def minkpa(self):
         return(min(kpa))
 
-    @property
-    def autogearsinpos(self):
+   # @property
+    #def autogearsinpos(self):
         # This creates a dictionsary with postion as Key and Autogears scored as value
-        for i in range(1, 3):
-            for j in self.matchesplayed:
-                if self.fieldpos[j] == i:
-                    autogearsinpos[i] = self.autogears[j]
-        return autogearsinpos
+     #   for i in range(1, 3):
+      #      for j in self.matchesplayed:
+       #         if self.fieldpos[j] == i:
+        #            autogearsinpos[i] = self.autogears[j]
+        #return autogearsinpos
 
-     @property
-    def autokpainpos(self):
+    #@property
+    #def autokpainpos(self):
         # This creates a dictionsary with postion as Key and Autogears scored as value
-        for i in range(1, 3):
-            for j in self.matchesplayed:
-                if self.fieldpos[j] == i:
-                    autokpainpos[i] = self.autokpa[j]
-        return autokpainpos
+     #   for i in range(1, 3):
+      #      for j in self.matchesplayed:
+       #         if self.fieldpos[j] == i:
+        #            autokpainpos[i] = self.autokpa[j]
+        #return autokpainpos
 
-    def fillmatches():
-        self.matchesplayed = [matchlist[i].matchnumber for i in matchlist if matchlist[i].teamnumber == self.number]
+    def fillmatches(self):
+        for i in range(0,len(matchlist)):   #I wanted to do this in a list 
+            if int(matchlist[i].team) == int(self.number):  #did your team play in this match
+                self.matchesplayed.append(matchlist[i].matchnumber) #if so append the list comprehensions but I is a match type variable
+    
+    def fillmatchwins(self):
+        for i in range(0, len(matchlist)):   #I wanted to do this in a list 
+            if int(matchlist[i].team) == int(self.number):  #did your team play in this match
+                if int(matchlist[i].win) == 1:
+                    self.matchwins.update({int(matchlist[i].matchnumber): int(matchlist[i].win)})
 
+
+                    #self.matchwins = {matchlist[i].matchnumber: matchlist[i].win for i in matchlist if matchlist[i].teamnumber == self.number}        
+       # self.matchesplayed = [int(matchlist[i].matchnumber) for i in matchlist if int(matchlist[i].teamnumber) == self.number]
+'''
     def fillgearsdelivered():
         self.gearsdelivered = [matchlist[i].gears for i in matchlist if matchlist[i].teamnumber == self.number]
 
@@ -170,16 +183,16 @@ class Team:
     
     def fillclimb():
         self.climb = {matchlist[i].matchnumber: matchlist[i].climb for i in matchlist if matchlist[i].teamnumber == self.number}
-
-    def matchwins():
-        self.matchwins = {matchlist[i].matchnumber: matchlist[i].win for i in matchlist if matchlist[i].teamnumber == self.number}
-
+'''
+    
 
 
-def updateteams():
+
+
+# def updateteams():
     # This function is intended to refresh team objects with the latest match data.teamnumber
 
-    
+
 
 
 def readmatchfile():
@@ -189,7 +202,7 @@ def readmatchfile():
         for line in csvreader:
             matchlist.append(Match(line[0], line[1]))
             for i in range(0, len(matchlist)):
-                if matchlist[i].matchnumber == line[0] and matchlist[i].team == line[1]:
+                if matchlist[i].matchnumber == line[0] and matchlist[i].team == line[1]:    #why did I do this?  To check for quality?
                     matchlist[i].alliance = line[2]
                     matchlist[i].fieldpos = line[3]
                     matchlist[i].win = line[4]
@@ -201,6 +214,18 @@ def readmatchfile():
                     matchlist[i].climb = line[10]
                     matchlist[i].penalties = line[11]
     print("File has been read.")
+    testingthing()
+
+def testingthing():
+
+    team1 = Team(4469)
+    team1.fillmatches()
+    team1.fillmatchwins()
+    print(matchlist[3].team)
+    #print(team1.number)
+    print(team1.matchesplayed)
+    print(team1.matchwins)
+
 
 def primaryUI():
     # This is the introductory user interface
