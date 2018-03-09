@@ -125,7 +125,7 @@ class MetData():
         met_timeseries = self.get_met_timeseries()
         pcdf = self.pct.power_curve
 
-        pcdf= pcdf.append(pd.DataFrame({'WS': (self.get_met_timeseries()[(self.windVar)])}), True)
+        pcdf = pcdf.append(pd.DataFrame({'WS': (self.get_met_timeseries()[(self.windVar)])}), True)
         power_lookup = pd.Series(index=pcdf.WS, data=pcdf.Pwr.values).interpolate(method='index')
         subset = power_lookup.tail(len(power_lookup) - len(self.pct.power_curve))
 
