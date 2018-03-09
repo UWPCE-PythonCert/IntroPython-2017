@@ -37,7 +37,7 @@ if options.pub_port is None:
 
 options.admin_interface = "tcp://{}:{}".format(myaddr,options.admin_port)
 options.pub_interface = "tcp://{}:{}".format(myaddr,options.pub_port)
-myinterfaces = repr (( options.admin_interface, options.pub_interface ))
+myinterfaces = ( options.admin_interface, options.pub_interface )
 
 if options.debug is None:
     options.stream_log_level = logging.INFO
@@ -98,6 +98,7 @@ def admin(config):
             log.debug("dump request, responding {}".format(blob(config)))
             log.info("dump request")
             response = blob(config)
+            admin.send_string(response)
         # if command == "data_sync":
         #     log.info("data sync request")
         #     response = str(config.data)
@@ -112,15 +113,18 @@ def admin(config):
             config.pub_queue.put((key, value))
             config.sub_queue.put(key)
             response = "ack"
+            admin.send_string(response)
         if command == "get":
             log.info("getting {}".format(key))
             try:
                 config.sub_queue.put(key)
                 value = config.get_value(key)
                 response = value
+                admin.send_string(response)
             except KeyError:
                 config.sub_queue.put(key)
                 response = ""
+                admin.send_string(response)
         if command == "link":
             #command, key, value = decode_command(admin.recv_string())
             # log.info("linking {}".format(value))
@@ -131,13 +135,24 @@ def admin(config):
             # command, key, value = decode_command(admin.recv_string())
             # print("XXXX", command, key, value)
             response = "um, ok"
-            #admin.send_string(response)
+            log.debug("acking")
+            admin.send_string(response)
+            log.debug("opening connection to " + str(value))
             talkback.connect(value)
-            talkback.send_string("(dump, None, None)")
+            cmd = ("('dump', None, None)")
+            log.debug("sending command " + cmd )
+            talkback.send_string(cmd)  
             message = talkback.recv_string()
-            print("XXX",message)
+            log.debug("got " + str(message) )
+            remote_ports, data, peers = eval(message)
+            remote_admin, remote_pub = remote_ports
+            log.debug("remote_admin {}, remote_pub {}, data {}, peers {}".format(remote_admin, remote_pub, data, peers))
 
-        admin.send_string(response)
+            #print("XXX",message)
+            #cmd = ("('echo_test', None, 'nop')")
+            #admin.send_string(cmd)
+
+        #admin.send_string(response)
 
 def pub(config):
     context = zmq.Context()
