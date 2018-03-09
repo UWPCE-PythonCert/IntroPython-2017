@@ -99,15 +99,6 @@ def admin(config):
             log.info("dump request")
             response = blob(config)
             admin.send_string(response)
-        # if command == "data_sync":
-        #     log.info("data sync request")
-        #     response = str(config.data)
-        # if command == "peer_sync":
-        #     log.info("peer sync request")
-        #     response = str(config.peers)
-        # if command == "dump":
-        #     log.info("DUMP: " + str(config.data))
-        #     response = str(config.data)
         if command == "put":
             log.info("putting {} {}".format(key, value))
             config.pub_queue.put((key, value))
@@ -126,16 +117,8 @@ def admin(config):
                 response = ""
                 admin.send_string(response)
         if command == "link":
-            #command, key, value = decode_command(admin.recv_string())
-            # log.info("linking {}".format(value))
-            # linkto_admin = value
-            # #config.link_queue.put(value)
-            # response = "(dump, None, None)"
-            # admin.send_string(response)
-            # command, key, value = decode_command(admin.recv_string())
-            # print("XXXX", command, key, value)
-            response = "um, ok"
-            log.debug("acking")
+            response = "initiating a link request to remote admin port at {}".format(value)
+            log.debug(response)
             admin.send_string(response)
             log.debug("opening connection to " + str(value))
             talkback.connect(value)
@@ -147,12 +130,6 @@ def admin(config):
             remote_ports, data, peers = eval(message)
             remote_admin, remote_pub = remote_ports
             log.debug("remote_admin {}, remote_pub {}, data {}, peers {}".format(remote_admin, remote_pub, data, peers))
-
-            #print("XXX",message)
-            #cmd = ("('echo_test', None, 'nop')")
-            #admin.send_string(cmd)
-
-        #admin.send_string(response)
 
 def pub(config):
     context = zmq.Context()
