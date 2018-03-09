@@ -13,6 +13,7 @@ from threading import Thread
 import logging
 import optparse
 import queue
+import socket
 
 # 
 parser = optparse.OptionParser()
@@ -22,14 +23,21 @@ parser.add_option("-d", "--debug", dest="debug", action="store_true", help="Prin
 
 (options, args) = parser.parse_args()
 
+# hack to figure out my ip address
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+myaddr = s.getsockname()[0]
+s.close()
+
 if options.admin_port is None:
     options.admin_port = "5561"
 
 if options.pub_port is None:
     options.pub_port = "5556"
 
-options.admin_interface = "tcp://*:{}".format(options.admin_port)
-options.pub_interface = "tcp://*:{}".format(options.pub_port)
+options.admin_interface = "tcp://{}:{}".format(myaddr,options.admin_port)
+options.pub_interface = "tcp://{}:{}".format(myaddr,options.pub_port)
+myinterfaces = repr (( options.admin_interface, options.pub_interface ))
 
 if options.debug is None:
     options.stream_log_level = logging.INFO
@@ -71,18 +79,34 @@ def decode_command(message):
         command, key, value = (None, None, None)
     return ( command, key, value )
 
+def blob(config):
+    return repr( (myinterfaces, config.data, config.peers) )
+
 def admin(config):
     context = zmq.Context()
     admin = context.socket(zmq.REP)
     admin.bind(options.admin_interface)
     log.info("admin bound on {}".format(options.admin_interface))
+
+    talkback = context.socket(zmq.REQ)
+
     while True:
         command, key, value = decode_command(admin.recv_string())
         response = ""
         log.info("received command {}, key {}, value {}".format(command, key, value))
         if command == "dump":
-            log.info("DUMP: " + str(config.data))
-            response = str(config.data)
+            log.debug("dump request, responding {}".format(blob(config)))
+            log.info("dump request")
+            response = blob(config)
+        # if command == "data_sync":
+        #     log.info("data sync request")
+        #     response = str(config.data)
+        # if command == "peer_sync":
+        #     log.info("peer sync request")
+        #     response = str(config.peers)
+        # if command == "dump":
+        #     log.info("DUMP: " + str(config.data))
+        #     response = str(config.data)
         if command == "put":
             log.info("putting {} {}".format(key, value))
             config.pub_queue.put((key, value))
@@ -93,14 +117,26 @@ def admin(config):
             try:
                 config.sub_queue.put(key)
                 value = config.get_value(key)
-                reponse = value
+                response = value
             except KeyError:
                 config.sub_queue.put(key)
                 response = ""
         if command == "link":
-            log.info("linking {}".format(value))
-            config.link_queue.put(value)
-            response = "ack"
+            #command, key, value = decode_command(admin.recv_string())
+            # log.info("linking {}".format(value))
+            # linkto_admin = value
+            # #config.link_queue.put(value)
+            # response = "(dump, None, None)"
+            # admin.send_string(response)
+            # command, key, value = decode_command(admin.recv_string())
+            # print("XXXX", command, key, value)
+            response = "um, ok"
+            #admin.send_string(response)
+            talkback.connect(value)
+            talkback.send_string("(dump, None, None)")
+            message = talkback.recv_string()
+            print("XXX",message)
+
         admin.send_string(response)
 
 def pub(config):
@@ -151,6 +187,7 @@ class Config():
         self.sub_queue = queue.Queue()
         self.link_queue = queue.Queue()
         self.data = {}
+        self.peers = {}
     def set_value(self, key, value):
         self.data[key] = value
     def get_value(self, key):
