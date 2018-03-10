@@ -13,6 +13,7 @@
 import math
 import os
 import csv
+import random
 
 matchlist = []
 monteblue = [0, 0, 0]
@@ -241,6 +242,13 @@ def testmatchfidelity(matchnumber):
 # def updateteams():
     # This function is intended to refresh team objects with the latest match data.teamnumber
 
+def teamcomparisonUI()
+    print()
+    print("Welcome to the Team Comparison Tool"):
+    print("Which teams would you like to compare?: ")
+    print()
+
+def compareteams():
 
 
 
@@ -264,6 +272,7 @@ def readmatchfile():
                     matchlist[i].penalties = line[11]
     print("File has been read.")
     testingthing()
+    primaryUI()
 
 def outputmatchdata(matchnumber):
     for i in range(0, len(matchlist)):
@@ -275,7 +284,61 @@ def produceinsights(teamnum):
     # This function calls multiple functions to provide a report
     # containing statistical outcomes that are applicable
     # to the specified team.
+    pass
 
+
+def doesteamexist(team):
+    # looks through a list of teams and checks whether the team exists.
+    existance = False
+    for i in range(0, len teamlist):
+        if team == teamlist[i]:
+            existance = True
+    return existance
+
+
+def duplicatecheck(team, array):
+    # takes a team and an array, checks if it occurs more than once
+    duplicatestat = False
+    if array.count(team) > 1:
+        duplicatestat = True
+    return duplicatestat
+
+def setupmonteUI()
+    # this function brings up the UI for setting up a monte carlo analysis.
+    setupuserin = None
+    teamarray = []
+    alliancemessage = 
+    print()
+    print("Welcome to the Monte Carlo Setup")
+    print("")
+    for i in range(1, 2):
+        if i == 1:
+            alliancemessage == 'Blue'
+        else:
+            alliancemessage == 'Red'
+        for j in range(1, 3):
+            while True:
+            setupuserin = input("Please select a team for the {} Alliance in field pos {})".format(alliancemessage, j))
+            teamcheck = doesteamexist(setupuserin)
+            if teamcheck is False:
+                print("Team {} not found.".format(setupuserin))
+                print("Please enter a valid team.")
+                continue
+            elif duplicatecheck(setupuserin,teamarray) is True:
+                print("Team {} is already assigned to an alliance.".format(setupuserin))
+                print("Please enter a valid team.")
+                continue
+            else:
+                teamarray.append(setupuserin)
+                break
+    print("You have set up the following match.")
+    print(teamarray)
+
+
+    
+
+    # monte carlo should run 10000 times.  
+    # MVP is to only work on gear points.
 
 def testingthing():
     # interrogates a team object to make sure it is correctly passing data
@@ -298,15 +361,16 @@ def logmatch():
     primaryUI()
 
 def showteamsUI():
-
+    print()
     print("Teams in the Database:")
+    print()
     viewdbUI()
 
 def showmatchesUI():
     print()
     if len(matchlist) >= 1:
         for i in range(0, len(matchlist)):
-            print(str(matchlist[i]))
+            print(str(i) + " - " + str(matchlist[i]))
     else:
         print("There are no matches in the database.")
         print("This likely means you need to import a database.")
@@ -319,7 +383,8 @@ def viewdbUI():
     print()
     print("1 - Look up a Team.")
     print("2 - Look up a Match")
-    print("3 - Go back to Home Screen")
+    print("3 - Test Match Fidelity")
+    print("4 - Go back to Home Screen")
     while True:
         userin = input("Please make a selection: ")
         if userin == '1':
@@ -327,10 +392,12 @@ def viewdbUI():
         elif userin == '2':
             showmatchesUI()
         elif userin == '3':
+            testmatchfidelity()
+        elif userin == '4':
             primaryUI()
         else:
             print("Please make a valid selection.")
-
+            viewdbUI()
 
 def primaryUI():
     # This is the introductory user interface
@@ -340,7 +407,7 @@ def primaryUI():
     print()
     print('What would you like to do?')
     print('1 - Log a match')
-    print('2 - View the Team Database')
+    print('2 - View the Database')
     print('3 - Run a Monte Carlo Analysis')
     print('4 - Import a Match Database')
     print('5 - Exit Program')
@@ -360,6 +427,6 @@ def primaryUI():
             exit()
         else:
             print('You did not select a valid option.')
-
+            primaryUI()
 
 primaryUI()
