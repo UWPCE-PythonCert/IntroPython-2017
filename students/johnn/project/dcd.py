@@ -105,6 +105,9 @@ def admin(config):
             config.sub_queue.put(key)
             response = "ack"
             admin.send_string(response)
+        if command == "register":
+            log.info("registering {} {}".format(key, value))
+            config.peers[key]=value
         if command == "get":
             log.info("getting {}".format(key))
             try:
@@ -138,11 +141,14 @@ def admin(config):
                 message = talkback.recv_string()
                 log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
                 config.pub_queue.put((topic, message))
+            log.debug("asking {} to register my addresses")
+            talkback.send_string("('register', '{}', '{}'')".format(config.admin_interface, config.pub_interface))
+            message = talkback.recv_string()
             # disabled since this will cause an infinite loop
             # log.debug("asking {} to connect back to me ({})".format(value, options.admin_interface))
             # talkback.send_string("('link', None, '{}')".format(options.admin_interface))
             # message = talkback.recv_string()
-            # log.debug("got {}".format(message))
+            log.debug("got {}".format(message))
 
 
 def pub(config):
