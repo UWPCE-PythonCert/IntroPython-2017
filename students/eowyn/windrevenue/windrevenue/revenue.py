@@ -119,6 +119,9 @@ class GrossRevenue():
         price, and gross revenue. Pretty print result to screen, and
         also save full precision to csv file.
         """
+        if self.aligned_data is None or self.peak_hours is None:
+            print("Insufficient data loaded. Aborting.")
+            return
         self.add_revenue_column()
         peak = self.subset_data(subset_on="peak")
         offpeak = self.subset_data(subset_on="off-peak")

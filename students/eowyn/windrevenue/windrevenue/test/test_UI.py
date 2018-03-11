@@ -34,7 +34,3 @@ class TestUI():
         output = UI().select_action(argdict, "3")
         assert output is False
 
-    # def test_mainloop1(self, mocked_input):
-    #     mocked_input.side_effect = [1, 6]
-    #     UI().mainloop()
-    #     mocked_input.assert_called_once()

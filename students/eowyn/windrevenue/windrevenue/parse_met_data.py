@@ -31,21 +31,19 @@ class MetData():
         """
         if fname is None:
             from windrevenue.UI import UI
-            fname = UI.get_user_input("What the fucking met file name?@!??!?!?")
-        self.load_new(fname)
+            prompt_string = "Please specify the met time series file:\n"
+            fname = UI.get_user_input(prompt_string)
+        try:
+            print("TRYING to load new")
+            self.load_new(fname)
+        except FileNotFoundError:
+            print("File not found, no data loaded.")
+            return
+        except TypeError:
+            print(self, fname)
+            raise
         self.sensorInfo = self.parse_sensor_information(self.metdf)
         self.windVar = self.locate_highest_anemometer(self.sensorInfo)
-
-
-    def get_met_timeseries(self):
-        # Return the current working time series in native format
-        # with nan rows dropped
-        currentdf = pd.DataFrame(self.metdf[self.windVar])
-        # Replace invalid data with nan
-        currentdf.iloc[:, 0] = currentdf.iloc[:, 0].replace(-99.99, np.nan)
-        # Drop rows with missing values
-        currentdf = currentdf.dropna(axis=0, how='any')
-        return currentdf
 
     def load_new(self, fname):
         # Read met data from file into data frame self.metdf
@@ -85,6 +83,16 @@ class MetData():
         mxInd = meanWindHeights.index(max(meanWindHeights))
         colnames = list(self.metdf)
         return colnames[mxInd]
+
+    def get_met_timeseries(self):
+        # Return the current working time series in native format
+        # with nan rows dropped
+        currentdf = pd.DataFrame(self.metdf[self.windVar])
+        # Replace invalid data with nan
+        currentdf.iloc[:, 0] = currentdf.iloc[:, 0].replace(-99.99, np.nan)
+        # Drop rows with missing values
+        currentdf = currentdf.dropna(axis=0, how='any')
+        return currentdf
 
     def inspect_met_sensor(self):
         # Print the current selection of met sensor

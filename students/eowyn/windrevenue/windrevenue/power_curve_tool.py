@@ -40,22 +40,13 @@ class PowerCurve():
         """
         if fname is None:
             from windrevenue.UI import UI
-            fname = UI.get_user_input("What the fucking power curve file name?@!??!?!?")
+            fname = UI.get_user_input("Please provide a power curve file:\n")
         print("Reading power curve file: ", fname)
-        # pcdict = dict()
-        # with open(fname) as f:
-        #     f.readline()
-        #     for line in f:
-        #         entry = (line.strip().split())
-        #         # to do: round the key.... or use numpy array to interpolate
-        #         pcdict[float(entry[0])] = float(entry[1])
-        # self.power_curve = pcdict
-        self.power_curve = pd.read_table(fname, sep="\t")
-
-        def get_user_inpt(self, fname=os.path.abspath("windrevenue/sample_data/power_curve.txt")):
-            filename = None
-            filename = input("Full path to power curve file (leave blank to use sample data):\n")
-            fname = filename or fname
+        try:
+            self.power_curve = pd.read_table(fname, sep="\t")
+        except FileNotFoundError:
+            print("File not found, no data loaded.")
+            return
 
     def get_current_pc(self):
         """

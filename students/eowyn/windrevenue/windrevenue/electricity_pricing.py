@@ -30,13 +30,17 @@ class ElectricityPricing():
         """
         if fname is None:
             from windrevenue.UI import UI
-            fname = UI.get_user_input("What the fucking pricing data file name?@!??!?!?")
+            fname = UI.get_user_input("Please specify pricing file:\n")
 
         print("Reading electicity pricing file: ", fname)
-        powerdf = pd.read_table(fname, skiprows=0,
-                                index_col=0,
-                                parse_dates=True,
-                                infer_datetime_format=True)
+        try:
+            powerdf = pd.read_table(fname, skiprows=0,
+                                    index_col=0,
+                                    parse_dates=True,
+                                    infer_datetime_format=True)
+        except FileNotFoundError:
+            print("File not found, no data loaded.")
+            return
         powerdf.index.name = 'DateTime'
         colnames = list(powerdf)
         self.powerdf = powerdf
