@@ -142,7 +142,7 @@ def admin(config):
                 log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
                 config.pub_queue.put((topic, message))
             log.debug("asking {} to register my addresses")
-            talkback.send_string("('register', '{}', '{}'')".format(config.admin_interface, config.pub_interface))
+            talkback.send_string("('register', '{}', '{}'')".format(options.admin_interface, options.pub_interface))
             message = talkback.recv_string()
             # disabled since this will cause an infinite loop
             # log.debug("asking {} to connect back to me ({})".format(value, options.admin_interface))
