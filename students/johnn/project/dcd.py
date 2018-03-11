@@ -129,6 +129,7 @@ def admin(config):
             log.debug("got " + str(message) )
             remote_ports, data, peers = eval(message)
             remote_admin, remote_pub = remote_ports
+            config.peers[remote_admin] = remote_pub
             log.debug("remote_admin {}, remote_pub {}, data {}, peers {}".format(remote_admin, remote_pub, data, peers))
             for topic in data:
                 log.debug("subscribing to topic {}".format(topic))
