@@ -130,6 +130,14 @@ def admin(config):
             remote_ports, data, peers = eval(message)
             remote_admin, remote_pub = remote_ports
             log.debug("remote_admin {}, remote_pub {}, data {}, peers {}".format(remote_admin, remote_pub, data, peers))
+            for topic in data:
+                log.debug("subscribing to topic {}".format(topic))
+                config.sub_queue.put(topic)
+                talkback.send_string("('get', '{}', None)".format(topic))
+                message = talkback.recv_string()
+                log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
+                config.pub_queue.put((topic, message))
+
 
 def pub(config):
     context = zmq.Context()
