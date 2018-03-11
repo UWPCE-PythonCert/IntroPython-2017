@@ -108,7 +108,7 @@ def admin(config):
         if command == "register":
             response = "registering {} {}".format(key, value)
             log.info(response)
-            admin.send_string(reponse)
+            admin.send_string(response)
             config.peers[key]=value
         if command == "get":
             log.info("getting {}".format(key))
