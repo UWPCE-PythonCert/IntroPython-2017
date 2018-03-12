@@ -72,17 +72,24 @@ log.info("process {}, PID {} starting".format(scriptname, pid))
 log.info("logging to {}".format(log_path))
 log.debug("screen log level {}".format(options.stream_log_level))
 
-def decode_command(message):
-    log.debug("admin received raw message '{}'".format(message))
+def encode_message(command, key, value):
+    """
+    build a message string with the proper quoting
+    """
+    # we're building a string representation of a tuple,
+    # with each value quoted, like "('get', 'dog', '')"
+    return "({})".format(", ".join((repr(command), repr(key), repr(value))))
+
+def decode_message(message):
+    """
+    decode a message or return None
+    """
     try:
         command, key, value = eval(message)
     except SyntaxError:
         command, key, value = (None, None, None)
-    log.debug("decoded message to cmd '{}', key '{}', value '{}'".format( command, key, value))
     return ( command, key, value )
 
-def blob(config):
-    return repr( (myinterfaces, config.data, config.peers) )
 
 def admin(config):
     context = zmq.Context()
@@ -90,23 +97,29 @@ def admin(config):
     admin.bind(options.admin_interface)
     log.info("admin bound on {}".format(options.admin_interface))
 
-    s2s_admin = context.socket(zmq.REQ)
+    #s2s_admin = context.socket(zmq.REQ)
 
     while True:
-        command, key, value = decode_command(admin.recv_string())
-        response = ""
-        log.info("received command '{}', key '{}', value '{}'".format(command, key, value))
+        command, key, value = decode_message(admin.recv_string())
+        # note transaction is half complete, we still have to send a response
+        log.debug("received command '{}', key '{}', value '{}'".format(command, key, value))
+
         if command == "dump":
-            log.debug("dump request, responding {}".format(blob(config)))
-            log.info("dump request")
-            response = blob(config)
+            """
+            example: (('tcp://192.168.1.209:5561', 'tcp://192.168.1.209:5556'),
+              {'dog': 'black'}, {'tcp://192.168.1.34:5561': 'tcp://192.168.1.34:5556'})
+            """
+            response = encode_message(myinterfaces, config.data, config.peers)
+            log.debug("dump request, responding {}".format(response))
             admin.send_string(response)
+
         if command == "put":
-            log.info("putting {} {}".format(key, value))
+            log.info("performing a put of {}/{}".format(key, value))
             config.pub_queue.put((key, value))
             config.sub_queue.put(key)
-            response = "ack"
+            response = "done"
             admin.send_string(response)
+
         if command == "register":
             response = "registering {} {}".format(key, value)
             log.info(response)
@@ -115,16 +128,16 @@ def admin(config):
 
         if command == "sync":
             """
-            cmd = sync, key = None, value = <server to sync to>
+            command = sync, key = None, value = <server to sync to>
             """
             response = "ack sync to {}".format(value)
             log.debug(response)
             admin.send_string(response)
             log.debug("opening connection to " + str(value))
             s2s_admin.connect(value)
-            cmd = ("('dump', None, None)")
-            log.debug("sending command " + cmd )
-            s2s_admin.send_string(cmd)
+            command = ("('dump', None, None)")
+            log.debug("sending command " + command )
+            s2s_admin.send_string(command)
             message = s2s_admin.recv_string()
             log.debug("got " + str(message) )
             remote_ports, data, peers = eval(message)
@@ -139,9 +152,9 @@ def admin(config):
                 log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
                 config.pub_queue.put((topic, message))
             log.debug("asking {} to register my addresses".format(value))
-            cmd = "('register', '{}', '{}')".format(options.admin_interface, options.pub_interface)
-            log.debug("sending: " + cmd)
-            s2s_admin.send_string(cmd)
+            command = "('register', '{}', '{}')".format(options.admin_interface, options.pub_interface)
+            log.debug("sending: " + command)
+            s2s_admin.send_string(command)
             message = s2s_admin.recv_string()
             # disabled since this will cause an infinite loop
             # log.debug("asking {} to connect back to me ({})".format(value, options.admin_interface))
@@ -151,34 +164,23 @@ def admin(config):
 
         if command == "get":
             """
-            cmd = get, key = <key to get>, value = None
+            command = get, key = <key to get>, value = None
             """
-            log.debug("got cmd get")
             response = get_value(config, key)
             admin.send_string(response)
-            # log.info("getting {}".format(key))
-            # try:
-            #     config.sub_queue.put(key)
-            #     value = config.get_value(key)
-            #     response = value
-            #     admin.send_string(response)
-            # except KeyError:
-            #     config.sub_queue.put(key)
-            #     response = ""
-            #     admin.send_string(response)
 
         if command == "link":
             """
-            cmd = link, key = None, value = <admin port of remote server to link to>
+            command = link, key = None, value = <admin port of remote server to link to>
             """
             response = "initiating a link request to remote admin port at {}".format(value)
             log.debug(response)
             admin.send_string(response)
             log.debug("opening connection to " + str(value))
             s2s_admin.connect(value)
-            cmd = ("('dump', None, None)")
-            log.debug("sending command " + cmd )
-            s2s_admin.send_string(cmd)  
+            command = ("('dump', None, None)")
+            log.debug("sending command " + command )
+            s2s_admin.send_string(command)  
             message = s2s_admin.recv_string()
             log.debug("got " + str(message) )
             remote_ports, data, peers = eval(message)
@@ -193,9 +195,9 @@ def admin(config):
                 log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
                 config.pub_queue.put((topic, message))
             log.debug("asking {} to register my addresses".format(value))
-            cmd = "('register', '{}', '{}')".format(options.admin_interface, options.pub_interface)
-            log.debug("sending: " + cmd)
-            s2s_admin.send_string(cmd)
+            command = "('register', '{}', '{}')".format(options.admin_interface, options.pub_interface)
+            log.debug("sending: " + command)
+            s2s_admin.send_string(command)
             message = s2s_admin.recv_string()
             # disabled since this will cause an infinite loop
             # log.debug("asking {} to connect back to me ({})".format(value, options.admin_interface))
@@ -208,12 +210,11 @@ def get_value(config, key):
         """
         given a key, get a value
 
-        cmd = get, key = <key to get>, value = None
+        command = get, key = <key to get>, value = None
 
         check locally first, then query the remote servers.
         return value or null
         """
-        log.debug("in get_value")
         value = ""
         try:
             # try getting the value locally
@@ -223,7 +224,6 @@ def get_value(config, key):
             if config.peers:
                 log.debug("value not in local database, checking remote servers")
                 for server in config.peers:
-                    #log.debug("querying remote server {}".format(server))
                     server_result = s2s_admin("get", key, "", server)
                     log.debug("querying server {} for {}".format(server, key))
                     if server_result:
@@ -234,7 +234,7 @@ def get_value(config, key):
                         config.set_value(key, value)
                         log.debug("saved {}/{} to local database".format(key, value))
                         # subscribe to key to automatically get future updates
-                        config.sub_queue(key)
+                        config.sub_queue.put(key)
                         log.debug("added {} to subcribe queue".format(key))
                         # stop as soon as we get a match
                         log.debug("terminating server search")
@@ -243,7 +243,7 @@ def get_value(config, key):
         return value
 
 
-def s2s_admin(cmd, key, value, remote_server):
+def s2s_admin(command, key, value, remote_server):
     """
     send a command to remote server, return result
     """
@@ -253,9 +253,9 @@ def s2s_admin(cmd, key, value, remote_server):
     message = ""
     log.debug("opening s2s_admin connection to " + str(remote_server))
     s2s_admin.connect(remote_server)
-    cmd = "({})".format(", ".join((cmd, key, value)))
-    log.info("sending s2s_admin command " + cmd)
-    s2s_admin.send_string(cmd)
+    command = "({})".format(", ".join((repr(command), repr(key), repr(value))))
+    log.info("sending s2s_admin command " + command)
+    s2s_admin.send_string(command)
     message = s2s_admin.recv_string()
     log.info("received '" + str(message) + "' from remote server" )
     s2s_admin.disconnect(remote_server)
@@ -274,6 +274,13 @@ def pub(config):
 
     while True:
         try:
+
+            # make sure we are connected to all remote servers
+            for server in config.peers:
+                pub_host = config.peers[server]
+                log.debug("pub_subscriber connecting to {}".format(pub_host))
+                pub.connect(pub_host)
+
             key, value = config.pub_queue.get()
             config.set_value(key, value)
             pub.send_string("{} {}".format(key, value))
@@ -282,31 +289,68 @@ def pub(config):
             continue
 
 
-def sub(config):
+def sub_subscriber(config):
     """
     subscribe to values found on the sub_queue
     """
     context = zmq.Context()
     sub = context.socket(zmq.SUB)
-    log.info("sub thread working")
+    log.info("sub_subscriber thread working")
 
     while True:
+
+        # make sure we are connected to all remote servers
+        for server in config.peers:
+            pub_host = config.peers[server]
+            log.debug("sub_subscriber connecting to {}".format(pub_host))
+            sub.connect(pub_host)
+
         try:
             # check the queue for an entry, subscribe to what you find
             key = config.sub_queue.get()
             sub.setsockopt_string(zmq.SUBSCRIBE, key)
-            log.info("subscribed to sub_queue entry {}".format(key))
+            log.info("subscribed to sub_queue entry '{}'".format(key))
 
         except queue.Empty:
             # queue empty, nothing to do
             continue
 
         # check for subscriptions
+        log.debug("checking for subscriptions")
         subscription = sub.recv_string()
         key, value = subscription.split(" ", 1)
         # save value to the local database
         config.set_value( key, value )
         log.info("saved subsription {}/{} to local database".format(key, value))
+
+def sub_poller(config):
+    """
+    subscribe to values found on the sub_queue
+    """
+    # stub
+    while True:
+        time.sleep(5)
+    # context = zmq.Context()
+    # sub = context.socket(zmq.SUB)
+    # log.info("sub_poller thread working")
+
+    # while True:
+    #     # try:
+    #     #     # check the queue for an entry, subscribe to what you find
+    #     #     key = config.sub_queue.get()
+    #     #     sub.setsockopt_string(zmq.SUBSCRIBE, key)
+    #     #     log.info("subscribed to sub_queue entry {}".format(key))
+
+    #     # except queue.Empty:
+    #     #     # queue empty, nothing to do
+    #     #     continue
+
+    #     # check for subscriptions
+    #     subscription = sub.recv_string()
+    #     key, value = subscription.split(" ", 1)
+    #     # save value to the local database
+    #     config.set_value( key, value )
+    #     log.info("saved subsription {}/{} to local database".format(key, value))
 
 
         # try:
@@ -334,13 +378,15 @@ config = Config()
 
 admin_thread = Thread(target=admin, args=(config,))
 pub_thread = Thread(target=pub, args=(config,))
-sub_thread = Thread(target=sub, args=(config,))
+sub_subscriber_thread = Thread(target=sub_subscriber, args=(config,))
+sub_poller_thread = Thread(target=sub_poller, args=(config,))
 
 log.debug("admin_thread is {}".format(admin_thread.name))
 log.debug("pub_thread is {}".format(pub_thread.name))
-log.debug("sub_thread is {}".format(sub_thread.name))
+log.debug("sub_subscriber_thread is {}".format(sub_subscriber_thread.name))
+log.debug("sub_poller_thread is {}".format(sub_poller_thread.name))
 
 admin_thread.start()
 pub_thread.start()
-sub_thread.start()
-
+sub_subscriber_thread.start()
+sub_poller_thread.start()
