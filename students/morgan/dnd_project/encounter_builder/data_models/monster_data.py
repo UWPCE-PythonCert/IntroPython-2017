@@ -42,11 +42,11 @@ class Monster():
             this_mon_focus = stat_focus[1]
         elif 1 < cr <= 5:
             cls.size = sizes[random.randrange(1, 3+1 )]
-            this_mon_focus = random.randrange(0,1+1)
-        elif 6 < cr <= 10:
+            this_mon_focus = stat_focus[random.randrange(0,1+1)]
+        elif 6 <= cr <= 10:
             cls.size = sizes[random.randrange(2, 4+1)]
-            this_mon_focus = random.randrange(0, 1 + 1)
-        elif 11 < cr:
+            this_mon_focus = stat_focus[random.randrange(0, 1 + 1)]
+        elif 11 <= cr:
             cls.size = sizes[random.randrange(2, 5+1)]
             this_mon_focus = stat_focus[0]
 
@@ -55,6 +55,8 @@ class Monster():
         # print('str before',cls.str)
         # print(this_mon_focus)
         # print(cls.attack_bonus)
+
+        # print('focus', this_mon_focus)
 
         if this_mon_focus == 'str':
             # print('attack',cls.attack_bonus,'prof', cls.proficiency)
