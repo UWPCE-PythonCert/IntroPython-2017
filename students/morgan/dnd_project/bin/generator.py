@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     group_size = ui.enemy_force_size()
     monster_variety = ui.monster_types(group_size)
-
+    # print('VARIETY',monster_variety)
     number_crunchers.CR_ranges(xp_by_cr,monster_multiplier, the_party, group_size)
     # print(the_party.deadly)
 
@@ -45,8 +45,9 @@ if __name__ == "__main__":
 
     difficulty = ui.choose_difficulty()
     cr_stats = number_crunchers.monster_stat_ranges(cr_guide)
-    print(battalian.cr_range_easy)
+    # print(battalian.cr_range_easy)
     battalian.build_force(cr_stats=cr_stats, difficulty=difficulty)
+    # battalian.generate_stats()
     battalian.print_mons()
 
 

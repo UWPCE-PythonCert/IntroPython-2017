@@ -35,7 +35,7 @@ def Get_PCs():
 # def Get_Budgets():
 
 def monster_types(group_size):
-    split = 0
+    split = 1
     if group_size > 1:
         while True:
             split = input("How many types of monsters do you want? (Must be less or equal to {})\n>".format(group_size))
@@ -44,6 +44,7 @@ def monster_types(group_size):
                 if split > group_size:
                     print("Please enter a value less than {}".format(group_size))
                 else:
+                    print('split return', split)
                     return split
                     # break
             except ValueError:
@@ -53,6 +54,7 @@ def monster_types(group_size):
                 print("Please enter an integer")
                 pass
 
+    return split
 
 def enemy_force_size():
     while True:

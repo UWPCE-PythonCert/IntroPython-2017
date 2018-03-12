@@ -73,21 +73,21 @@ def CR_ranges(xp_by_cr, monster_multiplier, party, group_size):
             cr_values[cr]=xp
             cr_list_in_order.append(cr)
 
-    print(cr_values)
+    # print(cr_values)
 
 
 
     with open(monster_multiplier, 'r') as f:
         multiplier_csv = csv.reader(f, delimiter=',')
         next(multiplier_csv, None)
-        print('groupsize', group_size)
+        # print('groupsize', group_size)
 
-        print('test', multiplier_csv)
+        # print('test', multiplier_csv)
 
         for x in multiplier_csv:
             mon_multiplier.append(x)
 
-        print('cr', mon_multiplier)
+        # print('cr', mon_multiplier)
 
         for x in mon_multiplier:
             for i, value in enumerate(x):
@@ -107,24 +107,24 @@ def CR_ranges(xp_by_cr, monster_multiplier, party, group_size):
 
 
 
-    print('divider',cr_divider)
+    # print('divider',cr_divider)
 
-    print(party.easy)
-    print(type(cr_divider))
+    # print(party.easy)
+    # print(type(cr_divider))
 
     easy_mon_xp_pool = party.easy / cr_divider
     medium_mon_xp_pool = party.medium / cr_divider
     hard_mon_xp_pool = party.hard / cr_divider
     deadly_mon_xp_pool = party.deadly / cr_divider
 
-    print('deadly pool', deadly_mon_xp_pool)
+    # print('deadly pool', deadly_mon_xp_pool)
 
     easy_mon_max_xp = easy_mon_xp_pool / group_size
     medium_mon_max_xp = medium_mon_xp_pool / group_size
     hard_mon_max_xp = hard_mon_xp_pool / group_size
     deadly_mon_max_xp = deadly_mon_xp_pool / group_size
 
-    print('dead max', deadly_mon_max_xp)
+    # print('dead max', deadly_mon_max_xp)
 
     easy_cr_range=[]
     medium_cr_range=[]
@@ -154,20 +154,21 @@ def CR_ranges(xp_by_cr, monster_multiplier, party, group_size):
     # print('easy xp total{}, easy pool after multi{}, easy XP max{}, easy CR range{}'.format(party.easy, easy_mon_xp_pool, easy_xp_max, easy_cr_range))
     # print('medium fight',medium_cr_range)
     # print('hard fight', hard_cr_range)
-    print('easy fight', easy_cr_range)
+    # print('easy fight', easy_cr_range)
+    # print('deadly', deadly_cr_range)
 
 
 def monster_stat_ranges(infile):
-    print('stats start here')
+    # print('stats start here')
     the_dict = {}
     with open(infile, 'r') as f:
         cr_stats = csv.reader(f,delimiter=',')
         # next(cr_stats, None)
         for entry in cr_stats:
             the_dict[entry[0]]=entry[1:]
-            print(entry)
+            # print(entry)
 
-    print(the_dict)
+    # print(the_dict)
     for key, val in the_dict.items():
         for index, entry in enumerate(val):
             if entry.startswith('<'):
@@ -178,5 +179,5 @@ def monster_stat_ranges(infile):
             except: ValueError
 
 
-    print(the_dict)
+    # print(the_dict)
     return the_dict
