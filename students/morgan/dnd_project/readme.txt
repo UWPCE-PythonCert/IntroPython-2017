@@ -16,4 +16,4 @@ This will then find out the XP budget for the encounter based on input files.
 The number of monsters will determing what the XP budgets are for the different difficulties.
 The XP range and number of monsters will affect the range of possible Challenge Ratings for those monsters.
 Monsters will be "randomly" generated based on thir CR and be given statistics in line with their difficulty.
-i.e. Higher challenge monsters will have higher maximum thresholds for stats and be
+i.e. Higher challenge monsters will have higher maximum thresholds for stats and have more size options.
