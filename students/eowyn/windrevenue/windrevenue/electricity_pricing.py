@@ -1,30 +1,26 @@
 #!/usr/bin/env python3
 
-""" 
-Electricity pricing handling for Backcast
-
-Read electricity files
-Select columns as desired
-Average across columns as desired
-Re-sample time series to hourly
-"""
-import os
 import pandas as pd
-import numpy as np
+
 
 class ElectricityPricing():
+
+    """
+    Electricity pricing handling
+
+    Read electricity files
+    Select columns as desired
+    Average across columns as desired
+    Re-sample time series to hourly
+    """
+
     def __init__(self, fname=None):
         if fname is not None:
             self.load_new(fname)
 
-    def dummy_function(self, fname=os.path.abspath("sample_data/sample_pricing.txt")):
-        filename = None
-        filename = input("Full path to electricity pricing file (leave blank to use sample data):\n")
-        fname = filename or fname
-
     def load_new(self, fname=None):
         """
-        Read pricing time series data from file, provided or default. 
+        Read pricing time series data from file, provided or default.
         Store all pricing data as data frame, and select first
         substation as the powerVar.
         """
@@ -54,7 +50,6 @@ class ElectricityPricing():
         # Return the current working time series in native format
         currentdf = pd.DataFrame(self.powerdf[self.powerVar])
         return currentdf
-
 
     def print_substation_info(self):
         print("All Substations:")

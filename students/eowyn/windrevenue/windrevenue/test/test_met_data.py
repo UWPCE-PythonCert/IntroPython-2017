@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import pytest
 from math import isclose
 from windrevenue.parse_met_data import MetData
 from windrevenue.power_curve_tool import PowerCurve
 
+dirname = os.path.dirname(sys.modules["windrevenue"].__file__)
+sample_data = os.path.join(dirname, "sample_data")
+met_file_1 = os.path.join(sample_data, "sample_met.txt")
+met_file_2 = os.path.join(sample_data, "sample_met2.txt")
+power_curve_file = os.path.join(sample_data, "power_curve.txt")
+
 
 @pytest.fixture
 def sample_data():
-    pcfile = os.path.abspath("sample_data/power_curve.txt")
-    fname = os.path.abspath("sample_data/sample_met.txt")
+    pcfile = power_curve_file
+    fname = met_file_1
     pc = PowerCurve(fname=pcfile)
     met = MetData(fname=fname, pct=pc)
     return met
@@ -18,8 +25,8 @@ def sample_data():
 
 @pytest.fixture
 def sample_data2():
-    pcfile = os.path.abspath("sample_data/power_curve.txt")
-    fname = os.path.abspath("sample_data/sample_met2.txt")
+    pcfile = power_curve_file
+    fname = met_file_2
     pc = PowerCurve(fname=pcfile)
     met = MetData(fname=fname, pct=pc)
     return met

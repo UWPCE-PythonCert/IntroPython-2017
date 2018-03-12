@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import pytest
-import pandas as pd
 from windrevenue.electricity_pricing import ElectricityPricing
+
+dirname = os.path.dirname(sys.modules["windrevenue"].__file__)
+sample_data = os.path.join(dirname, "sample_data")
+price_file = os.path.join(sample_data, "sample_pricing.txt")
+price_file2 = os.path.join(sample_data, "sample_pricing2.txt")
+
 
 @pytest.fixture
 def sample_data():
-    fname=os.path.abspath("sample_data/sample_pricing.txt")
-    price = ElectricityPricing(fname=fname)
+    price = ElectricityPricing(fname=price_file)
     return price
+
 
 class TestPricing():
 
@@ -19,6 +25,5 @@ class TestPricing():
     def test_data_nonans(self, sample_data):
         q = sample_data.get_pricing_field().isna().sum()
         assert q.sum() == 0
-
 
 

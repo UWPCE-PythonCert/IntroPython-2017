@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 
-""" 
-Met data handling for Backcast
-
-Read observational meteorological data
-Determine the highest wind speed sensor and extract data
-Drop other columns
-Replace missing values with NaN
-Drop rows with any NaN
-Resample time series to hourly
-"""
-
 import pandas as pd
 import numpy as np
-import os
 
 
 class MetData():
+
+    """
+    Met data handling
+
+    Read observational meteorological data
+    Determine the highest wind speed sensor and extract data
+    Drop other columns
+    Replace missing values with NaN
+    Drop rows with any NaN
+    Resample time series to hourly
+    Use associated power curve to calculate gross revenue.
+    """
+
     def __init__(self, fname=None, pct=None):
-        self.pct = pct
+        if pct is not None:
+            self.pct = pct
         if fname is not None:
             self.parse_met_file(fname)
 
@@ -34,12 +36,11 @@ class MetData():
             prompt_string = "Please specify the met time series file:\n"
             fname = UI.get_user_input(prompt_string)
         try:
-            print("TRYING to load new")
             self.load_new(fname)
         except FileNotFoundError:
             print("File not found, no data loaded.")
             return
-        except TypeError:
+        except TypeError:  # TODO
             print(self, fname)
             raise
         self.sensorInfo = self.parse_sensor_information(self.metdf)
@@ -118,17 +119,13 @@ class MetData():
             self.windVar = colnames[int(choice)]
             print("Using sensor: ", self.windVar)
 
-    def new_helper_function(self, series_argument):
-        pcdf = self.pct.power_curve
-        pcdf.append(self.get_met_timeseries().values)
-
     def get_wind_and_generation(self):
         """
         Construct a time series (dataframe) of power generation.
         Create 10-min power generation data from
         10-min wind speed and the power curve dict
         Otherwise, round windspeed to the nearest 0.5m/s and select generation
-        value from power curve dictionary. 
+        value from power curve dictionary.
         """
         met_timeseries = self.get_met_timeseries()
         pcdf = self.pct.power_curve

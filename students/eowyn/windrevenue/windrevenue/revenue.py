@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-Gross revenue calculator for Backcast
-
-Pull wind speed, generation, and pricing data on same time axis
-Pull peak and off peak hours to filter on
-Calculate monthly sum revenue, ave wind speed, ave pricing
-for peak and off-peak hours
-Print results to stdout and save to file(s) on disk
-"""
-
 import pandas as pd
 import numpy as np
 from tabulate import tabulate
@@ -18,11 +8,19 @@ from windrevenue.align_data import AlignData
 
 
 class GrossRevenue():
+
     """
-    Generate monthly tables of gross revenue given a data frame of
-    aligned (1-year, Jan - Dec) pricing and generation data. Include
-    wind speed in the final tables that are printed and written
-    to .csv file.
+    Gross revenue calculator
+
+    Generate monthly tables of gross revenue given an object with
+    access to a data frame of aligned (1-year, Jan - Dec) pricing and
+    generation data -- which is what the code works on.
+
+    Pull peak and off peak hours to filter on. Calculate monthly
+    sum revenue, ave wind speed, ave pricing for peak and off-peak hours
+
+    Include wind speed in the final tables that are printed and written
+    to .csv files.
     """
 
     def __init__(self, aligned_data, peak_hours=None):
@@ -35,7 +33,7 @@ class GrossRevenue():
             self.peak_hours = peak_hours
         else:
             self.peak_hours = PeakHours()
-        self.aligned_data = aligned_data
+        self.aligned_data = aligned_data.align_data()
 
     def add_revenue_column(self, scale=1e-4):
         """
@@ -119,9 +117,6 @@ class GrossRevenue():
         price, and gross revenue. Pretty print result to screen, and
         also save full precision to csv file.
         """
-        if self.aligned_data is None or self.peak_hours is None:
-            print("Insufficient data loaded. Aborting.")
-            return
         self.add_revenue_column()
         peak = self.subset_data(subset_on="peak")
         offpeak = self.subset_data(subset_on="off-peak")
@@ -129,7 +124,9 @@ class GrossRevenue():
         offpeak_grouped = self.group_data(offpeak)
         self.save_grouped_data(peak_grouped, 'GrossRevenue-PeakHrs.csv')
         self.save_grouped_data(offpeak_grouped, 'GrossRevenue-OffPeakHrs.csv')
+        print("Peak Hours")
         self.print_pretty_table(peak_grouped)
+        print("Off-Peak Hours")
         self.print_pretty_table(offpeak_grouped)
 
 

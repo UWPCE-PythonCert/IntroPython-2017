@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 
-""" 
-Peak hours handling for Backcast
-
-Get and set peak hours
-Get and set non-peak hours 
-"""
 import pandas as pd
 
 
 class PeakHours():
+
+    """
+    Peak hours handling.
+    Peak hours are used to calculate tables of revenue
+
+    Get and set peak hours
+    Get and set non-peak hours
+    """
 
     def __init__(self, peak=None, offpeak=None):
         # PeakHours instances contain series of peak and off peak hours
@@ -50,8 +52,3 @@ class PeakHours():
         allhours = [i + 1 for i in range(0, 24)]
         self.off_peak_hours = list(set(allhours).difference(flat))
         self.peak_hours = list(flat)
-
-
-
-
-

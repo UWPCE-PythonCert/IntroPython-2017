@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 
 import os
-import numpy as np
+import sys
 import pytest
-from windrevenue.UI import UI
 from windrevenue.align_data import AlignData
 from windrevenue.electricity_pricing import ElectricityPricing
 from windrevenue.parse_met_data import MetData
 from windrevenue.power_curve_tool import PowerCurve
 
-met_file_1 = os.path.abspath("sample_data/sample_met.txt")
-met_file_2 = os.path.abspath("sample_data/sample_met2.txt")
-price_file = os.path.abspath("sample_data/sample_pricing.txt")
-price_file2 = os.path.abspath("sample_data/sample_pricing2.txt")
-power_curve_file = os.path.abspath("sample_data/power_curve.txt")
+
+dirname = os.path.dirname(sys.modules["windrevenue"].__file__)
+sample_data = os.path.join(dirname, "sample_data")
+met_file_1 = os.path.join(sample_data, "sample_met.txt")
+met_file_2 = os.path.join(sample_data, "sample_met2.txt")
+price_file = os.path.join(sample_data, "sample_pricing.txt")
+price_file2 = os.path.join(sample_data, "sample_pricing2.txt")
+power_curve_file = os.path.join(sample_data, "power_curve.txt")
 
 @pytest.fixture
 def sample_data():

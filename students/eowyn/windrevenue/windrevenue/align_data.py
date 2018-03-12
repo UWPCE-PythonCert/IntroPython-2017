@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
 
-"""
-Time series alignment for Backcast
-
-Wind and generation data are high frequency 
-Power is lower frequency
-Get a single data frame of both data on same time axis
-for a 1-year period, no leap years by doing the following:
-
-Resample all time series to hourly
-Remove Feb 29 if it exists
-Determine if there is any overlap, and if there is 1 year of overlap
-If there is 1 year of overlap, truncate data to that year
-If not, calculate a typical year from all available data
-Handle time axes at each step
-Return a single data frame of 1 year of aligned hourly data
-"""
-
 import pandas as pd
-#import pdb
 
 
 class AlignData():
+
+    """
+    Time series alignment for Backcast
+
+    Wind and generation data are high frequency
+    Power is lower frequency
+    Get a single data frame of both data on same time axis
+    for a 1-year period, no leap years by doing the following:
+
+    Resample all time series to hourly
+    Remove Feb 29 if it exists
+    Determine if there is any overlap, and if there is 1 year of overlap
+    If there is 1 year of overlap, truncate data to that year
+    If not, calculate a typical year from all available data
+    Handle time axes at each step
+    Return a single data frame of 1 year of aligned hourly data
+    """
 
     @staticmethod
     def get_typical_year():
@@ -39,7 +38,8 @@ class AlignData():
         """
         repwr = self.pricing.get_pricing_field().resample(timestep).mean()
         self.power_hour = repwr.bfill()
-        remet = self.met.get_wind_and_generation().resample(timestep).mean()
+        remet = self.met.get_wind_and_generation()
+        remet = remet.resample(timestep).mean()
         self.met_hour = remet.bfill()
 
     def determine_overlap(self):
@@ -66,7 +66,7 @@ class AlignData():
 
     def determine_amt_overlap(self):
         """
-        Calculate how much overlap exists between the met and power 
+        Calculate how much overlap exists between the met and power
         time series, and return True if it is at least 1 year,
         else return False
         """
@@ -76,7 +76,7 @@ class AlignData():
 
     def calculate_same_year(self):
         """
-        For cases where there is a full year of overlapping data, 
+        For cases where there is a full year of overlapping data,
         truncate met and pwr data to this period.
         """
         mstart, mend = self.met_hour.index.min(), self.met_hour.index.max()
@@ -89,20 +89,19 @@ class AlignData():
     def calculate_typical_year(self):
         """
         If not enough overlap, calculate "typical year" for met and pwr.
-        At this point, the datetime axis is no longer available. 
+        At this point, the datetime axis is no longer available.
         We will deal with leap-years then re-create the TimeStamp index.
         """
-        #pdb.set_trace()
         self.met_yr = self.met_hour.groupby([self.met_hour.index.month,
-                                           self.met_hour.index.day,
-                                           self.met_hour.index.hour]).mean()
+                                             self.met_hour.index.day,
+                                             self.met_hour.index.hour]).mean()
         self.pwr_yr = self.power_hour.groupby([self.power_hour.index.month,
                                                self.power_hour.index.day,
-                                             self.power_hour.index.hour]).mean()
+                                               self.power_hour.index.hour]).mean()
         self.remove_leap_day()
         typical_year = self.get_typical_year()
         self.met_yr.index = typical_year
-        self.met_yr.index.names =  ["TimeStamp"]
+        self.met_yr.index.names = ["TimeStamp"]
         self.pwr_yr.index = typical_year
         self.pwr_yr.index.names = ["TimeStamp"]
 

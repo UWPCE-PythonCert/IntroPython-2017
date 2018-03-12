@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 
-""" 
-Power curves for Backcast
 
-Keep track of previously used power curves as .json files
-Print a list of available power curves
-Read new power curves
-Read and write power curves from/to .json files
-"""
-import os
 import pandas as pd
-import numpy as np
+
 
 class PowerCurve():
+
+    """
+    Power curve handling
+
+    Read new power curves
+
+    To be implemented:
+    Keep track of previously used power curves as txt files
+    Print a list of available power curves
+    Read and write power curves from/to files
+    """
 
     def __init__(self, fname=None, data=None):
         if fname is not None and data is not None:
@@ -34,7 +37,7 @@ class PowerCurve():
         print("not yet implemented")
 
     def load_new(self, fname=None):
-        """ 
+        """
         Read power curve from file, either default or user-provided.
         Store power curve as dict in self.power_curve
         """

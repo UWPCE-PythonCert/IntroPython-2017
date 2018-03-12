@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import pandas as pd
 import pytest
 from math import isclose
@@ -14,11 +15,13 @@ from windrevenue.power_curve_tool import PowerCurve
 peak_default = pd.Series([i for i in range(0, 12)])
 off_peak_default = pd.Series([i for i in range(12, 24)])
 
-met_file_1 = os.path.abspath("sample_data/sample_met.txt")
-met_file_2 = os.path.abspath("sample_data/sample_met2.txt")
-price_file = os.path.abspath("sample_data/sample_pricing.txt")
-price_file2 = os.path.abspath("sample_data/sample_pricing2.txt")
-power_curve_file = os.path.abspath("sample_data/power_curve.txt")
+dirname = os.path.dirname(sys.modules["windrevenue"].__file__)
+sample_data = os.path.join(dirname, "sample_data")
+met_file_1 = os.path.join(sample_data, "sample_met.txt")
+met_file_2 = os.path.join(sample_data, "sample_met2.txt")
+price_file = os.path.join(sample_data, "sample_pricing.txt")
+price_file2 = os.path.join(sample_data, "sample_pricing2.txt")
+power_curve_file = os.path.join(sample_data, "power_curve.txt")
 
 
 @pytest.fixture
@@ -27,7 +30,7 @@ def sample_data():
     price_data = ElectricityPricing(fname=price_file)
     met_data = MetData(fname=met_file_1, pct=power_curve)
     align_data = AlignData(price_data=price_data, met_data=met_data)
-    return align_data.align_data()
+    return align_data
 
 
 class TestRevenue():
