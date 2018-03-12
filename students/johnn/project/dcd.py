@@ -135,7 +135,7 @@ def admin(config):
             admin.send_string(response)
             log.debug("opening connection to " + str(value))
             s2s_admin.connect(value)
-            command = ("('dump', None, None)")
+            command = ("('dump', '', '')")
             log.debug("sending command " + command )
             s2s_admin.send_string(command)
             message = s2s_admin.recv_string()
@@ -147,7 +147,7 @@ def admin(config):
             for topic in data:
                 log.debug("subscribing to topic {}".format(topic))
                 config.sub_queue.put(topic)
-                s2s_admin.send_string("('get', '{}', None)".format(topic))
+                s2s_admin.send_string("('get', '{}', '')".format(topic))
                 message = s2s_admin.recv_string()
                 log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
                 config.pub_queue.put((topic, message))
@@ -175,35 +175,24 @@ def admin(config):
             """
             response = "initiating a link request to remote admin port at {}".format(value)
             log.debug(response)
-            admin.send_string(response)
-            log.debug("opening connection to " + str(value))
-            s2s_admin.connect(value)
-            command = ("('dump', None, None)")
-            log.debug("sending command " + command )
-            s2s_admin.send_string(command)  
-            message = s2s_admin.recv_string()
-            log.debug("got " + str(message) )
-            remote_ports, data, peers = eval(message)
-            remote_admin, remote_pub = remote_ports
+            message = s2s_admin("dump", '', '', value)
+            remote_server_entries, data, peers = decode_message(message)
+            remote_admin, remote_pub = remote_server_entries
+            log.debug("saving remote server {} in database".format(remote_server_entries))
             config.peers[remote_admin] = remote_pub
-            log.debug("remote_admin {}, remote_pub {}, data {}, peers {}".format(remote_admin, remote_pub, data, peers))
+            #log.debug("remote_admin {}, remote_pub {}, data {}, peers {}".format(remote_admin, remote_pub, data, peers))
             for topic in data:
-                log.debug("subscribing to topic {}".format(topic))
+                #log.debug("subscribing to topic {}".format(topic))
                 config.sub_queue.put(topic)
-                s2s_admin.send_string("('get', '{}', None)".format(topic))
-                message = s2s_admin.recv_string()
-                log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
-                config.pub_queue.put((topic, message))
+                #response = get_value(config, topic)
+                #admin.send_string(response)
+                #s2s_admin.send_string("('get', '{}', None)".format(topic))
+                #message = s2s_admin.recv_string()
+                #log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
+                #config.pub_queue.put((topic, message))
             log.debug("asking {} to register my addresses".format(value))
-            command = "('register', '{}', '{}')".format(options.admin_interface, options.pub_interface)
-            log.debug("sending: " + command)
-            s2s_admin.send_string(command)
-            message = s2s_admin.recv_string()
-            # disabled since this will cause an infinite loop
-            # log.debug("asking {} to connect back to me ({})".format(value, options.admin_interface))
-            # s2s_admin.send_string("('link', None, '{}')".format(options.admin_interface))
-            # message = s2s_admin.recv_string()
-            log.debug("got {}".format(message))
+            message = s2s_admin("register", options.admin_interface, options.pub_interface, value)
+            admin.send_string("got {}".format(message))
 
 
 def get_value(config, key):
