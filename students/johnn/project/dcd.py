@@ -247,7 +247,8 @@ def s2s_admin(command, key, value, remote_server):
     """
     send a command to remote server, return result
     """
-
+    log.debug("s2s_admin called with cmd '{}', key '{}', value '{}', server '{}'".
+        format(command, key, value, remote_server))
     context = zmq.Context()
     s2s_admin = context.socket(zmq.REQ)
     message = ""
@@ -328,6 +329,7 @@ def sub_poller(config):
     subscribe to values found on the sub_queue
     """
     # stub
+    log.debug("sub_poller thread (barely) working")
     while True:
         time.sleep(5)
     # context = zmq.Context()
