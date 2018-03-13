@@ -114,20 +114,20 @@ class Team:    # Team is an object which contains data specific to a team
         self.gearsdelivered = []
         self.kpa = []
         self.pilot = []
-        self.alliances = {}
-        self.fieldpos = {}
-        self.autogears = {}
-        self.autogearsinpos = {}
-        self.autokpa = {}
-        self.autokpainpos = {}
-        self.climb = {}
-        self.matchwins = {}
+        self.alliances = []
+        self.fieldpos = []
+        self.autogears = []
+        self.autogearsinpos = []
+        self.autokpa = []
+        self.autokpainpos = []
+        self.climb = []
+        self.matchwins = []
 
    # def __repr__(self):
     #    return '{}, {}: {}'.format(self.team, self.matchnumber, self.win)
 
     def __str__(self):
-        return 'Team {}, Team {}'.format(self.number, self.name)
+        return 'Team Number: {}, Team Name: {}'.format(self.number, self.name)
 
     def fillmatches(self):
         for i in range(0, len(matchlist)):   # I wanted to do this in a list
@@ -135,17 +135,17 @@ class Team:    # Team is an object which contains data specific to a team
                 self.matchesplayed.append(matchlist[i].matchnumber)  # if so append the list comprehensions but I is a match type variable
 
     def fillmatchwins(self):
-        for i in range(0, len(matchlist)):   #I wanted to do this in a list 
-            if int(matchlist[i].team) == int(self.number):  #did your team play in this match
+        for i in range(0, len(matchlist)):   # I wanted to do this in a list
+            if matchlist[i].team == self.number:  # did your team play in this match
                 if int(matchlist[i].win) == 1:
-                    self.matchwins.update({int(matchlist[i].matchnumber): int(matchlist[i].win)})
+                    self.matchwins.append(int(matchlist[i].win))
     @property
     def nummatches(self):
         return len(self.matchesplayed)
 
     @property
     def averagegears(self):
-        return 1 # sum(self.gearsdelivered) / len(self.gearsdelivered)
+        return (sum(self.gearsdelivered) / len(self.gearsdelivered))
 
     @property
     def maxgearsdelivered(self):
@@ -166,6 +166,10 @@ class Team:    # Team is an object which contains data specific to a team
     @property
     def minkpa(self):
         return min(self.kpa)
+
+    @property
+    def climbpercent(self):
+        return (len(self.climb) / len(self.matchesplayed) * 100)
 
 #    @property
  #   def autogearsinpos(self):
@@ -194,45 +198,64 @@ class Team:    # Team is an object which contains data specific to a team
 
     def fillgearsdelivered(self):
         for i in range(0, len(matchlist)):   #I wanted to do this in a list 
-            if int(matchlist[i].team) == int(self.number):  #did your team play in this match
-                self.gearsdelivered = matchlist[i].gears
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.gearsdelivered.append(int(matchlist[i].gears))
 
        # self.gearsdelivered = [matchlist[i].gears for i in matchlist if matchlist[i].teamnumber == self.number]
 
     def fillkpa(self):
         for i in range(0, len(matchlist)):   #I wanted to do this in a list 
-            if int(matchlist[i].team) == int(self.number):  #did your team play in this match
-                self.kpa = matchlist[i].kpa
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.kpa.append(int(matchlist[i].kpa))
 
        # self.kpa = [matchlist[i].kpa for i in matchlist if matchlist[i].teamnumber == self.number]
 
     def fillpilot(self):
         for i in range(0, len(matchlist)):   #I wanted to do this in a list 
-            if int(matchlist[i].team) == int(self.number):  #did your team play in this match
-                self.pilot = matchlist[i].pilot
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.pilot.append(int(matchlist[i].pilot))
 
        # self.pilot = [matchlist[i].pilot for i in matchlist if matchlist[i].teamnumber == self.number and matchlist[i].pilot == 1]
 
     def fillalliances(self):
         for i in range(0, len(matchlist)):   #I wanted to do this in a list 
-            if int(matchlist[i].team) == int(self.number):  #did your team play in this match
-                self.alliances = matchlist[i].alliance
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.alliances.append(matchlist[i].alliance)
 
       #  self.alliances = {matchlist[i].matchnumber: matchlist[i].alliance for i in matchlist if matchlist[i].teamnumber == self.number}
 
-    def fillfieldpos():
-
-        self.fieldpos = {matchlist[i].matchnumber: matchlist[i].fieldpos for i in matchlist if matchlist[i].teamnumber == self.number}
+    def fillfieldpos(self):
+        for i in range(0, len(matchlist)):   #I wanted to do this in a list 
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.fieldpos.append(int(matchlist[i].fieldpos))
+       # self.fieldpos = {matchlist[i].matchnumber: matchlist[i].fieldpos for i in matchlist if matchlist[i].teamnumber == self.number}
 
     def fillautogears(self):
+        for i in range(0, len(matchlist)):   #I wanted to do this in a list 
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.autogears.append(int(matchlist[i].autogears))
+       # self.autogears = {matchlist[i].matchnumber: matchlist[i].autogears for i in matchlist if matchlist[i].teamnumber == self.number}
 
-        self.autogears = {matchlist[i].matchnumber: matchlist[i].autogears for i in matchlist if matchlist[i].teamnumber == self.number}
-
-    def fillautokpa():
-        self.autokpa = {matchlist[i].matchnumber: matchlist[i].autokpa for i in matchlist if matchlist[i].teamnumber == self.number}
+    def fillautokpa(self):
+        for i in range(0, len(matchlist)):   #I wanted to do this in a list 
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.autokpa.append(int(matchlist[i].autokpa))
+       # self.autokpa = {matchlist[i].matchnumber: matchlist[i].autokpa for i in matchlist if matchlist[i].teamnumber == self.number}
     
-    def fillclimb():
-        self.climb = {matchlist[i].matchnumber: matchlist[i].climb for i in matchlist if matchlist[i].teamnumber == self.number}
+    def fillclimb(self):
+        for i in range(0, len(matchlist)):   #I wanted to do this in a list 
+            if matchlist[i].team == self.number:  #did your team play in this match
+                self.climb.append(int(matchlist[i].climb))
+       # self.climb = {matchlist[i].matchnumber: matchlist[i].climb for i in matchlist if matchlist[i].teamnumber == self.number}
+
+
+def testfidelityUI():
+    print()
+    print()
+    print("You have chosen to test a matches fidelity.")
+    print("These matches are currently in the database.")
+    showmatchesUI()
+    print("Which match would you like to test?")
 
 
 def testmatchfidelity(matchnumber):
@@ -260,28 +283,53 @@ def testmatchfidelity(matchnumber):
 # def updateteams():
     # This function is intended to refresh team objects with the latest match data.teamnumber
 
+
 def teamcomparisonUI():
+    # this function creates a comparison of 2 teams for quick reference.
     print()
     print("Welcome to the Team Comparison Tool")
     print("Which teams would you like to compare?: ")
     print()
 
+
 def populateteamdict():
+    # this function creates a dict where the key is
+    # the team number (string) and the value is the team object.
     for i in range(0, len(teamlist)):
         teamdict.update({teamlist[i]: teamlist2[i]})
-    print(teamdict['4469'].number)
-    print(teamdict['4469'].averagegears)
+
+
+def fillteamstats():
+    # this function pulls team data from the matchlist data
+    for i in teamdict:
+        teamdict[i].fillmatches()
+        teamdict[i].fillmatchwins()
+        teamdict[i].fillgearsdelivered()
+        teamdict[i].fillkpa()
+        teamdict[i].fillpilot()
+        teamdict[i].fillalliances()
+        teamdict[i].fillfieldpos()
+        teamdict[i].fillautogears()
+        teamdict[i].fillautokpa()
+        teamdict[i].fillclimb()
+
 
 def createteamlist():
+    # This very Janky function creates a list of team numbers, a matching list of team objects and calls the teamdict function
+    # I really dont like this function it is not really necessary and poorly concieved but I could not get the "elegant" way
+    # to work right and I needed something that worked in this case.
     for i in range(0,len(matchlist)):
         testteamnum = matchlist[i].team
         if testteamnum not in teamlist:
             teamlist.append(testteamnum)
     for j in range(0,len(teamlist)):    #I THINK THIS IS SUPER JANKY BUT I COULD NOT GET A DIRECT CLASS LIST CREATION TO WORK! :(
         teamlist2.append(Team(teamlist[j]))
-    print(teamlist2[1].number)
+    populateteamdict()
+    fillteamstats()
 
 def readmatchfile():
+    # this function imports a match file CSV
+    # in the future I would like this to be done in a database.
     with open('MatchLedger.csv', 'r') as inputfile:
         csvreader = csv.reader(inputfile)
         next(inputfile)
@@ -299,7 +347,12 @@ def readmatchfile():
                     matchlist[i].autokpa = line[9]
                     matchlist[i].climb = line[10]
                     matchlist[i].penalties = line[11]
+
+    print()
+    print()
     print("File has been read.")
+    print()
+    print()
     createteamlist()
     primaryUI()
 
@@ -333,28 +386,69 @@ def duplicatecheck(team, array):
         duplicatestat = True
     return duplicatestat
 
-def executemonte(matchsetuparray, runs=10000, factor = .2):
+def executemonte(matchsetuparray, runs=100000, factor = .2, rangemin = -1, rangemax = 1):
     # this functions executes a monte carlo run.
     # it is nominally called from the setupmonteUI fnc.
+    # currently this monte carlo ONLY works on gear scores
     grossresults = []   #this will be a memory hog try to think of how to use a generator
     #create array with team's average score
-    rangemin = -1
-    rangemax = 1
+    bluewin = 0
+    tie = 0
+    percentconversion = runs / 100
     for i in range(0, runs):
         scores = [None, None, None, None, None, None]
         for j in range(0, len(scores)):
-            roll = random.randint(rangemin, rangemax)
-            scores[j] = roll * teamdict[matchsetuparray[j]].averagegears  # matchsetuparray[j].averagegears
-        bluescore = scores[0] + scores[1] + scores[2]
+            roll = random.randint(rangemin, rangemax)  # creates a random number between the range bounds
+            scores[j] = roll * teamdict[matchsetuparray[j]].averagegears  # adds roll value to average 
+        for k in range(0, len(scores)):  # prevents a negative score
+            if scores[k] <= 0:
+                scores[k] = 0
+        bluescore = scores[0] + scores[1] + scores[2]   #needed to sum half the array each
         redscore = scores[3] + scores[4] + scores[5]
+        if bluescore > redscore:    # who won?
+            bluewin += 1
+        elif bluescore == redscore:  # if nobody won
+            tie += 1
         print("Red: {}, Blue: {}".format(redscore, bluescore))
+    blueresults = bluewin / percentconversion
+    tieresults = tie / percentconversion
+    print("Blue Wins {} percent of the time.".format(blueresults))
+    print("Red Wins {} percent of the time.".format((runs - bluewin - tie) / percentconversion))
+    print("Game ties {} percent of the time.".format(tieresults))
+    primaryUI()
+
         #montescores.append(MonteResult(bluescore, redscore, i)) #creates an instance of monte match.monte
-        #generate a random multiplier on factor and apply to each team
-        #sum score of each alliance
-        #mark win loss in grossresults
-        #print result each run
-        #at the end display a red / blue win percentage
         #dump detailed result file.
+
+
+def showteamdata(teamnumber):
+    print()
+    print()
+    print(str(teamdict[teamnumber]))
+    print("Matches Played: {}".format(teamdict[teamnumber].nummatches))
+    print("Wins: {}, Losses: {}".format(len(teamdict[teamnumber].matchwins), teamdict[teamnumber].nummatches - len(teamdict[teamnumber].matchwins)))
+    print("Total Gears Delivered: {}".format(sum(teamdict[teamnumber].gearsdelivered)))
+    print("Most Gears Delivered in one match: {}".format(teamdict[teamnumber].maxgearsdelivered))
+    print("Fewest Gears Delivered in one match: {}".format(teamdict[teamnumber].mingearsdelivered))
+    print("Average Gears Delivered per match: {}".format(teamdict[teamnumber].averagegears))
+    print("KPA Delivered: {}".format(sum(teamdict[teamnumber].kpa)))
+    print("Most KPA Delivered: {}".format(teamdict[teamnumber].maxkpa))
+    print("Lowest KPA Delivered: {}".format(teamdict[teamnumber].minkpa))
+    print("Average KPA Delivered: {}".format(teamdict[teamnumber].averagekpa))
+    print("Total Climbs: {}".format(sum(teamdict[teamnumber].climb)))
+    print("Climb Percentage: {}".format(teamdict[teamnumber].climbpercent))
+    print()
+    print()
+    #    self.kpa = []
+     #   self.pilot = []
+      #  self.alliances = []
+       # self.fieldpos = []
+#        self.autogears = []
+ #       self.autogearsinpos = []
+  #      self.autokpa = []
+   #     self.autokpainpos = []
+    #    self.climb = []
+     #   self.matchwins = []
 
 
 def dumpmontedata():
@@ -367,13 +461,12 @@ def dumpmontedata():
 
 
 def setupmonteUI():
-    # this function brings up the UI for setting up a monte carlo analysis.
     setupuserin = None
     teamarray = []
     print()
     print()
     print("Welcome to the Monte Carlo Setup")
-    print(str(teamlist))
+    # print(str(teamlist))
     print()
     teamcheck = None
     for i in range(1, 3):
@@ -384,6 +477,8 @@ def setupmonteUI():
         for j in range(1, 4):
             setupuserin = None
             while True:
+                print()
+                print()
                 print("Teams in the Database Include: {}".format(teamlist))
                 setupuserin = input("Please select a team for the {} Alliance in field pos {}: ".format(alliancemessage, j))
                 teamcheck = doesteamexist(setupuserin)
@@ -420,18 +515,44 @@ def testingthing():
 
 
 def logmatch():
+    # this would nominally bring up a GUI for logging a match. 
+    # upon closing the logger it will update the database or CSV file
+    # it will also add a match object with the match data for use in team stats
+    # it does not do anything right now.
     print()
-    print("This Module Doesnt Exist at Ths Time")
+    print("Sorry! but this module doesnt exist at ths time")
     print("In this program it is spoofed by a match list.")
+    print("The intention was to use WX python for this interface")
+    print("Unfortunately I had to brutally descope to make this work.")
     print()
     primaryUI()
 
 
 def showteamsUI():
     print()
-    print("Teams in the Database:")
     print()
+
+    if len(teamdict) < 1:
+        print("There are no teams in the database.")
+        print("This likely means you need to import a database.")
+        viewdbUI()
+    else:
+        print("There are several teams in the Database:")
+        for i in teamdict:
+            print(teamdict[i])
+        while True:
+            userin = input("Please enter the number of the team you would like to view:")
+            if doesteamexist(userin) is True:
+                showteamdata(userin)
+                break
+            else:
+                print("You have entered and invalid team.  Please try again.")
+                continue
+    print()
+    print()
+
     viewdbUI()
+
 
 
 def showmatchesUI():
@@ -447,6 +568,7 @@ def showmatchesUI():
 
 
 def viewdbUI():
+    # this function is the UI for the database viewer.
     print()
     print("Welcome to the Database Viewer.")
     print()
@@ -461,7 +583,7 @@ def viewdbUI():
         elif userin == '2':
             showmatchesUI()
         elif userin == '3':
-            testmatchfidelity()
+            testfidelityUI()
         elif userin == '4':
             primaryUI()
         else:
@@ -481,7 +603,7 @@ def primaryUI():
     print('3 - Run a Monte Carlo Analysis')
     print('4 - Import a Match Database')
     print('5 - Exit Program')
-    print('6 - Test FunctionCall')
+#    print('6 - Test FunctionCall')
     while True:
         userin = input('Please select 1-5: ')
         if userin == '1':
@@ -494,8 +616,8 @@ def primaryUI():
             readmatchfile()
         elif userin == '5':
             exit()
-        elif userin == '6':
-            populateteamdict()
+#        elif userin == '6':
+#            populateteamdict()
         else:
             print('You did not select a valid option.')
             primaryUI()
