@@ -16,6 +16,10 @@ import csv
 import random
 
 matchlist = []
+teamlist = []   #HOLDS THE TEAM NUMBERS BECAUSE I COULD NOT GET A DIRECT LIST CREATION TO WORK
+teamlist2 = []  #HOLDS THE TEAM OBJECTS
+montelist = []
+teamdict = {}
 monteblue = [0, 0, 0]
 montered = [0, 0, 0]
 
@@ -62,6 +66,20 @@ class Match:
         return 'Match {}, Team {}'.format(self.matchnumber, self.team)
 
     #def __iter__(self):
+
+class MonteResult(Match):
+    # this class is intended to contain results for monte carlo runs
+    # it is a sublcass of Match as a monte run is just simulated Matches
+    # functions of match are not all used at this point.  perhaps with future updates
+
+    def __init__(self, bluescore, redscore, runnum):
+        self.run = None
+        self.bluescore = None
+        self.redscore = None
+        self.winner = None
+
+    def __str__(self):
+        return "Match {}, Winner {}, BlueScore: {}, RedScore: {}".format(self.run, self.winner, self.bluescore, self.redscore)
 
 
 class Team:    # Team is an object which contains data specific to a team
@@ -127,7 +145,7 @@ class Team:    # Team is an object which contains data specific to a team
 
     @property
     def averagegears(self):
-        return sum(self.gearsdelivered) / len(self.gearsdelivered)
+        return 1 # sum(self.gearsdelivered) / len(self.gearsdelivered)
 
     @property
     def maxgearsdelivered(self):
@@ -242,15 +260,26 @@ def testmatchfidelity(matchnumber):
 # def updateteams():
     # This function is intended to refresh team objects with the latest match data.teamnumber
 
-def teamcomparisonUI()
+def teamcomparisonUI():
     print()
-    print("Welcome to the Team Comparison Tool"):
+    print("Welcome to the Team Comparison Tool")
     print("Which teams would you like to compare?: ")
     print()
 
-def compareteams():
+def populateteamdict():
+    for i in range(0, len(teamlist)):
+        teamdict.update({teamlist[i]: teamlist2[i]})
+    print(teamdict['4469'].number)
+    print(teamdict['4469'].averagegears)
 
-
+def createteamlist():
+    for i in range(0,len(matchlist)):
+        testteamnum = matchlist[i].team
+        if testteamnum not in teamlist:
+            teamlist.append(testteamnum)
+    for j in range(0,len(teamlist)):    #I THINK THIS IS SUPER JANKY BUT I COULD NOT GET A DIRECT CLASS LIST CREATION TO WORK! :(
+        teamlist2.append(Team(teamlist[j]))
+    print(teamlist2[1].number)
 
 def readmatchfile():
     with open('MatchLedger.csv', 'r') as inputfile:
@@ -271,8 +300,9 @@ def readmatchfile():
                     matchlist[i].climb = line[10]
                     matchlist[i].penalties = line[11]
     print("File has been read.")
-    testingthing()
+    createteamlist()
     primaryUI()
+
 
 def outputmatchdata(matchnumber):
     for i in range(0, len(matchlist)):
@@ -290,8 +320,8 @@ def produceinsights(teamnum):
 def doesteamexist(team):
     # looks through a list of teams and checks whether the team exists.
     existance = False
-    for i in range(0, len teamlist):
-        if team == teamlist[i]:
+    for i in range(0, len(teamlist)):
+        if team == str(teamlist[i]):
             existance = True
     return existance
 
@@ -299,43 +329,85 @@ def doesteamexist(team):
 def duplicatecheck(team, array):
     # takes a team and an array, checks if it occurs more than once
     duplicatestat = False
-    if array.count(team) > 1:
+    if array.count(team) >= 1:
         duplicatestat = True
     return duplicatestat
 
-def setupmonteUI()
+def executemonte(matchsetuparray, runs=10000, factor = .2):
+    # this functions executes a monte carlo run.
+    # it is nominally called from the setupmonteUI fnc.
+    grossresults = []   #this will be a memory hog try to think of how to use a generator
+    #create array with team's average score
+    rangemin = -1
+    rangemax = 1
+    for i in range(0, runs):
+        scores = [None, None, None, None, None, None]
+        for j in range(0, len(scores)):
+            roll = random.randint(rangemin, rangemax)
+            scores[j] = roll * teamdict[matchsetuparray[j]].averagegears  # matchsetuparray[j].averagegears
+        bluescore = scores[0] + scores[1] + scores[2]
+        redscore = scores[3] + scores[4] + scores[5]
+        print("Red: {}, Blue: {}".format(redscore, bluescore))
+        #montescores.append(MonteResult(bluescore, redscore, i)) #creates an instance of monte match.monte
+        #generate a random multiplier on factor and apply to each team
+        #sum score of each alliance
+        #mark win loss in grossresults
+        #print result each run
+        #at the end display a red / blue win percentage
+        #dump detailed result file.
+
+
+def dumpmontedata():
+    # This function displays monte carlo run data
+    print()
+    print("Monte Carlo Run data.")
+    print()
+    for i in range(0, len(montelist)):
+        print("MonteMatch {} : {}".format(i, str(montelist[i])))
+
+
+def setupmonteUI():
     # this function brings up the UI for setting up a monte carlo analysis.
     setupuserin = None
     teamarray = []
-    alliancemessage = 
+    print()
     print()
     print("Welcome to the Monte Carlo Setup")
-    print("")
-    for i in range(1, 2):
+    print(str(teamlist))
+    print()
+    teamcheck = None
+    for i in range(1, 3):
         if i == 1:
-            alliancemessage == 'Blue'
+            alliancemessage = 'Blue'
         else:
-            alliancemessage == 'Red'
-        for j in range(1, 3):
+            alliancemessage = 'Red'
+        for j in range(1, 4):
+            setupuserin = None
             while True:
-            setupuserin = input("Please select a team for the {} Alliance in field pos {})".format(alliancemessage, j))
-            teamcheck = doesteamexist(setupuserin)
-            if teamcheck is False:
-                print("Team {} not found.".format(setupuserin))
-                print("Please enter a valid team.")
-                continue
-            elif duplicatecheck(setupuserin,teamarray) is True:
-                print("Team {} is already assigned to an alliance.".format(setupuserin))
-                print("Please enter a valid team.")
-                continue
-            else:
-                teamarray.append(setupuserin)
-                break
+                print("Teams in the Database Include: {}".format(teamlist))
+                setupuserin = input("Please select a team for the {} Alliance in field pos {}: ".format(alliancemessage, j))
+                teamcheck = doesteamexist(setupuserin)
+                dupcheck = duplicatecheck(setupuserin, teamarray)
+                # print("Team Check:{}".format(teamcheck))
+                # print("Dupicate Check: {}".format(dupcheck))
+                if teamcheck is False:
+                    print("Team {} not found.".format(setupuserin))
+                    print("Please enter a valid team.")
+                    continue
+                if dupcheck is True:
+                    print("Team {} is already assigned to an alliance.".format(setupuserin))
+                    print("Please enter a valid team.")
+                    continue
+                if teamcheck is True and dupcheck is False:
+                    teamarray.append(setupuserin)
+                    print("The following teams are in your match: {}".format(teamarray))
+                    break
     print("You have set up the following match.")
     print(teamarray)
+    print()
+    print()
+    executemonte(teamarray)
 
-
-    
 
     # monte carlo should run 10000 times.  
     # MVP is to only work on gear points.
@@ -343,14 +415,8 @@ def setupmonteUI()
 def testingthing():
     # interrogates a team object to make sure it is correctly passing data
 
-    team1 = Team(4469)
-    team1.fillmatches()
-    team1.fillmatchwins()
-    print(matchlist[3].team)
-    #print(team1.number)
-    print(team1.matchesplayed)
-    print(team1.matchwins)
-    print(team1.nummatches)
+    for i in range(0, len(matchlist)):
+        print(matchlist[i].team)
 
 
 def logmatch():
@@ -360,11 +426,13 @@ def logmatch():
     print()
     primaryUI()
 
+
 def showteamsUI():
     print()
     print("Teams in the Database:")
     print()
     viewdbUI()
+
 
 def showmatchesUI():
     print()
@@ -376,6 +444,7 @@ def showmatchesUI():
         print("This likely means you need to import a database.")
     print()
     viewdbUI()
+
 
 def viewdbUI():
     print()
@@ -399,6 +468,7 @@ def viewdbUI():
             print("Please make a valid selection.")
             viewdbUI()
 
+
 def primaryUI():
     # This is the introductory user interface
 
@@ -411,6 +481,7 @@ def primaryUI():
     print('3 - Run a Monte Carlo Analysis')
     print('4 - Import a Match Database')
     print('5 - Exit Program')
+    print('6 - Test FunctionCall')
     while True:
         userin = input('Please select 1-5: ')
         if userin == '1':
@@ -418,13 +489,13 @@ def primaryUI():
         elif userin == '2':
             viewdbUI()
         elif userin == '3':
-            setupmonte()
+            setupmonteUI()
         elif userin == '4':
             readmatchfile()
-            #for i in range(0,len(matchlist)):
-                #print(str(matchlist[i]))
         elif userin == '5':
             exit()
+        elif userin == '6':
+            populateteamdict()
         else:
             print('You did not select a valid option.')
             primaryUI()
