@@ -15,62 +15,126 @@ import optparse
 import queue
 import socket
 
-# 
-parser = optparse.OptionParser()
-parser.add_option("-a", "--admin_port", dest="admin_port", help="Port of the admin interface on localhost")
-parser.add_option("-p", "--pub_port", dest="pub_port", help="Port of the publisher interface on localhost")
-parser.add_option("-d", "--debug", dest="debug", action="store_true", help="Print debug information to the screen")
 
-(options, args) = parser.parse_args()
+class Config():
+    """
+    create a common config object to hold common state
+    """
+    def __init__(self):
+        self.pub_queue = queue.Queue()
+        self.sub_queue = queue.Queue()
+        self.link_queue = queue.Queue()
+        self.data = {}
+        self.peers = {}
+    def set_value(self, key, value):
+        self.data[key] = value
+    def get_value(self, key):
+        return self.data[key]
 
-# hack to figure out my ip address
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("8.8.8.8", 80))
-myaddr = s.getsockname()[0]
-s.close()
+    @property
+    def myinterfaces(self):
+        return ( self.admin_interface, self.pub_interface )
 
-if options.admin_port is None:
-    options.admin_port = "5561"
+    @property
+    def admin_interface_all(self):
+        return "tcp://{}:{}".format("*",self.admin_port)
 
-if options.pub_port is None:
-    options.pub_port = "5556"
+    @property
+    def pub_interface_all(self):
+        return "tcp://{}:{}".format("*",self.pub_port)
 
-options.admin_interface = "tcp://{}:{}".format(myaddr,options.admin_port)
-options.pub_interface = "tcp://{}:{}".format(myaddr,options.pub_port)
-myinterfaces = ( options.admin_interface, options.pub_interface )
+    @property
+    def admin_interface(self):
+        return "tcp://{}:{}".format(self.myaddr,self.admin_port)
 
-if options.debug is None:
-    options.stream_log_level = logging.INFO
-else:
-    options.stream_log_level = logging.DEBUG
+    @property
+    def pub_interface(self):
+        return "tcp://{}:{}".format(self.myaddr,self.pub_port)
 
-# look up process name, pid
-scriptname = os.path.basename(__file__).split(".py")[0]
-pid = os.getpid()
 
-# define where to write the logs
-log_path = 'log/{}-{}.log'.format(scriptname, pid)
+def process_arguments(config):
+    """
+    get the command line options and save them in the config object
+    """
 
-# define a stream and file handler
-log = logging.getLogger()
-log.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(module)s:%(threadName)s %(message)s')
+    parser = optparse.OptionParser()
 
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(options.stream_log_level)
-stream_handler.setFormatter(formatter)
+    # allow overrides for ports and log level
+    parser.add_option("-a", "--admin_port", dest="admin_port", default="5561", help="Port of the admin interface on localhost")
+    parser.add_option("-p", "--pub_port", dest="pub_port", default="5556", help="Port of the publisher interface on localhost")
+    parser.add_option("-d", "--debug", dest="debug", action="store_true", help="Print debug information to the screen")
 
-file_handler = logging.FileHandler(filename = log_path)
-file_handler.setLevel(logging.DEBUG)
-file_handler.setFormatter(formatter)
+    (options, args) = parser.parse_args()
 
-log.addHandler(file_handler)
-log.addHandler(stream_handler)
+    # hack to figure out my outgoing ip address
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    config.myaddr = s.getsockname()[0]
+    s.close()
 
-# write out startup info to the log
-log.info("process {}, PID {} starting".format(scriptname, pid))
-log.info("logging to {}".format(log_path))
-log.debug("screen log level {}".format(options.stream_log_level))
+    # look up process name, config.pid
+    config.scriptname = os.path.basename(__file__).split(".py")[0]
+    config.pid = os.getpid()
+
+    # define the ports to use
+    config.admin_port = options.admin_port
+    config.pub_port = options.pub_port
+
+    # bind to all ports
+    # config.admin_interface_all = "tcp://{}:{}".format("*",options.admin_port)
+    # config.pub_interface_all = "tcp://{}:{}".format("*",options.pub_port)
+    # # port we want others to connect to
+    # config.admin_interface = "tcp://{}:{}".format(config.myaddr,options.admin_port)
+    # config.pub_interface = "tcp://{}:{}".format(config.myaddr,options.pub_port)
+    # # 
+    #config.myinterfaces = ( config.admin_interface, config.pub_interface )
+
+    # choose logging level
+    if options.debug is None:
+        config.stream_log_level = logging.INFO
+    else:
+        config.stream_log_level = logging.DEBUG
+
+
+def setup_logging(config):
+    """
+    set up logging
+
+    set basic logging, always logging to a file at level debug,
+    but logging to the screen at info or debug depending on the
+    presence of the --debug flag
+    """
+
+    # define where to write the logs
+    log_path = 'log/{}-{}.log'.format(config.scriptname, config.pid)
+
+    # define a stream and file handler
+    log = logging.getLogger()
+    # always write debug to the log
+    log.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(module)s:%(threadName)s %(message)s')
+
+    # set up console output
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(config.stream_log_level)
+    stream_handler.setFormatter(formatter)
+
+    # set up file output
+    file_handler = logging.FileHandler(filename = log_path)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+
+    # start them up
+    log.addHandler(file_handler)
+    log.addHandler(stream_handler)
+
+    # write out startup info to the log
+    log.info("process {}, config.pid {} on {} starting".format(config.scriptname, config.pid, config.myaddr))
+    log.info("logging to {}".format(log_path))
+    log.debug("screen log level {}".format(config.stream_log_level))
+
+    return log
+
 
 def encode_message(command, key, value):
     """
@@ -79,6 +143,7 @@ def encode_message(command, key, value):
     # we're building a string representation of a tuple,
     # with each value quoted, like "('get', 'dog', '')"
     return "({})".format(", ".join((repr(command), repr(key), repr(value))))
+
 
 def decode_message(message):
     """
@@ -92,16 +157,21 @@ def decode_message(message):
 
 
 def admin(config):
+    """
+    process the admin channel
+
+    here we take commands sent to us over the admin interface and process them
+    """
     context = zmq.Context()
     admin = context.socket(zmq.REP)
-    admin.bind(options.admin_interface)
-    log.info("admin bound on {}".format(options.admin_interface))
-
-    #s2s_admin = context.socket(zmq.REQ)
+    log.debug("ADMIN INTERFACE " + config.admin_interface_all)
+    admin.bind(config.admin_interface_all)
+    log.info("admin bound on {}".format(config.admin_interface_all))
 
     while True:
+        # get a message from the channel and decode it
         command, key, value = decode_message(admin.recv_string())
-        # note transaction is half complete, we still have to send a response
+        # remember, we still have to respond to the admin channel
         log.debug("received command '{}', key '{}', value '{}'".format(command, key, value))
 
         if command == "dump":
@@ -109,7 +179,7 @@ def admin(config):
             example: (('tcp://192.168.1.209:5561', 'tcp://192.168.1.209:5556'),
               {'dog': 'black'}, {'tcp://192.168.1.34:5561': 'tcp://192.168.1.34:5556'})
             """
-            response = encode_message(myinterfaces, config.data, config.peers)
+            response = encode_message(config.myinterfaces, config.data, config.peers)
             log.debug("responding to dump request with {}".format(response))
             admin.send_string(response)
             continue
@@ -197,7 +267,7 @@ def admin(config):
                 #log.debug("queried key/value {}, got value {} from remote server".format(topic, message))
                 #config.pub_queue.put((topic, message))
             #log.debug("asking {} to register my addresses".format(value))
-            message = s2s_admin("register", options.admin_interface, options.pub_interface, value)
+            message = s2s_admin("register", config.admin_interface, config.pub_interface, value)
             admin.send_string("got {}".format(message))
             continue
 
@@ -269,8 +339,8 @@ def pub(config):
     """
     context = zmq.Context()
     pub = context.socket(zmq.PUB)
-    pub.bind(options.pub_interface)
-    log.info("pub thread bound on " + str(options.pub_interface))
+    pub.bind(config.pub_interface_all)
+    log.info("pub thread bound on " + str(config.pub_interface_all))
 
     while True:
         try:
@@ -325,7 +395,8 @@ def sub_subscriber(config):
             config.set_value( key, value )
             log.info("saved subscription {}/{} to local database".format(key, value))
         except Exception as err:
-            log.debug("no subscrition activity, logged {}".format(err))
+            log.debug("no subscrition activity, logged '{}'".format(err))
+
 
 def sub_poller(config):
     """
@@ -357,7 +428,6 @@ def sub_poller(config):
     #     config.set_value( key, value )
     #     log.info("saved subsription {}/{} to local database".format(key, value))
 
-
         # try:
         #     value = config.link_queue.get()
         #     log.info("noticed link queue_entry {}".format(value))
@@ -366,20 +436,10 @@ def sub_poller(config):
         #     continue
 
 
-
-class Config():
-    def __init__(self):
-        self.pub_queue = queue.Queue()
-        self.sub_queue = queue.Queue()
-        self.link_queue = queue.Queue()
-        self.data = {}
-        self.peers = {}
-    def set_value(self, key, value):
-        self.data[key] = value
-    def get_value(self, key):
-        return self.data[key]
-
 config = Config()
+
+process_arguments(config)
+log = setup_logging(config)
 
 admin_thread = Thread(target=admin, args=(config,))
 pub_thread = Thread(target=pub, args=(config,))
