@@ -15,13 +15,12 @@ handlers:
     filename: mailroom.log
 loggers:
   # in order for a logger to show up with __name__,
-  # needs to have same name as the object you are logging
+  # needs to have same name as the module you are logging
   # from, in this case mailroom.model
   mailroom.model:
     level: DEBUG
     handlers: [logfile]
     propagate: no
-  #mailroom.modelDB
 root:
   level: DEBUG
   handlers: [console]
