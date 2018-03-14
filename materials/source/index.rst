@@ -115,6 +115,12 @@ Fluent Python
 
 `Fluent Python <http://shop.oreilly.com/product/0636920032519.do>`_, by Luciano Ramalho, is an excellent book about the more advanced features of Python. We highly recommend you get it, and we will be referencing it throughout the class.
 
+Individual Project
+------------------
+
+In addition to weekly exercises, you will also complete an individual project of your choosing. More detail here: :ref:`individual_project`
+
+
 Week 1: Jan 9 -- Iterators and Generators, Packaging
 ....................................................
 
@@ -233,7 +239,6 @@ Week 8: Feb 27 -- Object/Document, Key/Value and Graph Databases
 :ref:`session_2_08`
 
 :ref:`notes_session18`
-
 
 
 .. * Persistence and Serialization: pickle, json, csv, ...
