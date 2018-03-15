@@ -26,9 +26,10 @@ def make_lots_of_donors(db, n=100):
         donor = db.add_donor(name)
         # Add a bunch of random donations
         num_don = randint(100, 200)
-        donor.donations = [ randint(10, 30) * 100 for i in range(num_don)]
+        donor.donations = [randint(10, 30) * 100 for i in range(num_don)]
 
     return db
+
 
 if __name__ == "__main__":
 
