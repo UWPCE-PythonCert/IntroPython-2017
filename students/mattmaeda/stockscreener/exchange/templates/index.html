@@ -1,0 +1,29 @@
+<h3>Stock Screener</h3>
+{% if message %}<p><strong>{{ message }}</strong></p>{% endif %}
+<form action="/exchange/" method="post">
+{% csrf_token %}
+Stock Symbol: <input type="text" name="ticker">
+<input type="submit" value="Screen Stock" />
+</form>
+
+{% if response %}
+{% for screen in response %}
+<strong>Name</strong>: {{ screen.name }} </br>
+<strong>Description</strong>: {{ screen.desc }} </br>
+<strong>Pass?</strong>: {{ screen.pass }} </br>
+<table border="1">
+	<tr>
+		<th>Criteria</th>
+		<th>Pass?</th>
+	</tr>
+{% for rule in screen.rules %}
+  <tr>
+		<td>{{ rule.criteria }}</td>
+		<td>{{ rule.pass }}</td>
+	</tr>
+{% endfor %}
+</table>
+</br>
+</br>
+{% endfor %}
+{% endif %}
