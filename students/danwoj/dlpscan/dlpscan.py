@@ -1,3 +1,12 @@
+''' The intent behind this program was originally to create a way to perform an automated digital loss prevention (DLP) scanner
+that could log on to machines in a network and scan the file system for any type of sensitive data they wasn't supppsed to be there. 
+As I'm sure with other projects, this got to be a little ambitious and I wasn't able to complete that part. What I was able to accomplish 
+was to create a program that, on ititialization, was able to make some determination of itself (e.g. what's my IP, what network am I on) 
+and through several menu options perform a network discovery scan for other systems. I also got the Linux SSH function to work but didn't 
+quite resolve the Windows RM issue. Had I had more time, I was also experimenting with PyNaCl to appropriate input and store my credentials 
+I'd use to perform the remote login and save these passwords in an encrypted 'shadow' file. I found some success with this in iPython but it 
+would have taken a lot more time to implement it here '''
+
 #!/usr/bin/env python
 import winrm, os, socket, csv, nacl.pwhash
 import subprocess as sub
