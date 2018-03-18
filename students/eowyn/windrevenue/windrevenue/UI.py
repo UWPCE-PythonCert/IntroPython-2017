@@ -1,24 +1,53 @@
 #!/usr/bin/env python
 import sys
-from windrevenue.parse_met_data import parse_met_data as met
-from windrevenue.power_curve_tool import power_curve_tool as pct
-from windrevenue.electricity_pricing import electricity_pricing as pricing
-from windrevenue.peakhours import peakhours as peak
-from windrevenue.revenue import revenue as rev
+from windrevenue.parse_met_data import MetData as met
+from windrevenue.power_curve_tool import PowerCurve as pct
+from windrevenue.electricity_pricing import ElectricityPricing as pricing
+from windrevenue.peakhours import PeakHours as peak
+from windrevenue.revenue import GrossRevenue as rev
+from windrevenue.align_data import AlignData as ad
 
 
 class UI():
 
-    def __init__(self):
+    """
+    Top level user interface for wind revenue gross generation.
+    The user must load a met tower time series, a power curve file,
+    and an electricity pricing file. These can be loaded in any order.
+
+    The user may optionally set peak and off peak pricing hours. The
+    default is 0-11 peak, 12-23 off peak.
+
+    Once the input data are provided, the gross revenue can be caculated.
+    The calculation is performed on a monthly and hourly basis.
+    The data is saved in full precision to a pair of csv files,
+    GrossRevenue-PeakHrs.csv and GrossRevenue-OffPeakHrs.csv
+    and it is output to stdout in a pretty tabular format.
+
+    The UI will start when windrevenue is first run. Sample data
+    may be found in sample_data/*txt
+    """
+
+    def __init__(self, metin=None, pctin=None, pricingin=None):
         """
         Instantiate classes to store state related to
         different data and funcionality.
         """
-        self.met = met()
-        self.pct = pct()
-        self.pricing = pricing()
+        if metin is not None:
+            self.met = metin
+        else:
+            self.met = met()
+        if pctin is not None:
+            self.pct = pctin
+        else:
+            self.pct = pct()
+        if pricingin is not None:
+            self.pricing = pricingin
+        else:
+            self.pricing = pricing()
+
         self.peak = peak()
-        self.rev = rev()
+
 
     def quit_code(self):
         sys.exit()
@@ -27,7 +56,8 @@ class UI():
         ''' Return True to trigger exit out of sub-loop'''
         return True
 
-    def get_user_input(self, prompt_string):
+    @staticmethod
+    def get_user_input(prompt_string):
         ''' Print a prompt_string, return keyboard input if no exceptions'''
         try:
             answer = input(prompt_string)
@@ -50,95 +80,50 @@ class UI():
             if answer:
                 result = self.select_action(arg_dict, answer)
                 if result:
-                        return
+                    return True
 
     def mainloop(self):
-        ''' 
+        '''
         main interactive loop
         '''
-        arg_dict = {"1": self.met_loop,
-                    "2": self.powercurve_loop,
-                    "3": self.pricing_loop,
-                    "4": self.peakhours_loop,
-                    "5": self.revenue_loop,
-                    "6": self.quit_code}
-        prompt_string = """Calculate gross revenue from a single turbine: \n
-        (1) Choose/Modify Meteorological Time Series\n
-        (2) Add/Select Power Curve from Repository\n
-        (3) Choose/Modify Electricity Pricing Data \n
-        (4) Choose/Modify Peak/Off-Peak Hours\n
-        (5) Calculate Peak & Off-Peak Monthly Revenue Table\n
-        (6) Quit\n>"""
-        self.run_interactive_loop(arg_dict, prompt_string)
+        while True:
+            arg_dict = {"1": self.read_powercurve_file,
+                        "2": self.read_met_file,
+                        "3": self.read_pricing_file,
+                        "4": self.set_peakhours,
+                        "5": self.calc_revenue,
+                        "6": self.quit_code}
+            prompt_string = """Calculate gross revenue from a single turbine: \n
+            (1) Load Power Curve File\n
+            (2) Load Meteorological Time Series\n
+            (3) Load Electricity Pricing Data \n
+            (4) Select Peak/Off-Peak Hours\n
+            (5) Calculate Peak & Off-Peak Monthly Revenue Table\n
+            (6) Quit\n>"""
+            self.run_interactive_loop(arg_dict, prompt_string)
 
-    def met_loop(self):
-        '''
-        Parse meteorological time series files
-        '''
-        arg_dict = {"1": self.met.parse_met_file,
-                    "2": self.met.inspect_met_sensor,
-                    "3": self.met.change_met_sensor,
-                    "4": self.return_to_menu}
-        prompt_string = """Select one:\n
-        (1) Load meteorological time series file\n
-        (2) Inspect current met sensor selected for calculations\n
-        (3) Change current met sensor selection for calculations\n
-        (4) Return to the main menu\n"""
-        self.run_interactive_loop(arg_dict, prompt_string)
+    def read_powercurve_file(self):
+        self.pct.load_new()
+        if self.met is not None:
+            # associate new power curve with met data
+            self.met.setPct(self.pct)
 
-    def powercurve_loop(self):
-        '''
-        Load power curve data new or from existing
-        '''
-        arg_dict = {"1": self.pct.list_existing,
-                    "2": self.pct.choose_existing,
-                    "3": self.pct.load_new,
-                    "4": self.return_to_menu}
-        prompt_string = """Select one:\n
-        (1) View available power curves\n
-        (2) Select from available power curves\n
-        (3) Load new power curve from file\n
-        (4) Return to the main menu\n"""
-        self.run_interactive_loop(arg_dict, prompt_string)
+    def read_met_file(self):
+        self.met.parse_met_file()
+        if self.pct is not None:
+            # associate new met data with power curve
+            self.met.setPct(self.pct)
 
-    def pricing_loop(self):
-        '''
-        Parse electricity pricing time series files
-        '''
-        arg_dict = {"1": self.pricing.parse_pricing_file,
-                    "2": self.pricing.get_pricing_field,
-                    "3": self.pricing.set_pricing_field,
-                    "4": self.return_to_menu}
-        prompt_string = """Select one:\n
-        (1) Load electricity prices time series file\n
-        (2) Inspect current substation selected for calculations\n
-        (3) Change current substation selection for calculations\n
-        (4) Return to the main menu\n"""
-        self.run_interactive_loop(arg_dict, prompt_string)
+    def read_pricing_file(self):
+        self.pricing.load_new()
 
-    def peakhours_loop(self):
-        '''
-        View and select hours of day (out of 24) that are peak & off-peak
-        '''
-        arg_dict = {"1": self.peak.get_peak_hours,
-                    "2": self.peak.set_peak_hours,
-                    "3": self.return_to_menu}
-        prompt_string = """Select one:\n
-        (1) Review current peak/off peak hour selection\n
-        (2) Adjust current peak/off peak hour selection\n
-        (3) Return to the main menu\n"""
-        self.run_interactive_loop(arg_dict, prompt_string)
+    def set_peakhours(self):
+        self.peak.set_peak_hours()
 
-    def revenue_loop(self):
-        '''
-        Calculate 12 month x 2 (peak,off-peak) gross revenue
-        Pretty-print tables to screen
-        Save tables to files on disk
-        '''
-        arg_dict = {"1": self.rev.get_gross_revenue,
-                    "2": self.return_to_menu}
-        prompt_string = """Select one:\n
-        (1) Calculate gross revenue with current selections
-         and save results to file\n
-        (2) Return to the main menu\n"""
-        self.run_interactive_loop(arg_dict, prompt_string)
+    def calc_revenue(self):
+        self.ad = ad(price_data=self.pricing, met_data=self.met)
+        self.rev = rev(self.ad)
+        self.rev.calculate_gross_revenue()
+
+    def get_powercurve_object(self):
+        return self.pct
