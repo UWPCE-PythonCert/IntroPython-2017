@@ -19,6 +19,7 @@ setup(
    author='Eowyn',
    author_email='aac@example.com',
    packages=['windrevenue', 'windrevenue/test'],
+   include_package_data = True,
    scripts=['bin/windrevenue'],
    url='https://github.com/Eowyn42/IntroPython-2017/tree/master/students/eowyn/windpower',
    #license='LICENSE.txt',
