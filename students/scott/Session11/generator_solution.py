@@ -50,8 +50,7 @@ def prime():
 def squared():
     a = 1
     while True:
-        yield a
-        a = a ** 2
-# this doesn't pass yet, of course....not sure how to set a to the **, yet still have a be the basis of the next **
-## so if a=2 and I square it, then a =4, and I can't have a=3 to square that next time around....
+        sqr = a ** 2
+        yield sqr
+        a = a+1
 

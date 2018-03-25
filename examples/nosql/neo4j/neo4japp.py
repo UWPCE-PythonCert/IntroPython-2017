@@ -22,7 +22,6 @@ neo4jpw = your_graphenedb_password
 
 """
 from pathlib import Path
-import logging
 from configparser import ConfigParser
 from neo4j.v1 import GraphDatabase, basic_auth
 
@@ -33,7 +32,7 @@ from neo4j.v1 import GraphDatabase, basic_auth
 print('Simple app to illustrate Neo4j and relationships')
 
 # get the config file
-CONFIG = Path(__file__).parent / ".config/config"
+CONFIG = Path(__file__).parent / "config/config"
 
 
 def setup_db():
@@ -49,8 +48,7 @@ def setup_db():
 
     graphenedb_user = config["configuration"]["neo4juser"]
     graphenedb_pass = config["configuration"]["neo4jpw"]
-    # graphenedb_url = 'bolt://hobby-opmhmhgpkdehgbkejbochpal.dbs.graphenedb.com:24786'
-    graphenedb_url = 'bolt://hobby-khhgnhgpkdehgbkeoldljpal.dbs.graphenedb.com:24786'
+    graphenedb_url = 'bolt://hobby-fcojboiekhacgbkekjijmpal.dbs.graphenedb.com:24786'
 
     driver = GraphDatabase.driver(graphenedb_url,
                                   auth=basic_auth(graphenedb_user, graphenedb_pass))
@@ -98,8 +96,6 @@ def test1(driver):
 
         for record in result:
             print(record["name"])
-
-        print(dir(record))
 
         print('Note - this needs some exception handling!')
 
@@ -268,10 +264,6 @@ if __name__ == '__main__':
     driver = setup_db()
     clear_all(driver)
     # test1(driver)
-    # test2(driver)
+    test2(driver)
     # test3(driver)
-    test4(driver)
-
-
-
-
+    # test4(driver)

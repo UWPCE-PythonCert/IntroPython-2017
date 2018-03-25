@@ -31,9 +31,7 @@ def note():
 
     print("Dear {},\nMuch thanks for your "
           "generous donation of ${}.\n\n".format(donor, donation))
-    print("Your contribution will enable future generations \
-         to autonomize their day-to-day lives, without being \
-         ruthlessly slaughtered by the AI they create.")
+    print("Your contribution will enable future generations to autonomize their day-to-day lives, without being ruthlessly slaughtered by the AI they create.")
     print()
     print(" We look forward to interacting with you in the future!")
     print()
