@@ -1,5 +1,6 @@
 import pygame
 
+
 class Player:
     """class that creates a player object with simple movement abilities"""
     speed = 1
@@ -8,7 +9,6 @@ class Player:
     def __init__(self, x=25, y=25):
         """initialize the player object with optional conditions of coordinates for initialization"""
         self.rect = pygame.Rect(x, y, self.pixelsize, self.pixelsize)
-
 
     def moveRight(self):
         """moves the player rectangle to the right a distance of the variable speed"""

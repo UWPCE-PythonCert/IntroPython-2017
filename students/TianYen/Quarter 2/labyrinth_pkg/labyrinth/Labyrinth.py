@@ -11,10 +11,13 @@ class Labyrinth:
         self.row = row
         self.col = col
         self.wl = []
-        self.end_rect = pygame.Rect(self.get_random_location(row) * self.pixelsize, self.get_random_location(col) * self.pixelsize, self.pixelsize, self.pixelsize)
+        self.end_rect = pygame.Rect(self.get_random_location(row) * self.pixelsize,
+                                    self.get_random_location(col) * self.pixelsize,
+                                    self.pixelsize,
+                                    self.pixelsize)
         self.labyrinth = self.get_borders()
-        #better way here?
-        self.maze_generator(int(self.end_rect.x / self.pixelsize), int(self.end_rect.y / self.pixelsize))
+        self.maze_generator(int(self.end_rect.x / self.pixelsize),
+                            int(self.end_rect.y / self.pixelsize))
         self.wall_list = self.get_walls(self.labyrinth, row, col, self.pixelsize, self.end_rect)
 
     @staticmethod
@@ -50,29 +53,25 @@ class Labyrinth:
         #check four directions to see if we have visited any cells
         try:
                 #east
-            if wall.direction == 'east':
-                if self.labyrinth[wall.x + 1][wall.y] == 1:
+            if wall.direction == 'east' and self.labyrinth[wall.x + 1][wall.y] == 1:
                     return True
                 #west
-            elif wall.direction == 'west':
-                if self.labyrinth[wall.x - 1][wall.y] == 1:
+            elif wall.direction == 'west' and self.labyrinth[wall.x - 1][wall.y] == 1:
                     return True
                 #north
-            elif wall.direction == 'north':
-                if self.labyrinth[wall.x][wall.y + 1] == 1:
+            elif wall.direction == 'north' and self.labyrinth[wall.x][wall.y + 1] == 1:
                     return True
                 #south
-            elif wall.direction == 'south':
-                if self.labyrinth[wall.x][wall.y - 1] == 1:
+            elif wall.direction == 'south' and self.labyrinth[wall.x][wall.y - 1] == 1:
                     return True
-
-            else:
-                return False
         except IndexError:
-            pass
+            return False
 
     def check_direction(self, func, wall):
-        """take a function and a wall as input, checks which direction the wall is and returns the function for that direction"""
+        """
+        take a function and a wall as input,
+        checks which direction the wall is and returns the function for that direction
+        """
         #east
         if wall.direction == 'east':
             return func(wall.x + 1, wall.y)

@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+"""
+Top level script for running the labyrinth package.
+
+"""
+
+import labyrinth.LabGame
+
+if __name__ == "__main__":
+
+    TheApp = labyrinth.LabGame.App()
+    TheApp.on_execute()

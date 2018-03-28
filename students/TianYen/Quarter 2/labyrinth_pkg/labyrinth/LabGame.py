@@ -1,16 +1,20 @@
 import pygame
 from pygame.locals import *
-from Labyrinth import Labyrinth, Wall
-from Player import Player
-from Text_Display import Text
+from pathlib import Path
+from labyrinth.Labyrinth import Labyrinth, Wall
+from labyrinth.Player import Player
+from labyrinth.Text_Display import Text
 
 class App:
+    """class for the labyrinth game"""
 
     windowWidth = 650
     windowHeight = 650
     player = 0
 
     def __init__(self):
+        """initialize the application"""
+
         self._running = True
         self._display_surf = None
         self._image_surf = None
@@ -22,28 +26,34 @@ class App:
         self.win = False
 
     def on_init(self):
+        """initialize pygame, set display, and initialize the surfaces for use"""
+
         pygame.init()
         self._display_surf = pygame.display.set_mode((self.windowWidth, self.windowHeight), pygame.HWSURFACE)
 
         pygame.display.set_caption('The Labyrinth')
         self._running = True
-        self._image_surf = pygame.transform.scale(pygame.image.load("panda_player.png").convert(), (self.labyrinth.pixelsize,self.labyrinth.pixelsize))
-        self._block_surf = pygame.transform.scale(pygame.image.load("wall.png").convert(), (self.labyrinth.pixelsize,self.labyrinth.pixelsize))
-        self._end_rect_surf = pygame.transform.scale(pygame.image.load("end_rect.png").convert(), (self.labyrinth.pixelsize,self.labyrinth.pixelsize))
+        self._image_surf = pygame.transform.scale(pygame.image.load(str(Path(__file__).parent / "sprites/panda_player.png")).convert(),
+                                                 (self.labyrinth.pixelsize,self.labyrinth.pixelsize))
+        self._block_surf = pygame.transform.scale(pygame.image.load(str(Path(__file__).parent / "sprites/wall.png")).convert(),
+                                                 (self.labyrinth.pixelsize,self.labyrinth.pixelsize))
+        self._end_rect_surf = pygame.transform.scale(pygame.image.load(str(Path(__file__).parent / "sprites/end_rect.png")).convert(),
+                                                    (self.labyrinth.pixelsize,self.labyrinth.pixelsize))
 
 
     def on_event(self, event):
+        """check the events"""
         if event.type == QUIT:
             self._running = False
 
     def on_win(self):
+        """display the win screen and ask to continue"""
         self._display_surf.fill((0,0,0))
         self.text.display_text(self._display_surf, "You Won!", 115)
         self.text.display_text(self._display_surf, "Would you like to keep playing? y or n", 40, self.windowWidth / 2, self.windowHeight / 1.25)
 
     def on_loop(self):
-
-
+        """checks for collisions with labyrinth rects"""
         for wall in self.labyrinth.wall_list:
             if self.player.rect.colliderect(self.labyrinth.end_rect):
                 self.win = True
@@ -78,10 +88,10 @@ class App:
 
     def on_cleanup(self):
         """exit the game"""
-
         pygame.quit()
 
     def on_execute(self):
+        """main loop for the application, deals with player input"""
         if self.on_init() is False:
             self._running = False
 
